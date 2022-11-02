@@ -1,0 +1,55 @@
+<?php
+/**
+ * @var $viewModelFirstLogin LuxuryUnlimited\FirstLogin\ViewModel\FirstLogin
+ * @var $block Magento\Framework\View\Element\Template
+ */
+$viewModelFirstLogin = $block->getData('first_login_view_model');
+$storeList = $viewModelFirstLogin->getStoresList();
+?>
+<div style="display:none" data-langcount=<?php echo count($storeList); ?> id="first_login_languageselector">
+    <p><?php echo __('Please choose from the following language.'); ?></p>
+    <ul>
+        <?php
+        foreach ($storeList as $wstore) {
+            $lanStoreUrl = $viewModelFirstLogin->getStoreUrl($wstore->getStoreId()); ?>
+            <li><a href="<?php echo $lanStoreUrl; ?>"><?php echo __($viewModelFirstLogin->getWebsiteName()); ?> :
+                    <span><?php echo __($wstore->getData('name')); ?></span></a></li>
+        <?php } ?>
+    </ul>
+</div>
+<div id="first-login-modal" style="display:none;"></div>
+
+<script>
+    require([
+        'jquery',
+        'Magento_Ui/js/modal/modal',
+        'mage/cookies'
+    ], function ($, modal) {
+        let simple_cookie = $.cookie('first_visit');
+        let storeLanguageWrapperId = $('#first_login_languageselector');
+        let languageCount = $(storeLanguageWrapperId).data('langcount');
+        if (!simple_cookie) {
+            $.cookie('first_visit', 'true', {path: '/', expires: 31536000});
+            if (languageCount > 1) {
+                let options = {
+                    type: 'popup',
+                    modalClass: 'country-popup-modal-wraper',
+                    title: $.mage.__('<?php echo __("Select Language"); ?>'),
+                    responsive: true,
+                    innerScroll: true,
+                    buttons: [{
+                        text: $.mage.__('Close'),
+                        class: 'chooseLanguageModal1',
+                        click: function () {
+                            this.closeModal();
+                        }
+                    }]
+                };
+                $('#first-login-modal').html('');
+                $('#first-login-modal').html($('#first_login_languageselector').html());
+                let popup = modal(options, $('#first-login-modal'));
+                $("#first-login-modal").modal("openModal");
+            }
+        }
+    });
+</script>

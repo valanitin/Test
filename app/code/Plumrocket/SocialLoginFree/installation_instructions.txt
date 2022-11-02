@@ -1,0 +1,2 @@
+For installation Instructions please read our online documentation:
+https://plumrocket.com/docs/magento-twitter-facebook-login/v2

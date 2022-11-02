@@ -1,0 +1,25 @@
+<?xml version="1.0"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:ObjectManager/etc/config.xsd">
+    <preference for="Snowdog\CmsApi\Api\PageManagerInterface"
+                type="Snowdog\CmsApi\Model\PageManager" />
+    <preference for="Snowdog\CmsApi\Api\BlockManagerInterface"
+                type="Snowdog\CmsApi\Model\BlockManager" />
+    <preference for="Snowdog\CmsApi\Api\Data\BlockInterface"
+                type="Snowdog\CmsApi\Model\Block" />
+    <preference for="Snowdog\CmsApi\Api\Data\PageInterface"
+                type="Snowdog\CmsApi\Model\Page" />
+    <preference for="Snowdog\CmsApi\Api\Data\PageSearchResultsInterface"
+                type="Magento\Framework\Api\SearchResults" />
+    <preference for="Snowdog\CmsApi\Api\Data\BlockSearchResultsInterface"
+                type="Magento\Framework\Api\SearchResults" />
+    <type name="Snowdog\CmsApi\Model\BlockManager">
+        <arguments>
+            <argument name="collectionProcessor" xsi:type="object">Magento\Cms\Model\Api\SearchCriteria\BlockCollectionProcessor</argument>
+        </arguments>
+    </type>
+    <type name="Snowdog\CmsApi\Model\PageManager">
+        <arguments>
+            <argument name="collectionProcessor" xsi:type="object">Magento\Cms\Model\Api\SearchCriteria\PageCollectionProcessor</argument>
+        </arguments>
+    </type>
+</config>

@@ -1,0 +1,187 @@
+<?php
+$dynamicHelper = $this->helper('\Dynamic\Customization\Helper\Data');
+$storeManager  = $dynamicHelper->getStoreManager();
+$storeCode = $storeManager->getStore()->getCode();
+if (!empty($_POST)){
+  $firstname = $_POST['firstname'];
+  $lastname = $_POST['lastname'];
+  $websitename = $_POST['website'];
+  $websiteurl = $_POST['url'];
+  $email = $_POST['email'];
+  $phone = $_POST['contacton'];
+  $visitors = $_POST['visitors'];
+  $views = $_POST['views'];
+  $street = $_POST['street'];
+  $city = $_POST['city'];
+  $postcode = $_POST['postcode'];
+  $country = $_POST['country'];
+  $storewebsite = 'WWW.SOLOLUXURY.COM';
+
+
+  // echo $firstname.'=='.$lastname.'=='.$websitename.'='.$websiteurl.'='.$email.'='.$phone.'='.$visitors.'='.$views.'='.$street.'='.$city.'='.$postcode.'='.$country.'='.$storewebsite.'<br/>';
+
+  $url = 'https://erp.theluxuryunlimited.com/api/affiliate/add';
+
+  //Initiate cURL.
+  $ch = curl_init($url);
+
+  //The JSON data.
+  $newjsonData = array(
+    "website" => $storewebsite,
+    "first_name" => $firstname,
+    "last_name" => $lastname,
+    "phone" => $phone,
+    "emailaddress" => $email,
+    "website_name" => $websitename,
+    "url" => $websiteurl,
+    "unique_visitors_per_month" => $visitors,
+    "page_views_per_month" => $views,
+    "street_address" => $street,
+    "city" => $city,
+    "postcode" => $postcode,
+    "country" => $country,
+    "lang_code" => $storeCode
+  );
+
+  //Encode the array into JSON.
+  $jsonDataEncoded = json_encode($newjsonData);
+
+  //Tell cURL that we want to send a POST request.
+  curl_setopt($ch, CURLOPT_POST, 1);
+
+  //Attach our encoded JSON string to the POST fields.
+  curl_setopt($ch, CURLOPT_POSTFIELDS, $jsonDataEncoded);
+
+  //Set the content type to application/json
+  curl_setopt($ch, CURLOPT_HTTPHEADER, array('Content-Type: application/json'));
+  curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
+  // Return response instead of outputting
+  // curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+
+  //Execute the request
+  try{
+    $result = curl_exec($ch);
+    $result = json_decode($result, true);
+    // print_r($result);
+    $status = $result['status'];
+    $message = $result['message'];
+    if($status == 'success'){
+      echo '<div class="message-container"><div class="aff-success">'.$message.'<span id="close-message">X</span></div></div>';
+    }
+    else{
+      echo '<div class="message-container"><div class="aff-failed">'.$message.'<span id="close-message">X</span></div></div>';
+    }
+    $err = curl_error($ch);
+
+    curl_close($ch);
+
+    // $logger->log(Zend\Log\Logger::INFO, $result.date('Y-m-d H:i:s'));
+  }
+  catch(Exception $e){
+    // $logger->log(Zend\Log\Logger::INFO, $e.'=='.date('Y-m-d H:i:s'));
+  }
+
+}
+
+?>
+
+<div class="cls_maincmscontent">
+<div class="cls_cmscontent">
+<div class="returns-container affiliate-container">
+  <div class="returns-left">
+    <div class="returns-content-left">
+      <!-- <div class="contentBlock">
+        <h3>Track your order</h3>
+        <span class="req-fields">* required fields</span>
+        <p style="text-align:center;">Enter your order reference and email address below to see your order details. From there you can check its shipping status, cancel items or make a return.</p>
+      </div> -->
+      <div class="formBlock">
+        <div id="result"></div>
+        <div id="loader" style="display:none;"><?php echo __('loading') ?></div>
+        <form method="post" action="">
+        <h4 class="profile"><?php echo __('Profile')?></h4>
+        <div class="form-control">
+          <!-- <label>First Name:</label> -->
+          <div class="main">
+            <select name="name_with_initials" id="initial" class="name_initial">
+                <option selected="selected" value="mr."><?php echo __('Mr.'); ?></option>
+                <option value="mrs."><?php echo __('Mrs.'); ?></option>
+                <option value="miss."><?php echo __('Miss.'); ?></option>             
+            </select>
+            <input type="text" class="form-control" id="firstname" name="firstname" placeholder="<?php echo __('First Name')?>" required>
+          </div>
+        </div>
+        <div class="form-control">
+          <!-- <label>Last Name:</label> -->
+          <input type="text" class="form-control" placeholder="<?php echo __('Last Name')?>" id="lastname" name="lastname" required>
+        </div>
+        <div class="form-control email">
+          <!-- <label>Email:</label> -->
+          <input type="email" class="form-control" placeholder="<?php echo __('Email')?>" required id="email" name="email">
+        </div>
+        <div class="form-control mobile">
+          <!-- <label>Contact No:</label> -->
+          <input type="number" class="form-control" placeholder="<?php echo __('Contact No')?>" required id="contacton" name="contacton">
+        </div>
+        <!-- <div class="form-control">
+           <label>Website Name:</label>
+          <input type="text" class="form-control" id="website" name="website" placeholder="<?php echo __('Website Name')?>" required>
+        </div> -->
+        <div class="form-control weburl">
+          <!-- <label>URL:</label> -->
+          <input type="url" class="form-control" id="url" name="url" placeholder="<?php echo __('Website URL')?>" required>
+        </div>
+        <h4 class="address"><?php echo __('Address')?></h4>
+        <div class="form-control">
+          <!-- <label>Unique Visitors/Month:</label> -->
+          <select name="visitors" required id="visitors">
+            <option><?php echo __('Select Unique Visitors/Month:')?></option>
+            <option><?php echo __('Less than 500')?></option>
+            <option><?php echo __('500 to 1000')?></option>
+            <option><?php echo __('Over 1000')?></option>
+          </select>
+        </div>
+        <div class="form-control">
+          <!-- <label>Page Views/Month:</label> -->
+          <select name="views" required id="views">
+            <option><?php echo __('Select Page Views/Month:')?></option>
+            <option><?php echo __('Less than 500')?></option>
+            <option><?php echo __('500 to 1000')?></option>
+            <option><?php echo __('Over 1000')?></option>
+          </select>
+        </div>
+        <div class="form-control address">
+          <!-- <label>Street Address:</label> -->
+          <input type="text" class="form-control" id="street1" name="street" placeholder="<?php echo __('Street Address 1')?>">
+          <input type="text" class="form-control" id="street2" name="street" placeholder="<?php echo __('Street Address 2')?>">
+        </div>
+        <div class="form-control city">
+          <!-- <label>City:</label> -->
+          <input type="text" class="form-control" placeholder="<?php echo __('City')?>" id="city" name="city" required>
+        </div>
+        <div class="form-control country">
+          <!-- <label>Country:</label> -->
+          <select name="country" required id="country">
+            <option><?php echo __('Select Country')?></option>
+            <option><?php echo __('United States')?></option>
+            <option><?php echo __('Australia')?></option>
+            <option><?php echo __('Canada')?></option>
+          </select>
+        </div>
+        <div class="form-control postcode">
+          <!-- <label>Post Code:</label> -->
+          <input type="text" class="form-control" id="postcode" name="postcode" placeholder="<?php echo __('Post Code')?>" >
+        </div>
+        <div class="cls_custdiv">
+        <center><input style="width: 15%;" type="submit" class="send-request btn btn-primary return-submit" value="<?php echo __('Let\'s Go')?>" id="aff-submit" name="aff-submit"></center>
+      </div>
+      </form>
+      </div>
+
+    </div>
+  </div>
+  
+</div>
+</div>
+</div>
+

@@ -1,0 +1,35 @@
+/**
+ * BSS Commerce Co.
+ *
+ * NOTICE OF LICENSE
+ *
+ * This source file is subject to the EULA
+ * that is bundled with this package in the file LICENSE.txt.
+ * It is also available through the world-wide-web at this URL:
+ * http://bsscommerce.com/Bss-Commerce-License.txt
+ *
+ * @category   BSS
+ * @package    Bss_SeoCore
+ * @author     Extension Team
+ * @copyright  Copyright (c) 2018-2019 BSS Commerce Co. ( http://bsscommerce.com )
+ * @license    http://bsscommerce.com/Bss-Commerce-License.txt
+ */
+& when (@media-common = true) {
+    .bss_commerce_seo .admin__page-nav-title::before {
+        content: url('@{baseDir}Bss_SeoCore/images/logo_bss.svg');
+        display: inline-block;
+        padding-right: 3px;
+        vertical-align: middle;
+        font-weight: 900;
+        width: 20px;
+    }
+    .item-bss-seo .submenu-group-title::before {
+        content: url('@{baseDir}Bss_SeoCore/images/logo_bss_white.svg');
+        display: inline-block;
+        padding-right: 3px;
+        vertical-align: middle;
+        font-weight: 900;
+        padding-top: 1px;
+        width: 20px;
+    }
+}

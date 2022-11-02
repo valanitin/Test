@@ -1,0 +1,13 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * @author Amasty Team
+ * @copyright Copyright (c) 2020 Amasty (https://www.amasty.com)
+ * @package Amasty_Sorting
+ */
+-->
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:Mview/etc/mview.xsd">
+    <view id="amasty_sorting_bestseller" class="Amasty\Sorting\Model\Indexer\Bestsellers\BestsellersIndexer" group="indexer"/>
+    <view id="amasty_sorting_most_viewed" class="Amasty\Sorting\Model\Indexer\MostViewed\MostViewedIndexer" group="indexer"/>
+    <view id="amasty_sorting_wished" class="Amasty\Sorting\Model\Indexer\Wished\WishedIndexer" group="indexer"/>
+</config>

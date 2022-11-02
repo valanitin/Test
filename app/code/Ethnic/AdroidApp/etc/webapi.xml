@@ -1,0 +1,22 @@
+<?xml version="1.0"?>
+<routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="../../../../../app/code/Magento/Webapi/etc/webapi.xsd">
+<!--     <route method="GET" url="/V1/custom/CategoryImage/">
+        <service class="Ethnic\AdroidApp\Api\CategoryImageInterface" method="getCategoryImage"/>
+        <resources>
+            <resource ref="anonymous"/>
+        </resources>
+    </route> -->
+
+    <!-- My account page Address -->
+    
+    <route url="/V1/addresses" method="POST">
+        <service class="Magento\Customer\Api\AddressRepositoryInterface" method="save"/>
+        <resources>
+            <resource ref="self"/>
+        </resources>
+    </route>
+    
+    <!-- My account page Address End-->
+
+
+</routes>

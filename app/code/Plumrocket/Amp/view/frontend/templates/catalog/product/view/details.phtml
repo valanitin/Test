@@ -1,0 +1,44 @@
+<?php
+/**
+ * Plumrocket Inc.
+ *
+ * NOTICE OF LICENSE
+ *
+ * This source file is subject to the End-user License Agreement
+ * that is available through the world-wide-web at this URL:
+ * http://wiki.plumrocket.net/wiki/EULA
+ * If you are unable to obtain it through the world-wide-web, please
+ * send an email to support@plumrocket.com so we can send you a copy immediately.
+ *
+ * @package     Plumrocket_Amp
+ * @copyright   Copyright (c) 2016 Plumrocket Inc. (http://www.plumrocket.com)
+ * @license     http://wiki.plumrocket.net/wiki/EULA  End-user License Agreement
+ */
+?>
+<?php if ($detailedInfoGroup = $block->getGroupChildNames('detailed_info', 'getChildHtml')): ?>
+    <div class="product info detailed">
+        <?php $layout = $block->getLayout(); ?>
+        <div class="product data items">
+            <amp-accordion id="product-data-tabs">
+                <?php /* Sorting group elements by name before rendering */ sort($detailedInfoGroup) ?>
+                <?php foreach ($detailedInfoGroup as $key => $name):?>
+                    <?php
+                        $html = $layout->renderElement($name);
+                        if (!trim($html)) {
+                            continue;
+                        }
+                        $alias = $layout->getElementAlias($name);
+                        $label = $block->getChildData($alias, 'title');
+                        $alias = str_replace('.', '-', $alias);
+                    ?>
+                    <section <?php echo ($key == 0) ? "expanded" : "" ?> id="section-<?php /* @escapeNotVerified */ echo $alias; ?>">
+                        <header class="items-block-heading"><?php /* @escapeNotVerified */ echo $label; ?></header>
+                        <div class="tab-content" id="<?php /* @escapeNotVerified */ echo $alias; ?>">
+                            <?php /* @escapeNotVerified */ echo $html; ?>
+                        </div>
+                    </section>
+                <?php endforeach;?>
+            </amp-accordion>
+        </div>
+    </div>
+<?php endif; ?>

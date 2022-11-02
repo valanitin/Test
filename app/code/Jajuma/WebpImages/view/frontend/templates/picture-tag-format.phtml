@@ -1,0 +1,19 @@
+<?php
+/** @var $block \Jajuma\WebpImages\Block\Picture */
+$customSrcTag = $block->getCustomSrcTag();
+$customSrcSetTag = $block->getCustomSrcSetTag();
+?>
+<?php if ($customSrcTag): ?>
+    <picture>
+        <source type="image/webp" <?= $customSrcSetTag ? $customSrcSetTag : 'srcset' ?>="<?= $block->getWebpImage() ?>">
+        <source type="<?= $block->getOriginalImageType() ?>" <?= $customSrcSetTag ? $customSrcSetTag : 'srcset' ?>="<?= $block->getOriginalImage() ?>">
+        <?= $block->getOriginalTag() ?>
+    </picture>
+<?php else: ?>
+    <picture>
+        <source type="image/webp" srcset="<?= $block->getWebpImage() ?>">
+        <source type="<?= $block->getOriginalImageType() ?>" srcset="<?= $block->getOriginalImage() ?>">
+        <?= $block->getOriginalTag() ?>
+    </picture>
+<?php endif; ?>
+

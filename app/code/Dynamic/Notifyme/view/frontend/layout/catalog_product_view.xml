@@ -1,0 +1,21 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * @author  Raju Sadadiya
+ * @package Dynamic_Notifyme
+ */ 
+-->
+<page xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" layout="2columns-left" xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/page_configuration.xsd">
+    <body>
+        <referenceBlock name="productalert.price">
+            <arguments>
+                <argument name="view_model" xsi:type="object">Dynamic\Notifyme\ViewModel\ConfigurableOptions</argument>
+            </arguments>
+        </referenceBlock>
+        <referenceBlock name="productalert.stock">
+            <arguments>
+                <argument name="view_model" xsi:type="object">Dynamic\Notifyme\ViewModel\ConfigurableOptions</argument>
+            </arguments>
+        </referenceBlock>
+    </body>
+</page>

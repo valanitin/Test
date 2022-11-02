@@ -1,0 +1,11 @@
+<?php $geoipcountry = $block->getCountryFromGeoIp();
+
+if($geoipcountry){
+  //echo "Country From The Ip is $geoipcountry<br>" ; 
+}else{
+  //echo "GEOIP COuntry is not working<br>" ;     
+}
+
+//echo $this->getTestingHtml();
+ //"<h1>Current store name is '{$block->getCurrentStoreName()}'</h1>";
+  ?>

@@ -1,0 +1,60 @@
+<?php
+/**
+ * Plumrocket Inc.
+ *
+ * NOTICE OF LICENSE
+ *
+ * This source file is subject to the End-user License Agreement
+ * that is available through the world-wide-web at this URL:
+ * http://wiki.plumrocket.net/wiki/EULA
+ * If you are unable to obtain it through the world-wide-web, please
+ * send an email to support@plumrocket.com so we can send you a copy immediately.
+ *
+ * @package     Plumrocket_Amp
+ * @copyright   Copyright (c) 2016 Plumrocket Inc. (http://www.plumrocket.com)
+ * @license     http://wiki.plumrocket.net/wiki/EULA  End-user License Agreement
+ */
+
+/**
+ * Category layered navigation
+ *
+ * @var $block \Plumrocket\Amp\Block\Catalog\Layer\Navigation
+ */
+?>
+
+<?php if ($block->canShowBlock()) : ?>
+    <div class="block filter">
+        <div class="block-title filter-title">
+            <strong><?php /* @escapeNotVerified */ echo __('Shopping Options') ?></strong>
+        </div>
+    
+        <div class="block-content filter-content">
+            <?php echo $block->getChildHtml('amp.state') ?>
+
+            <?php if ($block->getLayer()->getState()->getFilters()) : ?>
+                <div class="block-actions filter-actions">
+                    <a href="<?php /* @escapeNotVerified */ echo $block->getClearUrl() ?>" class="action clear filter-clear"><span><?php /* @escapeNotVerified */ echo __('Clear All') ?></span></a>
+                </div>
+            <?php endif; ?>
+            <?php $wrapOptions = false; ?>
+            <?php foreach ($block->getFilters() as $key => $filter) : ?>
+                <?php if (!$wrapOptions) : ?>
+        <input type="checkbox" id="filter-items"/>
+        <label for="filter-items" class="block-subtitle filter-subtitle"><?php /* @escapeNotVerified */ echo __('Shop By') ?></label>
+                    <ul class="filter-options" id="narrow-by-list">
+                    <?php $wrapOptions = true; ?>
+                <?php endif; ?>
+                    <?php if ($filter->getItemsCount()) : ?>
+                        <li>
+                            <?php $prFilterCode = $block->createFilterCode($filter->getRequestVar()); ?>
+                            <label role="button" tabindex="<?php echo $key ?>" on="tap:swatch-filter-<?php echo $prFilterCode; ?>.toggleVisibility" for="filter-item-<?php echo $key ?>" class="filter-options-title"><?php echo $block->escapeHtml(__($filter->getName())) ?></label>
+                            <?php /* @escapeNotVerified */ echo $block->getChildBlock('amp.renderer')->setFilterKey($prFilterCode)->render($filter); ?>
+                        </li>
+                    <?php endif; ?>
+            <?php endforeach; ?>
+            <?php if ($wrapOptions) : ?>
+                </ul>
+            <?php endif; ?>
+        </div>
+    </div>
+<?php endif; ?>

@@ -1,0 +1,33 @@
+<?php
+/**
+ * Plumrocket Inc.
+ *
+ * NOTICE OF LICENSE
+ *
+ * This source file is subject to the End-user License Agreement
+ * that is available through the world-wide-web at this URL:
+ * http://wiki.plumrocket.net/wiki/EULA
+ * If you are unable to obtain it through the world-wide-web, please
+ * send an email to support@plumrocket.com so we can send you a copy immediately.
+ *
+ * @package     Plumrocket_Amp
+ * @copyright   Copyright (c) 2019 Plumrocket Inc. (http://www.plumrocket.com)
+ * @license     http://wiki.plumrocket.net/wiki/EULA  End-user License Agreement
+ */
+?>
+<?php
+/** @var $block \Plumrocket\Amp\Block\Page\Html\Image */
+$src = $block->getImageUrl();
+$width = $block->getWidth();
+$height = $block->getHeight();
+$classList = $block->getClassList();
+?>
+<?php if ($src && $width && $height) : ?>
+    <amp-img <?= $classList ? 'class="' . $classList . '"' : '' ?>
+         <?php /* @escapeNotVerified */ echo $block->getCustomAttributes(); ?>
+         src="<?= $block->escapeHtmlAttr($src) ?>"
+         width="<?= $block->escapeHtmlAttr($width) ?>"
+         height="<?= $block->escapeHtmlAttr($height) ?>"
+         alt="<?= $block->escapeHtmlAttr($block->getLabel()); ?>">
+    </amp-img>
+<?php endif; ?>

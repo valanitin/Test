@@ -1,0 +1,45 @@
+<?php
+/**
+ * Plumrocket Inc.
+ *
+ * NOTICE OF LICENSE
+ *
+ * This source file is subject to the End-user License Agreement
+ * that is available through the world-wide-web at this URL:
+ * http://wiki.plumrocket.net/wiki/EULA
+ * If you are unable to obtain it through the world-wide-web, please
+ * send an email to support@plumrocket.com so we can send you a copy immediately.
+ *
+ * @package     Plumrocket_Amp
+ * @copyright   Copyright (c) 2018 Plumrocket Inc. (http://www.plumrocket.com)
+ * @license     http://wiki.plumrocket.net/wiki/EULA  End-user License Agreement
+ */
+?>
+
+<?php /** @var \Plumrocket\Amp\Block\Widget\Video $block */ ?>
+
+<div class="pramp-widget-video">
+    <?php if ('' !== (string)$block->getTitle()) : ?>
+      <h3 class="mtop"><?php /* @escapeNotVerified */ echo $block->getTitle(); ?></h3>
+    <?php endif; ?>
+    <?php if ($block->getVideoId()) : ?>
+        <amp-<?php echo $block->getVideoType() ?>
+            data-videoid="<?php echo $block->getVideoId() ?>"
+            width="<?php echo $block->getVideoWidth() ?>"
+            height="<?php echo $block->getVideoHeight() ?>"
+            layout="responsive"
+            <?php echo $block->getVideoAutoPlay() ? 'autoplay' : '' ?>
+        >
+        </amp-<?php echo $block->getVideoType() ?>>
+    <?php elseif (\Plumrocket\Amp\Helper\Video::VIDEO_TYPE_VIDEO === $block->getVideoType()) : ?>
+        <amp-video width="<?php echo $block->getVideoWidth() ?>"
+                   height="<?php echo $block->getVideoHeight() ?>"
+                   src="<?php echo $block->getVideoSrc() ?>"
+                   layout="responsive"
+                   controls>
+          <div fallback>
+            <p>Your browser doesn't support HTML5 video.</p>
+          </div>
+        </amp-video>
+    <?php endif; ?>
+</div>

@@ -1,0 +1,128 @@
+<!--
+/**
+ * @Author      Firas Developers
+ * @package     Firas_GiftCard
+ * @copyright   Copyright (c) 2019 MAGETOP (https://www.firas.com)
+ * @terms       https://www.firas.com/terms
+ * @license     https://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
+ **/
+-->
+<?php $couponData = $block->getSessionDataOfCoupon();?>
+<?php if ($block->isCustomerLoggrdIn()) {?>
+	<div class="cart-discount clsgiftcard">
+		<div class="block discount" id="block-discount" data-collapsible="true" role="tablist">
+			<div class="title" data-role="title" role="tab" aria-selected="true" aria-expanded="true" tabindex="0" id="gift_card_tab">
+				<strong id="block-discount-headingg" role="heading" aria-level="2"><?php /* @escapeNotVerified */ echo __('Gift Card Discount') ?></strong>
+			</div>
+			<div class="content" data-role="content" id="gift-card-block-discount" aria-labelledby="block-discount-heading" role="tabpanel" aria-hidden="false" style="display: none;">
+					<form id="gift_card_form" data-mage-init='{"validation": {}}'>
+					<div class="fieldset coupon">
+						<input type="hidden" name="remove" id="remove-coupon" value="0">
+						<div class="field" style="display:block;">
+							<label for="coupon_code" class="" style="font-weight:600px;"><span><?php /* @escapeNotVerified */ echo __('Gift Code:') ?></span></label>
+							<div class="control">
+								<input type="text" class="input-text" id="gift_card_coupon_code" name="coupon_code" value="<?php echo $couponData['code'];?>" placeholder="Enter discount code"
+								data-validate="{required:true}">
+							</div>
+						</div>
+						<div class="field" style="display:block;">
+							<label for="coupon_price" class="" style="font-weight:600px;"><span><?php /* @escapeNotVerified */ echo __('Amount:') ?></span></label>
+							<div class="control">
+								<input type="text" class="input-text" id="gift_card_coupon_amount" name="coupon_price" value="<?php echo $couponData['price'];?>" placeholder="Enter discount amount"
+								data-validate="{required:true}">
+							</div>
+						</div>
+						<div >
+							<div class="primary">
+								<button class="" id="applyDiscountGiftCard" type="button" value="Apply Discount">
+									<span><?php /* @escapeNotVerified */ echo __('Apply Discount') ?></span>
+								</button>
+								<button class="" id="clearDiscountGiftCard" type="button" value="Clear Discount">
+									<span><?php /* @escapeNotVerified */ echo __('Clear Discount') ?></span>
+								</button>
+							</div>
+						</div>
+					</div>
+				</form>
+			</div>
+		</div>
+	</div>
+<?php } ?>
+<script type="text/javascript">
+    require([
+      'jquery',
+	  'mage/mage',
+      'mage/validation'
+    ], function($) {
+		$(document).ready(function(){
+			<?php if(isset($couponData['code']) && !empty($couponData['code'])) { ?>
+				$('#discount-coupon-form').parent().parent().css('display','none');
+			<?php } ?>
+			$('#gift_card_tab').on('click',function(){
+				$("#gift-card-block-discount").toggle();
+				$("#gift-card-block-discount").toggleClass('special');
+			});
+			$('#gift_card_form').on('submit',function(e){
+				e.preventDefault();
+			});
+			$('#applyDiscountGiftCard').on('click',function(){
+				$('#gift_card_form').submit();
+				var code = $('#gift_card_coupon_code').val();
+				var amount = $('#gift_card_coupon_amount').val();
+				if ($( "#gift_card_form" ).validation('isValid')) {
+					$.ajax({
+    					url     :   "<?php echo $block->getUrl('giftcard/giftcard/updategiftcard')?>",
+    					type    :   "POST",
+    					dataType:   "json",
+    					async   :   true,
+    					data    :   {
+    						code:code,
+    						amount:amount
+    					},
+                        showLoader: true,
+    					beforeSend:function() {
+    						//jQuery("body").trigger('processStart');
+    					},
+    					complete:function() {
+    					   
+    					},
+    					success: function($data){
+    						/*jQuery("body").trigger('processStop');
+                            var deferred = $.Deferred();
+                            require(["Magento_Checkout/js/action/get-totals"])([], deferred);
+    						$('#discount-coupon-form').parent().parent().css('display','none');*/
+                            location.reload();
+    					}
+					});
+				}
+			});
+			$('#clearDiscountGiftCard').on('click',function(){
+				$('#gift_card_form').submit();
+				if ($( "#gift_card_form" ).validation('isValid')) {
+					$.ajax({
+    					url     :   "<?php echo $block->getUrl('giftcard/giftcard/cleardiscount')?>",
+    					type    :   "POST",
+    					dataType:   "json",
+    					async   :   true,
+                        showLoader: true,
+    					beforeSend:function() {
+    						//jQuery("body").trigger('processStart');
+    					},
+    					complete:function() {
+    					   
+    					},
+    					success: function($data){
+    						/*jQuery("body").trigger('processStop');
+    						$('#gift_card_coupon_code').val(" ");
+    						$('#gift_card_coupon_amount').val(" ");
+                            var deferred = $.Deferred();
+                            require(["Magento_Checkout/js/action/get-totals"])([], deferred);
+    						$('#discount-coupon-form').parent().parent().css('display','block');*/
+                            location.reload();
+    					}
+					});
+				}
+			});
+		});
+    });
+</script>

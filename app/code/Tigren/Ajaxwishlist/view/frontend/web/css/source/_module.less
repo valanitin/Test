@@ -1,0 +1,169 @@
+/*
+ * @author    Tigren Solutions <info@tigren.com>
+ * @copyright Copyright (c) 2022 Tigren Solutions <https://www.tigren.com>. All rights reserved.
+ * @license   Open Software License ("OSL") v. 3.0
+ */
+
+//
+//  Common
+//  _____________________________________________
+
+& when (@media-common = true) {
+    .action.towishlist {
+        text-transform: capitalize;
+
+        &:before {
+            content: "\f08a";
+            font-family: 'FontAwesome';
+            .lib-font-size(13);
+            margin: 0 3px 0 0;
+        }
+
+        &.added-in-wishlist,
+        &.in-wishlist {
+            &:before {
+                content: "\f004";
+                color: red;
+            }
+        }
+    }
+
+    #mb-ajaxwishlist-wrapper {
+        .mb-ajaxsuite-popup-border {
+            text-align: center;
+        }
+
+        img.image {
+            display: inline-block;
+        }
+        .mb-login-popup-title {
+            background-color: #2c7ff7;
+        }
+        .ajaxwishlist-success-box {
+            img.image {
+                width: auto;
+                display: inline-block;
+            }
+        }
+
+        .product-add-form {
+            width: 100%;
+            display: block;
+
+            .field.qty {
+                margin-right: @indent__base;
+            }
+
+            .actions {
+                border-top: 1px solid @color-gray80;
+                padding-top: @indent__s;
+                text-align: left;
+
+                button.primary {
+                    margin: 0 @indent__s 0 0;
+                }
+            }
+        }
+
+        .fieldset {
+            margin: 0;
+        }
+
+        .box-tocart {
+            margin: 0;
+
+            .fieldset {
+                margin: 0;
+            }
+        }
+
+        .product-name {
+            margin-top: @indent__s;
+        }
+
+        .price-box {
+            margin: 7px 0;
+        }
+
+        .product-options-wrapper {
+            .fieldset {
+                > .field {
+                    margin-bottom: @indent__s;
+                    border-top: 1px #332e2e1f solid;
+                    padding-top: 20px;
+                }
+
+                .input-text.qty {
+                    margin-top: 11px;
+                    width: 54px;
+                }
+            }
+        }
+
+        .ajaxwishlist-success-box {
+            text-align: center;
+            margin-bottom: @indent__base;
+
+            img.image {
+                float: none;
+                margin-bottom: 10px;
+            }
+
+            .message-error {
+                color: @color-red10;
+                font-weight: bold;
+            }
+
+            .message-success {
+                color: @color-dark-green1;
+                font-weight: bold;
+            }
+
+            .ajaxwishlist-buttons {
+                float: left;
+                width: 100%;
+                margin: 15px 0;
+
+                button#ajaxwishlist_checkout {
+                    margin: 0;
+                }
+            }
+        }
+    }
+}
+
+//
+//  Desktop
+//  _____________________________________________
+
+.media-width(@extremum, @break) when (@extremum = 'min') and (@break = @screen__m) {
+    #mb-ajaxwishlist-wrapper {
+        #mb-ajaxwishlist-popup-content {
+            min-width: 500px;
+            padding: 15px;
+            overflow: hidden;
+            display: grid;
+            grid-template-rows: auto;
+            grid-gap: 40px;
+            grid-template-areas: 'login signup';
+            grid-template-columns: 30fr 70fr;
+        }
+    }
+}
+
+//
+//  Desktop
+//  _____________________________________________
+
+.media-width(@extremum, @break) when (@extremum = 'max') and (@break = @screen__m) {
+    #mb-ajaxwishlist-wrapper {
+        #mb-ajaxwishlist-popup-content {
+            padding: 15px;
+        }
+    }
+    img.image {
+        width: 100%;
+        display: block;
+        margin-bottom: 15px;
+    }
+}

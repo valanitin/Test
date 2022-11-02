@@ -1,0 +1,16 @@
+{
+    "name": "plumrocket/module-psloginfree",
+    "description": "Twitter & Facebook Login Extension for Magento 2",
+    "require": {
+        "php": ">=7.1",
+        "plumrocket/module-plumbase": ">=2.5"
+    },
+    "type": "magento2-module",
+    "version": "3.2.0",
+    "autoload": {
+        "files": [ "registration.php" ],
+        "psr-4": {
+            "Plumrocket\\SocialLoginFree\\": ""
+        }
+    }
+}

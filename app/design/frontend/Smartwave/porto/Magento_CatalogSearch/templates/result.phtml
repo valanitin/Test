@@ -1,0 +1,62 @@
+<?php
+/**
+ * Copyright © Magento, Inc. All rights reserved.
+ * See COPYING.txt for license details.
+ */
+
+// @codingStandardsIgnoreFile
+/**
+ * @var $viewModel LuxuryUnlimited\CmsSearch\ViewModel\CmsSearch
+ */
+$viewModel = $block->getData('view_model');
+$searchQuery = '';
+$searchPage = '';
+if ($viewModel) {
+    $searchPage = $viewModel->getCmsResults();
+    $searchQuery = $viewModel->_getQuery();
+}
+?>
+<?php if ($block->getResultCount() || $searchPage): ?>
+    <?= $block->getChildHtml('tagged_product_list_rss_link') ?>
+    <?php if ($messages = $block->getNoteMessages()): ?>
+        <div class="message notice">
+            <div>
+                <?php foreach ($messages as $message): ?>
+                    <?= /* @escapeNotVerified */
+                    $message ?><br/>
+                <?php endforeach; ?>
+            </div>
+        </div>
+    <?php endif; ?>
+    <?php if ($searchPage): ?>
+        <div>
+            <?= /* @escapeNotVerified */ $searchPage; ?>
+        </div>
+    <?php endif; ?>
+    <?php if ($block->getResultCount()): ?>
+        <?= $block->getProductListHtml() ?>
+    <?php endif; ?>
+<?php else: ?>
+    <style>
+        .column.main {
+            width: 100% !important;
+        }
+    </style>
+    <div class="message info empty">
+        <!-- <div><?php // echo __('Your search returned no results.') ?></div> -->
+    </div>
+    <div class="no-page" style="text-align: center">
+        <h3><?php echo __('It Seems like we have nothing to show for this Search'); ?> </h3>
+        <p class="re-result-desc"
+           style="text-align: center"><?php echo __('If you would like us send you a more information about'); ?>
+            <strong style="text-transform: capitalize"><?php echo __($searchQuery); ?></strong>
+            <br><?php echo __('Please create a ticket below.'); ?>
+        </p>
+        <div class="re-result-btns" style="text-align: center">
+            <a id="create-ticket-btn" data-title="<?php echo $block->escapeHtml(__('Search Query')); ?>"
+               data-page-name="<?php echo __($searchQuery); ?>"
+               style="cursor: pointer"><?php echo $block->escapeHtml(__('Create Ticket')); ?></a> <a
+                    href="<?php echo $block->getUrl('brands'); ?>"><?php echo $block->escapeHtml(__('Continue Shopping')); ?></a>
+        </div>
+    </div>
+<?php endif; ?>

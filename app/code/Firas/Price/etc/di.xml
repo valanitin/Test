@@ -1,0 +1,35 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Copyright © Firas Mohammed(firasath90@gmail.com)
+ * See COPYING.txt for license details.
+ */
+-->
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:noNamespaceSchemaLocation="urn:magento:framework:ObjectManager/etc/config.xsd">
+    <!-- preference -->
+    <preference for="Firas\Price\Model\Calculator\RoundProcessorPoolInterface" type="Firas\Price\Model\Calculator\RoundProcessorPool"/>
+    <preference for="Firas\Price\Model\CalculatorInterface" type="Firas\Price\Model\Calculator"/>
+    <!-- plugin -->
+    <type name="Magento\Directory\Model\Currency">
+        <plugin name="firas_price" type="Firas\Price\Plugin\Directory\Model\Currency"/>
+    </type>
+    <type name="Magento\Catalog\Model\Product\Type\Price">
+        <plugin name="firas_price" type="Firas\Price\Plugin\Catalog\Model\Product\Type\PricePlugin"/>
+    </type>
+    <!-- round processor pool -->
+    <type name="Firas\Price\Model\Calculator\RoundProcessorPoolInterface">
+        <arguments>
+            <argument name="processors" xsi:type="array">
+                <item name="ceil" xsi:type="object">Firas\Price\Model\Calculator\RoundProcessor\Base\CeilProcessor\Proxy</item>
+                <item name="floor" xsi:type="object">Firas\Price\Model\Calculator\RoundProcessor\Base\FloorProcessor\Proxy</item>
+                <item name="swedish_ceil" xsi:type="object">Firas\Price\Model\Calculator\RoundProcessor\Swedish\CeilProcessor\Proxy</item>
+                <item name="swedish_round" xsi:type="object">Firas\Price\Model\Calculator\RoundProcessor\Swedish\RoundProcessor\Proxy</item>
+                <item name="swedish_floor" xsi:type="object">Firas\Price\Model\Calculator\RoundProcessor\Swedish\FloorProcessor\Proxy</item>
+                <item name="excel_ceil" xsi:type="object">Firas\Price\Model\Calculator\RoundProcessor\Excel\CeilProcessor\Proxy</item>
+                <item name="excel_round" xsi:type="object">Firas\Price\Model\Calculator\RoundProcessor\Excel\RoundProcessor\Proxy</item>
+                <item name="excel_floor" xsi:type="object">Firas\Price\Model\Calculator\RoundProcessor\Excel\FloorProcessor\Proxy</item>
+            </argument>
+        </arguments>
+    </type>
+</config>

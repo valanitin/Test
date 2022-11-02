@@ -1,0 +1,108 @@
+<?xml version="1.0"?>
+<!--
+ * Revered Technologies Pvt. Ltd.
+ *
+ * NOTICE OF LICENSE
+ *
+ * This source file is subject to the EULA
+ * that is bundled with this package in the file LICENSE.txt.
+ * It is also available through the world-wide-web at this URL:
+ * http://store.reveredtech.com/Revered-LICENSE-COMMUNITY.txt
+ *
+ ********************************************************************
+ * @category   Revered
+ * @package    Revered_GuestWishlist
+ * @copyright  Copyright (c) Revered Technologies Pvt. Ltd. (http://www.reveredtech.com)
+ * @license    http://store.reveredtech.com/Revered-LICENSE-COMMUNITY.txt
+ -->
+<page xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" layout="2columns-left"
+      xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/page_configuration.xsd">
+    <head>
+        <title>My Wish List</title>
+    </head>
+    <body>
+        <attribute name="class" value="wishlist-index-index"/>
+        <attribute name="class" value="page-products"/>
+
+        <referenceBlock name="head.components">
+            <block class="Magento\Framework\View\Element\Js\Components" name="wishlist_head_components"
+                   template="Magento_Wishlist::js/components.phtml"/>
+        </referenceBlock>
+        <referenceContainer name="content">
+            <block class="Revered\GuestWishlist\Block\Wishlist" name="guest.guest.customer.wishlist"
+                   template="Revered_GuestWishlist::view.phtml" cacheable="false">
+
+
+                <block class="Revered\GuestWishlist\Block\Wishlist\Items" name="guest.customer.wishlist.items" as="items"
+                       template="Magento_Wishlist::item/list.phtml" cacheable="false">
+                    <block class="Revered\GuestWishlist\Block\Wishlist\Item\Column\Image"
+                           name="guest.customer.wishlist.item.image" template="Magento_Wishlist::item/column/image.phtml"
+                           cacheable="false"/>
+                    <block class="Revered\GuestWishlist\Block\Wishlist\Item\Column\Info"
+                           name="guest.customer.wishlist.item.name" template="Magento_Wishlist::item/column/name.phtml"
+                           cacheable="false"/>
+                    <block class="Revered\GuestWishlist\Block\Wishlist\Item\Column\Cart"
+                           name="guest.customer.wishlist.item.price" template="Magento_Wishlist::item/column/price.phtml"
+                           cacheable="false">
+                        <block class="Magento\Catalog\Pricing\Render" name="product.price.render.wishlist">
+                            <arguments>
+                                <argument name="price_render" xsi:type="string">product.price.render.default</argument>
+                                <argument name="price_type_code" xsi:type="string">wishlist_configured_price</argument>
+                                <argument name="price_label" xsi:type="boolean">false</argument>
+                                <argument name="zone" xsi:type="string">item_list</argument>
+                            </arguments>
+                        </block>
+                        <block class="Revered\GuestWishlist\Block\Wishlist\Item\Options"
+                               name="guest.customer.wishlist.item.options" cacheable="false"/>
+                    </block>
+                    <block class="Revered\GuestWishlist\Block\Wishlist\Item\Column\Actions"
+                           name="guest.customer.wishlist.item.inner" template="Magento_Wishlist::item/column/actions.phtml"
+                           cacheable="false">
+                        <arguments>
+                            <argument name="css_class" xsi:type="string">product-item-inner</argument>
+                        </arguments>
+                        <block class="Revered\GuestWishlist\Block\Wishlist\Item\Column\Comment"
+                               name="guest.customer.wishlist.item.comment"
+                               template="Magento_Wishlist::item/column/comment.phtml" cacheable="false">
+                            <arguments>
+                                <argument name="title" translate="true" xsi:type="string">Product Details and Comment
+                                </argument>
+                            </arguments>
+                        </block>
+                        <block class="Revered\GuestWishlist\Block\Wishlist\Item\Column\Cart"
+                               name="guest.customer.wishlist.item.cart" template="Revered_GuestWishlist::item/column/cart.phtml"
+                               cacheable="false">
+                            <arguments>
+                                <argument name="title" translate="true" xsi:type="string">Add to Cart</argument>
+                            </arguments>
+                        </block>
+
+                        <block class="Revered\GuestWishlist\Block\Wishlist\Item\Column\Actions"
+                               name="guest.customer.wishlist.item.actions"
+                               template="Magento_Wishlist::item/column/actions.phtml" cacheable="false">
+                            <arguments>
+                                <argument name="css_class" xsi:type="string">product-item-actions</argument>
+                            </arguments>
+                            <block class="Revered\GuestWishlist\Block\Wishlist\Item\Column\Edit"
+                                   name="guest.customer.wishlist.item.edit"
+                                   template="Magento_Wishlist::item/column/edit.phtml" before="-" cacheable="false"/>
+                            <block class="Revered\GuestWishlist\Block\Wishlist\Item\Column\Remove"
+                                   name="guest.customer.wishlist.item.remove"
+                                   template="Magento_Wishlist::item/column/remove.phtml" cacheable="false"/>
+                        </block>
+                    </block>
+                </block>
+                <container name="guest.customer.wishlist.buttons" as="control_buttons" label="Wishlist Control Buttons">
+                    <block class="Revered\GuestWishlist\Block\Wishlist\Button"
+                           name="guest.customer.wishlist.button.update" template="Magento_Wishlist::button/update.phtml"
+                           cacheable="false"/>
+                    <block class="Revered\GuestWishlist\Block\Wishlist\Button" ifconfig="guestwishlist/settings/sharing" name="guest.customer.wishlist.button.share"
+                           template="Magento_Wishlist::button/share.phtml" cacheable="false"/>
+                    <block class="Revered\GuestWishlist\Block\Wishlist\Button"
+                           name="guest.customer.wishlist.button.toCart" template="Magento_Wishlist::button/tocart.phtml"
+                           cacheable="false"/>
+                </container>
+            </block>
+        </referenceContainer>
+    </body>
+</page>

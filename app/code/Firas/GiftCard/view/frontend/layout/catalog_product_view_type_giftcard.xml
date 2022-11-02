@@ -1,0 +1,18 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * @Author      Firas Developers
+ * @package     Firas_GiftCard
+ * @copyright   Copyright (c) 2019 MAGETOP (https://www.firas.com)
+ * @terms       https://www.firas.com/terms
+ * @license     https://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
+ **/
+-->
+<page xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/page_configuration.xsd">
+    <body>
+        <referenceContainer name="product.info.main">
+            <block class="Firas\GiftCard\Block\ProductRefund" name="giftcard.product.refund.description"  template="Firas_GiftCard::productRefund.phtml"/>
+            <!--<container name="product.info.simple.extra" after="product.info.simple" as="product_type_data_extra" label="Product Extra Info"/>-->
+        </referenceContainer>
+    </body>
+</page>

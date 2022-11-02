@@ -1,0 +1,35 @@
+<?php
+/**
+ * @author    Tigren Solutions <info@tigren.com>
+ * @copyright Copyright (c) 2022 Tigren Solutions <https://www.tigren.com>. All rights reserved.
+ * @license   Open Software License ("OSL") v. 3.0
+ */
+
+// @codingStandardsIgnoreFile
+
+?>
+<?php
+$required = '';
+if ($block->hasRequiredOptions()) {
+    $required = ' data-hasrequired="' . __('* Required Fields') . '"';
+}
+$_product = $block->getProduct();
+?>
+<div class="product-options-wrapper" id="product-options-wrapper"<?= $required; ?>>
+    <div class="fieldset fieldset-test" tabindex="0">
+        <?= $block->getChildHtml('product_options_wrapper_name'); ?>
+        <?= $block->getChildHtml('ajaxwishlist_product_price'); ?>
+        <?= $block->getChildHtml('product_options'); ?>
+        <?php if ($_product->getTypeId() == 'configurable'): ?>
+            <?= $block->getChildHtml('type_options_configurable'); ?>
+        <?php endif; ?>
+        <?php if ($_product->getTypeId() == 'grouped'): ?>
+            <?= $block->getChildHtml('product.info.grouped'); ?>
+        <?php endif; ?>
+        <?php if ($_product->getTypeId() == 'bundle') : ?>
+            <?= $block->getChildHtml('type_bundle_options'); ?>
+        <?php endif; ?>
+        <?= $block->getChildHtml('html_calendar'); ?>
+        <?= $block->getChildHtml('product_options_wrapper_bottom'); ?>
+    </div>
+</div>

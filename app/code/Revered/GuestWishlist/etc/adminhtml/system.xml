@@ -1,0 +1,62 @@
+<?xml version="1.0"?>
+<!--
+ * Revered Technologies Pvt. Ltd.
+ *
+ * NOTICE OF LICENSE
+ *
+ * This source file is subject to the EULA
+ * that is bundled with this package in the file LICENSE.txt.
+ * It is also available through the world-wide-web at this URL:
+ * http://store.reveredtech.com/Revered-LICENSE-COMMUNITY.txt
+ *
+ ********************************************************************
+ * @category   Revered
+ * @package    Revered_GuestWishlist
+ * @copyright  Copyright (c) Revered Technologies Pvt. Ltd. (http://www.reveredtech.com)
+ * @license    http://store.reveredtech.com/Revered-LICENSE-COMMUNITY.txt
+ -->
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Config:etc/system_file.xsd">
+    <system>
+        <tab id="reveredtech" translate="label" sortOrder="200000">
+            <label>Revered</label>
+        </tab>
+        <section id="guestwishlist" translate="label" sortOrder="140" showInDefault="1" showInWebsite="1" showInStore="1">
+            <class>separator-top</class>
+            <label>Guest Wishlist</label>
+            <tab>reveredtech</tab>
+            <resource>Revered_GuestWishlist::config_guestwishlist</resource>
+            <group id="settings" translate="label" type="text" sortOrder="10" showInDefault="1" showInWebsite="1" showInStore="1">
+                <label>Settings</label>
+                <hide_in_single_store_mode>0</hide_in_single_store_mode>
+                <comment>
+                    <![CDATA[
+                    <div style="padding:10px;background-color:#fff;border:1px solid #ddd;margin-bottom:7px;">
+                    <div style="float:left;margin-right:10px;background:url('data:image/png;base64,""') no-repeat; width: 54px; height: 54px;"></div>
+                    This module was developed by <a href="http://www.reveredtech.com" target="_blank">www.reveredtech.com</a>.<br>
+                    For docs & examples refer to the Revered <a href="http://www.reveredtech.com" target="_blank">web site</a>.
+                    <br/>We have the largest selections of  <a href="http://store.reveredtech.com/extensions.html" target="_blank">extensions</a> and <a href="http://store.reveredtech.com/themes.html" target="_blank">themes</a> on Magento.
+                    </div>
+                    ]]>
+                </comment>
+                <field id="enabled" translate="label" type="select" sortOrder="10" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Enabled For Frontend</label>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                </field>
+                <field id="cookie_lifetime" translate="label" type="text" sortOrder="20" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Cookie Lifetime</label>
+                    <backend_model>\Magento\Framework\App\Config\Value</backend_model>
+                </field>
+                <field id="merge" translate="label" type="select" sortOrder="30" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Merge Wishlist</label>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                    <comment>Merged "Guest Wishlist" with customer "Wishlist" after authorization</comment>
+                </field>
+                <field id="sharing" translate="label" type="select" sortOrder="40" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Sharing</label>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                    <comment>Enabled sharing for guests</comment>
+                </field>
+            </group>
+        </section>
+    </system>
+</config>

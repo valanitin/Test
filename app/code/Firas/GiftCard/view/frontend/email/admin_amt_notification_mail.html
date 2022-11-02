@@ -1,0 +1,48 @@
+<!--@subject Gift card usage notification  @-->
+<!--@vars {
+"var this.getUrl($store, 'admin')":"Warehouse Account URL",
+"var customer.email":"Customer Email",
+"var customer.name":"Customer Name"
+} @-->
+{{template config_path="design/email/header_template"}} <!-- pathe of template header-->
+<table>
+    <tr class="email-intro">
+        <td>
+            <p class="greeting"><h2>{{trans "Hi %customer_name," customer_name=$myvar3}}</h2></p>
+            <p><h2>
+                {{trans "Your Gift Card Usage Details:"}}
+            </h2></p>
+        </td>
+    </tr>
+    <tr class="email-summary">
+        <td>
+            <h3><b>{{trans "Name:"}}<b></h3>
+            <p>{{var myvar3|raw}}</p>
+            <h3><b>{{trans "Email:"}}<b></h3>
+            <p>{{var myvar2|raw}}</p>
+        </td>
+    </tr>
+    <tr class="email-information">
+        <td>
+            <table class="order-details">
+                <tr>
+                    <td class="address-details">
+                        <h3><b>{{trans "Gift Card Code:"}}<b></h3>
+                        <p>{{var myvar6|raw}}</p>
+                        <h3><b>{{trans "Previous Amount:"}}<b></h3>
+                        <p>{{trans "%symbol %price" symbol=$myvar8 price=$myvar5}}</p>
+                        <h3><b>{{trans "Reduced Amount:"}}</b></h3>
+                        <p>{{trans "%symbol %price" symbol=$myvar8 price=$myvar4}}</p>
+                        <h3><b>{{trans "Remaining Amount:"}}</b></h3>
+                        <p>{{trans "%symbol %price" symbol=$myvar8 price=$myvar7}}</p>
+                        <h3><b>{{trans "Issue Date:"}}</b></h3>
+                        <p>{{trans "%issuedate"  issuedate=$myvar9}}</p>
+                        <h3><b>{{trans "Expiry Date:"}}</b></h3>
+                        <p>{{trans "%expirydate"  expirydate=$myvar10}}</p>
+                    </td>
+                </tr>
+            </table>
+        </td>
+    </tr>
+</table>
+{{template config_path="design/email/footer_template"}} <!--footer of template-->

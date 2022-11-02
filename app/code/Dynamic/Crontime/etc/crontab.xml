@@ -1,0 +1,46 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * @author Amasty Team
+ * @copyright Copyright (c) 2021 Amasty (https://www.amasty.com)
+ * @package Amasty_Base
+ */
+-->
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Cron:etc/crontab.xsd">
+    <group id="amasty_base">
+        <job name="ambase_feeds_refresh" instance="Amasty\Base\Cron\RefreshFeedData" method="execute">
+            <config_path>crontab/default/jobs/ambase_feeds_refresh/schedule/cron_expr</config_path>
+        </job>
+    </group>
+    <group id="default">
+        <job instance="Amasty\CronScheduleList\Cron\Activity" method="execute" name="amasty_cron_activity">
+            <config_path>crontab/default/jobs/amasty_cron_activity/schedule/cron_expr</config_path>
+        </job>
+    </group>
+    <group id="default">
+        <job name="amsorting" instance="Amasty\Sorting\Model\Indexer\Summary" method="reindexAll">
+            <config_path>crontab/default/jobs/amsorting/schedule/cron_expr</config_path>
+        </job>
+    </group>
+    <group id="default">
+        <job name="bss_import_geoip" instance="Bss\GeoIPAutoSwitchStore\Model\Observer" method="execute">
+             <config_path>crontab/default/jobs/bss_import_geoip/schedule/cron_expr</config_path>
+        </job>
+    </group>
+    <group id="default">
+        <job name="firas_admin_activity_clearlog" instance="Firas\AdminActivity\Cron\ClearLog" method="execute">
+            <config_path>crontab/default/jobs/firas_admin_activity_clearlog/schedule/cron_expr</config_path>
+        </job>
+    </group>
+    <group id="firas_cronbrands_cron_group">
+        <job instance="Mage360\Brands\Controller\Adminhtml\Brands\Sync" method="execute" name="firas_cronbrands_cron">
+            <config_path>crontab/default/jobs/firas_cronbrands_cron/schedule/cron_expr</config_path>
+        </job>
+    </group>
+    <group id="firas_cronbrands_abandonedcart_abandonedcart">
+        <job instance="Firas\Cronbrands\Abandonedcart\Abandonedcart" method="execute" name="firas_cronbrands_abandonedcart_abandonedcart">
+            <config_path>crontab/default/jobs/firas_cronbrands_abandonedcart_abandonedcart/schedule/cron_expr</config_path>
+        </job>
+    </group>
+
+</config>

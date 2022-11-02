@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+/**
+ * @author Amasty Team
+ * @copyright Copyright (c) 2021 Amasty (https://www.amasty.com)
+ * @package SortingMFTF3
+ */
+-->
+<sections xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+          xsi:noNamespaceSchemaLocation="urn:magento:mftf:Test/etc/sectionSchema.xsd">
+
+    <section name="StorefrontPageElementsSection">
+        <element name="ProductsSequence" type="block"
+                 selector="//*[@class='item product product-item'][contains(string(), '{{var1}}')]/following::*[@class='item product product-item'][contains(string(), '{{var2}}')]/following::*[@class='item product product-item'][contains(string(), '{{var3}}')]"
+                 parameterized="true"/>
+    </section>
+
+</sections>

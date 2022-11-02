@@ -1,0 +1,57 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Plumrocket Inc.
+ *
+ * NOTICE OF LICENSE
+ *
+ * This source file is subject to the End-user License Agreement
+ * that is available through the world-wide-web at this URL:
+ * http://wiki.plumrocket.net/wiki/EULA
+ * If you are unable to obtain it through the world-wide-web, please
+ * send an email to support@plumrocket.com so we can send you a copy immediately.
+ *
+ * @package     Plumrocket_Amp
+ * @copyright   Copyright (c) 2016 Plumrocket Inc. (http://www.plumrocket.com)
+ * @license     http://wiki.plumrocket.net/wiki/EULA  End-user License Agreement
+ */
+-->
+<layout xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/page_layout.xsd">
+    <container name="root">
+        <container name="amp.after.body.start" as="amp.after.body.start" before="-" label="Amp Page Top"/>
+        <container name="amp.page.wrapper" as="amp_page_wrapper" htmlTag="div" htmlClass="amp-page-wrapper">
+            <container name="global.notices" as="global_notices" before="-"/>
+            <container name="amp.header.container" as="amp_header_container" label="AMP Page Header Container" htmlTag="header" htmlClass="amp-page-header" before="amp.page.top">
+                <container name="amp.header.top.container" label="AMP Page Header Top Container" htmlTag="div" htmlClass="header">
+                    <container
+                            name="amp.header.top.default.items"
+                            label="AMP Page Header Top Items Wrapper"
+                            htmlClass="header__top top flex justify-content-space-between flex-wrap"
+                            htmlTag="div"/>
+                </container>
+            </container>
+            <container name="amp.page.top" as="amp_page_top" label="AMP After Header" htmlTag="div" htmlClass="amp-page-top" before="amp.main.content"/>
+
+            <container name="amp.main.content" htmlTag="main" htmlId="maincontent" htmlClass="amp-page-main">
+                <container name="amp.columns.top" label="Before Main Columns"/>
+                <container name="amp.columns" htmlTag="div" htmlClass="columns">
+
+                    <container name="amp.main" label="Main Content Container" htmlTag="div" htmlClass="column main" before="-">
+                        <container name="amp.content.top" label="Main Content Top"/>
+                        <container name="amp.content" label="Main Content Area"/>
+                        <container name="amp.content.aside" label="Main Content Aside"/>
+                        <container name="amp.content.bottom" label="Main Content Bottom"/>
+                    </container>
+
+                    <container name="amp.sidebar" label="Sidebar Content Container" after="amp.main">
+                        <container name="amp.sidebar.main" label="Sidebar Main" htmlTag="div" htmlClass="sidebar sidebar-main"/>
+                        <container name="amp.sidebar.additional" label="Sidebar Additional" htmlTag="div" htmlClass="sidebar sidebar-additional"/>
+                    </container>
+
+                </container>
+            </container>
+            <container name="amp.page.bottom.container" as="amp_page_bottom_container" label="Before Page Footer Container" after="main.content" htmlTag="div" htmlClass="amp-page-bottom"/>
+            <container name="amp.before.body.end" as="amp_before_body_end" after="-" label="Page Bottom"/>
+        </container>
+    </container>
+</layout>

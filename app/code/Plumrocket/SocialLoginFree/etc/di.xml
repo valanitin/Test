@@ -1,0 +1,91 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * @package     Plumrocket_SocialLoginFree
+ * @copyright   Copyright (c) 2015 Plumrocket Inc. (https://plumrocket.com)
+ * @license     https://plumrocket.com/license   End-user License Agreement
+ */
+-->
+
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:ObjectManager/etc/config.xsd">
+    <preference for="Magento\Customer\Model\Authentication" type="Plumrocket\SocialLoginFree\Model\Customer\Authentication" />
+    <preference for="Plumrocket\SocialLoginFree\Api\TypesProviderInterface" type="Plumrocket\SocialLoginFree\Model\Provider\Types" />
+    <preference for="Plumrocket\SocialLoginFree\Api\Buttons\ProviderInterface" type="Plumrocket\SocialLoginFree\Model\Buttons\Provider\DefaultList" />
+    <preference for="Plumrocket\SocialLoginFree\Model\AccountProviderInterface" type="Plumrocket\SocialLoginFree\Model\Provider\Account" />
+    <preference for="Plumrocket\SocialLoginFree\Model\Network\ApiCallParamsPersistorInterface" type="Plumrocket\SocialLoginFree\Model\Network\ApiCallParamsPersistor" />
+    <preference for="Plumrocket\SocialLoginFree\Api\GetNetworkConnectorInterface" type="Plumrocket\SocialLoginFree\Model\Network\GetConnector" />
+    <preference for="Plumrocket\SocialLoginFree\Api\Data\NetworkAccountInterface" type="Plumrocket\SocialLoginFree\Model\Network\Data\Account" />
+
+    <virtualType name="plStatSocialLoginFreeStatus" type="Plumrocket\Base\Model\Statistic\Usage\Status">
+        <arguments>
+            <argument name="xmlPath" xsi:type="string">psloginfree</argument>
+        </arguments>
+    </virtualType>
+
+    <type name="Plumrocket\Base\Observer\CheckNewConfigUsageStatistic">
+        <arguments>
+            <argument name="statuses" xsi:type="array">
+                <item name="psloginfree" xsi:type="object">plStatSocialLoginFreeStatus</item>
+            </argument>
+        </arguments>
+    </type>
+
+    <virtualType name="plStatSocialLoginFreeCollector" type="Plumrocket\Base\Model\Statistic\Usage\Collector">
+        <arguments>
+            <argument name="status" xsi:type="object">plStatSocialLoginFreeStatus</argument>
+            <argument name="collectors" xsi:type="array">
+                <item name="config" xsi:type="object">Plumrocket\SocialLoginFree\Model\Statistic\Usage\Config\Collector</item>
+            </argument>
+        </arguments>
+    </virtualType>
+
+    <type name="Plumrocket\Base\Model\Statistic\Usage\CompositeCollector">
+        <arguments>
+            <argument name="moduleCollectors" xsi:type="array">
+                <item name="SocialLoginFree" xsi:type="object">plStatSocialLoginFreeCollector</item>
+            </argument>
+        </arguments>
+    </type>
+    <virtualType name="PrSocialLoginSchemaLocator" type="Magento\Framework\Config\SchemaLocator">
+        <arguments>
+            <argument name="realPath" xsi:type="string">urn:magento:module:Plumrocket_SocialLoginFree:etc/pr_social_login_network.xsd</argument>
+        </arguments>
+    </virtualType>
+    <virtualType name="PrSocialLoginConfigReader" type="Magento\Framework\Config\Reader\Filesystem">
+        <arguments>
+            <argument name="idAttributes" xsi:type="array">
+                <item name="/networks/network" xsi:type="string">code</item>
+            </argument>
+            <argument name="fileName" xsi:type="string">pr_social_login_network.xml</argument>
+            <argument name="converter" xsi:type="object">Plumrocket\SocialLoginFree\Model\Network\Config\Converter</argument>
+            <argument name="schemaLocator" xsi:type="object">PrSocialLoginSchemaLocator</argument>
+        </arguments>
+    </virtualType>
+    <virtualType name="PrSocialLoginConfigData" type="Magento\Framework\Config\Data">
+        <arguments>
+            <argument name="reader" xsi:type="object">PrSocialLoginConfigReader</argument>
+            <argument name="cacheId" xsi:type="string">pr_social_social</argument>
+        </arguments>
+    </virtualType>
+
+    <type name="Plumrocket\SocialLoginFree\Helper\Config\Network">
+        <arguments>
+            <argument name="networkXmlConfig" xsi:type="object">PrSocialLoginConfigData</argument>
+        </arguments>
+    </type>
+
+    <type name="Plumrocket\SocialLoginFree\Model\Network\Debug\Handler">
+        <arguments>
+            <argument name="filesystem" xsi:type="object">Magento\Framework\Filesystem\Driver\File</argument>
+        </arguments>
+    </type>
+    <type name="Plumrocket\SocialLoginFree\Model\Network\Debug\Logger">
+        <arguments>
+            <argument name="name" xsi:type="string">pslogin</argument>
+            <argument name="handlers"  xsi:type="array">
+                <item name="system" xsi:type="object">Plumrocket\SocialLoginFree\Model\Network\Debug\Handler</item>
+                <item name="debug" xsi:type="object">Magento\Framework\Logger\Handler\Debug</item>
+            </argument>
+        </arguments>
+    </type>
+</config>

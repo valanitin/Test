@@ -1,0 +1,18 @@
+<?xml version="1.0" ?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Store:etc/config.xsd">
+    <default>
+        <browserpush>
+            <notification>
+                <apiKey></apiKey>
+                <authDomain></authDomain>
+                <projectId></projectId>
+                <storageBucket></storageBucket>
+                <messagingSenderId></messagingSenderId>
+                <appId></appId>
+                <measurementId></measurementId>
+                <tokenWebsite></tokenWebsite>
+                <publicVapidKey></publicVapidKey>
+            </notification>
+        </browserpush>
+    </default>
+</config>

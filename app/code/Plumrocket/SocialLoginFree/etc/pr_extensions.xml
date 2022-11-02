@@ -1,0 +1,15 @@
+<?xml version="1.0"?>
+<!--
+ * @package     Plumrocket_SocialLoginFree
+ * @copyright   Copyright (c) 2021 Plumrocket Inc. (https://www.plumrocket.com)
+ * @license     https://www.plumrocket.com/license   End-user License Agreement
+ -->
+<extensions xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+            xsi:noNamespaceSchemaLocation="urn:magento:module:Plumrocket_Base:etc/pr_extensions.xsd">
+    <extension name="SocialLoginFree"
+               title="Twitter &amp; Facebook Login"
+               config_section="psloginfree"
+               is_enabled_path="psloginfree/general/enable"
+               wiki="https://plumrocket.com/docs/magento-twitter-facebook-login/v2">
+    </extension>
+</extensions>

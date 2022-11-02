@@ -1,0 +1,47 @@
+<?php
+/**
+ * @author    Tigren Solutions <info@tigren.com>
+ * @copyright Copyright (c) 2022 Tigren Solutions <https://www.tigren.com>. All rights reserved.
+ * @license   Open Software License ("OSL") v. 3.0
+ */
+
+// @codingStandardsIgnoreFile
+
+?>
+<?php
+$_product = $block->getProduct();
+$buttonTitle = __('Add to Wishlist');
+?>
+<?php if ($_product->isSaleable()): ?>
+    <div class="box-tocart">
+        <div class="fieldset">
+            <?php if ($block->shouldRenderQuantity()): ?>
+                <div class="field qty">
+                    <label class="label" for="qty"><span><?= __('Qty') ?></span></label>
+                    <div class="control">
+                        <input type="number"
+                               name="qty"
+                               id="qty"
+                               maxlength="12"
+                               value="<?= $block->getProductDefaultQty() * 1 ?>"
+                               title="<?= __('Qty') ?>" class="input-text qty"
+                               data-validate="<?= $block->escapeHtml(json_encode($block->getQuantityValidators())) ?>"
+                        />
+                    </div>
+                </div>
+            <?php endif; ?>
+            <div class="actions">
+                <button type="button" title="Cancel" class="action primary mb-ajaxsuite-close"
+                        id="ajaxwishlist_btn_cancel">
+                    <span><?= __('Cancel') ?></span>
+                </button>
+                <button type="submit"
+                        title="<?= $buttonTitle ?>"
+                        class="action ajax-popup-to-cart primary"
+                        id="product-addtogroup-button">
+                    <span><?= $buttonTitle ?></span>
+                </button>
+            </div>
+        </div>
+    </div>
+<?php endif; ?>

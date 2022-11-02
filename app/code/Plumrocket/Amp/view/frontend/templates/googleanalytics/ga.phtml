@@ -1,0 +1,42 @@
+<?php
+/**
+ * Plumrocket Inc.
+ *
+ * NOTICE OF LICENSE
+ *
+ * This source file is subject to the End-user License Agreement
+ * that is available through the world-wide-web at this URL:
+ * http://wiki.plumrocket.net/wiki/EULA
+ * If you are unable to obtain it through the world-wide-web, please
+ * send an email to support@plumrocket.com so we can send you a copy immediately.
+ *
+ * @package     Plumrocket Amp v2.x.x
+ * @copyright   Copyright (c) 2018 Plumrocket Inc. (http://www.plumrocket.com)
+ * @license     http://wiki.plumrocket.net/wiki/EULA  End-user License Agreement
+ */
+?>
+<?php
+/**
+ * @var \Plumrocket\Amp\Block\Page\Ga       $block
+ * @var \Plumrocket\Amp\Helper\Google\Analytics $_helper
+ */
+$_helper = $this->helper(Plumrocket\Amp\Helper\Google\Analytics::class);
+?>
+
+<?php if ($_helper->isGoogleAnalyticsAvailable()) : ?>
+  <amp-analytics type="googleanalytics" id="analytics1">
+    <script type="application/json">
+      {
+        "vars": {
+          "account": "<?php echo $_helper->getAccountId() ?>"
+        },
+        "triggers": {
+          "trackPageview": {
+            "on": "visible",
+            "request": "pageview"
+          }
+        }
+      }
+    </script>
+  </amp-analytics>
+<?php endif; ?>

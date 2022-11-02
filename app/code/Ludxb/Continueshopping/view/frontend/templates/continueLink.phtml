@@ -1,0 +1,10 @@
+<?php 
+     $continueshoppingHelper = $this->helper('Ludxb\Continueshopping\Helper\Data');
+?>
+<?php if($continueshoppingHelper->getSessionLastUrl()): ?>
+<a class="action"
+               href="<?= $block->escapeUrl($continueshoppingHelper->getSessionLastUrl()) ?>"
+               title="<?= $block->escapeHtml(__('Continue Shopping')) ?>">
+                <span><?= /* @escapeNotVerified */ __('Continue Shopping') ?></span>
+</a>
+<?php endif; ?>

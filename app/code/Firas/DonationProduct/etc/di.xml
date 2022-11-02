@@ -1,0 +1,65 @@
+<?xml version="1.0" ?>
+<!--
+/**
+ * Copyright © Firas. All rights reserved.
+ * See LICENSE.txt for license details.
+ */
+-->
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:ObjectManager/etc/config.xsd">
+
+	<preference for="Firas\DonationProduct\Api\DonationsRepositoryInterface" type="Firas\DonationProduct\Model\DonationsRepository"/>
+	<preference for="Firas\DonationProduct\Api\Data\DonationsInterface" type="Firas\DonationProduct\Model\Donations"/>
+	<preference for="Firas\DonationProduct\Api\Data\DonationsSearchResultsInterface" type="Magento\Framework\Api\SearchResults"/>
+	<preference for="Firas\DonationProduct\Api\Data\DonationOptionsInterface" type="Firas\DonationProduct\Model\DonationOptions"/>
+
+	<type name="Magento\Catalog\Helper\Product\Configuration">
+		<plugin disabled="false" name="Firas_DonationProduct_Plugin_Magento_Catalog_Helper_Product_Configuration" sortOrder="0" type="Firas\DonationProduct\Plugin\Magento\Catalog\Helper\Product\Configuration"/>
+	</type>
+	<type name="Magento\Checkout\Block\Cart\Item\Renderer">
+		<plugin disabled="false" name="Firas_DonationProduct_Plugin_Magento_Checkout_Block_Cart_Item_Renderer" sortOrder="0" type="Firas\DonationProduct\Plugin\Magento\Checkout\Block\Cart\Item\Renderer"/>
+	</type>
+	<type name="Magento\Catalog\Block\Product\ListProduct">
+		<plugin disabled="false" name="Firas_DonationProduct_Plugin_Magento_Catalog_Block_Product_ListProduct" sortOrder="10" type="Firas\DonationProduct\Plugin\Magento\Catalog\Block\Product\ListProduct"/>
+	</type>
+
+	<type name="Magento\Quote\Model\Quote\Item\Repository">
+		<arguments>
+			<argument name="cartItemProcessors" xsi:type="array">
+				<item name="donation" xsi:type="object">Firas\DonationProduct\Model\Quote\Item\CartItemProcessor</item>
+			</argument>
+		</arguments>
+	</type>
+	
+	<virtualType name="Firas\DonationProduct\Model\ResourceModel\Donations\Grid\Collection" type="Magento\Framework\View\Element\UiComponent\DataProvider\SearchResult">
+		<arguments>
+			<argument name="mainTable" xsi:type="string">firas_donations</argument>
+			<argument name="resourceModel" xsi:type="string">Firas\DonationProduct\Model\ResourceModel\Donations\Collection</argument>
+		</arguments>
+	</virtualType>
+	<type name="Magento\Framework\View\Element\UiComponent\DataProvider\CollectionFactory">
+		<arguments>
+			<argument name="collections" xsi:type="array">
+				<item name="firas_donationproduct_donations_grid_data_source" xsi:type="string">Firas\DonationProduct\Model\ResourceModel\Donations\Grid\Collection</item>
+			</argument>
+		</arguments>
+	</type>
+
+	<type name="Magento\Framework\Console\CommandList">
+		<arguments>
+			<argument name="commands" xsi:type="array">
+				<item name="SampleDataDeploy" xsi:type="object">Firas\DonationProduct\Console\Command\SampleDataDeploy</item>
+			</argument>
+		</arguments>
+	</type>
+
+    <type name="Magento\Framework\Console\CommandList">
+        <arguments>
+            <argument name="commands" xsi:type="array">
+                <item name="SampleDataRemove" xsi:type="object">Firas\DonationProduct\Console\Command\SampleDataRemove</item>
+            </argument>
+        </arguments>
+    </type>
+
+	<preference for="Firas\DonationProduct\Api\DonationListInterface" type="Firas\DonationProduct\Model\Api\ListDonation"/>
+
+</config>

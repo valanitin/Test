@@ -1,0 +1,33 @@
+<?php
+/** @var $block LuxuryUnlimited\HomePageBrands\Block\HomePageBrands */
+if ($block->getIsActive()) {
+    $options = $block->returnSelectedBrands();
+    $baseUrl = $block->getBaseLinkUrl();
+    $brandsMainUrl = 'brands';
+    ?>
+    <div class="home-brands-list">
+        <ul>
+            <?php
+            if ($options) {
+                foreach ($options as $option) {
+                    $brandName = $option['label'];
+                    $brandNameLength = strlen($brandName);
+                    if ($brandNameLength > 1) {
+                        $brandLink = preg_replace('/\s+/', '-', $brandName);
+                        $brandLink = strtolower($brandLink);
+                        $brandLink = 'brand/' . $brandLink . '.html';
+                        ?>
+                        <li><a href="<?php echo $baseUrl . $brandLink ?>"><?php echo $brandName ?></a></li>
+                        <?php
+                    }
+                }
+                if ($block->getShowAllBrandsButton()) {
+                    ?>
+                    <li><a href="<?php echo $baseUrl . $brandsMainUrl ?>"><?=__($block->getButtonText()) ?></a></li>
+                    <?php
+                }
+            }
+            ?>
+        </ul>
+    </div>
+<?php } ?>

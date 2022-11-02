@@ -1,0 +1,77 @@
+<?php
+/**
+ * Plumrocket Inc.
+ *
+ * NOTICE OF LICENSE
+ *
+ * This source file is subject to the End-user License Agreement
+ * that is available through the world-wide-web at this URL:
+ * http://wiki.plumrocket.net/wiki/EULA
+ * If you are unable to obtain it through the world-wide-web, please
+ * send an email to support@plumrocket.com so we can send you a copy immediately.
+ *
+ * @package     Plumrocket_Amp
+ * @copyright   Copyright (c) 2017 Plumrocket Inc. (http://www.plumrocket.com)
+ * @license     http://wiki.plumrocket.net/wiki/EULA  End-user License Agreement
+ */
+?>
+<?php
+    $_items = $block->getReviewsCollection()->getItems();
+    $format = $block->getDateFormat() ?: \IntlDateFormatter::SHORT;
+?>
+<?php if (count($_items)):?>
+<div class="block review-list" id="customer-reviews">
+    <div class="block-content">
+        <div class="toolbar review-toolbar">
+            <?php //echo $block->getChildHtml('toolbar') ?>
+        </div>
+        <ol class="items review-items">
+        <?php foreach ($_items as $_review):?>
+            <li class="item review-item">
+                <div class="review-title" itemprop="name"><?php echo $block->escapeHtml($_review->getTitle()) ?></div>
+                <?php if (count($_review->getRatingVotes())): ?>
+                    <div class="review-ratings">
+                    <?php foreach ($_review->getRatingVotes() as $_vote): ?>
+                    <div class="rating-summary item">
+                        <span class="label rating-label"><span><?php echo $block->escapeHtml($_vote->getRatingCode()) ?></span></span>
+                        <div class="prod-rate-hld">
+                			<div>
+                				<?php
+                                $rating = $_vote->getPercent();
+                                $i = 0;
+                                while ($i < 100) :
+                					$starClass = 'emptystar';
+                					if ($i < $rating) {
+                						$starClass = ($rating - $i < 12) ? 'halfstar' : 'fullstar';
+                					}
+                					$i = $i + 20; ?>
+                					<div class="icon f-<?php echo $starClass ?>"></div>
+                				<?php endwhile; ?>
+                			</div>
+                		</div>
+                     </div>
+                    <?php endforeach; ?>
+                    </div>
+                <?php endif; ?>
+                <div class="review-content" itemprop="description">
+                    <?php echo nl2br($block->escapeHtml($_review->getDetail())) ?>
+                </div>
+                <div class="review-details">
+                    <p class="review-author">
+                        <span class="review-details-label"><?php /* @escapeNotVerified */ echo __('Review by')?></span>
+                        <strong class="review-details-value" itemprop="author"><?php echo $block->escapeHtml($_review->getNickname()) ?></strong>
+                    </p>
+                    <p class="review-date">
+                        <span class="review-details-label"><?php /* @escapeNotVerified */ echo __('Posted on') ?></span>
+                        <time class="review-details-value" itemprop="datePublished" datetime="<?php /* @escapeNotVerified */ echo $block->formatDate($_review->getCreatedAt(), $format) ?>"><?php /* @escapeNotVerified */ echo $block->formatDate($_review->getCreatedAt(), $format) ?></time>
+                    </p>
+                </div>
+            </li>
+        <?php endforeach; ?>
+        </ol>
+        <div class="toolbar review-toolbar">
+            <?php //echo $block->getChildHtml('toolbar') ?>
+        </div>
+    </div>
+</div>
+<?php endif;?>

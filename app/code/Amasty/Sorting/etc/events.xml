@@ -1,0 +1,20 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * @author Amasty Team
+ * @copyright Copyright (c) 2020 Amasty (https://www.amasty.com)
+ * @package Amasty_Sorting
+ */
+-->
+
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:Event/etc/events.xsd">
+    <!-- <event name="sales_order_place_after">
+        <observer name="bestsellers_index_invalidate" instance="Amasty\Sorting\Observer\BestsellerIndexInvalidator" />
+    </event>
+    <event name="order_cancel_after">
+        <observer name="bestsellers_index_invalidate" instance="Amasty\Sorting\Observer\BestsellerIndexInvalidator" />
+    </event>
+    <event name="sales_order_state_change_before">
+        <observer name="bestsellers_index_invalidate" instance="Amasty\Sorting\Observer\BestsellerIndexInvalidator" />
+    </event> -->
+</config>

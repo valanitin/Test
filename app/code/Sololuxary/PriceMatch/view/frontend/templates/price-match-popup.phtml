@@ -1,0 +1,170 @@
+<?php
+/** @var $viewModelPriceMatch LuxuryUnlimited\PriceMatch\ViewModel\PriceMatch*/
+$viewModelPriceMatch = $block->getData('price_match_view_model');
+
+$dynamicHelper = $this->helper('\Dynamic\Customization\Helper\Data');
+$storeManager  = $dynamicHelper->getStoreManager();
+$storeCode = $storeManager->getStore()->getCode();
+$storeId = $storeManager->getStore()->getId();
+$siteUrl = $dynamicHelper->getScopeConfig()->getValue("web/secure/base_url");
+
+$customerHelper = $this->helper('\Sololuxary\PriceMatch\Helper\Data');
+$fname= '';
+$lname= '';
+$email= '';
+$telephone = '';
+if($customerHelper->isLoggedIn()) {
+    $customer = $customerHelper->getCustomerById($customerHelper->getCustomerId());
+    $fname = $customer->getFirstname();
+    $lname = $customer->getLastname();
+    $email = $customer->getEmail();
+    if ($customerHelper->getTelephone($customer->getAddresses())) {
+        $telephone = $customerHelper->getTelephone($customer->getAddresses());
+    }
+}
+
+// product image URL
+$product = $block->getProduct();
+$imageUrl = $this->helper('Magento\Catalog\Helper\Image')
+    ->init($product, 'product_base_image')
+    ->getUrl();
+
+// get product name
+$productname = $block->getProduct()->getName();
+
+// get brand name
+$_product = $block->getProduct();
+$brand = $_product->getResource()->getAttribute('brands')->getFrontend()->getValue($_product);
+
+?>
+<!-- Price Match Popup -->
+<div class="clsspecialreqpop">
+    <div id="priceMatchModal" class="modal">
+        <div class="modal-content">
+            <span class="close">&times;</span>
+            <h3 class="clsspecialpopupheading"><?php echo __('Price match ticket') ?></h3>
+            <form class="form contact cls_popupspecialrequest_form"
+                  action="<?php echo $this->getUrl('pricematch/index/index'); ?>"
+                  id="price-match-form-ticket"
+                  method="post"
+                  data-hasrequired="<?php /* @escapeNotVerified */ echo __('* Required Fields') ?>"
+                  data-mage-init='{"validation":{}}'>
+                <div class="field name required cls_comm_input">
+                    <div class="control">
+                        <input id="priceMatchName" class="input-text" title="Name" name="name" required="" type="text" value="<?php echo $fname; ?>" placeholder="<?php echo __('Enter Your Name') ?>">
+                    </div>
+                </div>
+                <div class="field name required cls_comm_input">
+                    <div class="control"><input id="priceMatchLastName" class="input-text" title="Last Name" required="" name="last_name" type="text" value="<?php echo $lname; ?>" placeholder="<?php echo __('Enter Your Last Name')?>"></div>
+                </div>
+                <div class="field name required cls_comm_input">
+                    <div class="control"><input id="priceMatchEmail" class="input-text" required="" title="Email" name="email" type="email" <?php if($email != ""){?> readonly="readonly" <?php } ?> value="<?php echo $email; ?>" placeholder="<?php echo __('Enter email')?>"></div>
+                </div>
+                <div class="field name required cls_comm_input">
+                    <div class="control"><input id="priceMatchPhone" class="input-text" title="Phone" required="" name="phone" type="text" value="<?php echo $telephone; ?>" placeholder="<?php echo __('Enter Phone Number')?>"></div>
+                </div>
+                <div class="field name required cls_comm_input">
+                    <div class="control"><input id="priceMatchBrand" class="input-text" title="Brand" required="" name="brand" type="text" value="<?php echo $brand; ?>" placeholder="<?php echo __('Enter Brand Name')?>"></div>
+                </div>
+                <div class="field name required cls_comm_input">
+                    <div class="control"><input id="priceMatchStyle" class="input-text" title="Style" required="" name="style" type="text" value="<?php echo $productname ?>" placeholder="<?php echo __('Enter Style')?>"></div>
+                </div>
+                <div class="field name required cls_comm_input">
+                    <div class="control"><input id="priceMatchKeyword" class="input-text" title="Keyword" required="" name="keyword" type="text" value="" placeholder="<?php echo __('Enter Keyword')?>"></div>
+                </div>
+                <div class="field name required cls_comm_input">
+                    <div class="control"><input id="priceMatchImage" class="input-text" title="Image" required="" name="image" type="text" value="<?php echo $imageUrl;?>" placeholder="<?php echo __('URL of Image')?>"></div>
+                </div>
+
+                <div class="field name required cls_comm_input">
+                    <div class="control"><input id="priceMatchChipperWebsite" class="input-text" title="Website is chipper" required="" name="cheaper_website" type="text" value="" placeholder="<?php echo __('URL Website where this item is cheaper')?>"></div>
+                </div>
+                <div class="field name required cls_comm_input">
+                    <div class="control"><input id="priceMatchChipperLink" class="input-text" title="Cheaper product link" required="" name="cheaper_link" type="text" value="" placeholder="<?php echo __('LInk to the cheaper Product')?>"></div>
+                </div>
+                <div class="field name required cls_comm_input">
+                    <div class="control"><input id="priceMatchProductPrice" class="input-text" title="Price incl Tax" required="" name="cheaper_price_with_tax" type="text" value="" placeholder="<?php echo __('Price Including duties and taxes')?>"></div>
+                </div>
+                <div class="field country required cls_comm_input">
+                    <label class="control" for="priceMatchShippedCountry">
+                        <span><?php /* @escapeNotVerified */ echo __('Country where you want it shipped') ?></span>
+                    </label>
+                    <div class="control" id="priceMatchShippedCountry" >
+                        <?php echo $viewModelPriceMatch->getCountries()?>
+                    </div>
+                </div>
+                <div class="field name required cls_comm_input">
+                    <div class="control"><input id="priceMatchIsAvaliable" class="input-text" title="Is the product currently available?" required="" name="cheaper_avaliable" type="text" value="" placeholder="<?php echo __('Is the product currently available on the website?')?>"></div>
+                </div>
+                <div class="field remarks required cls_comm_input">
+                    <div class="control"><textarea id="priceMatchRemarks" class="input-text" title="Remarks" required="" name="remarks" type="text" value="" placeholder="<?php echo __('Enter Remarks')?>"></textarea></div>
+                </div>
+                <div class="field name required spBtn">
+                    <div class="control">
+                        <input type="hidden" name="lang_code" id="priceMatchLangCode" value="<?php echo $storeCode; ?>" />
+                        <input type="hidden" name="is_it_bought" id="priceMatchIsItBought" value="" />
+                        <input type="hidden" name="hdn_subject" id="priceMatchHdnSubject" value="" />
+                        <input type="hidden" name="hdn_message" id="priceMatchHdnMessage" value="" />
+                        <div class="mm-action">
+                            <button id="price-match-btn_submit" class="btn btn-custom" name="btn_ticket" type="submit"><?php echo __('Submit') ?></button>
+                        </div>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+<style type="text/css">
+    .cls_popupspecialrequest_form .spBtn .mm-action #price-match-btn_submit {
+        padding: 0 35px;
+    }
+</style>
+
+<script type="text/javascript">
+    require([
+        'jquery',
+    ], function ($)
+    {
+        $(document).ready(function(){
+            var modalPriceMatch = document.getElementById("priceMatchModal");
+            var spanPriceMatch = $(modalPriceMatch).find('.close');
+            var btn = document.getElementById("price-match-create-ticket-bth");
+            var btnAlreadyBuy = document.getElementById("price-match-already-made-create-ticket-bth");
+
+            if(spanPriceMatch) {
+                spanPriceMatch.on("click", (e) => {
+                    modalPriceMatch.style.display = "none";
+                });
+            }
+
+            if(btn){
+                btn.onclick = function() {
+                    var is_it_bought = $(this).attr('data-buy');
+                    $(modalPriceMatch).find('#priceMatchIsItBought').val(is_it_bought);
+                    modalPriceMatch.style.display = "block";
+                }
+            }
+
+            if(btnAlreadyBuy){
+                btnAlreadyBuy.onclick = function() {
+                    var is_it_bought = $(this).attr('data-buy');
+                    $(modalPriceMatch).find('#priceMatchIsItBought').val(is_it_bought);
+                    modalPriceMatch.style.display = "block";
+                }
+            }
+
+            if(modalPriceMatch) {
+                modalPriceMatch.addEventListener("click", (e) => {
+                    if (e.target === modalPriceMatch) {
+                        modalPriceMatch.style.display = "none";
+                    }
+                });
+            }
+            window.onclick = function(event) {
+                if (event.target === modalPriceMatch) {
+                    modalPriceMatch.style.display = "none";
+                }
+            }
+        });
+    });
+</script>

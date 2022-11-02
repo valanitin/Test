@@ -1,0 +1,6 @@
+<?xml version="1.0"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:Module/etc/module.xsd">
+	<module name="Ethnic_Customfooter" setup_version="1.0.7">
+		<module name="Magento_Backend"/>
+	</module>
+</config>

@@ -1,0 +1,29 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Magentizer
+ *
+ * NOTICE OF LICENSE
+ *
+ * This source file is subject to the Magentizer.com license that is
+ * available through the world-wide-web at this URL:
+ * https://www.Magentizer.com/LICENSE.txt
+ *
+ * DISCLAIMER
+ *
+ * Do not edit or add to this file if you wish to upgrade this extension to newer
+ * version in the future.
+ *
+ * @category    Magentizer
+ * @package     Magentizer_GeoIP
+ * @copyright   Copyright (c) Magentizer (https://www.Magentizer.com/)
+ * @license     https://www.Magentizer.com/LICENSE.txt
+ */
+-->
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:App/etc/routes.xsd">
+    <router id="admin">
+        <route id="mpgeoip" frontName="mpgeoip">
+            <module name="Magentizer_GeoIP"/>
+        </route>
+    </router>
+</config>

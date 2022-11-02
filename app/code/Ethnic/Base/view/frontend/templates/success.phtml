@@ -1,0 +1,74 @@
+<div class="success-div">
+	<h2>Forget Your Password?</h2>
+	<p>
+
+	<?php 
+		$params = $this->getRequest()->getParams('email');
+		if(isset($params['email'])){
+		echo __(
+            'If there is an account associated with ( %1 ) we will send you an email with a instructions to reset your password. if you need any further assistance pls',
+            base64_decode($params['email'])
+        );
+		}
+	 ?>
+	</p>
+	<a href=" <?php echo $block->getBaseUrl(); ?>">CONTINUTE SHOPPING</a>
+	<a href=" <?php echo $block->getUrl('customer/account/login'); ?>">BASE TO SIGN IN SCREEN</a>
+
+</div>
+<style>
+.page.messages{
+	display: none;
+}
+.page-wrapper .success-div{
+	text-align: center;
+	margin-top: 130px;
+	text-decoration: none;
+
+}
+.page-wrapper .success-div h2{
+	font-size: 18px;
+	text-decoration: underline;
+}
+.page-wrapper .success-div p{
+	font-size: 15px;
+    margin-left: auto;
+    width: 50%;
+    margin-right: auto;
+    line-height: 30px;
+    font-weight: 500;
+    margin-bottom: 23px;
+}
+.page-wrapper .success-div a{		
+	font-size: 15px;
+	display: block;
+	margin: 15px 0 15px 0;
+	text-decoration: underline;
+	font-weight: 500;
+}
+.page-wrapper .success-div a:nth-child(2){
+	text-decoration: underline !important;
+	font-weight: 500 !important;
+	margin: 0;
+}
+@media (min-width: 320px) and (max-width: 767px){
+	.page-wrapper .success-div {
+    	text-align: center;
+    	margin-top: 130px;
+    	margin-bottom: 100px;
+	}
+	.page-wrapper .success-div p{
+    	line-height: 35px;
+     	width: 100% !important;
+     	text-decoration: none !important;
+	}
+
+	.page-wrapper .success-div h2 {
+    	font-size: 18px;
+    	text-decoration: underline;
+	}
+	.page-wrapper .success-div {
+    	text-decoration: none;
+	}
+}
+</style>

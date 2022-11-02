@@ -1,0 +1,420 @@
+<?php
+$dynamicHelper = $this->helper('\Dynamic\Customization\Helper\Data');
+$storeManager = $dynamicHelper->getStoreManager();
+$customerSessionManager = $dynamicHelper->getHttpManager();
+$baseUrl = $dynamicHelper->getBaseUrl();
+$loginUrl = $block->getBaseUrl() . 'customer/account/loginPost/';
+?>
+
+<h1 class="hed"><?php echo __('Track Your Requests'); ?></h1>
+
+<div class="login-container">
+    <?php if (!$customerSessionManager->getValue(\Magento\Customer\Model\Context::CONTEXT_AUTH)) : ?>
+    <div class="block block-customer-login">
+        <div class="block-title">
+            <strong id="block-customer-login-heading" role="heading"
+                    aria-level="2"><?= $block->escapeHtml(__('Registered Customers')) ?></strong>
+        </div>
+        <div class="block-content" aria-labelledby="block-customer-login-heading">
+            <form class="form form-login"
+                  action="<?= $block->escapeUrl($loginUrl) ?>"
+                  method="post"
+                  id="login-form"
+                  data-mage-init='{"validation":{}}'>
+                <?= $block->getBlockHtml('formkey') ?>
+                <fieldset class="fieldset login" data-hasrequired="<?= $block->escapeHtml(__('* Required Fields')) ?>">
+                    <div class="field note"><?= $block->escapeHtml(__('If you have an account, sign in with your email address.')) ?></div>
+                    <div class="field email required">
+                        <div class="control">
+                            <input placeholder="<?= $block->escapeHtml(__('Email')) ?>" name="login[username]"
+                                   value="<?= $block->escapeHtmlAttr($block->getUsername()) ?>" id="email"
+                                   autocomplete="off" type="email" class="input-text"
+                                   title="<?= $block->escapeHtmlAttr(__('Email')) ?>"
+                                   data-mage-init='{"mage/trim-input":{}}'
+                                   data-validate="{required:true, 'validate-email':true}">
+                            <div class="clslogin cls_user"></div>
+                        </div>
+                    </div>
+                    <div class="field password required">
+                        <div class="control cls_password">
+                            <input placeholder="<?= $block->escapeHtml(__('Password')) ?>" name="login[password]"
+                                   type="password" autocomplete="off" class="input-text" id="pass"
+                                   title="<?= $block->escapeHtmlAttr(__('Password')) ?>"
+                                   data-validate="{required:true}">
+                            <div class="clslogin cls_eye"></div>
+                        </div>
+                    </div>
+                    <?= $block->getChildHtml('form_additional_info') ?>
+                    <div class="actions-toolbar">
+                        <div class="primary">
+                            <button type="submit" class="action login primary" name="send" id="send2">
+                                <span><?= $block->escapeHtml(__('Sign In')) ?></span></button>
+                        </div>
+                        <div class="secondary cls_forget"><a class="action remind"
+                                                             href="<?= $block->escapeUrl($block->getForgotPasswordUrl()) ?>"><span><?= $block->escapeHtml(__('Forgot Your Password?')) ?></span></a>
+                        </div>
+
+                    </div>
+                </fieldset>
+            </form>
+        </div>
+    </div>
+    <?php endif; ?>
+    <div class="check-order-container block block-new-customer">
+        <div class="row">
+            <div class="col-md-12 guestreturncontainer">
+                <div class="contentBlock">
+                    <div class="block-title">
+                        <strong id="block-customer-login-heading" role="heading"
+                                aria-level="2"><?php echo __('Guest Users') ?></strong>
+                    </div>
+                    <div class="notte"><?php echo __('Please enter your email to track your request.') ?></div>
+                </div>
+                <div class="formBlock">
+                    <form action="<?php echo $baseUrl . 'trackbyemail' ?>" method="POST">
+                        <div class="form-control">
+                            <input type="text" class="" name="email" placeholder="<?php echo __('Email *') ?>"
+                                   required>
+                        </div>
+                        <div class="actions-toolbar">
+                            <div class="primary" style="margin-left: 0px">
+                                <button type="submit" class="action login primary" name="checkticket">
+                                    <span><?php echo __('Let\'s Go') ?></span></button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+            <div class="col-md-12 order-result-container">
+            </div>
+        </div>
+    </div>
+</div>
+
+<style>
+    .breadcrumbs {
+        display: none
+    }
+
+    ;
+    .cms-track-your-ticket-by-email .block-customer-login {
+        width: 45%;
+    }
+
+    .cms-track-your-ticket-by-email .block-new-customer {
+        width: 45%;
+    }
+
+    .cms-track-your-ticket-by-email .account-social-login {
+        display: none;
+    }
+
+    .cms-track-your-ticket-by-email .account-social-login .block-content {
+        padding-top: 50px;
+    }
+
+    .cms-track-your-ticket-by-email .block-customer-login {
+        margin-bottom: 0px;
+        /* border-right: 1px solid #dfc7bb; */
+    }
+
+    .login-container .block .block-title strong {
+        display: block !important;
+    }
+
+    .cms-track-your-ticket-by-email .block-customer-login .account-social-login {
+        display: block;
+        width: 100%;
+        position: relative;
+        margin: 50px 0;
+    }
+
+    .cms-track-your-ticket-by-email .block-customer-login .account-social-login:before {
+        content: '';
+        position: absolute;
+        height: 1px;
+        background-color: #dfdfdf;
+        z-index: 3;
+        top: 0;
+        left: 25px;
+        right: 25px;
+        left: 0;
+        right: 0;
+    }
+
+    .cms-track-your-ticket-by-email .block-customer-login .account-social-login:after {
+        content: 'or';
+        position: absolute;
+        width: 45px;
+        height: 45px;
+        z-index: 4;
+        text-align: center;
+        border: #dfdfdf solid 1px;
+        border-radius: 100%;
+        line-height: 43px;
+        color: #777;
+        left: 0;
+        top: -22px;
+        right: 0;
+        margin: 0 auto;
+        background-color: #fff;
+    }
+
+    .cms-track-your-ticket-by-email .block-customer-login .form-login {
+        position: relative;
+        width: 100%;
+    }
+
+    .cms-track-your-ticket-by-email .block-customer-login .fieldset.login {
+        margin-bottom: 0px;
+    }
+
+    .cms-track-your-ticket-by-email .page-main {
+        max-width: 1300px;
+        padding-left: 0px !important;
+        padding-right: 0px !important;
+        margin-top: 20px !important;
+    }
+
+    .login-container {
+        margin: 0 auto;
+        width: 80%;
+    }
+
+    .cms-track-your-ticket-by-email .page-main .columns .column.main .login-container {
+        box-shadow: none;
+        padding: 0px 0 0 0;
+        border: none;
+        border-top: none;
+        box-shadow: none !important;
+    }
+
+    .cms-track-your-ticket-by-email .page-main .columns .column.main .login-container .block-customer-login .block-content .form-login .fieldset > .field {
+        margin: 0;
+        font-family: 'Open Sans', 'Helvetica Neue', Helvetica, Arial, sans-serif;
+        font-size: 15px;
+        text-transform: none;
+        font-family: "Open Sans", "Helvetica Neue", Helvetica, Arial, sans-serif;
+        font-size: 14px;
+    }
+
+    .cms-track-your-ticket-by-email .page-main .columns .column.main .login-container .block-customer-login .block-content .form-login .fieldset > .field.note {
+        margin-bottom: 15px !important;
+        text-align: center;
+        padding-bottom: 15px;
+		font-size: 15px;
+    }
+
+    .cms-track-your-ticket-by-email .block .block-title {
+        margin-top: -5px;
+    }
+
+    .cms-track-your-ticket-by-email .login-container .fieldset > .field > .control {
+        width: 100% !important;
+    }
+
+    .cms-track-your-ticket-by-email .login-container .block-new-customer .actions-toolbar {
+        margin-top: 90px;
+    }
+
+    .cms-track-your-ticket-by-email .cls_forget {
+        display: block;
+        margin-bottom: 20px;
+    }
+
+    .cms-track-your-ticket-by-email .cls_forget a {
+        margin-top: 0px !important;
+    }
+
+    .cms-track-your-ticket-by-email #add_button_login_byclass {
+        position: absolute;
+        right: 112px;
+        bottom: 0px;
+    }
+
+    .cms-track-your-ticket-by-email .fieldset.login .actions-toolbar > .primary {
+        margin-left: 112px;
+        margin-left: 0;
+    }
+
+    .cms-track-your-ticket-by-email .fieldset.login .actions-toolbar > .primary button {
+        text-transform: capitalize;
+        letter-spacing: normal;
+    }
+
+    .cms-track-your-ticket-by-email .fieldset.login .actions-toolbar > .primary #send2 {
+        background: #713213 !important;
+        color: #fff;
+        min-width: inherit;
+        margin-bottom: 20px;
+        margin-top: 20px;
+        padding: 0 35px;
+        border-radius: 20px;
+    }
+
+    .cms-track-your-ticket-by-email .sociallogin-block.sociallogin-login {
+        margin: 0;
+    }
+
+    .cms-track-your-ticket-by-email .sociallogin-block .sociallogin-buttons ul li {
+        margin: 0;
+    }
+
+    .cms-track-your-ticket-by-email .sociallogin-block .sociallogin-buttons ul li a {
+        float: left;
+    }
+
+    .cms-track-your-ticket-by-email .block-new-customer {
+        position: relative;
+    }
+
+    .cms-track-your-ticket-by-email .block-new-customer .actions-toolbar > .primary {
+        margin-left: 125px;
+    }
+
+    .cms-track-your-ticket-by-email #add_button_register_byclass {
+        position: absolute;
+        right: 125px;
+        bottom: 0px;
+    }
+
+    .cms-track-your-ticket-by-email .cls_eye {
+        top: 15px;
+    }
+
+    .form.create.account {
+        padding: 30px;
+        background-color: #fdfaf8;
+        box-shadow: none;
+        -moz-box-shadow: none;
+        -webkit-box-shadow: none;
+        border: none;
+    }
+
+    .form.create.account .account-social-login .actions-toolbar {
+        padding: 0;
+    }
+
+    .notte {
+        margin-bottom: 15px !important;
+        text-align: center;
+        padding-bottom: 15px;
+		font-size: 15px;
+    }
+
+    .login-container .block-new-customer .actions-toolbar .primary {
+        border-radius: 20px;
+        padding: 0 30px;
+    }
+
+    body.cms-track-your-ticket-by-email {
+        background-color: #fbece5 !important;
+    }
+
+    .formBlock .actions-toolbar {
+        margin-top: 30px;
+    }
+
+    .formBlock .form-control {
+        padding: 0;
+        color: #000;
+        background: transparent;
+        border-color: #cfb0a2;
+    }
+
+    .formBlock .form-control input {
+        background: transparent;
+        outline: none;
+        box-shadow: none;
+        line-height: 46px;
+        border: none;
+    }
+
+    .formBlock input::placeholder {
+        color: #000;
+    }
+
+    .formBlock input:-ms-input-placeholder { /* Internet Explorer 10-11 */
+        color: red;
+    }
+
+    .formBlock input::-ms-input-placeholder { /* Microsoft Edge */
+        color: red;
+    }
+
+    @media (max-width: 767px) {
+        .panel.header .links {
+            display: none !important;
+        }
+
+        header.page-header.type14 .header.content {
+            background: #fbece5;
+        }
+
+        .login-container {
+            width: 100% !important;
+        }
+
+        .cms-track-your-ticket-by-email .block-customer-login {
+            width: 100%;
+        }
+
+        .cms-track-your-ticket-by-email .block-new-customer {
+            width: 100%;
+        }
+
+        .cms-track-your-ticket-by-email .block-customer-login .form-login {
+            padding-right: 0;
+        }
+
+        .cms-track-your-ticket-by-email .block-new-customer {
+            margin-top: 50px;
+        }
+    }
+
+    .guestreturncontainer {
+        border: none !important;
+    }
+	.cms-track-your-ticket-by-email .login-container .block-customer-login .block-title {
+		padding-right: 0;
+	}
+	.cms-track-your-ticket-by-email .login-container .fieldset > .field > .control {
+		width: 100%;
+	}
+	.cms-track-your-ticket-by-email .block-customer-login form .fieldset > .field {
+		text-align: center;
+	}
+	.cms-track-your-ticket-by-email #login-form .primary button {
+		border-radius: 20px;
+	}
+    .hed {
+        font-family: & quot;
+        Open Sans & quot;, & quot;
+        Helvetica Neue & quot;, Helvetica, Arial, sans-serif;
+        font-size: 24px;
+        color: #713213;
+        font-weight: 400;
+        text-align: center;
+    }
+
+    /* Arabic */
+    .pl-thm-smartwave-porto_rtl.cms-track-your-ticket-by-email .login-container {
+        display: flex;
+    }
+
+    .pl-thm-smartwave-porto_rtl.cms-track-your-ticket-by-email .block-customer-login {
+        width: 50%;
+        padding-left: 20px;
+    }
+
+    .pl-thm-smartwave-porto_rtl.cms-track-your-ticket-by-email .block-new-customer {
+        width: 50%;
+        padding-right: 20px;
+    }
+
+    .pl-thm-smartwave-porto_rtl.cms-track-your-ticket-by-email .guestreturncontainer {
+        padding: 0 40px;
+    }
+
+    
+</style>

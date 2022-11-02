@@ -1,0 +1,30 @@
+<div class="success-div">
+	<h2>Forgot Your Password?</h2>
+	<p>
+
+	<?php 
+		$params = $this->getRequest()->getParams('email');
+        if(isset($params['email'])){
+           if(isset($params['status'])){
+             echo __(
+            'There is no account associated with<br> <u>%1</u> <br>If you need any further assistance please contact us at<br> <a href="mailto:care@sololuxury.com">care@sololuxury.com</a>',
+            base64_decode($params['email'])
+           );
+	      } 
+
+	      else{
+	       echo __(
+            'We have sent you a Email Link which is valid for 2 hours to reset your password. <br>If you did not make this request you can ignore this email. <br>Please check your spam folder if you do not receive the email.<br> For any further queries please email at <br> care@sololuxury.com</a>',
+            base64_decode($params['email'])
+          );
+	    }
+	}
+
+		
+	 ?>
+	</p>
+	<div class="d-flex justify-content-around"><a class="btn" href=" <?php echo $block->getBaseUrl(); ?>">Continue Shopping</a>
+	<a class="btn" href=" <?php echo $block->getUrl('customer/account/login'); ?>">Back To Sign In Screen</a>
+	</div>
+
+</div>

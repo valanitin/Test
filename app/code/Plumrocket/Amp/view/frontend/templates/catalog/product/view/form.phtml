@@ -1,0 +1,69 @@
+<?php
+/**
+ * Plumrocket Inc.
+ *
+ * NOTICE OF LICENSE
+ *
+ * This source file is subject to the End-user License Agreement
+ * that is available through the world-wide-web at this URL:
+ * http://wiki.plumrocket.net/wiki/EULA
+ * If you are unable to obtain it through the world-wide-web, please
+ * send an email to support@plumrocket.com so we can send you a copy immediately.
+ *
+ * @package     Plumrocket_Amp
+ * @copyright   Copyright (c) 2016 Plumrocket Inc. (http://www.plumrocket.com)
+ * @license     http://wiki.plumrocket.net/wiki/EULA  End-user License Agreement
+ */
+?>
+<?php
+/**
+ * Product view template
+ *
+ * @var $block \Magento\Catalog\Block\Product\View
+ */
+?>
+<?php
+    /**
+     * Prepare data
+     */
+    $_helperAmp = $this->helper('Plumrocket\Amp\Helper\Data');
+    $_product = $block->getProduct();
+    $_iframeSrc = $_helperAmp->getIframeSrc($_product);
+    $chooseOption = ['noforce' => 1];
+
+    if (\Magento\Bundle\Model\Product\Type::TYPE_CODE === $_product->getTypeId()) {
+        $chooseOption['startcustomization'] = 1;
+    }
+?>
+<div class="amp-product-addtocart">
+    <?php if ($_product->isSaleable()) : ?>
+        <?php if (! $block->hasOptions() && $_product->isInStock()) : ?>
+            <?php if (\Magento\GroupedProduct\Model\Product\Type\Grouped::TYPE_CODE === $_product->getTypeId()) : ?>
+                <a href="<?php echo $_helperAmp->getCanonicalUrl($_product->getProductUrl(), $chooseOption) ?>"><?php echo __('Choose options') ?></a>
+            <?php else : ?>
+                <?php echo $block->getChildHtml('amp_product_info_form_content') ?>
+            <?php endif; ?>
+        <?php elseif ($block->hasOptions() && $_product->isInStock() && ($block->getOptionsContainer() == 'container1' || $block->getOptionsContainer() == 'container2')) : ?>
+            <?php if ($_iframeSrc) : ?>
+                <div class="iframe-container">
+                    <amp-iframe id="choose-options" width=<?php echo $block->getIframeWidth() ?> height=<?php echo $block->getIframeHeight() ?>
+                        sandbox="allow-scripts allow-forms allow-top-navigation allow-same-origin allow-popups allow-modals allow-popups-to-escape-sandbox"
+                        layout="responsive"
+                        frameborder="0"
+                        src="<?php echo $_iframeSrc ?>">
+                        <div class="amp-iframe-placeholder" placeholder>
+                            <span><?php echo __('Loading Product Options') ?></span>
+                        </div>
+                    </amp-iframe>
+                </div>
+            <?php else : ?>
+                <a href="<?php echo $_helperAmp->getCanonicalUrl($_product->getProductUrl(), $chooseOption) ?>"><?php echo __('Choose options') ?></a>
+            <?php endif; ?>
+        <?php else : ?>
+            <div class="stock unavailable"><span><?php /* @escapeNotVerified */ echo __('Out of stock') ?></span></div>
+        <?php endif; ?>
+
+    <?php else : ?>
+        <div class="stock unavailable"><span><?php /* @escapeNotVerified */ echo __('Out of stock') ?></span></div>
+    <?php endif; ?>
+</div>

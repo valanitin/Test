@@ -1,0 +1,32 @@
+<?php
+/**
+ * @var Custom\RedirectContactus\Block\View $block
+ */
+$dynamicHelper = $this->helper('\Custom\RedirectContactus\Helper\Data');
+$storeManager = $dynamicHelper->getStoreManager();
+$baseUrl = $dynamicHelper->getBaseUrl();
+$customerSession = $dynamicHelper->getCustomerSessionManager();
+?>
+<div class="cls_contactus_main">
+    <center>
+    <p class="contact-form__description"><?php echo __("We'll Get In Touch Soon.") ?></p>
+    <?php echo $block->getAction(); ?>
+   <?php /* <a href="<?php echo $baseUrl.'faqs'?>" title="Faqs" role="button">
+    <button type="submit" name="btncontactus" title="<?php /* @escapeNotVerified */ //echo __('One to Go to Faqs') " class="action submit primary">
+        //<span><?php /* @escapeNotVerified */ //echo __('One to Go to Faqs') </span>
+    //</button></a> ?>
+    <a href="<?php echo $baseUrl?>" title="home" role="button">
+    <button type="submit" name="btncontactus" title="<?php /* @escapeNotVerified */ echo __('Continue Shopping ') ?>" class="action submit primary">
+        <span><?php /* @escapeNotVerified */ echo __('Continue Shopping ') ?></span>
+    </button></a>
+    <?php if ($customerSession->isLoggedIn() == true) {?>
+    <a href="<?php echo $baseUrl.'tickets/customer/index/'?>" title="Tickets" role="button">
+    <button type="submit" name="btncontactus" title="<?php /* @escapeNotVerified */ echo __('My Tickets') ?>" class="action submit primary">
+        <span><?php /* @escapeNotVerified */ echo __('My Tickets') ?></span>
+    </button></a> <?php } else { ?>
+        <a href="<?php echo $baseUrl.'customer/account/login/'?>" title="Login" role="button">
+    <button type="submit" name="btncontactus" title="<?php /* @escapeNotVerified */ echo __('Login') ?>" class="action submit primary">
+        <span><?php /* @escapeNotVerified */ echo __('Login') ?></span>
+    </button></a> <?php }?>
+    </center>
+</div>

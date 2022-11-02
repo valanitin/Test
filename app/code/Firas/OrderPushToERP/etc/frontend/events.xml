@@ -1,0 +1,10 @@
+<?xml version="1.0"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:Event/etc/events.xsd">
+<event name="checkout_onepage_controller_success_action">
+ <observer name="FirasOrderPushToERP" instance="Firas\OrderPushToERP\Observer\OrderPush" disabled="true" />
+</event>
+<event name="sales_order_save_commit_after">
+ <observer name="FirasOrderPushToERPNew" instance="Firas\OrderPushToERP\Observer\OrderPushCustom" disabled="true" />
+</event>
+
+</config>

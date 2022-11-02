@@ -1,0 +1,16 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * @package     Plumrocket_SocialLoginFree
+ * @copyright   Copyright (c) 2015 Plumrocket Inc. (https://plumrocket.com)
+ * @license     https://plumrocket.com/license   End-user License Agreement
+ */
+-->
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Backend:etc/menu.xsd">
+    <menu>
+        <add id="Plumrocket_SocialLoginFree::base" title="Twitter &amp; Facebook Login" module="Plumrocket_SocialLoginFree" parent="Plumrocket_Base::elements" sortOrder="12168231" resource="Plumrocket_SocialLoginFree::base" />
+
+        <!-- <add id="Plumrocket_SocialLoginFree::config" title="Configuration" module="Plumrocket_SocialLoginFree" parent="Plumrocket_SocialLoginFree::base" sortOrder="20" action="pslogin/system/config" resource="Plumrocket_SocialLoginFree::config" /> -->
+        <add id="Plumrocket_SocialLoginFree::config" title="Configuration" module="Plumrocket_SocialLoginFree" parent="Plumrocket_SocialLoginFree::base" sortOrder="20" action="adminhtml/system_config/edit/section/psloginfree" resource="Plumrocket_SocialLoginFree::config" />
+    </menu>
+</config>

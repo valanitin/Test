@@ -1,0 +1,151 @@
+<?php 
+
+$element = $block->getElement();
+$counter = 1;
+?>
+
+<table class="cmspage-data-table" id="cmspage-data-table" class="data table">
+    <thead>
+        <tr>
+            <th class="col base" scope="col"><span><?php echo __('Title'); ?></span></th>
+            <th class="col base" scope="col"><span><?php echo __('Sub-title'); ?></span></th>
+            <th class="col base" scope="col"><span><?php echo __('Description'); ?></span></th>
+            <th class="col more" scope="col"><span><?php echo __('Action'); ?></span></th>
+        </tr>
+    </thead>
+    <tbody>
+        <?php if(!empty($element->getCmsText())){ ?>
+            <?php $counter = 0; ?>
+            <?php foreach (json_decode($element->getCmsText(), true) as $cmsCounter => $data) { ?>
+                <tr class="home-row-item" id="row-item-<?php echo $cmsCounter+1;?>">
+                    <td class="col base" data-th="<?php echo __('Title'); ?>">
+                        <input class="home-title" type="text" name="cmspage[title][<?php echo $cmsCounter;?>]" value="<?php echo $data['title']; ?>"/>  
+                    </td>
+                    <td class="col base" data-th="<?php echo __('Sub-title'); ?>">
+                        <input class="home-sub-title" type="text" name="cmspage[sub_title][<?php echo $cmsCounter;?>]" value="<?php echo $data['sub_title']; ?>"/>  
+                    </td>
+                    <td class="col base" data-th="<?php echo __('Description'); ?>">
+                        <textarea class="home-description" type="text" rows="4" cols="50" name="cmspage[description][<?php echo $cmsCounter;?>]"><?php echo $data['description']; ?></textarea>
+                    </td>
+                    <td class="col">
+                        <button type="button" class="action primary remove-row-item" data-row-id="<?php echo $cmsCounter+1;?>"><?php echo __('Remove') ?></button>
+                    </td>
+                </tr>    
+                <?php $counter++; ?>
+            <?php } ?>
+        <?php } else { ?>
+            <tr class="home-row-item" id="row-item-1">
+                <td class="col" data-th="<?php echo __('Title'); ?>">
+                    <input class="home-title" type="text" name="cmspage[title][0]" />   
+                </td>
+                <td class="col" data-th="<?php echo __('Sub-title'); ?>">
+                    <input class="home-sub-title" type="text" name="cmspage[sub_title][0]" />   
+                </td>
+                <td class="col" data-th="<?php echo __('Description'); ?>">
+                    <textarea class="home-description" type="text" name="cmspage[description][0]" rows="4" cols="50"></textarea>  
+                </td>                
+                <td class="col">
+                    <span>-</span>
+                </td>
+            </tr>
+        <?php } ?>
+    </tbody>
+    <tfoot>
+        <tr>
+            <td colspan="4"><button type="button" id="add-home-data" class="action primary"><?php echo __('Add More'); ?></button></td>
+        </tr>
+    </tfoot>
+</table>  
+<style type="text/css">
+    .cmspage-data-table tr td:first-child{
+        text-align: center;
+    }
+    .cmspage-data-table tfoot tr td:last-child {
+    	text-align: left;
+    }
+    button#add-home-data {
+	    margin-left: 30px;
+	}
+    .cmspage-data-table tr td, .cmspage-data-table tr th {
+        border-right: 1px solid #ddd;
+        padding: 5px 10px;
+        border-bottom: 1px solid #ddd;
+        text-align: center;
+    }
+    .cmspage-data-table{
+        border: 1px solid #ddd;
+        width: 100%;
+    }
+    .cmspage-data-table tr:last-child td{
+        border-bottom: 0;
+    }
+    .cmspage-data-table tr td:last-child, .cmspage-data-table tr th:last-child {
+        border-right: 0;
+    }
+    .cmspage-data-table tfoot {
+        border-top: 1px solid #ddd;
+    }
+    .cmspage-data-table tbody td {
+        padding-top: 10px;
+        padding-bottom: 10px;
+    }
+    .cmspage-data-table tfoot td {
+        padding-top: 15px;
+        padding-bottom: 15px;
+    }
+</style>
+<script type="text/javascript">
+    require(['jquery'], function($){
+        window.counter = <?php echo $counter ?>;
+        var dataTitles = {'title': '<?php echo __('Title'); ?>','sub_title': '<?php echo __('Sub-title'); ?>', 'description': '<?php echo __('Description'); ?>', 'remove': '<?php echo __('Remove'); ?>'};
+        
+        function prepareStoreOptions(){
+            var optionList = '';
+            $.each(storeList, function( index, value ) {
+                optionList += '<option value="'+index+'">'+value+'</option>';
+            });
+            return optionList;
+        }
+
+        $(document).ready(function() {
+            
+            /* --- Add cmspage Data Options ---- */
+            $(document).on('click', '#add-home-data', function(event) {
+                event.preventDefault();
+                var html = '<tr class="home-row-item" id="row-item-'+(counter+1)+'"><td class="col" data-th="'+dataTitles['title']+'"><input type="text" class="home-title" name="cmspage[title]['+counter+']" /><td class="col" data-th="'+dataTitles['sub_title']+'"><input type="text" class="home-sub-title" name="cmspage[sub_title]['+counter+']" /></td><td class="col" data-th="'+dataTitles['description']+'"><textarea type="text" class="home-description" name="cmspage[description]['+counter+']" rows="4" cols="50"></textarea></td><td class="col"><button type="button" class="action primary remove-row-item" data-row-id="'+(counter+1)+'">'+dataTitles['remove']+'</button></td></tr>';
+
+                if($('#row-item-'+counter).length > 0) {
+                	$(html).insertAfter('#row-item-'+counter);
+                } else {
+                	$(html).insertAfter(".cmspage-data-table tbody");
+                }
+                
+                counter++;
+            });
+            /* --- Add cmspage Data Options ---- */
+
+            /* --- Remove cmspage Data Options ---- */
+            $(document).on('click', '.remove-row-item', function(event) {
+                event.preventDefault();
+                var rowId = $(this).attr('data-row-id');
+                var rowCounter = 0;
+                $('#row-item-'+rowId).remove();
+                $('.home-row-item').each(function(index, el) {
+                    if(!rowCounter){
+                        rowCounter++;
+                    } else {
+                        rowCounter++;
+                        $(el).attr('id', 'row-item-'+rowCounter);
+                        $(el).find('.home-title').attr('name', 'cmspage[title]['+(rowCounter-1)+']');
+                        $(el).find('.home-sub-title').attr('name', 'cmspage[sub_title]['+(rowCounter-1)+']');
+                        $(el).find('.home-description').attr('name', 'cmspage[description]['+(rowCounter-1)+']');
+                        $(el).find('.remove-row-item').attr('data-row-id', rowCounter);
+                    }
+                });
+                counter = rowCounter;
+            });
+            /* --- Remove cmspage Data Options ---- */
+        });
+    });
+</script>
+

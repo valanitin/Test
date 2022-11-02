@@ -1,0 +1,30 @@
+<?php
+/**
+ * @package     Plumrocket_SocialLoginFree
+ * @copyright   Copyright (c) 2020 Plumrocket Inc. (https://plumrocket.com)
+ * @license     https://plumrocket.com/license   End-user License Agreement
+ */
+?>
+
+<?php /** @var \Plumrocket\SocialLoginFree\Block\Adminhtml\System\Config\Form\Sortable $block */ ?>
+<?php $buttons = $block->getButtons(); ?>
+
+<tr id="psloginfree_general_sortable_drag_and_drop" <?= /* @noEscape */  (count($buttons) <= 1) ? 'style="display: none;"' : '' ?>>
+    <td class="label"><?= $block->escapeHtml($block->element->getLabel()) ?></td>
+    <td class="social-td value">
+        <div class="psloginfree-form">
+            <ul id="sortable-visible" data-list="visible" class="soc-networks">
+            <?php foreach ($buttons as $button): ?>
+                <li id="visible-<?= $block->escapeHtmlAttr($button['type']) ?>"
+                    class="ui-state-default <?= $block->escapeHtmlAttr($button['type']) ?>"
+                    data-enable="psloginfree_<?= $block->escapeHtmlAttr($button['type']) ?>_enable"
+                >
+                    <span class="soc-li-icon"></span>
+                    <span class="soc-li-text"><?= $block->escapeHtml(ucfirst($button['type'])) ?></span>
+                </li>
+            <?php endforeach; ?>
+            </ul>
+        </div>
+    </td>
+    <td class=""></td>
+</tr>

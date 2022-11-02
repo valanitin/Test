@@ -1,0 +1,182 @@
+<?xml version="1.0"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="../../../Config/etc/system_file.xsd">
+    <system>
+        <tab id="Zealousweb_extensions" translate="label" sortOrder="110">
+            <label>Zealousweb Extensions</label>
+        </tab>
+        <section id="appleconfig" translate="label" type="text" sortOrder="30" showInDefault="1" showInWebsite="1" showInStore="0">
+            <label>Apple Signin</label>
+            <tab>Zealousweb_extensions</tab>
+            <resource>Zealousweb_AppleLogin::config_applelogin</resource>
+            
+            <group id="apple" translate="label" type="text" sortOrder="210" showInDefault="1" showInWebsite="1" showInStore="0">
+                <label>General Setting</label>
+                <field id="enable" translate="label comment" type="select" sortOrder="1" showInDefault="1" showInWebsite="1" showInStore="0">
+                    <label>Enable</label>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                    <comment>                        
+                        <![CDATA[See how to configure app <a href="https://developer.apple.com/sign-in-with-apple/get-started/" target="_blank">here</a>.]]>
+                   </comment>
+                </field>              
+                <field id="clientid" translate="label comment" type="text" sortOrder="2" showInDefault="1" showInWebsite="1" showInStore="0">
+                    <label>Client Id</label>
+                </field>
+                <field id="keyid" translate="label comment" type="text" sortOrder="3" showInDefault="1" showInWebsite="1" showInStore="0">
+                    <label>Key Id</label>
+                </field>
+                <field id="issuerid" translate="label comment" type="text" sortOrder="4" showInDefault="1" showInWebsite="1" showInStore="0">
+                    <label>Issuer Id</label>
+                </field>
+                <field id="auth_key" translate="label" type="Magento\Config\Block\System\Config\Form\Field\File" sortOrder="6" showInDefault="1" showInWebsite="0" >
+                    <label>Auth key file(*.p8 file)</label>
+                    <upload_dir config="system" scope_info="1">apple</upload_dir>
+                    <backend_model>Magento\Config\Model\Config\Backend\File</backend_model>
+                </field>
+                <field id="redirect_url" translate="label comment" type="text" sortOrder="8" showInDefault="1" showInWebsite="1" showInStore="0">
+                    <frontend_model>Zealousweb\AppleLogin\Block\System\RedirectUrl</frontend_model>
+                    <label>Valid OAuth redirect URIs</label>                    
+                </field>
+                <field id="redirection_type" translate="label comment" type="select" sortOrder="20" showInDefault="1" showInWebsite="1" showInStore="0">
+                    <label>Redirection Type</label>
+                    <source_model>Zealousweb\AppleLogin\Model\Config\Source\RedirectionType</source_model>
+                </field>
+                <field id="is_show_login_popup" translate="label comment" type="select" sortOrder="25" showInDefault="1" showInWebsite="1" showInStore="0">
+                    <label>Show Login Popup</label>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                </field> 
+                <field id="is_show_button_on_checkout" translate="label comment" type="select" sortOrder="30" showInDefault="1" showInWebsite="1" showInStore="0">
+                    <label>Show Button on Checkout</label>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                </field> 
+                <field id="is_show_button_on_cart" translate="label comment" type="select" sortOrder="40" showInDefault="1" showInWebsite="1" showInStore="0">
+                    <label>Show Button on Cart</label>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                </field> 
+            </group>
+
+            <group id="default" translate="label" type="text" sortOrder="210" showInDefault="1" showInWebsite="1" showInStore="0">
+                <label>Default Setting</label>
+                <field id="firstname" translate="label comment" type="text" sortOrder="2" showInDefault="1" showInWebsite="1" showInStore="0">
+                    <label>Firstname</label>
+                    <comment>Thiw will be used when customer apple account does not return firstname and firstname is required from backend</comment>
+                </field>
+                <field id="lastname" translate="label comment" type="text" sortOrder="10" showInDefault="1" showInWebsite="1" showInStore="0">
+                    <label>Lastname</label>
+                    <comment>Thiw will be used when customer apple account does not return lastname and lastname is required from backend</comment>
+                </field>
+                <field id="gender" translate="label comment" type="select" sortOrder="20" showInDefault="1" showInWebsite="1" showInStore="0">
+                	<label>Gender</label>
+                    <source_model>Zealousweb\AppleLogin\Model\Config\Source\Gender</source_model>
+                    <comment>Thiw will be used when customer apple account does not return gender and gender is required from backend.</comment>
+                </field>
+                <field id="prefix" translate="label comment" type="text" sortOrder="30" showInDefault="1" showInWebsite="1" showInStore="0">
+                	<label>Prefix</label>
+                    <comment>Thiw will be used when customer apple account does not return prefix and prefix is required from backend.</comment>
+                </field>
+                <field id="sufix" translate="label comment" type="text" sortOrder="40" showInDefault="1" showInWebsite="1" showInStore="0">
+                	<label>Sufix</label>
+                    <comment>Thiw will be used when customer apple account does not return sufix and sufix is required from backend.</comment>
+                </field>
+                <field id="dob" translate="label comment" type="text" sortOrder="50" showInDefault="1" showInWebsite="1" showInStore="0">
+                	<label>Date of Birth</label>
+                	<frontend_model>Zealousweb\AppleLogin\Block\System\Date</frontend_model>
+                    <comment>Thiw will be used when customer apple account does not return date of birth and it is required from backend.</comment>
+                </field>
+                <field id="taxvat" translate="label comment" type="text" sortOrder="60" showInDefault="1" showInWebsite="1" showInStore="0">
+                	<label>Tax/VAT Number</label>
+                    <comment>Thiw will be used when customer apple account does not return Tax/VAT and Tax/VAT is required from backend.</comment>
+                </field>
+
+                <field id="custom_attributes" translate="label comment" type="textarea" sortOrder="70" showInDefault="1" showInWebsite="1" showInStore="0">
+                	<label>Other required custom attributes</label>
+                    <comment>add comma separated attribute like attribute_code1:value,attribute_code2:value</comment>
+                </field>
+            </group>
+
+            <group id="layout" translate="label" type="text" sortOrder="220" showInDefault="1" showInWebsite="0" showInStore="0">
+                <label>Layout Setting</label>
+                <field id="display_type" translate="label" type="select" sortOrder="1" showInDefault="1" showInWebsite="0" showInStore="1">
+                    <label>Display Type</label>
+                    <source_model>Zealousweb\AppleLogin\Model\Config\Source\DisplayType</source_model>
+                </field>
+                <field id="apple_icon" translate="label comment" type="image" sortOrder="2" showInDefault="1" showInWebsite="0" showInStore="1">
+                    <label>Icon</label>
+                    <backend_model>Zealousweb\AppleLogin\Model\Config\Backend\Image</backend_model>
+                    <base_url type="media" scope_info="1">apple</base_url>
+                    <depends>
+                        <field id="display_type">2</field>
+                    </depends>
+                    <comment>Allowe file type(jpg, jpeg, png, svg).</comment>
+                </field>
+                <field id="button_image" translate="label comment" type="image" sortOrder="3" showInDefault="1" showInWebsite="0" showInStore="1">
+                    <label>Button Image</label>
+                    <backend_model>Zealousweb\AppleLogin\Model\Config\Backend\Image</backend_model>
+                    <base_url type="media" scope_info="1">apple</base_url>
+                    <depends>
+                        <field id="display_type">1</field>
+                    </depends>
+                    <comment>Allowe file type(jpg, jpeg, png, svg).</comment>
+                </field>
+                <field id="button_label" translate="label comment" type="text" sortOrder="10" showInDefault="1" showInWebsite="0" showInStore="1">
+                    <label>Button Label</label>
+                    <depends>
+                        <field id="display_type">1</field>
+                    </depends>
+                </field>
+                <field id="button_layout" translate="label" type="radios" sortOrder="20" showInDefault="1" showInWebsite="0" showInStore="1">
+                    <label>Button Layout</label>
+                    <source_model>Zealousweb\AppleLogin\Model\Config\Source\ButtonLayout</source_model>
+                </field>
+                <field id="background_color" translate="label" type="text" sortOrder="30" showInDefault="1" showInWebsite="0" showInStore="1">
+                    <label>Button Background Color</label>
+                    <frontend_model>Zealousweb\AppleLogin\Block\Adminhtml\System\Config\ColorPicker</frontend_model>
+                    <depends>
+                        <field id="display_type">1</field>
+                    </depends>
+                </field>
+                <field id="text_color" translate="label" type="text" sortOrder="40" showInDefault="1" showInWebsite="0" showInStore="1">
+                    <label>Button Text Color</label>
+                    <frontend_model>Zealousweb\AppleLogin\Block\Adminhtml\System\Config\ColorPicker</frontend_model>
+                    <depends>
+                        <field id="display_type">1</field>
+                    </depends>
+                </field>
+                <field id="border_color" translate="label" type="text" sortOrder="50" showInDefault="1" showInWebsite="0" showInStore="1">
+                    <label>Button Border Color</label>
+                    <frontend_model>Zealousweb\AppleLogin\Block\Adminhtml\System\Config\ColorPicker</frontend_model>
+                    <depends>
+                        <field id="display_type">1</field>
+                    </depends>
+                </field>
+                <field id="icon_background_color" translate="label" type="text" sortOrder="60" showInDefault="1" showInWebsite="0" showInStore="1">
+                    <label>Button Image Background Color</label>
+                    <frontend_model>Zealousweb\AppleLogin\Block\Adminhtml\System\Config\ColorPicker</frontend_model>
+                    <depends>
+                        <field id="display_type">1</field>
+                    </depends>
+                </field>
+                <field id="button_hover_color" translate="label" type="text" sortOrder="70" showInDefault="1" showInWebsite="0" showInStore="1">
+                    <label>Button Hover Color</label>
+                    <frontend_model>Zealousweb\AppleLogin\Block\Adminhtml\System\Config\ColorPicker</frontend_model>
+                    <depends>
+                        <field id="display_type">1</field>
+                    </depends>
+                </field>
+                <field id="border_hover_color" translate="label" type="text" sortOrder="80" showInDefault="1" showInWebsite="0" showInStore="1">
+                    <label>Border Hover Color</label>
+                    <frontend_model>Zealousweb\AppleLogin\Block\Adminhtml\System\Config\ColorPicker</frontend_model>
+                    <depends>
+                        <field id="display_type">1</field>
+                    </depends>
+                </field>
+                <field id="text_hover_color" translate="label" type="text" sortOrder="90" showInDefault="1" showInWebsite="0" showInStore="1">
+                    <label>Text Hover Color</label>
+                    <frontend_model>Zealousweb\AppleLogin\Block\Adminhtml\System\Config\ColorPicker</frontend_model>
+                    <depends>
+                        <field id="display_type">1</field>
+                    </depends>
+                </field>
+            </group>
+        </section>
+    </system>
+</config>

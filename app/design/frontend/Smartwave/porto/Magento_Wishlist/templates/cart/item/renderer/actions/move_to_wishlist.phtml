@@ -1,0 +1,21 @@
+<?php
+/**
+ * Copyright © Magento, Inc. All rights reserved.
+ * See COPYING.txt for license details.
+ */
+
+/** @var \Magento\Wishlist\Block\Cart\Item\Renderer\Actions\MoveToWishlist $block */
+?>
+<?php if ($block->isProductVisibleInSiteVisibility()) : ?>
+    <?php
+    $postData = json_decode($block->getMoveFromCartParams());
+    $postData->data->confirmation = 1;
+    $postData->data->confirmationMessage = 'Are you sure, you want to add this item to Wishlist?';
+
+        ?>
+    <a href="#"
+       data-post='<?= json_encode($postData) ?>'
+       class="use-ajax action towishlist action-towishlist" title="Move to Wishlist">
+        <span><?= $block->escapeHtml(__('Move to Wishlist')) ?></span>
+    </a>
+<?php endif ?>

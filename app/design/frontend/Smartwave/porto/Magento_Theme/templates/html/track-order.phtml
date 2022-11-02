@@ -1,0 +1,761 @@
+<?php
+$websiteName = 'WWW.SOLOLUXURY.COM';
+$loginUrl = $block->getBaseUrl().'customer/account/loginPost/';
+?>
+
+<h1 class="hed"><?php echo __('Track Your Order');?></h1>
+
+<div class="login-container">
+  <div class="block block-customer-login">
+      <div class="block-title">
+          <strong id="block-customer-login-heading" role="heading" aria-level="2"><?= $block->escapeHtml(__('Registered Customers')) ?></strong>
+      </div>
+      <div class="block-content" aria-labelledby="block-customer-login-heading">
+          <form class="form form-login"
+                action="<?= $block->escapeUrl($loginUrl) ?>"
+                method="post"
+                id="login-form"
+                data-mage-init='{"validation":{}}'>
+              <?= $block->getBlockHtml('formkey') ?>
+              <fieldset class="fieldset login" data-hasrequired="<?= $block->escapeHtml(__('* Required Fields')) ?>">
+                  <div class="field note"><?= $block->escapeHtml(__('If you have an account, sign in with your email address.')) ?></div>
+                  <div class="field email required">
+                      <?php /*<label class="label" for="email"><span><?= $block->escapeHtml(__('Email')) ?></span></label>*/ ?>
+                      <div class="control">
+                          <input placeholder="<?= $block->escapeHtml(__('Email')) ?>" name="login[username]" value="<?= $block->escapeHtmlAttr($block->getUsername()) ?>" id="email" autocomplete="off" type="email" class="input-text" title="<?= $block->escapeHtmlAttr(__('Email')) ?>" data-mage-init='{"mage/trim-input":{}}' data-validate="{required:true, 'validate-email':true}">
+                          <div class="clslogin cls_user"></div>
+                      </div>
+                  </div>
+                  <div class="field password required">
+                      <?php /*<label for="pass" class="label"><span><?= $block->escapeHtml(__('Password')) ?></span></label>*/ ?>
+                      <div class="control cls_password">
+                          <input placeholder="<?= $block->escapeHtml(__('Password')) ?>" name="login[password]" type="password" autocomplete="off" class="input-text" id="pass" title="<?= $block->escapeHtmlAttr(__('Password')) ?>" data-validate="{required:true}">
+                          <div class="clslogin cls_eye"></div>
+                      </div>
+                  </div>
+                  <?= $block->getChildHtml('form_additional_info') ?>
+                  <div class="actions-toolbar">
+                      <div class="primary"><button type="submit" class="action login primary" name="send" id="send2"><span><?= $block->escapeHtml(__('Sign In')) ?></span></button></div>
+            <div class="secondary cls_forget"><a class="action remind" href="<?= $block->escapeUrl($block->getForgotPasswordUrl()) ?>"><span><?= $block->escapeHtml(__('Forgot Your Password?')) ?></span></a></div>
+                      
+          </div>
+              </fieldset>
+          </form>
+      </div>
+  </div>
+
+  <div class="check-order-container block block-new-customer">
+    <div class="row">
+      <div class="col-md-12 guestreturncontainer" <?php if(isset($_POST['orderreference'])){ ?>style="display:none;"<?php } ?>>
+        <div class="contentBlock">
+          <!-- <h3><?php echo __('Guest Users') ?><span><?php //echo __('* Required fields') ?></span></h3> -->
+          <div class="block-title">
+              <strong id="block-customer-login-heading" role="heading" aria-level="2"><?php echo __('Guest Users') ?></strong>
+          </div>
+          <div class="notte"><?php echo __('Please enter order number to track your order.') ?></div>
+        </div>
+        <div class="formBlock">
+          <form action="" method="POST">
+            <div class="form-control">
+              <input type="text" class="" name="orderreference" placeholder="<?php echo __('Enter your order number here')?>" required>
+            </div>
+            <!-- <p><?php echo __('How do I find my ') ?><a href=""><?php echo __('Order reference?') ?></a></p> -->
+
+            <div class="action remind">
+              <?php echo __('How do I find my ') ?><a style="text-decoration: underline" href=""><?php echo __('Order reference?') ?></a>
+            </div>
+            <!-- <input type="submit" name="checkorder" value="<?php //echo __('Let\'s Go') ?>"/> -->
+            
+            <div class="actions-toolbar"><div class="primary" style="margin-left: 0px"><button type="submit" class="action login primary" name="checkorder"><span><?php echo __('Let\'s Go') ?></span></button></div></div>
+          </form>
+        </div>
+      </div>
+      <div class="col-md-12 order-result-container">
+        <?php if(isset($_POST['orderreference'])){
+
+          $orderIncrementId = $_POST['orderreference'];
+          $dynamicHelper = $this->helper('\Dynamic\Customization\Helper\Data');
+          $storeManager  = $dynamicHelper->getStoreManager();
+          $storeCode = $storeManager->getStore()->getCode();
+          $siteUrl = $dynamicHelper->getScopeConfig()->getValue("web/secure/base_url");
+          $orderInfo = $dynamicHelper->getOrderManager()->loadByIncrementId($orderIncrementId);
+          $customerEmail = $orderInfo->getCustomerEmail();
+          $shipTo = ucwords($orderInfo->getCustomerFirstname()).' '.ucwords($orderInfo->getCustomerLastname());
+          $isCanceled = $isReturned = '';
+          //check if order can cancel
+          $url = 'https://erp.theluxuryunlimited.com/api/order/check-cancellation';
+
+          //Initiate cURL.
+          $ch = curl_init($url);
+          $newjsonData = array(
+            "website" => $websiteName,
+            "order_id" => $orderIncrementId
+          );
+
+          //Encode the array into JSON.
+          $jsonDataEncoded = json_encode($newjsonData);
+
+          //Tell cURL that we want to send a POST request.
+          curl_setopt($ch, CURLOPT_POST, 1);
+          ?>
+        <div class="order-title-block">
+          <ul>
+            <li class="col-md-2"><?php echo __('Order #') ?></li>
+            <li class="col-md-2"><?php echo __('Date') ?></li>
+            <li class="col-md-2"><?php echo __('Ship To') ?></li>
+            <li class="col-md-2"><?php echo __('Order Total') ?></li>
+            <li class="col-md-2"><?php echo __('Status') ?></li>
+            <li class="col-md-2"><?php echo __('Action') ?></li>
+          </ul>
+        </div>
+        <div class="order-data-block">
+          <ul>
+            <li class="col-md-2"><?php echo $orderInfo->getIncrementId() ?></li>
+            <li class="col-md-2"><?php echo $orderInfo->getCreatedAt() ?></li>
+            <li class="col-md-2"><?php echo $shipTo ?></li>
+            <li class="col-md-2"><?php echo $orderInfo->formatPrice($orderInfo->getGrandTotal()) ?></li>
+            <!-- order status api -->
+            <?php
+              $url = 'https://erp.theluxuryunlimited.com/api/customer/order-details?order_no='.$orderIncrementId.'&website='.$websiteName;
+              $token = $dynamicHelper->getConfigurationOptions();//'7e9pvvgo4u5kel2xlchlj4hmgjb0lu6s';
+              $orderStatusHistory = $currentStatus = $orderId = '';
+              $ch = curl_init();
+          //Attach our encoded JSON string to the POST fields.
+          curl_setopt($ch, CURLOPT_POSTFIELDS, $jsonDataEncoded);
+
+          //Set the content type to application/json
+          curl_setopt($ch, CURLOPT_HTTPHEADER, array('Content-Type: application/json'));
+          curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
+          curl_setopt($ch, CURLOPT_TIMEOUT, 3);
+          $content = trim(curl_exec($ch));
+          curl_close($ch);
+          $data = json_decode($content, true);
+          $apiStatus = $data['code'];
+          if($apiStatus == 200){
+            $isReturned = $data['data']['isrefund'];
+            $isCanceled = $data['data']['iscanceled'];
+          }
+          //end
+          // echo '<pre>';
+          // print_r($orderInfo->getData());
+        ?>
+
+          <div class="order-title-block">
+            <ul>
+              <li class="col-md-2"><?php echo __('Order #') ?></li>
+              <li class="col-md-2"><?php echo __('Date') ?></li>
+              <li class="col-md-2"><?php echo __('Ship To') ?></li>
+              <li class="col-md-2"><?php echo __('Order Total') ?></li>
+              <li class="col-md-2"><?php echo __('Status') ?></li>
+              <li class="col-md-2"><?php echo __('Action') ?></li>
+            </ul>
+          </div>
+          <div class="order-data-block">
+            <ul>
+              <li class="col-md-2"><?php echo $orderInfo->getIncrementId() ?></li>
+              <li class="col-md-2"><?php echo $orderInfo->getCreatedAt() ?></li>
+              <li class="col-md-2"><?php echo $shipTo ?></li>
+              <li class="col-md-2"><?php echo $orderInfo->formatPrice($orderInfo->getGrandTotal()) ?></li>
+              <!-- order status api -->
+              <?php
+                $url = 'https://erp.theluxuryunlimited.com/api/customer/order-details?order_no='.$orderIncrementId.'&website='.$websiteName;
+                $token = '7e9pvvgo4u5kel2xlchlj4hmgjb0lu6s';
+                $orderStatusHistory = $currentStatus = $orderId = '';
+                $ch = curl_init();
+
+                // Set query data here with the URL
+                curl_setopt($ch, CURLOPT_URL, $url);
+                $authorization = "Authorization: Bearer ".$token; // Prepare the authorisation token
+                curl_setopt($ch, CURLOPT_HTTPHEADER, array('Content-Type: application/json' , $authorization )); // Inject the token into the header
+                curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
+                curl_setopt($ch, CURLOPT_TIMEOUT, 3);
+                $content = trim(curl_exec($ch));
+                curl_close($ch);
+                $apiData = json_decode($content, true);
+                // echo '<pre>';
+                // print_r($apiData);
+                $resultData = isset($apiData['data'][0]) ? $apiData['data'][0] : [];
+                if(!empty($resultData['order_status'])){
+                  $currentStatus = $resultData['order_status'];
+                }
+                else{
+                  $currentStatus = 'NA';
+                }
+              ?>
+              <li class="col-md-2 order-cancel"><?php echo $currentStatus ?></li>
+              <!-- order status api end-->
+              <li class="col-md-2">
+                <?php if($isCanceled == 1){ ?>
+                  <span class="order-cancel"><?php echo __('Cancel') ?></span>
+                <?php } ?>
+                <?php if($isCanceled == 0){ ?>
+                  <span class="order-cancel">-</span>
+                <?php } ?>
+              </li>
+            </ul>
+          </div>
+          
+          <!-- order cancel api -->
+          <div class="show-<?php echo $orderIncrementId ?> modal order-cancel-modal">
+            <div class="modal-content">
+              <span class="close">&times;</span>
+              <div id="result-<?php echo $orderIncrementId ?>"></div>
+              <div id="loader-<?php echo $orderIncrementId ?>" style="display:none;">loading</div>
+            </div>
+          </div>
+          <script type="text/javascript">
+            require(['jquery', 'jquery/ui'], function($){
+              $(document).ready(function() {
+                var orderNo = '<?php echo $orderIncrementId ?>';
+                var fileUrl = '<?php echo $siteUrl ?>apifiles/orderCancel.php';
+                var elem = '.order-cancel';
+                $('.show-'+orderNo).click(function(){
+                  $('.show-'+orderNo).fadeOut(200);
+                });
+                $(elem).click(function(){
+                  $("#result-"+orderNo).text('');
+                  $('.show-'+orderNo).fadeIn(200);
+                  $.ajax({
+                      url: fileUrl,
+                      type: "POST",
+                      data: {
+                        // customer_email: '<?php //echo $customerEmail ?>',
+                        customer_email: '<?php echo $customerEmail ?>',
+                        website: '<?php echo $websiteName ?>',
+                        order_id: orderNo,
+                        // product_sku: 'Test01',
+                        type:"cancellation",
+                        lang_code : '<?php echo $storeCode ?>'
+                      },
+                      dataType: "JSON",
+                      beforeSend: function() {
+                          $('#loader-'+orderNo).show();
+                      },
+                      complete: function(){
+                          $('#loader-'+orderNo).hide();
+                          // $('#result').fadeIn(800);
+                      },
+                      success: function (jsonStr) {
+                          var status = jsonStr['status'];
+                          var message = jsonStr['message'];
+                          var data = JSON.stringify(jsonStr);
+                          var obj = JSON.parse(data);
+                          var errors = obj.errors;
+                          // $("#result").text(JSON.stringify(jsonStr));
+                          console.log(jsonStr['status']);
+                          if(errors){
+                            $.each( errors, function( key, value ) {
+                              $("#result-"+orderNo).text(key + " : " + value);
+                              // alert( key + ": " + value );
+                            });
+
+                          }
+                          else{
+                              $("#result-"+orderNo).text(message);
+                            $('#result-'+orderNo).delay(3000).fadeOut(800);
+
+                          }
+
+                    }
+                  });
+                });
+              });
+            });
+          </script>
+          <!-- end -->
+          <?php if(!empty($orderInfo->getAllVisibleItems())) { ?>
+              <div class="order-details-items ordered" style="margin-top: 30px;display: inline-block;margin-bottom: 0;">
+                  <div class="order-title">
+                      <strong><?= $block->escapeHtml(__('Items Ordered')) ?></strong>
+                  </div>
+                  <div class="table-wrapper order-items">
+                      <table class="data table table-order-items" id="my-orders-table" summary="Items Ordered">
+                          <caption class="table-caption"><?= $block->escapeHtml(__('Items Ordered')) ?></caption>
+                          <thead>
+                              <tr>
+                                  <th class="col name"><?= $block->escapeHtml(__('Product Name')) ?></th>
+                                  <th class="col sku"><?= $block->escapeHtml(__('SKU')) ?></th>
+                                  <th class="col price"><?= $block->escapeHtml(__('Price')) ?></th>
+                                  <th class="col qty"><?= $block->escapeHtml(__('Qty')) ?></th>
+                                  <th class="col subtotal"><?= $block->escapeHtml(__('Subtotal')) ?></th>
+                                  <th class="col subtotal" style="text-align:center"><?= $block->escapeHtml(__('Action')) ?></th>
+                              </tr>
+                          </thead>
+                          <tbody>
+                              <?php foreach ($orderInfo->getAllVisibleItems() as $_item) { ?>
+                                  <!-- API code to check if the sku is eligible for return -->
+                                  <?php
+                                      $canReturn = '';
+                                      $url = 'https://erp.theluxuryunlimited.com/api/order/check-return';
+
+                                      //Initiate cURL.
+                                      $ch = curl_init($url);
+                                      $newjsonData = array(
+                                      "website" => "WWW.SOLOLUXURY.COM",
+                                      "product_sku" => $_item->getSku(),
+                                      "order_id" => $orderIncrementId
+                                      );
+
+                                      //Encode the array into JSON.
+                                      $jsonDataEncoded = json_encode($newjsonData);
+
+                                      //Tell cURL that we want to send a POST request.
+                                      curl_setopt($ch, CURLOPT_POST, 1);
+
+                                      //Attach our encoded JSON string to the POST fields.
+                                      curl_setopt($ch, CURLOPT_POSTFIELDS, $jsonDataEncoded);
+
+                                      //Set the content type to application/json
+                                      curl_setopt($ch, CURLOPT_HTTPHEADER, array('Content-Type: application/json'));
+                                      curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
+                                      curl_setopt($ch, CURLOPT_TIMEOUT, 3);
+                                      $content = trim(curl_exec($ch));
+                                      curl_close($ch);
+                                      $result = json_decode($content, true);
+                                      $canReturn = $result['data']['has_return_request'];
+                                      $apiStatus = $result['code'];
+                                      if($apiStatus == 200 && $canReturn == 1){
+                                          $isReturnEligible = 'yes';
+                                      } else {
+                                          $isReturnEligible = 'no';
+                                      }
+                                  ?>
+                                  <!-- End -->
+                                  <?php
+                                      $product = $dynamicHelper->getProductManager()->load($_item->getProductId());
+                                      $imageHelper  = $dynamicHelper->getImageHelperManager();
+                                      $image_url = $imageHelper->init($product, 'product_page_image_small')->setImageFile($product->getFile())->resize(80, 200)->getUrl(); 
+                                  ?>
+                                  <tr id="order-item-row-86">
+                                      <td class="col name" data-th="Product Name">
+                                          <img src="<?php echo $image_url; ?>">
+                                          <div class="item_group_order">
+                                              <strong class="product name product-item-name"><?php echo $_item->getName(); ?></strong>
+                                          </div>
+                                      </td>
+                                      <td class="col sku" data-th="<?= $block->escapeHtml(__('Sku')) ?>"><?php echo $_item->getSku(); ?></td>
+                                      <td class="col price" data-th="<?= $block->escapeHtml(__('Price')) ?>"><?php echo $orderInfo->formatPrice($_item->getPrice()); ?></td>
+                                      <td class="col qty" data-th="<?= $block->escapeHtml(__('Qty')) ?>">
+                                          <ul class="items-qty" style="border: 0;">
+                                          <?php if ($_item->getQtyOrdered() > 0) : ?>
+                                              <li class="item">
+                                                  <span class="title"><?= $block->escapeHtml(__('Ordered')) ?></span>
+                                                  <span class="content"><?= (int) $_item->getQtyOrdered() ?></span>
+                                              </li>
+                                          <?php endif; ?>
+                                          <?php if ($_item->getQtyShipped() > 0) : ?>
+                                              <li class="item">
+                                                  <span class="title"><?= $block->escapeHtml(__('Shipped')) ?></span>
+                                                  <span class="content"><?= (int) $_item->getQtyShipped() ?></span>
+                                              </li>
+                                          <?php endif; ?>
+                                          <?php if ($_item->getQtyCanceled() > 0) : ?>
+                                              <li class="item">
+                                                  <span class="title"><?= $block->escapeHtml(__('Canceled')) ?></span>
+                                                  <span class="content"><?= (int) $_item->getQtyCanceled() ?></span>
+                                              </li>
+                                          <?php endif; ?>
+                                          <?php if ($_item->getQtyRefunded() > 0) : ?>
+                                              <li class="item">
+                                                  <span class="title"><?= $block->escapeHtml(__('Refunded')) ?></span>
+                                                  <span class="content"><?= (int) $_item->getQtyRefunded() ?></span>
+                                              </li>
+                                          <?php endif; ?>
+                                          </ul>
+                                      </td>
+                                      <td class="col subtotal" data-th="<?= $block->escapeHtml(__('Subtotal')) ?>">
+                                          <?php echo $orderInfo->formatPrice($_item->getRowTotal()); ?>
+                                      </td>
+                                      <?php if($isReturnEligible == 'yes') { ?>
+                                          <td class="col return" data-th="<?= $block->escapeHtml(__('Return')) ?>" style="text-align:center;">
+                                              <i class="porto-icon-action-undo"></i>
+                                              <span class="order-return" data-item-sku="<?php echo $_item->getSku(); ?>"><?= $block->escapeHtml(__('Return')) ?></span>
+                                          </td>
+                                      <?php } else { ?>
+                                          <td class="col return" data-th="<?= $block->escapeHtml(__('N/A')) ?>" style="text-align:center;">
+                                              <span class="order-NA"><?= $block->escapeHtml(__('N/A')) ?></span>
+                                          </td>
+                                      <?php } ?>
+                                  </tr>
+                              <?php } ?>
+                          </tbody>
+                          <tfoot>
+                              <tr class="subtotal">
+                                  <th colspan="4" class="mark" scope="row"><?= $block->escapeHtml(__('Subtotal')) ?></th>
+                                  <td class="amount" data-th="<?= $block->escapeHtml(__('Subtotal')) ?>">
+                                      <span class="price"><?php echo $orderInfo->formatPrice($orderInfo->getSubTotal()); ?></span>
+                                  </td>
+                              </tr>
+                              <tr class="grand_total">
+                                  <th colspan="4" class="mark" scope="row"><?= $block->escapeHtml(__('Estimated Total')) ?></th>
+                                  <td class="amount" data-th="<?= $block->escapeHtml(__('Estimated Total')) ?>">
+                                      <span class="price"><?php echo $orderInfo->formatPrice($orderInfo->getGrandTotal()); ?></span>
+                                  </td>
+                              </tr>
+                              <?php if($orderInfo->getDiscountAmount() != 0) { ?>
+                                  <tr class="discount">
+                                      <th colspan="4" class="mark" scope="row"><?= $block->escapeHtml(__('Discount')) ?></th>
+                                      <td class="amount" data-th="<?= $block->escapeHtml(__('Discount')) ?>">
+                                          <span class="price"><?php echo $orderInfo->formatPrice($orderInfo->getDiscountAmount()); ?></span>
+                                      </td>
+                                  </tr>
+                              <?php } ?>
+                              <?php if($orderInfo->getShippingAmount() != 0) { ?>
+                                  <tr class="shipping">
+                                      <th colspan="4" class="mark" scope="row"><?= $block->escapeHtml(__('Shipping')) ?></th>
+                                      <td class="amount" data-th="<?= $block->escapeHtml(__('Shipping')) ?>">
+                                          <span class="price"><?php echo $orderInfo->formatPrice($orderInfo->getShippingAmount()); ?></span>
+                                      </td>
+                                  </tr>
+                              <?php } ?>
+                              <?php if($orderInfo->getTaxAmount() != 0) { ?>
+                                  <tr class="tax">
+                                      <th colspan="4" class="mark" scope="row"><?= $block->escapeHtml(__('Tax')) ?></th>
+                                      <td class="amount" data-th="<?= $block->escapeHtml(__('Tax')) ?>">
+                                          <span class="price"><?php echo $orderInfo->formatPrice($orderInfo->getTaxAmount()); ?></span>
+                                      </td>
+                                  </tr>
+                              <?php } ?>
+                              <?php
+                                  $returnHelper = $this->helper('\Dynamic\Orderreturn\Helper\Data');
+                                  $credit = $returnHelper->getStoreCredits($orderInfo);
+                              ?>
+                              <?php if($credit && $credit != 0) { ?>
+                                  <tr class="swarming_credits">
+                                      <th colspan="4" class="mark" scope="row"><?= $block->escapeHtml(__('Store Credit')) ?></th>
+                                      <td class="amount" data-th="<?= $block->escapeHtml(__('Store Credit')) ?>">
+                                          <span class="price"><?php echo $credit; ?></span>
+                                      </td>
+                                  </tr>
+                              <?php } ?>
+                              <tr class="base_grandtotal">
+                                  <th colspan="4" class="mark" scope="row"><?= $block->escapeHtml(__('Grand Total to be Charged')) ?></th>
+                                  <td class="amount" data-th="<?= $block->escapeHtml(__('Grand Total to be Charged')) ?>">
+                                      <span class="price"><?php echo $orderInfo->getBaseCurrency()->formatTxt($orderInfo->getBaseGrandTotal()); ?></span>
+                                  </td>
+                              </tr>
+                          </tfoot>
+                      </table>
+                  </div>
+              </div>
+          <?php } ?>
+          <div class="back-btn">
+            <a href="">Back to Track Order</a>
+          </div>
+
+          <?php
+              $config = $dynamicHelper->getScopeConfig()->getValue('orderreturn_reason/orderreturn_configuration/reason', \Magento\Store\Model\ScopeInterface::SCOPE_STORE);
+              $reasonData = json_decode($config, true);
+
+          ?>
+          <!-- order return api -->
+          <form id="form_referbox" 
+            action="<?php echo $this->getUrl('orderreturn/index/post'); ?>" 
+            data-mage-init='{"validation": {}}' 
+            class="referbox-form-custom"
+            method="POST"
+            enctype="multipart/form-data">
+              <div class="return-<?php echo $orderIncrementId ?> modal order-return-modal">
+                <div class="modal-content">
+                  <span class="close">&times;</span>
+                  <div id="result-return"></div>
+                  <div id="loader-return" style="display:none;">loading</div>
+                  <input type="hidden" name="customer_email" value="<?php echo $customerEmail ?>">
+                  <input type="hidden" name="website" value="<?php echo $websiteName ?>">
+                  <input type="hidden" name="order_id" value="<?php echo $orderIncrementId ?>">
+                  <input type="hidden" name="type" value="return">
+                  <input type="hidden" name="lang_code" value="<?php echo $storeCode ?>">
+                  <input type="hidden" name="product_sku" id="return-item-sku" value="">
+                  <div class="form-data">
+                      <?php if(!empty($reasonData)) { ?>
+                          <select name="reason" class="choose-reason" required>
+                              <option>Reason to return</option>
+                              <?php foreach ($reasonData as $reason) { ?>
+                                  <option value="<?php echo $reason['reason_data']; ?>"><?php echo $reason['reason_data']; ?></option>
+                              <?php } ?>
+                          </select>
+                          <input type="submit" value="Return Item" name="submit" class="submit-return">
+                      <?php } ?>
+                  </div>
+                </div>
+              </div>
+            </form>
+          <script type="text/javascript">
+          require(['jquery', 'jquery/ui'], function($){
+
+              var successUrl = '<?php echo $this->getUrl('orderreturn/index/success'); ?>';
+
+            $(document).ready(function() {
+              $('.order-return-modal .close').click(function(){
+                $('.order-return-modal').fadeOut(200);
+                $('#return-item-sku').val("");
+              });
+              $('.order-return').click(function(){
+                $('.order-return-modal').fadeIn(200);
+                $('#return-item-sku').val($(this).attr("data-item-sku"));
+              });
+                $(".submit-return").click(function(){
+                  var dataForm = jQuery('#'+$(this).closest('form').attr('id'));
+                  $("#result-return").text('').css({"display":"block"});
+                  if(dataForm.validation('isValid')){
+                    $.ajax({
+                      url: dataForm.attr('action'),
+                      type: dataForm.attr('method'),
+                      data: dataForm.serialize(),
+                      dataType: 'json',
+                      async: true,
+                        beforeSend: function() {
+                            $('#loader-return').show();
+                        },
+                        complete: function(){
+                            $('#loader-return').hide();
+                        },
+                        success: function (response) {
+                          if(response.errors == false) { 
+                              window.location.href = successUrl;
+                              dataForm[0].reset();
+                          } else {
+                              $("#result-return").text(response.message);
+                              $('#result-return').delay(3000);
+                          }
+                      }
+                    });
+                    event.stopImmediatePropagation();
+                    return false;
+                  }
+                });
+
+            });
+          });
+
+        </script>
+          <!-- order return api end -->
+        <?php } ?>
+
+      </div>
+    </div>
+  </div>
+</div>
+
+<style>
+  .breadcrumbs {display: none};
+  .cms-track-your-order .block-customer-login{width: 45%;}
+  .cms-track-your-order .block-new-customer{width: 45%;}
+.cms-track-your-order .account-social-login {
+  display: none;
+}
+.cms-track-your-order .account-social-login .block-content {
+  padding-top: 50px;
+}
+.cms-track-your-order .block-customer-login {
+  margin-bottom: 0px;
+  /* border-right: 1px solid #dfc7bb; */
+}
+.login-container .block .block-title strong {
+    display: block !important;
+}
+.cms-track-your-order .block-customer-login .account-social-login {
+  display: block;
+  width: 100%;
+  position: relative;
+  margin: 50px 0;
+}
+.cms-track-your-order .block-customer-login .account-social-login:before {
+  content: '';
+  position: absolute;
+  height: 1px;
+  background-color: #dfdfdf;
+  z-index: 3;
+  top: 0;
+  left: 25px;
+  right: 25px;
+  left: 0;
+  right: 0;
+}
+.cms-track-your-order .block-customer-login .account-social-login:after {
+  content: 'or';
+  position: absolute;
+  width: 45px;
+  height: 45px;
+  z-index: 4;
+  text-align: center;
+  border: #dfdfdf solid 1px;
+  border-radius: 100%;
+  line-height: 43px;
+  color: #777;
+  left: 0;
+  top: -22px;
+  right: 0;
+  margin: 0 auto;
+  background-color: #fff;
+}
+.cms-track-your-order .block-customer-login .form-login {
+  position: relative;
+  width: 80%;
+  width: auto;
+  padding-right: 50px;
+}
+.cms-track-your-order .block-customer-login .fieldset.login {
+  margin-bottom: 0px;
+}
+.cms-track-your-order .page-main {
+  max-width: 1300px;
+  padding-left: 0px !important;
+  padding-right: 0px !important;
+  margin-top: 20px !important;
+}
+.login-container{margin: 0 auto; width: 80%;}
+
+.cms-track-your-order .page-main .columns .column.main .login-container {
+  box-shadow: none;
+  padding: 0px 0 0 0;
+  border: none;
+  border-top: none;
+  box-shadow: none !important;
+}
+.cms-track-your-order .page-main .columns .column.main .login-container .block-customer-login .block-content .form-login .fieldset > .field {
+  margin: 0;
+  font-family: 'Open Sans', 'Helvetica Neue', Helvetica, Arial, sans-serif;
+  font-size: 15px;
+  text-transform: none;
+  font-family: "Open Sans", "Helvetica Neue", Helvetica, Arial, sans-serif;
+  font-size: 14px;
+}
+.cms-track-your-order .page-main .columns .column.main .login-container .block-customer-login .block-content .form-login .fieldset > .field.note {
+  margin-bottom: 15px !important;
+  text-align: center;
+  border-bottom: 1px solid #713213;
+  padding-bottom: 15px;
+}
+.cms-track-your-order .block .block-title {
+  margin-top: -5px;
+}
+.cms-track-your-order .login-container .fieldset > .field > .control {
+  width: 100% !important;
+}
+.cms-track-your-order .login-container .block-new-customer .actions-toolbar {
+  margin-top: 50px;
+}
+.cms-track-your-order .cls_forget {
+  display: block;
+  margin-bottom: 20px;
+}
+.cms-track-your-order .cls_forget a {
+  margin-top: 0px !important;
+}
+.cms-track-your-order #add_button_login_byclass {
+  position: absolute;
+  right: 112px;
+  bottom: 0px;
+}
+.cms-track-your-order .fieldset.login .actions-toolbar > .primary {
+  margin-left: 112px;
+  margin-left: 0;
+}
+.cms-track-your-order .fieldset.login .actions-toolbar > .primary button {
+  text-transform: capitalize;
+  letter-spacing: normal;
+}
+.cms-track-your-order .fieldset.login .actions-toolbar > .primary #send2 {
+  background: #713213 !important;
+  color: #fff;
+  min-width: inherit;
+  margin-bottom: 20px;
+  margin-top: 20px;
+  padding: 0 35px;
+  border-radius: 20px;
+}
+.cms-track-your-order .sociallogin-block.sociallogin-login {
+  margin: 0;
+}
+.cms-track-your-order .sociallogin-block .sociallogin-buttons ul li {
+  margin: 0;
+}
+.cms-track-your-order .sociallogin-block .sociallogin-buttons ul li a {
+  float: left;
+}
+.cms-track-your-order .block-new-customer {
+  position: relative;
+}
+.cms-track-your-order .block-new-customer .actions-toolbar > .primary {
+  margin-left: 125px;
+}
+.cms-track-your-order #add_button_register_byclass {
+  position: absolute;
+  right: 125px;
+  bottom: 0px;
+}
+.cms-track-your-order .cls_eye {
+  top: 15px;
+}
+.form.create.account {
+  padding: 30px;
+  background-color: #fdfaf8;
+  box-shadow: none;
+  -moz-box-shadow: none;
+  -webkit-box-shadow: none;
+  border: none;
+}
+.form.create.account .account-social-login .actions-toolbar {
+  padding: 0;
+}
+.notte{
+  margin-bottom: 15px !important;
+  text-align: center;
+  border-bottom: 1px solid #713213;
+  padding-bottom: 15px;
+}
+.login-container .block-new-customer .actions-toolbar .primary {
+  border-radius: 20px;
+  padding: 0 30px;
+}
+
+body.cms-track-your-order{background-color: #fbece5 !important;}
+.formBlock .actions-toolbar{margin-top: 30px;}
+.formBlock .form-control{
+  padding: 0;
+  color: #000;
+  background: transparent;
+  border-color: #cfb0a2;
+}
+.formBlock .form-control input{
+  background: transparent;
+  outline:none;
+  box-shadow: none;
+  line-height: 46px;
+  border: none;
+}
+.formBlock input::placeholder {
+  color: #000;
+}
+.formBlock input:-ms-input-placeholder { /* Internet Explorer 10-11 */
+ color: red;
+}
+.formBlock input::-ms-input-placeholder { /* Microsoft Edge */
+ color: red;
+}
+
+@media (max-width: 767px){
+  .panel.header .links {
+    display: none !important;
+  }
+  header.page-header.type14 .header.content {
+      background: #fbece5;
+  } 
+  .login-container{width: 100% !important;}
+  .cms-track-your-order .block-customer-login{width: 100%;}
+  .cms-track-your-order .block-new-customer{width: 100%;}
+  .cms-track-your-order .block-customer-login .form-login{ padding-right: 0;}
+  .cms-track-your-order .block-new-customer{ margin-top: 50px;}
+}
+.guestreturncontainer { border: none !important;}
+.hed{font-family: &quot;Open Sans&quot;, &quot;Helvetica Neue&quot;, Helvetica, Arial, sans-serif;
+    font-size: 24px;
+    color: #713213;font-weight: 400;text-align: center;text-decoration: underline;}
+
+/* Arabic */
+.pl-thm-smartwave-porto_rtl.cms-track-your-order .login-container{display: flex;}
+.pl-thm-smartwave-porto_rtl.cms-track-your-order .block-customer-login{width: 50%; padding-left: 20px;}
+.pl-thm-smartwave-porto_rtl.cms-track-your-order .block-new-customer{width: 50%; padding-right: 20px;}
+.pl-thm-smartwave-porto_rtl.cms-track-your-order .guestreturncontainer{padding: 0 40px;}
+</style>

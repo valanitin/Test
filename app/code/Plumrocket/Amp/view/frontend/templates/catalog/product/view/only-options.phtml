@@ -1,0 +1,73 @@
+<script type="text/javascript">
+require(["jquery", "jquery/ui", "catalogAddToCart"], function($){
+//<![CDATA[
+    var form = $('#product_addtocart_form');
+
+    <?php if ($this->getShouldRedirectToCart()) : ?>
+        setTimeout(function () {
+            form.unbind('submit');
+
+            var jqForm = $(form).catalogAddToCart({
+                bindSubmit: false
+            });
+
+            form.on('submit', function () {
+                jqForm.catalogAddToCart('disableAddToCartButton', form);
+            });
+        }, 2000);
+    <?php endif; ?>
+    var userAgent = navigator.userAgent.toLowerCase();
+    var isSafari = ((userAgent.indexOf('safari') != -1)
+        && (userAgent.indexOf('chrome') == -1)
+    ) ? true : false;
+    var sameOrigin = false;
+
+    if (isSafari) {
+        try {
+            sameOrigin = !parent.window.location.href ? false : true;
+        } catch (e) { console.log(e); }
+
+        if (!sameOrigin) {
+            backUrl = window.location.href.replace(/only-options=\d+/gi,"amp=1");
+
+            var href = form.get(0).action;
+            href += (href.indexOf('?') === -1) ? '?' : '&';
+
+            setTimeout(function () {
+                form.unbind('submit');
+                form.on('submit', function () {
+                    href += $(this).serialize() + '&backUrl=' + encodeURI(backUrl);
+
+                    setTimeout(function () {
+                        window.location.reload()
+                    }, 3000);
+                    window.open(href, '_blank');
+                    return false;
+                });
+            }, 3000);
+
+        }
+    }
+
+    /* Start fake gallery */
+    /* Create widget for swatches (require jquery/ui) */
+    $.widget('mage.AddFotoramaVideoEvents', {});
+
+    /* Create fake gallery for swatches */
+    var fakeGallery = document.createElement('div');
+    fakeGallery.setAttribute('id', 'fake-gallery');
+    fakeGallery.dataset.galleryRole = "gallery-placeholder";
+    var fakeGalleryParent = $('.column.main')[0];
+    if (fakeGalleryParent) {
+        fakeGalleryParent.append(fakeGallery);
+        $('#fake-gallery').data('gallery', {
+            updateData: function (a) {},
+            returnCurrentImages: function () {return [{}]},
+            first: function (a) {}
+        });
+    }
+    /* End fake gallery */
+
+//]]>
+});
+</script>

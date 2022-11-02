@@ -1,0 +1,71 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * @package     Plumrocket_SocialLoginFree
+ * @copyright   Copyright (c) 2020 Plumrocket Inc. (https://plumrocket.com)
+ * @license     https://plumrocket.com/license   End-user License Agreement
+ */
+-->
+
+<page xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" layout="checkout" xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/page_configuration.xsd">
+    <body>
+        <referenceContainer name="after.body.start">
+            <!-- <block class="Magento\Framework\View\Element\Template" name="pslogin_fake_email_message" template="Plumrocket_SocialLoginFree::checkout/onepage/message/fake_email.phtml" before="-" /> -->
+        </referenceContainer>
+
+        <referenceBlock name="pslogin.customer.form.login.buttons">
+            <action method="checkPosition">
+                <argument name="position" xsi:type="string">checkout</argument>
+            </action>
+            <action method="setOutput2js" />
+        </referenceBlock>
+
+        <referenceContainer name="content">
+            <referenceBlock name="checkout.root">
+                <arguments>
+                    <argument name="jsLayout" xsi:type="array">
+                        <item name="components" xsi:type="array">
+                            <item name="checkout" xsi:type="array">
+                                <item name="children" xsi:type="array">
+                                    <item name="authentication" xsi:type="array">
+                                        <!-- <item name="component" xsi:type="string">Plumrocket_SocialLoginFree/js/view/checkout/authentication</item> -->
+                                        <item name="component" xsi:type="helper" helper="Plumrocket\SocialLoginFree\Helper\Data::getCheckoutJsViewAuthentication"></item>
+                                    </item>
+
+                                    <item name="steps" xsi:type="array">
+                                        <item name="children" xsi:type="array">
+                                            <item name="shipping-step" xsi:type="array">
+                                                <item name="children" xsi:type="array">
+                                                    <item name="shippingAddress" xsi:type="array">
+                                                        <item name="children" xsi:type="array">
+                                                            <item name="customer-email" xsi:type="array">
+                                                                <!-- <item name="component" xsi:type="string">Magento_Checkout/js/view/form/element/email</item> -->
+                                                                <item name="component" xsi:type="helper" helper="Plumrocket\SocialLoginFree\Helper\Data::getCheckoutJsViewFormElementEmail"></item>
+                                                            </item>
+                                                        </item>
+                                                    </item>
+                                                </item>
+                                            </item>
+                                            <item name="billing-step" xsi:type="array">
+                                                <item name="children" xsi:type="array">
+                                                    <item name="payment" xsi:type="array">
+                                                        <item name="children" xsi:type="array">
+                                                            <item name="customer-email" xsi:type="array">
+                                                                <!-- <item name="component" xsi:type="string">Magento_Checkout/js/view/form/element/email</item> -->
+                                                                <item name="component" xsi:type="helper" helper="Plumrocket\SocialLoginFree\Helper\Data::getCheckoutJsViewFormElementEmail"></item>
+                                                            </item>
+                                                        </item>
+                                                    </item>
+                                                </item>
+                                            </item>
+                                        </item>
+                                    </item>
+                                </item>
+                            </item>
+                        </item>
+                    </argument>
+                </arguments>
+            </referenceBlock>
+        </referenceContainer>
+    </body>
+</page>

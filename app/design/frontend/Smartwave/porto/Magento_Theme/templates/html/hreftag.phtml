@@ -1,0 +1,49 @@
+<!-- Google Tag Manager -->
+<script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+})(window,document,'script','dataLayer','GTM-5TKM92K');</script>
+<!-- End Google Tag Manager -->
+<?php
+	$dynamicHelper = $this->helper('\Dynamic\Customization\Helper\Data');
+	$storeManager  = $dynamicHelper->getStoreManager();
+	$storeCode = $storeManager->getStore()->getCode();
+	$currentStoreCode = '';
+	if($storeCode != 'english' && $storeCode != 'default'){
+		$currentStoreCode = explode("-",$storeCode);
+		$currentStoreCode = $currentStoreCode[1].'-'.strtoupper($currentStoreCode[0]);
+	}
+	else{
+		$currentStoreCode = $storeCode;
+	}
+	$currentUrl = $_SERVER['REQUEST_URI'];
+	$currentStoreCodePath = '/'.$storeCode.'/';
+	$siteUrl = $dynamicHelper->getScopeConfig()->getValue("web/secure/base_url");
+	$path = explode($currentStoreCodePath, $currentUrl);
+	if(!empty($path[1])){
+		$pagePath = $path[1];
+	}
+	else{
+		$pagePath = '';
+	}
+	$storeCollection = $storeManager->getStores();
+	foreach($storeCollection as $storesdata){
+		$storeDataCode = $storesdata->getCode();
+		if($storeCode != $storeDataCode){
+			if($storeDataCode != 'english' && $storeDataCode != 'default'){
+				$storeDataCode = explode("-", $storeDataCode);
+				$storeDataCode = $storeDataCode[1].'-'.strtoupper($storeDataCode[0]);
+			}
+			$currentPageUrl = $siteUrl.$storesdata->getCode().'/'.$pagePath;
+		?>
+		<link rel="alternate" href="<?php echo $currentPageUrl; ?>" hreflang="<?php echo $storeDataCode ?>" />
+		<?php
+		}
+?>
+	<?php
+	}
+?>
+<link rel="alternate" href="<?php echo $siteUrl.$storeCode.'/'; ?>" hreflang="<?php echo $currentStoreCode ?>" />
+<link rel="canonical" href="<?php echo $siteUrl.$storeCode.'/'.$pagePath; ?>" />
+<link rel="alternate" href="<?php echo $siteUrl; ?>" hreflang="x-default"/>

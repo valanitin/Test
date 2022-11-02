@@ -1,0 +1,39 @@
+<?php
+/**
+ * Plumrocket Inc.
+ *
+ * NOTICE OF LICENSE
+ *
+ * This source file is subject to the End-user License Agreement
+ * that is available through the world-wide-web at this URL:
+ * http://wiki.plumrocket.net/wiki/EULA
+ * If you are unable to obtain it through the world-wide-web, please
+ * send an email to support@plumrocket.com so we can send you a copy immediately.
+ *
+ * @package     Plumrocket_Amp
+ * @copyright   Copyright (c) 2017 Plumrocket Inc. (http://www.plumrocket.com)
+ * @license     http://wiki.plumrocket.net/wiki/EULA  End-user License Agreement
+ */
+?>
+
+<?php
+    $url = $block->getReviewsUrl() . '#reviews';
+    $urlForm = $block->getReviewsUrl() . '#review-form';
+    $rating = $block->getRatingSummary();
+?>
+<?php if ($block->getReviewsCount() && $rating) : ?>
+    <div class="product-review-summary<?php echo !$rating ? ' no-rating' : ''?>">
+        <div class="prod-rate-hld">
+            <div>
+                <?php $i = 0; while ($i < 100) :
+                    $starClass = 'emptystar';
+                    if ($i < $rating) {
+                        $starClass = ($rating - $i < 12) ? 'halfstar' : 'fullstar';
+                    }
+                    $i = $i + 20; ?>
+                    <div class="icon f-<?php echo $starClass ?>"></div>
+                <?php endwhile; ?>
+            </div>
+        </div>
+    </div>
+<?php endif; ?>

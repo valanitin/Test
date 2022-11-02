@@ -1,0 +1,22 @@
+<?xml version="1.0"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:Acl/etc/acl.xsd">
+    <acl>
+        <resources>
+            <resource id="Dynamic_Adminhtml::admin" title="Dynamic_Adminhtml admin">
+                <resource id="Dynamic_Cmspagemanager::cmspagemanager" title="Cmspagemanager" sortOrder="40">
+                    <resource id="Dynamic_Cmspagemanager::manage" title="Cmspagemanager Module" sortOrder="10">
+						<resource id="Dynamic_Cmspagemanager::save" title="Save Cmspagemanager" sortOrder="10" />
+                        <resource id="Dynamic_Cmspagemanager::news_delete" title="Delete Cmspagemanager" sortOrder="20" />
+					</resource>
+                </resource>
+                <resource id="Dynamic_Adminhtml::stores" title="Dynamic_Adminhtml stores">
+                    <resource id="Dynamic_Adminhtml::stores_settings" title="Dynamic_Adminhtml stores_settings">
+                        <resource id="Dynamic_Adminhtml::config" title="Dynamic_Adminhtml config">
+                            <resource id="Dynamic_Cmspagemanager::config_cmspagemanager" title="Cmspagemanager Section" sortOrder="50" />
+                        </resource>
+                    </resource>
+                </resource>
+            </resource>
+        </resources>
+    </acl>
+</config>

@@ -1,0 +1,15 @@
+<?xml version="1.0"?>
+<!--
+/** Grid module xml
+ * @category  Firas
+ * @package   Firas_Grid
+ * @author    Firas
+ * @copyright Copyright (c) 2010-2017 Firas Software Private Limited (https://firas.com)
+ * @license   https://store.firas.com/license.html
+ */
+ */
+-->
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:Module/etc/module.xsd">
+    <module name="Firas_Grid" setup_version="2.0.0">
+    </module>
+</config>

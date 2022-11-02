@@ -1,0 +1,101 @@
+<?php
+
+$dynamicHelper = $this->helper('Dynamic\Referfriend\Helper\Data');
+$storeManager  = $dynamicHelper->getStoreManager();
+$storeCode = $storeManager->getStore()->getCode();
+$url = $storeManager->getStore()->getUrl('customer/account/login');
+$siteUrl = $dynamicHelper->getScopeConfig()->getValue("web/secure/base_url");
+
+$customerHelper = $this->helper('\LuxuryUnlimited\RequestTicket\Helper\Data');
+
+$fname= '';
+$email= '';
+$telephone = '';
+if($customerHelper->isLoggedIn()) {
+    $customer = $customerHelper->getCustomerById($customerHelper->getCustomerId());
+    $fname = $customer->getFirstname();
+    $email = $customer->getEmail();
+    if ($customerHelper->getTelephone($customer->getAddresses())) {
+        $telephone = $customerHelper->getTelephone($customer->getAddresses());
+    }
+}
+
+?>
+
+<div class="cls_refer_friend_box custom_refer_section">
+    <div class="cls_sub_refer_friend_box row">
+        <div class="col-md-12">
+            <form id="form_referbox"
+                  action="<?php echo $this->getUrl('referfriend/index/post'); ?>"
+                  data-mage-init='{"validation": {}}'
+                  class="referbox-form-custom"
+                  method="POST"
+                  enctype="multipart/form-data">
+                <div class="title-section">
+                    <span class="page-sub-title"><?= __("Refer a Friend") ?></span>
+                    <h1><span class="mm-offer-text"><?php echo __('Enter details below to send a ')?><span class="red"><?php  echo __('10% coupon code')?></span> <?php echo __('to your friend') ?></span></h1>
+                </div>
+                <div class="cls_referfrind_form_main">
+                    <div class="cls_referfrind_form">
+                        <div class="field name required cls_comm_input">
+                            <div class="control">
+                                <input id="referrer_first_name" class="input-text" title="<?php echo __('Your First Name') ?>"
+                                       name="referrer_first_name" required="" type="text" value="<?php echo $fname; ?>" placeholder="<?php echo __('First Name') ?>">
+                                <div class="pwd-icon"></div>
+                            </div>
+                        </div>
+                        <div class="field email required cls_comm_input">
+                            <div class="control">
+                                <input id="referrer_email" class="input-text" title="<?php echo __('Email Address') ?>"
+                                       name="referrer_email" type="email" required="" value="<?php echo $email; ?>" placeholder="<?php echo __('Email Address') ?>">
+                                <div class="pwd-icon"></div>
+                            </div>
+                        </div>
+                        <div class="field number required cls_comm_input">
+                            <div class="control">
+                                <input id="referrer_phone" class="input-text" title="<?php echo __('Your Phone Number') ?>"
+                                       name="referrer_phone" type="text" value="<?php echo $telephone; ?>" placeholder="<?php echo __('Phone Number') ?>">
+                                <div class="pwd-icon"></div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="cls_referfrind_form">
+                        <div class="field name required cls_comm_input">
+                            <div class="control">
+                                <input id="yourfirstname" class="input-text" title="<?php echo __('Referring Friend First Name') ?>"
+                                       name="yourfirstname" required="" type="text" value="" placeholder="<?php echo __('Friend First Name') ?>">
+                                <div class="pwd-icon"></div>
+                            </div>
+                        </div>
+                        <div class="field email required cls_comm_input">
+                            <div class="control">
+                                <input id="youremailaddress" class="input-text" title="<?php echo __('Referring Friend Email Address') ?>"
+                                       name="youremailaddress" type="email" required="" value="" placeholder="<?php echo __('Friend Email Address') ?>">
+                                <div class="pwd-icon"></div>
+                            </div>
+                        </div>
+                        <div class="field number required cls_comm_input">
+                            <div class="control">
+                                <input id="yourphonenumber" class="input-text" title="<?php echo __('Referring Friend Phone Number') ?>"
+                                       name="yourphonenumber" type="text" value="" placeholder="<?php echo __('Friend Phone Number') ?>">
+                                <div class="pwd-icon"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <input id="website" class="input-text" name="website" type="hidden" value="<?php echo $siteUrl; ?>">
+                <input id="lang_code" class="input-text" name="lang_code" type="hidden" value="<?php echo $storeCode; ?>">
+                <div class="mm-action"><button id="btn_registers" class="btn btn-custom" name="ButtonRegister" type="submit"><?php echo __('Register') ?></button></div>
+            </form>
+            <!-- START RESUTLT BOX -->
+            <div id="loader" style="display:none;"><?php echo __('loading...'); ?></div>
+            <div id="success-result_referbox" class="result_referbox" style="display:none;">
+                <p id="result-message"></p>
+            </div>
+            <div id="failure-result_referbox" class="result_referbox" style="display:none;">
+                <p id="result-message"></p>
+            </div>
+            <!-- END RESULT BOX -->
+        </div>
+    </div>
+</div>

@@ -1,0 +1,28 @@
+{
+    "name": "amasty/sorting",
+    "description": "Improved Sorting by Amasty",
+    "require": {
+        "php": "^7.1.0",
+        "amasty/base": ">=1.10.9",
+        "amasty/cron-schedule-list": ">=1.0.5"
+    },
+    "suggest": {
+        "amasty/improved-sorting-graphql": "Install improved-sorting-graphql module to activate GraphQl and Sorting integration.",
+        "amasty/yotpo": "Install amasty/yotpo module to activate Yotpo Reviews and Sorting integration.",
+        "amasty/module-sorting-mftf-2": "Install module-sorting-mftf-2 module to implement module's mftf-tests for Magento 2.3.5+ version.",
+        "amasty/module-sorting-mftf-3": "Install module-sorting-mftf-3 module to implement module's mftf-tests for Magento 2.4.0+ version."
+    },
+    "type": "magento2-module",
+    "version": "2.8.10",
+    "license": [
+        "Commercial"
+    ],
+    "autoload": {
+        "files": [
+            "registration.php"
+        ],
+        "psr-4": {
+            "Amasty\\Sorting\\": ""
+        }
+    }
+}

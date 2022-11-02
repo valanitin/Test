@@ -1,0 +1,42 @@
+<?php
+/**
+ * Plumrocket Inc.
+ *
+ * NOTICE OF LICENSE
+ *
+ * This source file is subject to the End-user License Agreement
+ * that is available through the world-wide-web at this URL:
+ * http://wiki.plumrocket.net/wiki/EULA
+ * If you are unable to obtain it through the world-wide-web, please
+ * send an email to support@plumrocket.com so we can send you a copy immediately.
+ *
+ * @package     Plumrocket_Amp
+ * @copyright   Copyright (c) 2016 Plumrocket Inc. (http://www.plumrocket.com)
+ * @license     http://wiki.plumrocket.net/wiki/EULA  End-user License Agreement
+ */
+/** @var \Plumrocket\Amp\Helper\Homepage $homepageHelper */
+$homepageHelper = $this->helper(\Plumrocket\Amp\Helper\Homepage::class);
+$categories = $homepageHelper->getTopLevelCategories();
+$mediaUrl = $homepageHelper->getMediaUrl() . 'catalog/category/';
+$defaultImage = $this->getViewFileUrl('Plumrocket_Amp::images/photos/homepage-default.png');
+$imageWidth = 210;
+$imageHeight = 140;
+?>
+<div class="col-main">
+    <div class="std">
+        <div class="amp-cat">
+            <?php foreach ($categories as $category) : ?>
+                <a href="<?= $category->getUrl(); ?>">
+                    <span>
+                        <amp-img layout="responsive"
+                                 src="<?= $homepageHelper->getResizedImage($category, $imageWidth * 2, $imageHeight * 2, $defaultImage); ?>"
+                                 alt="<?= __('Category %s image', $category->getName())?>"
+                                 height="<?= $imageHeight; ?>"
+                                 width="<?= $imageWidth; ?>"></amp-img>
+                        <span><?= $category->getName() ?></span>
+                    </span>
+                </a>
+            <?php endforeach; ?>
+        </div>
+    </div>
+</div>

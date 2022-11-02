@@ -1,0 +1,300 @@
+<?php
+$websiteName = 'WWW.SOLOLUXURY.COM';
+?>
+<div class="check-order-container">
+  <div class="row">
+    <div class="col-md-4 guestreturncontainer offset-md-4" <?php if(isset($_POST['orderreference'])){ ?>style="display:none;"<?php } ?>>
+      <div class="contentBlock">
+        <h3><?php echo __('Check your order') ?><span><?php echo __('* Required fields') ?></span></h3>
+        <p><?php echo __('Enter your order reference and email address below to see your order details. From there you can check its shipping status, cancel items or make a return.') ?></p>
+      </div>
+      <div class="formBlock">
+        <form action="" method="POST">
+          <div class="form-control">
+            <input type="text" class="" name="orderreference" placeholder="<?php echo __('Order reference *')?>'" required>
+          </div>
+          <p><?php echo __('How do I find my ') ?><a href=""><?php echo __('Order reference?') ?></a></p>
+          <input type="submit" name="checkorder" value="<?php echo __('Let\'s Go') ?>"/>
+        </form>
+      </div>
+    </div>
+    <div class="col-md-8 order-result-container offset-md-2">
+      <?php if(isset($_POST['orderreference'])){
+
+        $orderIncrementId = $_POST['orderreference'];
+        $dynamicHelper = $this->helper('\Dynamic\Customization\Helper\Data');
+        $storeManager  = $dynamicHelper->getStoreManager();
+        $storeCode = $storeManager->getStore()->getCode();
+        $siteUrl = $dynamicHelper->getScopeConfig()->getValue("web/secure/base_url");
+        $orderInfo = $dynamicHelper->getOrderManager()->loadByIncrementId($orderIncrementId);
+        $customerEmail = $orderInfo->getCustomerEmail();
+        $shipTo = ucwords($orderInfo->getCustomerFirstname()).' '.ucwords($orderInfo->getCustomerLastname());
+        $isCanceled = $isReturned = '';
+        //check if order can cancel
+        $url = 'https://erp.theluxuryunlimited.com/api/order/check-cancellation';
+
+        //Initiate cURL.
+        $ch = curl_init($url);
+        $newjsonData = array(
+          "website" => $websiteName,
+          "order_id" => $orderIncrementId
+        );
+
+        //Encode the array into JSON.
+        $jsonDataEncoded = json_encode($newjsonData);
+
+        //Tell cURL that we want to send a POST request.
+        curl_setopt($ch, CURLOPT_POST, 1);
+
+        //Attach our encoded JSON string to the POST fields.
+        curl_setopt($ch, CURLOPT_POSTFIELDS, $jsonDataEncoded);
+
+        //Set the content type to application/json
+        curl_setopt($ch, CURLOPT_HTTPHEADER, array('Content-Type: application/json'));
+        curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
+        curl_setopt($ch, CURLOPT_TIMEOUT, 3);
+        $content = trim(curl_exec($ch));
+        curl_close($ch);
+        $data = json_decode($content, true);
+        $apiStatus = $data['code'];
+        if($apiStatus == 200){
+          $isReturned = $data['data']['isrefund'];
+          $isCanceled = $data['data']['iscanceled'];
+        }
+        //end
+        // echo '<pre>';
+        // print_r($orderInfo->getData());
+      ?>
+
+        <div class="order-title-block">
+          <ul>
+            <li class="col-md-2"><?php echo __('Order #') ?></li>
+            <li class="col-md-2"><?php echo __('Date') ?></li>
+            <li class="col-md-2"><?php echo __('Ship To') ?></li>
+            <li class="col-md-2"><?php echo __('Order Total') ?></li>
+            <li class="col-md-2"><?php echo __('Status') ?></li>
+            <li class="col-md-2"><?php echo __('Action') ?></li>
+          </ul>
+        </div>
+        <div class="order-data-block">
+          <ul>
+            <li class="col-md-2"><?php echo $orderInfo->getIncrementId() ?></li>
+            <li class="col-md-2"><?php echo $orderInfo->getCreatedAt() ?></li>
+            <li class="col-md-2"><?php echo $shipTo ?></li>
+            <li class="col-md-2"><?php echo $orderInfo->getOrderCurrencyCode().number_format($orderInfo->getGrandTotal(),2) ?></li>
+            <!-- order status api -->
+            <?php
+              $url = 'https://erp.theluxuryunlimited.com/api/customer/order-details?order_no='.$orderIncrementId.'&website='.$websiteName;
+              $token = $dynamicHelper->getConfigurationOptions();//'7e9pvvgo4u5kel2xlchlj4hmgjb0lu6s';
+              $orderStatusHistory = $currentStatus = $orderId = '';
+              $ch = curl_init();
+
+              // Set query data here with the URL
+              curl_setopt($ch, CURLOPT_URL, $url);
+              $authorization = "Authorization: Bearer ".$token; // Prepare the authorisation token
+              curl_setopt($ch, CURLOPT_HTTPHEADER, array('Content-Type: application/json' , $authorization )); // Inject the token into the header
+              curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
+              curl_setopt($ch, CURLOPT_TIMEOUT, 3);
+              $content = trim(curl_exec($ch));
+              curl_close($ch);
+              $apiData = json_decode($content, true);
+              // echo '<pre>';
+              // print_r($apiData);
+              $resultData = isset($apiData['data'][0]) ? $apiData['data'][0] : [];
+              if(!empty($resultData['order_status'])){
+                $currentStatus = $resultData['order_status'];
+              }
+              else{
+                $currentStatus = 'NA';
+              }
+            ?>
+            <li class="col-md-2 order-cancel"><?php echo $currentStatus ?></li>
+            <!-- order status api end-->
+            <li class="col-md-2">
+              <?php if($isCanceled == 1){ ?>
+                <span class="order-cancel"><?php echo __('Cancel') ?></span>
+              <?php } ?>
+              <?php if($isCanceled == 1 && $isReturned == 1){ ?>
+                <span> | </span>
+              <?php } ?>
+              <?php if($isReturned == 1){ ?>
+                <span class="order-return"><?php echo __('Return') ?></span>
+              <?php } ?>
+            </li>
+          </ul>
+        </div>
+        <div class="back-btn">
+          <a href="">Back to Track Order</a>
+        </div>
+        <!-- order cancel api -->
+        <div class="show-<?php echo $orderIncrementId ?> modal order-cancel-modal">
+          <div class="modal-content">
+            <span class="close">&times;</span>
+            <div id="result-<?php echo $orderIncrementId ?>"></div>
+            <div id="loader-<?php echo $orderIncrementId ?>" style="display:none;">loading</div>
+          </div>
+        </div>
+        <script type="text/javascript">
+          require(['jquery', 'jquery/ui'], function($){
+            $(document).ready(function() {
+              var orderNo = '<?php echo $orderIncrementId ?>';
+              var fileUrl = '<?php echo $siteUrl ?>apifiles/orderCancel.php';
+              var elem = '.order-cancel';
+              $('.show-'+orderNo).click(function(){
+                $('.show-'+orderNo).fadeOut(200);
+              });
+              $(elem).click(function(){
+                $("#result-"+orderNo).text('');
+                $('.show-'+orderNo).fadeIn(200);
+                $.ajax({
+                    url: fileUrl,
+                    type: "POST",
+                    data: {
+                      // customer_email: '<?php //echo $customerEmail ?>',
+                      customer_email: '<?php echo $customerEmail ?>',
+                      website: '<?php echo $websiteName ?>',
+                      order_id: orderNo,
+                      // product_sku: 'Test01',
+                      type:"cancellation",
+                      lang_code : '<?php echo $storeCode ?>'
+                    },
+                    dataType: "JSON",
+                    beforeSend: function() {
+                        $('#loader-'+orderNo).show();
+                     },
+                     complete: function(){
+                        $('#loader-'+orderNo).hide();
+                        // $('#result').fadeIn(800);
+                     },
+                    success: function (jsonStr) {
+                         var status = jsonStr['status'];
+                         var message = jsonStr['message'];
+                         var data = JSON.stringify(jsonStr);
+                         var obj = JSON.parse(data);
+                         var errors = obj.errors;
+                         // $("#result").text(JSON.stringify(jsonStr));
+                         console.log(jsonStr['status']);
+                         if(errors){
+                           $.each( errors, function( key, value ) {
+                             $("#result-"+orderNo).text(key + " : " + value);
+                            // alert( key + ": " + value );
+                          });
+
+                         }
+                         else{
+                            $("#result-"+orderNo).text(message);
+                           $('#result-'+orderNo).delay(3000).fadeOut(800);
+
+                        }
+
+                   }
+                 });
+              });
+            });
+          });
+        </script>
+        <!-- end -->
+
+        <!-- order return api -->
+        <div class="return-<?php echo $orderIncrementId ?> modal order-return-modal">
+          <div class="modal-content">
+            <span class="close">&times;</span>
+            <div id="result-return"></div>
+            <div id="loader-return" style="display:none;">loading</div>
+            <div class="form-data">
+                <select class="choose-product">
+                  <option>Choose item to return</option>
+                  <?php
+                  foreach ($orderInfo->getAllVisibleItems() as $_item) {
+                  ?>
+                  <option value="<?php echo $_item->getSku() ?>"><?php echo $_item->getName(); ?></option>
+                  <?php
+                  }
+                  ?>
+                </select>
+                <select class="choose-reason">
+                  <option>Reason to return</option>
+                  <option value="Reason 1">Reason 1</option>
+                  <option value="Reason 2">Reason 2</option>
+                  <option value="Reason 3">Reason 3</option>
+                </select>
+                <input type="submit" value="Retun Item" name="submit" class="submit-return">
+            </div>
+
+          </div>
+        </div>
+        <script type="text/javascript">
+        require(['jquery', 'jquery/ui'], function($){
+          $(document).ready(function() {
+            $('.order-return-modal .close').click(function(){
+              $('.order-return-modal').fadeOut(200);
+            });
+            $('.order-return').click(function(){
+              $('.order-return-modal').fadeIn(200);
+            });
+            var fileUrl = '<?php echo $siteUrl ?>apifiles/orderreturn.php';
+
+             var elem = '.submit-return';
+              $(elem).click(function(){
+                var productReturn = $('select.choose-product  option:selected').val();
+                var returnReason = $('select.choose-reason  option:selected').text();
+                 $("#result-return").text('').css({"display":"block"});
+                  $.ajax({
+                      url: fileUrl,
+                      type: "POST",
+                      data: {
+                        customer_email: '<?php echo $customerEmail ?>',
+                        website: '<?php echo $websiteName ?>',
+                        order_id: '<?php echo $orderIncrementId ?>',
+                        product_sku: productReturn,
+                        // product_sku: 'Test01',
+                        type:"return",
+                        reason: returnReason,
+                        lang_code : '<?php echo $storeCode ?>'
+                      },
+                      dataType: "JSON",
+                      beforeSend: function() {
+                          $('#loader-return').show();
+                       },
+                       complete: function(){
+                          $('#loader-return').hide();
+                          // $('#result').fadeIn(800);
+                       },
+                      success: function (jsonStr) {
+                           var status = jsonStr['status'];
+                           var message = jsonStr['message'];
+                           var data = JSON.stringify(jsonStr);
+                           var obj = JSON.parse(data);
+                           var errors = obj.errors;
+                           // $("#result").text(JSON.stringify(jsonStr));
+                           // console.log(jsonStr['status']);
+                           if(errors){
+                            $.each( errors, function( key, value ) {
+                               $("#result-return").text(key + " : " + value);
+                              // alert( key + ": " + value );
+                            });
+
+                           }
+                           else{
+                             $("#result-return").text(message);
+                             $('#result-return').delay(3000).fadeOut(800);
+
+                          }
+                          // $("#result").text(JSON.stringify(jsonStr));
+                     }
+
+
+                  });
+
+              });
+
+          });
+        });
+
+       </script>
+        <!-- order return api end -->
+      <?php } ?>
+
+    </div>
+  </div>
+</div>

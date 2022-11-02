@@ -1,0 +1,28 @@
+<?php
+/**
+ * @author    Tigren Solutions <info@tigren.com>
+ * @copyright Copyright (c) 2022 Tigren Solutions <https://www.tigren.com>. All rights reserved.
+ * @license   Open Software License ("OSL") v. 3.0
+ */
+
+// @codingStandardsIgnoreFile
+
+use Magento\Catalog\Pricing\Price\FinalPrice;
+use Magento\Framework\Pricing\Render;
+
+?>
+<?php $_product = $block->getProduct() ?>
+
+<div class="product-add-form">
+    <div class="price-box price-final_price">
+        <?= $block->getProductPriceHtml(
+            $_product,
+            FinalPrice::PRICE_CODE,
+            Render::ZONE_ITEM_VIEW,
+            [
+                'price_id_suffix' => '_clone'
+            ]
+        ) ?>
+
+    </div>
+</div>

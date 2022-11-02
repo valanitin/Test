@@ -1,0 +1,89 @@
+.sort-social {
+    width: 100%;
+    max-width: 350px;
+    background-color: #FFF;
+    margin-top: 25px;
+    list-style-type: none;
+    padding: 0;
+    box-sizing: border-box;
+    height: 120px;
+    overflow-x: hidden;
+    overflow-y: auto;
+    border: 1px solid #aaa
+}
+
+.sort-social li {
+    line-height: 30px;
+    border-bottom: 1px solid #CCC;
+    font-size: 13px;
+    margin: 0;
+    padding: 5px;
+    font-size: 14px;
+    line-height: 20px;
+    height: 30px
+}
+
+.sort-social li:hover {
+    background: #F6F6F6;
+    cursor: pointer
+}
+.sociallogin-form ul li .social-icon {
+    background: url(images/social.png);
+    display: block;
+    float: left;
+    width: 20px;
+    height: 20px;
+    margin: 0 5px 0 0;
+    padding: 0;
+    box-sizing: border-box
+}
+
+.sociallogin-form ul li.facebook .social-icon {
+    background-position: 0 0;
+    background-color: #1e4389
+}
+
+.sociallogin-form ul li.twitter .social-icon {
+    background-position: -17px 0;
+    background-color: #28a9e2
+}
+
+.sociallogin-form ul li.linkedin .social-icon {
+    background-position: -85px 0;
+    background-color: #11669c
+}
+
+.sociallogin-form ul li.yahoo .social-icon {
+    background-position: -102px 0;
+    background-color: #85228f
+}
+
+.sociallogin-form ul li.vkontakte .social-icon {
+    background-position: -34px 0;
+    background-color: #3f658c
+}
+
+.sociallogin-form ul li.googleplus .social-icon {
+    background-position: -68px 0;
+    background-color: #df4b38
+}
+
+.sociallogin-form ul li.hotmail .social-icon {
+    background-color: #f67d20;
+    background-position: 0 -16px
+}
+
+.sociallogin-form ul li.live .social-icon {
+    background-color: #0cb3ee;
+    background-position: -17px -102px
+}
+
+.sociallogin-form ul li.pinterest .social-icon {
+    background-color: #cb2028;
+    background-position: -17px -17px
+}
+.sociallogin-form ul li.instagram .social-icon {
+    background-color: #9a6e51;
+    background-position: -84px -17px; 
+}
+

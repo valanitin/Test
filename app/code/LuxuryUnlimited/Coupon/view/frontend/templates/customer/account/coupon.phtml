@@ -1,0 +1,25 @@
+<?php
+/**
+ * @author      LuxuryUnlimited
+ * @copyright   Copyright © 2022. All rights reserved.
+ */
+
+/** @var $block \LuxuryUnlimited\Coupon\Block\List */
+
+?>
+<div id="customer-coupon" class="coupon-list-container">
+    <table>
+        <tr>
+            <th>Name</th>
+            <th>Code</th>
+            <th>Description</th>
+        </tr>
+        <?php foreach($block->getCoupons() as $k => $coupon ) :?> 
+            <tr>
+                <td><?= $coupon['name'] ?></td>                
+                <td><?= $coupon['coupon'] ?></td>
+                <td><?= $coupon['description'] ?></td>
+            </tr>        
+        <?php endforeach; ?>
+        </table>
+</div>

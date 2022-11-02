@@ -1,0 +1,61 @@
+<?php
+/**
+ * Plumrocket Inc.
+ *
+ * NOTICE OF LICENSE
+ *
+ * This source file is subject to the End-user License Agreement
+ * that is available through the world-wide-web at this URL:
+ * http://wiki.plumrocket.net/wiki/EULA
+ * If you are unable to obtain it through the world-wide-web, please
+ * send an email to support@plumrocket.com so we can send you a copy immediately.
+ *
+ * @package     Plumrocket_Amp
+ * @copyright   Copyright (c) 2016 Plumrocket Inc. (http://www.plumrocket.com)
+ * @license     http://wiki.plumrocket.net/wiki/EULA  End-user License Agreement
+ */
+?>
+
+.amp-cat{text-align:center;font-size:0;margin-left:-1.5%;margin-right:-1.5%}
+.amp-cat a{margin:1%;width:31%;letter-spacing:0;display:inline-block;color:#636363;box-sizing:border-box;text-transform:uppercase;font-size:20px;position:relative}
+.amp-cat a:hover{opacity:0.6;text-decoration:none}
+.amp-cat a > span{display:block;background-color:#f4f4f4;background-size:cover;background-position:center}
+.amp-cat a span span{display:inline-block;line-height:normal;background:#fff;padding:3px 10px;min-width:80px;position:absolute;top:50%;transform:translate(-50%,-50%);left:50%}
+
+@media (max-width:760px){
+.amp-cat{margin-left:0;margin-right:0}
+.amp-cat a > span{line-height:100px}
+.amp-cat a{width:48%;font-size: 15px;}
+.amp-cat a.sale,.amp-cat a.vip{width:auto;display:block;margin-bottom:2%}
+}
+@media (max-width:550px){
+.amp-cat a{width:auto;display:block;margin-bottom:2%}
+.amp-cat a.sale,.amp-cat a.vip{width:48%;display:inline-block;margin-bottom:2%;margin-top: 0}
+}
+body{min-height: 100vh !important;background: url(/media/porto/web/images/solo/solo-new-home.jpg) no-repeat;background-size: cover;background-position: top center;}
+body{font-family: 'Open Sans', sans-serif;}
+h1, .h1, h2, .h2, h3, .h3, h4, .h4, h5, .h5, h6, .h6, p, span, strong, button, input, select{font-family: 'Open Sans', sans-serif !important; }
+.amp-page-bottom {position: fixed;bottom: 0;width: 100%;z-index: 9;}
+.mobile-menu:before, .search-icon:before, .account:before, .cart:before{color: #000;}
+.amp-page-header .top_user{float: left;display: inline-block;position: absolute;right: 120px;top: 15px;}
+.amp-logo-container .amp-logo{height: 40px;}
+.amp-logo-container .amp-logo amp-img{ height: 40px;}
+
+
+
+*, *::before, *::after {box-sizing: border-box;}
+div.footer-container{background: #8a3a07 !important;}	
+.footer-container .footer{padding: 20px;}
+.footer .i-amphtml-accordion-header{background: none; border: none;color: #fff; text-align: center; padding: 6px;}
+.footer .i-amphtml-accordion-header span{color: #fff; text-transform: capitalize;}
+.footer .i-amphtml-accordion-header:after{content: "+";display: inline-block;font-size: 22px;margin-left: 10px; font-size: 16px;}
+.footer section[expanded] .i-amphtml-accordion-header:after{content: "-";}
+.footer .i-amphtml-accordion-content li{text-align: center; color: #fff;}
+.footer .i-amphtml-accordion-content li a{color: #fff !important;text-transform: capitalize !important;display: block;padding: 4px;font-size: 14px;}
+.footer .block.newsletter{padding-top: 15px;}
+.footer .field.newsletter{text-align: center;}
+.footer .field.newsletter label{color: #fff; font-size: 14px; display: block; padding-bottom: 6px;position: absolute;top: 0;left: 0;text-align: center;width: 100%;}
+.footer .field.newsletter input{background: transparent;border: 1px solid #fff;color: #fff;height: 35px; outline: none; padding: 0 10px;}
+.footer .field.newsletter input::placeholder{color: #fff;}
+.footer .form.subscribe{display: flex;justify-content: center;align-items: flex-end; padding-top: 30px; position: relative;}
+.footer .form.subscribe .subscribe{margin: 0;height: 35px;background: #fff;color: #000;}

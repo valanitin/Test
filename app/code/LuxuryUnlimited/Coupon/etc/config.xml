@@ -1,0 +1,25 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * @author      LuxuryUnlimited
+ * @copyright   Copyright © 2022. All rights reserved.
+ */
+-->
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Store:etc/config.xsd">
+    <default>
+        <coupon>
+            <general>
+                <enable>1</enable>
+                <success_message>%s COUPON APPLIED SUCCESSFULLY. YOU SAVED %c ON THIS ORDER</success_message>
+                <cancel_coupon>%s YOUR COUPON IS CANCELLED</cancel_coupon>
+                <exception_message>%s WE CANNOT APPLY COUPON CODE NOW</exception_message>       
+                <coupon_exist>%s coupon code is not valid</coupon_exist>         
+                <coupon_expired>%s - This coupon has expired - If you have any queries about this pls create a ticket here</coupon_expired>
+                <coupon_customer_group>%s coupon is not applicable for your customer group</coupon_customer_group>
+                <coupon_website_id>Not applicale on the current website store</coupon_website_id>
+                <coupon_usages>%s exceeded the number usages</coupon_usages>
+                <condition_fail>This coupon don't fulfill the coupon condition</condition_fail>
+            </general>
+        </coupon>
+    </default>
+</config>

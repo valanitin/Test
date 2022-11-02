@@ -1,0 +1,7 @@
+<?xml version="1.0"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Backend:etc/menu.xsd">
+    <menu>
+        <add id="Dynamic_Mytickets::mytickets_manage" title="Tickets" translate="title" module="Dynamic_Mytickets" sortOrder="100" resource="Dynamic_Mytickets::mytickets"/>
+        <add id="Dynamic_Mytickets::mytickets_fields" title="Ticket Manager" module="Dynamic_Mytickets" sortOrder="10" parent="Dynamic_Mytickets::mytickets_manage" action="mytickets/index/" resource="Dynamic_Mytickets::manage"/>
+    </menu>
+</config>

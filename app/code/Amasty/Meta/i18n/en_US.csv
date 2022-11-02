@@ -1,0 +1,289 @@
+"Add Template","Add Template"
+Root,Root
+ID,ID
+Category,Category
+Store,Store
+"Save and Continue Edit","Save and Continue Edit"
+"Edit Template `%1`","Edit Template `%1`"
+"Add New Template","Add New Template"
+Content,Content
+Title,Title
+"Meta Description","Meta Description"
+Keywords,Keywords
+"Canonical Url","Canonical Url"
+"We can only replace Canonical Url. Extension will not replace it if canonical url is missing. To enable showing canonical please go to Stores -> Configuration -> Catalog -> Search Engine Optimization","We can only replace Canonical Url. Extension will not replace it if canonical url is missing. To enable showing canonical please go to Stores -> Configuration -> Catalog -> Search Engine Optimization"
+Robots,Robots
+"H1 Tag","H1 Tag"
+General,General
+"Page Url","Page Url"
+"You can use `*` symbol for specify url pattern. Please use url without domain name. Ex: gear/watches.html","You can use `*` symbol for specify url pattern. Please use url without domain name. Ex: gear/watches.html"
+Priority,Priority
+"Apply For","Apply For"
+"Template Configuration","Template Configuration"
+"Page Content","Page Content"
+URL,URL
+Delete,Delete
+"Are you sure you want to delete template?","Are you sure you want to delete template?"
+"Save And Continue","Save And Continue"
+"Please update Amasty Base module. Re-upload it and replace all the files.","Please update Amasty Base module. Re-upload it and replace all the files."
+"Available variables:  <br/>Parent Category - {meta_parent_category}<br/>
+                    Category Name - {name}<br/>Store View - {store_view}<br/>Store - {store}<br/>Website - {website}","Available variables:  <br/>Parent Category - {meta_parent_category}<br/>
+                    Category Name - {name}<br/>Store View - {store_view}<br/>Store - {store}<br/>Website - {website}"
+Description,Description
+"Image Alt","Image Alt"
+"Please, make sure that category image is wrapped 
+                        into tag with class 'category-image' and image has %1 attribute","Please, make sure that category image is wrapped 
+                        into tag with class 'category-image' and image has %1 attribute"
+"Text after Product List","Text after Product List"
+"Current text always appears after products block","Current text always appears after products block"
+"
+Example: Buy {name} [by {manufacturer|brand}] [of {color} color] [for only {price}] [in {categories}] at [{store},] {website}.    
+<br/>                            
+<br/>Available variables:  
+<br/>Category - {category}
+<br/>All Categories - {categories}
+<br/>Store View - {store_view}
+<br/>Store      - {store}
+<br/>Website    - {website}
+<br/>Price - {price}
+<br/>Special Price - {special_price}
+<br/>Final Price - {final_price}
+<br/>Final Price with Tax - {final_price_incl_tax}
+<br/>Price From (bundle) - {startingfrom_price}
+<br/>Price To (bundle) - {startingto_price}
+<br/>Brand - {brand}
+<br/>Color - {color}
+<br/>And other product attributes ...","
+Example: Buy {name} [by {manufacturer|brand}] [of {color} color] [for only {price}] [in {categories}] at [{store},] {website}.    
+<br/>                            
+<br/>Available variables:  
+<br/>Category - {category}
+<br/>All Categories - {categories}
+<br/>Store View - {store_view}
+<br/>Store      - {store}
+<br/>Website    - {website}
+<br/>Price - {price}
+<br/>Special Price - {special_price}
+<br/>Final Price - {final_price}
+<br/>Final Price with Tax - {final_price_incl_tax}
+<br/>Price From (bundle) - {startingfrom_price}
+<br/>Price To (bundle) - {startingto_price}
+<br/>Brand - {brand}
+<br/>Color - {color}
+<br/>And other product attributes ..."
+"Short Description","Short Description"
+Default,Default
+Initialization...,Initialization...
+"Products processed:","Products processed:"
+"Don't generate URLs for disabled products","Don't generate URLs for disabled products"
+"If product pages were already indexed and it’s required to create permanent redirects.","If product pages were already indexed and it’s required to create permanent redirects."
+"If you don’t need to create redirects.","If you don’t need to create redirects."
+"Meta Tags Template (Categories)","Meta Tags Template (Categories)"
+"We can't find template to delete.","We can't find template to delete."
+"Template was successfully removed","Template was successfully removed"
+"This item no longer exists.","This item no longer exists."
+"We can't delete item right now. Please review the log and try again.","We can't delete item right now. Please review the log and try again."
+"Edit Template #`%1`","Edit Template #`%1`"
+"Add New","Add New"
+"%1 has been successfully saved","%1 has been successfully saved"
+"This Template no longer exists.","This Template no longer exists."
+"Unable to find a record to save","Unable to find a record to save"
+"Template (%1) #%2","Template (%1) #%2"
+"Request path ""%1"" for product with ID %2 is already exists","Request path ""%1"" for product with ID %2 is already exists"
+"Template already exists in chosen store","Template already exists in chosen store"
+"Unable to save config with ID %1. Error: %2","Unable to save config with ID %1. Error: %2"
+"Unable to save new config. Error: %1","Unable to save new config. Error: %1"
+"Config with specified ID ""%1"" not found.","Config with specified ID ""%1"" not found."
+"Unable to remove config with ID %1. Error: %2","Unable to remove config with ID %1. Error: %2"
+"Unable to remove config. Error: %1","Unable to remove config. Error: %1"
+"From Product Associated Categories","From Product Associated Categories"
+"From Breadcrumbs","From Breadcrumbs"
+"The url key for store ""%1"" was not specified.","The url key for store ""%1"" was not specified."
+"Download and Import","Download and Import"
+Download,Download
+Completed,Completed
+"SEO Meta Tags Templates","SEO Meta Tags Templates"
+Information,Information
+"Max Title Length","Max Title Length"
+"Max Description Length","Max Description Length"
+"Product Page","Product Page"
+Enabled,Enabled
+"Replace Filled Metadata","Replace Filled Metadata"
+"Applied only for Product's Short Description and Description.","Applied only for Product's Short Description and Description."
+"Category Variable Data Source","Category Variable Data Source"
+"Please set to `From Product Associated Categories` if you have no Breadcrumbs on the Product View page.","Please set to `From Product Associated Categories` if you have no Breadcrumbs on the Product View page."
+"Product URL Key Template","Product URL Key Template"
+"You can use variables in this template<br>
+Example: {name} - {sku}<br><br>
+To Apply changes please save the configuration and run one of the following commands depending on if rewrites need to be created or not.<br><br>
+If you don’t need to create redirects (applicable for stores which are in the process of development) run:<br><br>
+bin/magento ammeta:generate:without-redirect<br><br>
+If product pages were already indexed and it’s required to create permanent redirects run:<br><br>
+bin/magento ammeta:generate:with-redirect","You can use variables in this template<br>
+Example: {name} - {sku}<br><br>
+To Apply changes please save the configuration and run one of the following commands depending on if rewrites need to be created or not.<br><br>
+If you don’t need to create redirects (applicable for stores which are in the process of development) run:<br><br>
+bin/magento ammeta:generate:without-redirect<br><br>
+If product pages were already indexed and it’s required to create permanent redirects run:<br><br>
+bin/magento ammeta:generate:with-redirect"
+"Category Page","Category Page"
+"Applied only for Category's Description.","Applied only for Category's Description."
+Back,Back
+Save,Save
+"Main Category","Main Category"
+"Category is","Category is"
+"
+                        If a product is assigned to a few categories, the meta data template with the highest priority will be applied. Here 0 is the lowest priority. The categories with the same priority values are compared by the category depth.
+                    ","
+                        If a product is assigned to a few categories, the meta data template with the highest priority will be applied. Here 0 is the lowest priority. The categories with the same priority values are compared by the category depth.
+                    "
+"Products in Main Category","Products in Main Category"
+"
+                        
+                                <p>Example: Buy {name} [by {manufacturer|brand}] [of {color} color] [for only {price}] [in {categories}] at [{store},] {website}.</p>
+                                <p>Available variables:</p>
+                                <ul>
+                                    <li>Category - {category}</li>
+                                    <li>All Categories - {categories}</li>
+                                    <li>Store View - {store_view}</li>
+                                    <li>Store - {store}</li>
+                                    <li>Website - {website}</li>
+                                    <li>Price - {price}</li>
+                                    <li>Special Price - {special_price}</li>
+                                    <li>Final Price - {final_price}</li>
+                                    <li>Final Price with Tax - {final_price_incl_tax}</li>
+                                    <li>Price From (bundle) - {startingfrom_price}</li>
+                                    <li>Price To (bundle) - {startingto_price}</li>
+                                    <li>Brand - {brand}</li>
+                                    <li>Color - {color}</li>
+                                    <li>And other product attributes ...</li>
+                                </ul>
+                            
+                    ","
+                        
+                                <p>Example: Buy {name} [by {manufacturer|brand}] [of {color} color] [for only {price}] [in {categories}] at [{store},] {website}.</p>
+                                <p>Available variables:</p>
+                                <ul>
+                                    <li>Category - {category}</li>
+                                    <li>All Categories - {categories}</li>
+                                    <li>Store View - {store_view}</li>
+                                    <li>Store - {store}</li>
+                                    <li>Website - {website}</li>
+                                    <li>Price - {price}</li>
+                                    <li>Special Price - {special_price}</li>
+                                    <li>Final Price - {final_price}</li>
+                                    <li>Final Price with Tax - {final_price_incl_tax}</li>
+                                    <li>Price From (bundle) - {startingfrom_price}</li>
+                                    <li>Price To (bundle) - {startingto_price}</li>
+                                    <li>Brand - {brand}</li>
+                                    <li>Color - {color}</li>
+                                    <li>And other product attributes ...</li>
+                                </ul>
+                            
+                    "
+"Sub Categories","Sub Categories"
+"
+                         
+                                <p>Available variables:</p>
+                                <ul>
+                                    <li>Parent Category - {meta_parent_category}</li>
+                                    <li>Category Name - {name}</li>
+                                    <li>Store View - {store_view}</li>
+                                    <li>Store - {store}</li>
+                                    <li>Website - {website}</li>
+                                </ul>
+                            
+                     ","
+                         
+                                <p>Available variables:</p>
+                                <ul>
+                                    <li>Parent Category - {meta_parent_category}</li>
+                                    <li>Category Name - {name}</li>
+                                    <li>Store View - {store_view}</li>
+                                    <li>Store - {store}</li>
+                                    <li>Website - {website}</li>
+                                </ul>
+                            
+                     "
+"
+                         Please, make sure that category image is wrapped into tag with class 'category-image' and image has alt attribute.
+                     ","
+                         Please, make sure that category image is wrapped into tag with class 'category-image' and image has alt attribute.
+                     "
+"Products in Sub Categories","Products in Sub Categories"
+"
+                         
+                                <p>Example: Buy {name} [by {manufacturer|brand}] [of {color} color] [for only {price}] [in {categories}] at [{store},] {website}.</p>
+                                <p>Available variables:</p>
+                                <ul>
+                                    <li>Category - {category}</li>
+                                    <li>All Categories - {categories}</li>
+                                    <li>Store View - {store_view}</li>
+                                    <li>Store - {store}</li>
+                                    <li>Website - {website}</li>
+                                    <li>Price - {price}</li>
+                                    <li>Special Price - {special_price}</li>
+                                    <li>Final Price - {final_price}</li>
+                                    <li>Final Price with Tax - {final_price_incl_tax}</li>
+                                    <li>Price From (bundle) - {startingfrom_price}</li>
+                                    <li>Price To (bundle) - {startingto_price}</li>
+                                    <li>Brand - {brand}</li>
+                                    <li>Color - {color}</li>
+                                    <li>And other product attributes ...</li>
+                                </ul>
+                            
+                     ","
+                         
+                                <p>Example: Buy {name} [by {manufacturer|brand}] [of {color} color] [for only {price}] [in {categories}] at [{store},] {website}.</p>
+                                <p>Available variables:</p>
+                                <ul>
+                                    <li>Category - {category}</li>
+                                    <li>All Categories - {categories}</li>
+                                    <li>Store View - {store_view}</li>
+                                    <li>Store - {store}</li>
+                                    <li>Website - {website}</li>
+                                    <li>Price - {price}</li>
+                                    <li>Special Price - {special_price}</li>
+                                    <li>Final Price - {final_price}</li>
+                                    <li>Final Price with Tax - {final_price_incl_tax}</li>
+                                    <li>Price From (bundle) - {startingfrom_price}</li>
+                                    <li>Price To (bundle) - {startingto_price}</li>
+                                    <li>Brand - {brand}</li>
+                                    <li>Color - {color}</li>
+                                    <li>And other product attributes ...</li>
+                                </ul>
+                            
+                     "
+Brands,Brands
+"Configure Template for Brand Pages","Configure Template for Brand Pages"
+"
+                        If set to ‘Yes’, you will be able to configure a uniform meta template for all Brand Pages.
+                    ","
+                        If set to ‘Yes’, you will be able to configure a uniform meta template for all Brand Pages.
+                    "
+"
+                        
+                                <p>Available variables:</p>
+                                <ul>
+                                    <li>Brand Name - {brand_name}</li>
+                                    <li>Store View - {store_view}</li>
+                                    <li>Store - {store}</li>
+                                    <li>Website - {website}</li>
+                                </ul>
+                            
+                    ","
+                        
+                                <p>Available variables:</p>
+                                <ul>
+                                    <li>Brand Name - {brand_name}</li>
+                                    <li>Store View - {store_view}</li>
+                                    <li>Store - {store}</li>
+                                    <li>Website - {website}</li>
+                                </ul>
+                            
+                    "
+"
+                        Current text always appears after products block.
+                    ","
+                        Current text always appears after products block.
+                    "

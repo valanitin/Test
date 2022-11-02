@@ -1,0 +1,24 @@
+<?php
+/** @var \Magento\Customer\Block\Address\Grid $block */
+?>
+
+<div class="block block-addresses-list">
+    <div class="block-content">
+        <p class="empty"><?= $block->escapeHtml(__('You have no address entries in your address book.')) ?></p>
+    </div>
+</div>
+<div class="actions-toolbar" style="display: flex; justify-content: center;">
+    <div class="primary">
+        <button id="addAddress" type="button" role="add-address" title="<?= $block->escapeHtmlAttr(__('Add Address')) ?>" class="action primary add"><span><?= $block->escapeHtml(__('Add Address')) ?></span></button>
+    </div>
+</div>
+<script type="text/x-magento-init">
+    {
+        ".page-main": {
+            "address": {
+                "addAddress": "button[role='add-address']",
+                "addAddressLocation": "<?= $block->escapeJs($block->escapeUrl($block->getAddAddressUrl())) ?>"
+            }
+        }
+    }
+</script>

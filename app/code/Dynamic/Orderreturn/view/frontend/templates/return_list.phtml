@@ -1,0 +1,69 @@
+<?php 
+
+$ticketsList= $block->getLayout()->createBlock('Dynamic\Mytickets\Block\Myticketslist');
+$myTicketCollection = $ticketsList->getMyTicketsByCustomerId();
+
+?>
+<div class="table-wrapper orders-history">
+    <?php if ($myTicketCollection && count($myTicketCollection)) { ?>
+        <div class="table-wrapper additional-addresses">
+            <table class="data table table-order-items history" id="my-orders-table">
+                <caption class="table-caption"><?= $block->escapeHtml(__('Additional addresses')) ?></caption>
+                <thead>
+                    <tr>
+                        <th scope="col" class="col ticketId"><?= $block->escapeHtml(__('Ticket ID / Order ID')) ?></th>
+                        <th scope="col" class="col requestType"><?= $block->escapeHtml(__('Request Type')) ?></th>
+                        <th scope="col" class="col sku"><?= $block->escapeHtml(__('Product SKU')) ?></th>
+                        <th scope="col" class="col reason-msg" style="display: block !important;"><?= $block->escapeHtml(__('Return/Cancel Reason')) ?></th>
+                        <th scope="col" class="col status"><?= $block->escapeHtml(__('Status')) ?></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <?php foreach ($myTicketCollection as $item) { ?>
+						<?php
+                            if (!empty($item->getTicketCode())) {
+                                $ticketOrderID = $item->getTicketCode();
+                                $reason = $item->getRemarks();
+                            } else {
+                                $remarks = explode("# ", $item->getRemarks());
+                                $orderIdReason = explode(" ,Reason :",$remarks[1]);
+                                $ticketOrderID = $orderIdReason[0];
+                                $reason = $orderIdReason[1];
+                            }
+                        ?>
+                        <?php
+                            $keyword = $item->getKeyword();
+                            if(strpos($keyword, 'Cancel') !== false){
+                                $returnType = 'Cancel';
+                            } else{
+                                $returnType = 'Return';
+                            }
+                        ?>
+                        <tr>
+                            <td data-th="<?= $block->escapeHtml(__('Ticket ID / Order ID')) ?>" class="col ticktid"><?= $ticketOrderID ?></td>
+                            <td data-th="<?= $block->escapeHtml(__('Request Type')) ?>" class="col type"><?= $returnType ?></td>
+                            <td data-th="<?= $block->escapeHtml(__('Product SKU')) ?>" class="col SKU"><?= $item->getStyle() ?></td>
+                            <td data-th="<?= $block->escapeHtml(__('Return/Cancel Reason')) ?>" class="col reason-msg" style="display: block !important;"><?= $reason ?></td>
+                            <td data-th="<?= $block->escapeHtml(__('Status')) ?>" class="col status">
+                                <?= ($item->getStatus() == 0) ? 'Completed' : 'Pending'; ?>
+                            </td>
+                        </tr>
+                    <?php } ?>
+                </tbody>
+            </table>
+        </div>
+        <?php if ($block->getPagerHtml()): ?>
+            <div class="order-products-toolbar toolbar bottom"><?php echo $block->getPagerHtml(); ?></div>
+        <?php endif ?>
+    <?php } else { ?>
+        <div class="message info empty"><span><?php echo __('No any record.'); ?></span></div>
+    <?php } ?>
+</div>
+
+<style>
+	.alert {
+   width:100px !important;    
+   font-size:10px !important; 
+   padding:2px;
+}
+</style>

@@ -1,0 +1,45 @@
+<?xml version="1.0"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:ObjectManager/etc/config.xsd">
+    <preference for="Magento\Cron\Console\Command\CronCommand" type="MageMojo\Cron\Console\Command\CronCommand" />
+    <type name="Magento\Framework\Console\CommandListInterface">
+        <arguments>
+            <argument name="commands" xsi:type="array">
+                <item name="cronExecute" xsi:type="object">MageMojo\Cron\Console\Command\CronExecuteCommand</item>
+            </argument>
+        </arguments>
+    </type>
+    <type name="Magento\Framework\App\AreaList">
+        <arguments>
+            <argument name="areas" xsi:type="array">
+                <item name="crontab" xsi:type="null" />
+            </argument>
+        </arguments>
+    </type>
+
+    <!-- Adding proxies for the console commands. These are loaded when setup:install is run
+         and they load other classes, causing a crash of the install process. -->
+    <type name="MageMojo\Cron\Console\Command\CronExecuteCommand">
+        <arguments>
+            <argument name="schedule" xsi:type="object">MageMojo\Cron\Model\Schedule\Proxy</argument>
+        </arguments>
+    </type>
+
+    <type name="MageMojo\Cron\Console\Command\CronCommand">
+        <arguments>
+            <argument name="schedule" xsi:type="object">MageMojo\Cron\Model\Schedule\Proxy</argument>
+        </arguments>
+    </type>
+
+    <virtualType name="MageMojoCronConfig" type="Magento\Cron\Model\Config">
+        <arguments>
+            <argument name="configData" xsi:type="object">MageMojo\Cron\Model\Config\Data</argument>
+        </arguments>
+    </virtualType>
+    <type name="MageMojo\Cron\Model\Schedule">
+        <arguments>
+            <argument name="cronconfig" xsi:type="object">MageMojoCronConfig</argument>
+        </arguments>
+    </type>
+
+</config>
+

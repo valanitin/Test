@@ -1,0 +1,9 @@
+<?xml version="1.0"?>
+<routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="../../../../../app/code/Magento/Webapi/etc/webapi.xsd">
+	<route method="GET" url="/V1/estimate/date-api/:id">
+		<service class="Custom\EstimatedDeliveryApi\Api\EstimatedDeliveryDateInterface" method="getEstimateDate"/>
+		<resources>
+			<resource ref="anonymous"/>
+		</resources>
+	</route>
+</routes>

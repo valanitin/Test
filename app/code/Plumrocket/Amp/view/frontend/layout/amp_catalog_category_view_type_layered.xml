@@ -1,0 +1,28 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Plumrocket Inc.
+ *
+ * NOTICE OF LICENSE
+ *
+ * This source file is subject to the End-user License Agreement
+ * that is available through the world-wide-web at this URL:
+ * http://wiki.plumrocket.net/wiki/EULA
+ * If you are unable to obtain it through the world-wide-web, please
+ * send an email to support@plumrocket.com so we can send you a copy immediately.
+ *
+ * @package     Plumrocket_Amp
+ * @copyright   Copyright (c) 2017 Plumrocket Inc. (http://www.plumrocket.com)
+ * @license     http://wiki.plumrocket.net/wiki/EULA  End-user License Agreement
+ */
+-->
+<page layout="pramp" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/page_configuration.xsd">
+    <body>
+        <referenceContainer name="amp.sidebar.main">
+            <block class="Plumrocket\Amp\Block\Catalog\Layer\Navigation\Category" name="amp.catalog.leftnav" before="-" template="Plumrocket_Amp::catalog/layer/view.phtml">
+                <block class="Plumrocket\Amp\Block\Catalog\Layer\Navigation\State" name="amp.catalog.navigation.state" as="amp.state" template="Plumrocket_Amp::catalog/layer/state.phtml"/>
+                <block class="Plumrocket\Amp\Block\Catalog\Layer\Navigation\FilterRenderer" name="amp.catalog.navigation.renderer" as="amp.renderer" template="Plumrocket_Amp::catalog/layer/filter.phtml"/>
+            </block>
+        </referenceContainer>
+    </body>
+</page>

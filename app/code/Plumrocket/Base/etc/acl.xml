@@ -1,0 +1,22 @@
+<?xml version="1.0"?>
+<!--
+ * @package     Plumrocket_Base
+ * @copyright   Copyright (c) 2020 Plumrocket Inc. (https://plumrocket.com)
+ * @license     https://plumrocket.com/license/  End-user License Agreement
+-->
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:Acl/etc/acl.xsd">
+    <acl>
+        <resources>
+            <resource id="Magento_Backend::admin">
+                <resource id="Plumrocket_Base::elements" title="Plumrocket" sortOrder="55" />
+                <resource id="Magento_Backend::stores">
+                    <resource id="Magento_Backend::stores_settings">
+                        <resource id="Magento_Config::config">
+                            <resource id="Plumrocket_Base::config" title="Plumrocket Base Settings"/>
+                        </resource>
+                    </resource>
+                </resource>
+            </resource>
+        </resources>
+    </acl>
+</config>

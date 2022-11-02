@@ -1,0 +1,16 @@
+<?xml version="1.0"?>
+<!--
+ * @package     Plumrocket_Base
+ * @copyright   Copyright (c) 2020 Plumrocket Inc. (https://plumrocket.com)
+ * @license     https://plumrocket.com/license/  End-user License Agreement
+-->
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Backend:etc/menu.xsd">
+    <menu>
+        <add id="Plumrocket_Base::elements"
+             title="Plumrocket"
+             module="Plumrocket_Base"
+             sortOrder="55"
+             resource="Plumrocket_Base::elements"
+             dependsOnConfig="plumbase/menu/enabled" />
+    </menu>
+</config>

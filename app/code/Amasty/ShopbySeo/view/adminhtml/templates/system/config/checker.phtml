@@ -1,0 +1,25 @@
+<?php
+/**
+ * @author Amasty Team
+ * @copyright Copyright (c) 2019 Amasty (https://www.amasty.com)
+ * @package Amasty_ShopbySeo
+ */
+?>
+<div id="am_checker_message" style="display: none;">
+    <div class="message message-warning warning">
+        <div><?= __("Using the same value for option separation and to replace special characters is outdated and may cause issues."); ?></div>
+    </div>
+    <div class="example">
+        <p><?= __("If there are complex options like:'red-white', there will be a problem with single 'red' and 'white' options."); ?></p>
+        <p><?= __("In some cases such options will not be parsed by SEO URL router."); ?></p>
+        <p><?= __("We strongly recommend not to use the same symbol for option separation and to replace special characters."); ?></p>
+        <a href="<?= $block->getUserGuideUrl(); ?>"><?= __('See more cases in the User Guide')?></a>
+    </div>
+</div>
+<script type="text/x-magento-init">
+    {
+        "*": {
+            "Amasty_ShopbySeo/js/checker": {}
+        }
+    }
+</script>

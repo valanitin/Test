@@ -1,0 +1,28 @@
+<?xml version="1.0"?>
+<!--
+ * Revered Technologies Pvt. Ltd.
+ *
+ * NOTICE OF LICENSE
+ *
+ * This source file is subject to the EULA
+ * that is bundled with this package in the file LICENSE.txt.
+ * It is also available through the world-wide-web at this URL:
+ * http://store.reveredtech.com/Revered-LICENSE-COMMUNITY.txt
+ *
+ ********************************************************************
+ * @category   Revered
+ * @package    Revered_GuestWishlist
+ * @copyright  Copyright (c) Revered Technologies Pvt. Ltd. (http://www.reveredtech.com)
+ * @license    http://store.reveredtech.com/Revered-LICENSE-COMMUNITY.txt
+ -->
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:Event/etc/events.xsd">
+    <event name="customer_customer_authenticated">
+        <observer name="guestwishlist_customer_authenticated" instance="Revered\GuestWishlist\Observer\CustomerAuthenticated" />
+    </event>
+    <event name="customer_register_success">
+        <observer name="guestwishlist_customer_register_success" instance="Revered\GuestWishlist\Observer\CustomerRegisterSuccess" />
+    </event>
+    <event name="controller_action_predispatch_gwishlist_index_send">
+        <observer name="CheckCaptchaGuestWishlistForm" instance="Revered\GuestWishlist\Observer\CheckCaptchaForm" />
+    </event>
+</config>

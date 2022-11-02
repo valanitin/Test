@@ -1,0 +1,46 @@
+<?php
+/* @var $block \Magento\Framework\View\Element\Template */
+?>
+
+<?php
+//@codingStandardsIgnoreStart
+
+$dynamicHelper = $this->helper('Local\BrowserPushNotification\Helper\Data');
+$siteBaseUrl = $block->getBaseUrl();
+$siteUrl = $this->getUrl();
+
+?>
+
+<script id="notification-template" type="text/x-magento-template">
+    <div class="clsnotification" id="clsnotification">
+        <div class="clsnotwrapper">
+            <p>Dont Miss Out Special Deals & New Arrivals<br/>Sign up to notifications</p>
+            <div class="clsbuttonwrapper">
+                <a class="clsbtnyes" href="#/"> <%- data.yes %> </a>
+                <a class="clsbtnno" href="#/"> <%- data.no %> </a>
+            </div>
+        </div>
+    </div>
+</script>
+
+<script type="text/x-magento-init">
+{
+    "*": {
+        "Local_BrowserPushNotification/js/pushnotik/firebase-notification": {
+            "serviceWorkerUrl":"<?php echo $block->getViewFileUrl('Local_BrowserPushNotification::js/pushnotik/firebase-messaging-sw.js'); ?>",
+            "siteBaseUrl":"<?php /* @noEscape */ echo $siteBaseUrl ?>",
+            "siteUrl":"<?php /* @noEscape */ echo $siteUrl ?>",
+            "apiKey":"<?php echo $dynamicHelper->getConfigurationApiKey(); ?>",
+            "authDomain":"<?php echo $dynamicHelper->getConfigurationAutoDomain(); ?>",
+            "projectId":"<?php echo $dynamicHelper->getConfigurationProjectId(); ?>",
+            "storageBucket":"<?php echo $dynamicHelper->getConfigurationStorageBucket(); ?>",
+            "messagingSenderId":"<?php echo $dynamicHelper->getConfigurationMessagingSenderId(); ?>",
+            "appId":"<?php echo $dynamicHelper->getConfigurationApiId(); ?>",
+            "measurementId":"<?php echo $dynamicHelper->getConfigurationMeasurementId(); ?>",
+            "tokenWebsite":"<?php echo $dynamicHelper->getConfigurationTokenWebsite(); ?>",
+            "publicVapidKey":"<?php echo $dynamicHelper->getConfigurationPublicVapidKey(); ?>"
+        }
+    }
+}
+</script>
+<?php //@codingStandardsIgnoreEnd ?>

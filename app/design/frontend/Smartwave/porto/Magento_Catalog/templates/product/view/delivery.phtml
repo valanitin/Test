@@ -1,0 +1,22 @@
+<?php
+$dynamicHelper = $this->helper('\Dynamic\Customization\Helper\Data');
+$scopeConfig = $dynamicHelper->getScopeConfig();
+$active =  $scopeConfig->getValue("productdeliverydate/delivery_date/active", \Magento\Store\Model\ScopeInterface::SCOPE_STORE);
+$deliverymaxday =  $scopeConfig->getValue("productdeliverydate/delivery_date/deliverymaxday", \Magento\Store\Model\ScopeInterface::SCOPE_STORE);
+$deliveryminday =  $scopeConfig->getValue("productdeliverydate/delivery_date/deliveryminday", \Magento\Store\Model\ScopeInterface::SCOPE_STORE);
+$objDate = $dynamicHelper->getDate();
+if($active){ 
+$date = $objDate->date('Y-m-d');
+$minday = $objDate->date('M j', strtotime($date." +".$deliveryminday." days"));
+$maxday = $objDate->date('M j', strtotime($date." +".$deliverymaxday." days"));
+?>
+<?php $_product = $block->getProduct(); ?>
+<?php if ($_product->isSaleable()){ ?>
+<div class="estimated_delivery">
+	<div class="estimatedlabel"><?php echo __('Estimated delivery'); ?></div>
+	<div class="estimatedvalue"><?php echo $minday." - ".$maxday; ?></div>
+
+</div>
+<?php }
+}
+ ?>

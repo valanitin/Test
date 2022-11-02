@@ -1,0 +1,12 @@
+<?xml version="1.0"?>
+<page xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/page_configuration.xsd">
+	<head>
+        <script src="https://www.gstatic.com/firebasejs/4.12.1/firebase-app.js" src_type="url"/>
+    </head>
+    <body>
+        <referenceContainer name="page.wrapper">
+            <block class="Magento\Framework\View\Element\Template" name="pushnotificationfirebase" template="Local_BrowserPushNotification::html/notificationfirebase.phtml"/>
+        </referenceContainer>
+        <move element="notificationfirebase" destination="main.content" after="-"/>
+    </body>
+</page>

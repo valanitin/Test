@@ -1,0 +1,18 @@
+<?php
+/**
+ * @author Amasty Team
+ * @copyright Copyright (c) 2020 Amasty (https://www.amasty.com)
+ * @package Amasty_Sorting
+ */
+?>
+<?php /** @var \Amasty\Sorting\Block\Direction $block */ ?>
+
+<script type="text/x-magento-init">
+        {
+            "[data-role='sorter']": {
+                "Amasty_Sorting/js/direction": {
+                    "permanentDirectionMethods": <?= /** @noEscape */ $block->getPermanentDirectionAttributesJson() ?>
+                }
+            }
+        }
+</script>

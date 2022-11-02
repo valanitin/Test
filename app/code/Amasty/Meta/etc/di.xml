@@ -1,0 +1,36 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * @author Amasty Team
+ * @copyright Copyright (c) 2021 Amasty (https://www.amasty.com)
+ * @package Amasty_Meta
+ */
+-->
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:ObjectManager/etc/config.xsd">
+    <preference for="Amasty\Meta\Api\Data\ConfigInterface" type="Amasty\Meta\Model\Config" />
+    <preference for="Amasty\Meta\Api\ConfigRepositoryInterface" type="Amasty\Meta\Model\Repository\ConfigRepository" />
+
+    <type name="Magento\Framework\Console\CommandList">
+        <arguments>
+            <argument name="commands" xsi:type="array">
+                <item name="generatorWithRedirect" xsi:type="object">Amasty\Meta\Console\Command\GeneratorWithRedirect</item>
+                <item name="generatorWithoutRedirect" xsi:type="object">Amasty\Meta\Console\Command\GeneratorWithoutRedirect</item>
+            </argument>
+        </arguments>
+    </type>
+
+    <type name="Amasty\Meta\Helper\Data">
+        <arguments>
+            <argument name="catalogHelper" xsi:type="object">Magento\Catalog\Helper\Data\Proxy</argument>
+        </arguments>
+    </type>
+
+    <type name="Magento\Framework\View\Element\UiComponent\DataProvider\CollectionFactory">
+        <arguments>
+            <argument name="collections" xsi:type="array">
+                <item name="config_edit_form_data_source"
+                      xsi:type="string">Amasty\Meta\Model\ResourceModel\Config\Collection</item>
+            </argument>
+        </arguments>
+    </type>
+</config>

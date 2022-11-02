@@ -1,0 +1,12 @@
+<?xml version="1.0"?>
+<schema xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:noNamespaceSchemaLocation="urn:magento:framework:Setup/Declaration/Schema/etc/schema.xsd">
+    <table name="mytickets">            
+        <column xsi:type="varchar" name="is_it_bought"  nullable="true" comment="Is it bought?"/>
+        <column xsi:type="varchar" name="cheaper_website"  nullable="true" comment="URL Website where this item is cheaper"/>
+        <column xsi:type="varchar" name="cheaper_link"  nullable="true" comment="LInk to the cheaper Product"/>
+        <column xsi:type="varchar" name="cheaper_price_with_tax"  nullable="true" comment="Price Including duties and taxes"/>
+        <column xsi:type="varchar" name="country_id"  nullable="true" comment="Country where you want it shipped"/>
+        <column xsi:type="varchar" name="cheaper_avaliable"  nullable="true" comment="Is the product currently available on the website?"/>
+    </table>
+</schema>

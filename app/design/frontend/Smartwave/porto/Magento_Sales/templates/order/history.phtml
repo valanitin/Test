@@ -1,0 +1,638 @@
+<?php
+/**
+ * Copyright © Magento, Inc. All rights reserved.
+ * See COPYING.txt for license details.
+ */
+
+// phpcs:disable Magento2.Templates.ThisInTemplate
+
+/** @var \Magento\Sales\Block\Order\History $block */
+?>
+<?php $_orders = $block->getOrders(); ?>
+<?php
+$dynamicHelper = $this->helper('\Dynamic\Customization\Helper\Data');
+$returnHelper = $this->helper("Dynamic\Orderreturn\Helper\Data");
+$storeManager  = $dynamicHelper->getStoreManager();
+$storeCode = $storeManager->getStore()->getCode();
+$siteUrl = $dynamicHelper->getScopeConfig()->getValue("web/secure/base_url");
+$baseUrl = $block->getBaseUrl();
+$imageUrl = $dynamicHelper->getBaseUrl();
+?>
+<?= $block->getChildHtml('info') ?>
+<?php if ($_orders && count($_orders)) : ?>
+    <div class="table-wrapper orders-history">
+        <table class="data table table-order-items history" id="my-orders-table">
+            <caption class="table-caption"><?= $block->escapeHtml(__('Orders')) ?></caption>
+            <thead>
+                <tr>
+                    <th scope="col" class="col id"><?= $block->escapeHtml(__('Order')) ?></th>
+                    <th scope="col" class="col date"><?= $block->escapeHtml(__('Date')) ?></th>
+                    <?= $block->getChildHtml('extra.column.header') ?>
+                    <th scope="col" class="col shipping"><?= $block->escapeHtml(__('Ship To')) ?></th>
+                    <th scope="col" class="col total"><?= $block->escapeHtml(__('Order Total')) ?></th>
+                    <th scope="col" class="col status"><?= $block->escapeHtml(__('Status')) ?></th>
+                    <th scope="col" class="col actions"><?= $block->escapeHtml(__('Action')) ?></th>
+                </tr>
+            </thead>
+            <tbody>
+                <?php foreach ($_orders as $_order) : ?>
+                    <tr>
+                        <td data-th="<?= $block->escapeHtml(__('Order #')) ?>" class="col id">
+                          <a href="<?= $block->escapeUrl($block->getViewUrl($_order)) ?>" class="action view">
+                            <?= $block->escapeHtml($_order->getRealOrderId()) ?>
+                          </a>
+                        </td>
+                        <td data-th="<?= $block->escapeHtml(__('Date')) ?>" class="col date"><?= /* @noEscape */ $block->formatDate($_order->getCreatedAt()) ?></td>
+                        <?php $extra = $block->getChildBlock('extra.container'); ?>
+                        <?php if ($extra) : ?>
+                            <?php $extra->setOrder($_order); ?>
+                            <?= $extra->getChildHtml() ?>
+                        <?php endif; ?>
+                        <td data-th="<?= $block->escapeHtml(__('Ship To')) ?>" class="col shipping"><?= $_order->getShippingAddress() ? $block->escapeHtml($_order->getShippingAddress()->getName()) : '&nbsp;' ?></td>
+                        <td data-th="<?= $block->escapeHtml(__('Order Total')) ?>" class="col total"><?= /* @noEscape */ $_order->formatPrice($_order->getGrandTotal()) ?></td>
+                        <td data-th="<?= $block->escapeHtml(__('Status')) ?>" class="col status">
+                          <!-- API Code start -->
+                          <?php
+                            $realOrderId = $_order->getIncrementId();
+                            $url = 'https://erp.theluxuryunlimited.com/api/customer/order-details?order_no='.$realOrderId.'&website=WWW.SOLOLUXURY.COM';
+                            $token = $dynamicHelper->getConfigurationOptions();
+                            $orderStatusHistory = $currentStatus = $orderId = '';
+                            $ch = curl_init();
+
+                            // Set query data here with the URL
+                            curl_setopt($ch, CURLOPT_URL, $url);
+                            $authorization = "Authorization: Bearer ".$token; // Prepare the authorisation token
+                            curl_setopt($ch, CURLOPT_HTTPHEADER, array('Content-Type: application/json' , $authorization )); // Inject the token into the header
+                            curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
+                            curl_setopt($ch, CURLOPT_TIMEOUT, 3);
+                            $content = trim(curl_exec($ch));
+                            curl_close($ch);
+                            $apiData = json_decode($content, true);
+                            // echo '<pre>';
+                            // print_r($apiData);
+                            $resultData = isset($apiData['data'][0]) ? $apiData['data'][0] : [];
+                            if(!empty($resultData['order_status'])){
+                              $currentStatus = $resultData['order_status'];
+                              $his = $resultData['status_histories'];
+                              foreach($his as $orderHistory){
+                                $orderStatusHistory .=  '<li>'.$orderHistory['status'].', Updated At: '.$orderHistory['created_at'].'</li>';
+                              }
+                            ?>
+                            <span><?php echo $currentStatus; ?></span>
+                            <?php if(!empty($his)){ ?>
+                            <span class="order-status-details" id="myModal-<?php echo $realOrderId ?>"><?php echo __('Details') ?></span>
+                            <div id="myModalOpen-<?php echo $realOrderId ?>" class="modal">
+
+                              <!-- Modal content -->
+                              <div class="modal-content">
+                                <span id="closeModal-<?php echo $realOrderId ?>" class="close">&times;</span>
+                                <p>Order Status History</p>
+                                <?php echo $orderStatusHistory ?>
+                              </div>
+
+                            </div>
+                            <script>
+                            // Get the modal
+                            var orderId = "myModalOpen-"+'<?php echo $realOrderId ?>';
+                            var modal = document.getElementById(orderId);
+                            var id = "myModal-"+'<?php echo $realOrderId ?>';
+                            var btn = document.getElementById(id);
+                            var closeId = "closeModal-"+'<?php echo $realOrderId ?>';
+                            var span2 = document.getElementById(closeId);
+                            btn.onclick = function() {
+                              modal.style.display = "block";
+                            }
+
+                            // When the user clicks on <span> (x), close the modal
+                            span2.onclick = function() {                              
+                              modal.style.display = "none";
+                            }
+
+                            // When the user clicks anywhere outside of the modal, close it
+                            window.onclick = function(event) {
+                              if (event.target == modal) {
+                                modal.style.display = "none";
+                              }
+                            }
+                            require(['jquery', 'jquery/ui'], function($){
+                              $(document).ready(function() {
+                                $("#closeModal-"+'<?php echo $realOrderId ?>').click(function(){
+                                  $("#myModalOpen-"+'<?php echo $realOrderId ?>').css({"display":"none"});
+                                });
+                              });
+                            });
+                            </script>
+                            <?php } ?>
+                            <?php
+                            }
+                            else{
+                              $currentStatus = 'Status not available';
+                            ?>
+                            <span><?php echo $currentStatus; ?></span>
+                            <?php 
+                            $trackingHelper = $this->helper("Dynamic\OrderTracking\Helper\Data"); 
+                            $orderStatus = $trackingHelper->getOrderStatusList($_order); ?>
+
+                             <!--<a href="<?= $block->escapeUrl($block->getViewUrl($_order)) ?>" class="action view">
+                                <span class="order-view"><img src="<?php echo $imageUrl.'porto/web/images/view.png' ?>" alt="View order"/></span>
+                            </a>-->
+                            <a href="javascript:void(0);" class="order-status-popup" order-content-id="<?php echo $_order->getId(); ?>">
+                                <span><?= __('View order') ?> <?= __('Status') ?></span>
+                            </a>
+                            <?php
+                            }
+                          ?>
+
+                          <!-- Modal -->
+                          <!-- The Modal -->
+
+
+                          <!-- end -->
+
+                        </td>
+                        <td data-th="<?= $block->escapeHtml(__('Actions')) ?>" class="col actions">
+                            <?php
+                            $isCanceled = 'false';
+                            $url = 'https://erp.theluxuryunlimited.com/api/order/check-cancellation';
+
+                            //Initiate cURL.
+                            $ch = curl_init($url);
+                            $newjsonData = array(
+                              "website" => "WWW.SOLOLUXURY.COM",
+                              "order_id" => $_order->getRealOrderId()
+                            );
+
+                            //Encode the array into JSON.
+                            $jsonDataEncoded = json_encode($newjsonData);
+
+                            //Tell cURL that we want to send a POST request.
+                            curl_setopt($ch, CURLOPT_POST, 1);
+
+                            //Attach our encoded JSON string to the POST fields.
+                            curl_setopt($ch, CURLOPT_POSTFIELDS, $jsonDataEncoded);
+
+                            //Set the content type to application/json
+                            curl_setopt($ch, CURLOPT_HTTPHEADER, array('Content-Type: application/json'));
+                            curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
+                            curl_setopt($ch, CURLOPT_TIMEOUT, 3);
+                            $content = trim(curl_exec($ch));
+                            curl_close($ch);
+                            $data = json_decode($content, true);
+                            $apiStatus = $data['code'];
+                            $isReturned = 0;
+                            if($apiStatus == 200){
+                              $isReturned = $data['data']['isrefund'];
+                              $isCanceled = $data['data']['iscanceled'];
+                              // if($isReturned == 1){
+                              //   $orderLabel = 'View - Return';
+                              // }
+                            }
+                            else{
+                              // $orderLabel = 'View';
+                            }                  
+                              
+                            ?>
+                            <?php $trackingHelper = $this->helper("Dynamic\OrderTracking\Helper\Data"); 
+                            $orderStatus = $trackingHelper->getOrderStatusList($_order); ?>
+
+                            <a href="<?= $block->escapeUrl($block->getViewUrl($_order)) ?>" class="action view">
+                                 <span class="order-view">View Order</span>
+                            </a>
+                            <a href="javascript:void(0);" class="order-status-popup" order-content-id="<?php echo $_order->getId(); ?>">
+                                <span><?= __('Status') ?></span>
+                            </a>
+                            <?php if(!empty($orderStatus) && count($orderStatus) > 0) { ?>
+                                <div class="order-status-modal modal" id="order-status-model-<?php echo $_order->getId(); ?>">
+                                    <div class="modal-content">
+                                        <span class="close" order-content-id="<?php echo $_order->getId(); ?>">×</span>
+                                        <div class="modal-progress-bar">
+                                            <div class="card card-timeline">
+                                                <ul class="order-tracking-steps">
+                                                    <?php $i = 1; ?>
+                                                    <?php foreach ($orderStatus as $statusData) { ?>
+                                                        <li class="step <?php echo (isset($statusData["status_date"]) ? "active" : ""); ?>">
+                                                            <div><?php echo $i; ?></div>
+                                                            <span><?php echo $statusData["status_title"]; ?></span>
+                                                            <?php if(isset($statusData["status_date"])) { ?>
+                                                              <p><?php echo $statusData["status_date"]; ?></p>
+                                                            <?php } ?>
+                                                        </li>
+                                                        <?php $i++; ?>
+                                                    <?php } ?>
+                                                </ul>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            <?php } ?>
+                            <?php $totalItem = count($_order->getAllItems()); ?>
+                              <?php if($isReturned == 1){ ?>
+                                <a href="<?= $block->escapeUrl($block->getViewUrl($_order)) ?>" class="action view">
+                                    <span><?php echo __('Return') ?></span>
+                                </a> 
+                              <?php if($_order->canCancel()){
+                                  $customerEmail = $_order->getCustomerEmail();
+                              ?>
+                                <span class="order-canel <?php echo 'cancel-'.$_order->getRealOrderId() ?>">
+                                    <span class="cancel"><?php echo __('Cancel') ?></span>
+
+                                </span>
+                                <div class="show-<?php echo $_order->getRealOrderId() ?> modal">
+                                  <div class="modal-content">
+									<span class="close">&times;</span>
+                                    <p><?php echo __('Cancel Order #%1',$_order->getRealOrderId());?></p>
+                                    <div id="result-<?php echo $_order->getRealOrderId() ?>"></div>
+                                    <div class="form-data">
+                                        <?php
+                                        $config = $returnHelper->getScopeConfig()->getValue('ordercancel_reason/ordercancel_configuration/reason', \Magento\Store\Model\ScopeInterface::SCOPE_STORE);
+                                        $reasonData = json_decode($config, true);
+                                        ?>
+                                        <?php if (!empty($reasonData)) { ?>
+							                 <label><?php echo __('Select Reason') ?></label>
+                                             <select name="ordercancel-reason" id="ordercancel-reason-<?php echo $_order->getRealOrderId()?>">
+                                                  <option value=""><?php echo __('Reason to cancel') ?></option>
+                                                  <?php foreach ($reasonData as $reason) { ?>
+                                                        <option value="<?php echo $reason['reason_data']; ?>"><?php echo $reason['reason_data']; ?></option>
+                                                  <?php } ?>
+                                              </select>
+                                          <?php } ?>
+                                         <div id="loader-<?php echo $_order->getRealOrderId() ?>" style="display:none;">loading</div>
+                                         <input type="button" value="Send" name="submit" id="ordercancel-submit-<?php echo $_order->getRealOrderId()?>">
+                                     </div> 
+                                  </div>
+                                </div>
+                                <script type="text/javascript">
+                                  require(['jquery', 'jquery/ui'], function($){
+                                    $(document).ready(function() {
+                                      var orderNo = '<?php echo $_order->getRealOrderId() ?>';
+                                      var fileUrl = '<?php echo $siteUrl ?>requestcancelreturnticket/index/cancelorder/';
+                                      var elem = '.cancel-'+orderNo;
+                                      /*$('.show-'+orderNo).click(function(){										 
+                                        $('.show-'+orderNo).fadeOut(200);
+                                      });*/
+                                      
+                                      $('.show-'+orderNo+' .close').click(function(){
+										  $('.show-'+orderNo).fadeOut(200);
+									   });
+                                      
+                                      $(elem).click(function(){
+                                        $("#result-"+orderNo).text('');
+                                        $('.show-'+orderNo).fadeIn(200);
+                                      });
+                                      
+                                      $('#ordercancel-submit-'+orderNo).click(function(){										   
+										  if($("#ordercancel-reason-" + orderNo).val()==''){
+									                alert( $.mage.__("Please Select reason to Cacnel the Order"));									
+									              return;
+								            }			
+										   $.ajax({
+                                            url: fileUrl,
+                                            type: "POST",
+                                            data: {
+                                              // customer_email: '<?php //echo $customerEmail ?>',
+                                              customer_email: '<?php echo $customerEmail ?>',
+                                              website:"WWW.SOLOLUXURY.COM",
+                                              order_id: orderNo,
+                                              order_cancel_id: <?= $_order->getId() ?>,
+                                              // product_sku: 'Test01',
+                                              type:"cancellation",                                              
+                                              reason:$("#ordercancel-reason-" + orderNo).val(),
+                                              lang_code : '<?php echo $storeCode ?>'
+                                            },
+                                            dataType: "JSON",
+                                            beforeSend: function() {
+												
+								                $("#ordercancel-submit-" + orderNo).attr('disabled','disabled');
+                                                $('#loader-'+orderNo).show();
+                                            },
+                                            complete: function(){
+                                                //$('#loader-'+orderNo).hide();
+                                                // $('#result').fadeIn(800);
+                                            },
+                                            success: function (jsonStr) {												
+                                                var status = jsonStr['status'];
+                                                var message = jsonStr['message'];
+                                                if(status!=='failed'){
+													UpdateOrder( message);
+												}else if(status =='failed'){
+													$("#result-"+orderNo).html(message);
+													$('#result-'+orderNo).delay(3000).fadeOut(800);
+												}                                                
+                                                var data = JSON.stringify(jsonStr);
+                                                var obj = JSON.parse(data);
+                                                var errors = obj.errors;
+                                                // $("#result").text(JSON.stringify(jsonStr));
+                                                console.log(jsonStr['status']);
+                                                if(errors){
+                                                  $.each( errors, function( key, value ) {
+                                                    $("#result-"+orderNo).html(key + " : " + value);                                                    
+                                                  });
+                                                  $("#ordercancel-submit-" + orderNo).removeAttr('disabled');
+
+                                                }
+                                                else{
+                                                  $("#result-"+orderNo).html(message);
+                                                  $("#ordercancel-submit-"+orderNo).hide();
+                                                  //$('#result-'+orderNo).delay(3000).fadeOut(800);
+
+                                                }
+
+                                          }
+                                        });
+									   });	
+									   
+                                      
+                                    });
+                                    
+                                    function UpdateOrder(preajax_message){
+										var orderNo = '<?php echo $_order->getRealOrderId() ?>';
+					                    var orderoriginal_id = '<?php echo $_order->getId() ?>';
+					                    var Urlupdate = '<?php echo $this->getUrl('orderhistory/ajax/UpdateOrder'); ?>';					 
+					                     
+                                         //var message = $.mage.__('Please wait.. while updating the order and creating a Request Ticket');                                         
+                                         //var allmessage = $("#result-"+orderNo).html() + "<br >" + message ;
+                                         //$("#result-"+orderNo).html(allmessage);
+                                                
+					                    $.ajax({
+                                           url: Urlupdate,
+                                           type: "GET",
+                                           data: {                                                        
+                                               orderoriginal_id: orderoriginal_id,                                                
+                                               type:"cancellation",
+                                               reason:$("#ordercancel-reason-" + orderNo).val(),
+                                               lang_code : '<?php echo $storeCode ?>'
+                                           },
+                                           dataType: "JSON",
+                                           beforeSend: function() {
+                                               
+                                           },
+                                           complete: function(){                            
+                                               $('#loader-'+orderNo).hide();
+                                           },
+                                           success: function (jsonStr) {							                   
+							                    var status = jsonStr['status'];      
+							                    var message = jsonStr['message'];   
+                                                allmessage  = preajax_message+"<br />"+message;
+                                                $("#result-"+orderNo).html(allmessage);
+                                                //$('#result-'+orderNo).delay(3000).fadeOut(800);
+							                                             
+                                           }
+                                      });
+									} 
+				 
+				 
+                                  });
+                                </script>
+                              <?php } ?>
+                          <?php }else{?>
+							  <?php
+							  $orderItems = $_order->getAllItems();
+							  $itemsSkus = array();
+							  foreach($orderItems as $item){
+								  	//$itemsSkus = $itemsSkus.$item->getSKU().'=>'.$item->getName().',';
+								  	$itemsSkus[] = array('sku'=>$item->getSku(),'name'=>$item->getName()) ;
+							  }
+							  $itemsSkusJson =  json_encode($itemsSkus);							  
+							  ?>
+							   <a href="javascript:void();"  class="orderitem-return-disabled" data-itemskus='<?php echo $itemsSkusJson;?>' data-incid="<?php echo $_order->getIncrementId();?>" data-id="<?php echo $_order->getEntityId();?>">
+                                    <span style="color:#868e96;"><?php echo __('Return') ?></span>
+                                </a> 
+                                <?php //if($_order->canCancel()==false){?>                                
+                                <a href="javascript:void();" class="order-canel-disabled" data-itemskus='<?php echo $itemsSkusJson;?>' data-incid="<?php echo $_order->getIncrementId();?>" data-id="<?php echo $_order->getEntityId();?>">
+                                    <span class="cancel-disabled" style="color:#868e96;"><?php echo __('Cancel') ?></span>
+                                </a>                                 
+                                <?php //}?>
+						   <?php }?>	  
+                          
+                          <?php  $isorderHistoryExist = $this->helper('\Dynamic\OrderHistory\Helper\Data')->isorderHistoryExist($_order->getEntityId()); ?>
+                            <?php if($isorderHistoryExist){?>
+                            <a target="_blank" href="<?php echo $this->getURL('orderhistory/view/index',array('orderoriginal_id'=>$_order->getEntityId())); ?>">
+                              <?php echo __('Org. Order');?>
+                             </a>
+                             <?php }?>
+                        </td>
+                    </tr>
+                     <?php
+                     $orderCancelComment =  $_order->getCancelComment();?>
+                  <?php if($orderCancelComment!=''){?>
+					  <tr>
+						  <td colspan="6">
+							  <span class="oi oi-comment-square"></span>
+							  <span class="alert" role="alert" >
+								   <a href="<?= $block->escapeUrl($block->getViewUrl($_order)) ?>" class="action view">								   
+								    <?php echo '<strong>'. __('Order # %1',$block->escapeHtml($_order->getRealOrderId()) ).'</strong> : ';?>
+								    </a> 
+								  <?php echo $orderCancelComment;?>								 
+							</span>
+				        </td>
+				      </tr>
+			    <?php }?>
+                <?php endforeach; ?>
+            </tbody>
+        </table>
+    </div>
+    <?php if ($block->getPagerHtml()) : ?>
+        <div class="order-products-toolbar toolbar bottom"><?= $block->getPagerHtml() ?></div>
+    <?php endif ?>
+<?php else : ?>
+    <div class="message info empty"><span><?= $block->escapeHtml(__('You have placed no orders.')) ?></span></div>
+<?php endif ?>
+
+<?php
+$subject = __('Request for Cancel of Order');
+$customerSession = $dynamicHelper->getCustomerSessionManager();
+$fname= ""; $lname = ""; $email="";
+    if($customerSession->isLoggedIn()) {
+    $fname = $customerSession->getCustomer()->getFirstname();
+    $lname = $customerSession->getCustomer()->getLastname();
+    $email = $customerSession->getCustomer()->getEmail();
+    }
+?>
+<div id="order-return-ticket-modal" style="display:none;">
+  <div id="order-refund-details">
+    <span id="order-refund-amount"></span>
+  </div>
+	<form class="form"
+                action="<?php echo $this->getUrl('ordercancelreturnticket/ajax/create'); ?>"
+                id="ordercancel-popup-form"
+                method="post"
+                data-hasrequired="<?php /* @escapeNotVerified */ echo __('* Required Fields') ?>"
+                data-mage-init='{"validation":{}}'>
+                <div id="ordercancelreturn_reason"  class="alert alert-danger" role="alert"> </div>
+
+          <div class="row">
+            <div class="col-sm-6">
+
+                <div class="field name required cls_comm_input">
+                  <div class="control">					
+                    <Select name="orddercancel_item" id="orddercancel_item" required="true" class="input-text">						
+                      <option value=""><?php echo __('Select Item') ?></option>					
+                    </Select>
+                  </div>
+                </div>                
+                <div class="field name required cls_comm_input">
+                    <div class="control">
+                        <input id="orddercancel_name" class="input-text" title="Name" name="orddercancel_name" required="" type="text" value="<?php echo $fname; ?>" placeholder="<?php echo __('Enter Your Name') ?>"><input id="orddercancel_last_name" class="input-text" title="Last Name" required="" name="orddercancel_last_name" type="text" value="<?php echo $lname; ?>" placeholder="<?php echo __('Enter Your Last Name')?>">
+                    </div>
+                </div>
+                <div class="field name required cls_comm_input">
+                    <div class="control"><input id="orddercancel_email" class="input-text" required="" title="Email" name="orddercancel_email" type="email" <?php if($email != ""){?> readonly="readonly" <?php } ?> value="<?php echo $email; ?>" placeholder="<?php echo __('Enter email')?>"><input id="orddercancel_phone" class="input-text" title="Phone" required="" name="orddercancel_phone" type="text" value="" placeholder="<?php echo __('Enter Phone Number')?>"></div>
+                </div>
+
+            </div>
+            <div class="col-sm-6">
+
+                <div class="field name required cls_comm_input">
+                    <div class="control"><input id="orddercancel_brand" readonly="true" class="input-text" title="Brand" required="" name="orddercancel_brand" type="text" value="" placeholder="<?php echo __('Enter Brand Name')?>"><input id="orddercancel_style" readonly="true" class="input-text" title="Style" required="" name="orddercancel_style" type="text" value="" placeholder="<?php echo __('Enter Style')?>"></div>
+                </div>
+                <div class="field name required cls_comm_input">
+                    <div class="control"><input id="orddercancel_keyword" readonly="true" class="input-text" title="Keyword" required="" name="orddercancel_keyword" type="text" value="<?php echo __('Order Cancel request')?>" placeholder="<?php echo __('Enter Keyword')?>"></div>
+                </div>
+                <div class="field remarks required cls_comm_input">
+                    <div class="control"><textarea id="orddercancel_remarks" class="input-text" title="Remarks" required="" name="orddercancel_remarks" type="text" value="" placeholder="<?php echo __('Enter Remarks')?>"></textarea></div>
+                </div>
+                <div class="field name required spBtn">
+                    <div class="control">						
+                        <input type="hidden" name="orddercancel_tickettype" id="orddercancel_tickettype" value="0" />
+                        <input type="hidden" name="orddercancel_itemskus" id="orddercancel_itemskus" value="" />
+                        <input type="hidden" name="orddercancel_order_id" id="orddercancel_order_id" value="" />
+                        <input type="hidden" name="orddercancel_lang_code" id="orddercancel_lang_code" value="<?php echo $storeCode; ?>" />
+                        <input type="hidden" name="orddercancel_hdn_subject" id="orddercancel_hdn_subject" value="" />
+                        <input type="hidden" name="orddercancel_hdn_message" id="orddercancel_hdn_message" value="" />
+                        <input type="hidden" name="orddercancelreturn_requesttype" id="orddercancelreturn_requesttype" value="" />
+                        <div class="mm-action">
+                            <button id="orddercancel_btn_submit" class="btn btn-custom" name="orddercancel_btn_submit" type="submit"><?php echo __('Submit') ?></button>
+                        </div>
+                    </div>
+                </div>
+              </div>  
+     </form>
+
+</div>
+<script type="text/javascript">
+  require([
+       'jquery',
+       'Magento_Ui/js/modal/modal','jquery/ui'
+       ],
+       function($,modal){
+		    var options = {
+                type: 'popup',
+                responsive: true,
+                title:  $.mage.__('Return/Cacnel Order Request Ticket'),
+                innerScroll: true,
+                modalClass:'detail-rc-modal',
+                buttons: [{
+                    text: $.mage.__('Return/Cacnel Order Request Ticket'),
+                    class: 'ticketmodal1',
+                    click: function () {
+                        this.closeModal();
+                    }
+                }]
+            };
+            
+          $(document).ready(function() {
+			  
+              $(".order-status-popup").click(function(){
+                var attrId = $(this).attr("order-content-id");
+                $("#order-status-model-"+ attrId).fadeIn(200);
+              });
+              $(".order-status-modal .close").click(function(){
+                var attrId = $(this).attr("order-content-id");
+                $("#order-status-model-"+ attrId).fadeOut(200);
+              });
+              
+          });
+          
+      
+          $(".order-canel-disabled").click(function(){
+			  $("#orddercancel_item").hide();
+		      var ordId =  $(this).data("id");		      
+		      var ordIncId =  $(this).data("incid");
+		      var popup = modal(options, $('#order-return-ticket-modal')); 
+		      $("#orddercancel_brand").val(ordIncId);
+		      $("#orddercancelreturn_requesttype").val(1);
+		      $("#orddercancel_order_id").val(ordId);
+		      $("#orddercancel_keyword").val( $.mage.__('Order Cancel request'));
+		      var itemSkus =  $(this).data("itemskus");              
+		      var allitemSkus = '';
+              $('#orddercancel_item').empty().append('<option selected="selected" value="">Select Item</option>');
+               for (var i = 0; i < itemSkus.length; i++) {
+                   var sku = itemSkus[i].sku;                   
+                   allitemSkus = allitemSkus+','+sku;
+               }
+		      $("#orddercancel_style").val(allitemSkus);	
+		      $("#orddercancel_itemskus").val(allitemSkus);	
+		      
+		      $("#orddercancel_tickettype").val(3);
+              $("#order-return-ticket-modal").modal("openModal");
+              $("#ordercancelreturn_reason").html($.mage.__('Order is not eligible for Cancel. Please Create a Support Ticket for further assistance.'))
+              
+	      });
+	      
+	      /*$('#orddercancel_btn_submit').click(function(){
+			  alert("orddercancel_btn_submit click");
+			  var Url = '<?php echo $this->getUrl('ordercancelreturnticket/ajax/create'); ?>';
+              var dataForm = $('#ordercancel-popup-form');
+              if(dataForm.validation('isValid')){
+				  $.ajax({
+                    url: Url,
+                    type: dataForm.attr('method'),
+                    data: dataForm.serialize(),
+                    dataType: 'json',
+                    async: true,
+                    beforeSend: function() {
+                        $('#loader-message').show();
+                        //console.log(dataForm.serialize());
+                    },
+                    complete: function(){
+                        $('#loader-message').hide();
+                    },
+                    success: function (response) {
+                        if(response.errors == false) { 
+                            $('#ticketresult-message').html(response.message);
+                            dataForm[0].reset();
+                        } else {
+                            $('#ticketresult-message').html(response.message);
+                            dataForm[0].reset();
+                        }
+                    },
+                    error: function (response) {
+                        console.log(JSON.parse(response));
+                    },
+                });
+				  
+			  }
+		  })*/
+	  
+	       $(".orderitem-return-disabled").click(function(){
+			   
+			  $("#orddercancel_item").show();		      
+		      var ordId =  $(this).data("id");		      
+		      var ordIncId =  $(this).data("incid");
+		      var itemSkus =  $(this).data("itemskus");              
+              $('#orddercancel_item').empty().append('<option selected="selected" value="">Select Item</option>');
+               for (var i = 0; i < itemSkus.length; i++) {
+                   var sku = itemSkus[i].sku;
+                   var name = itemSkus[i].name;     
+                   $("#orddercancel_item").append(new Option(name, sku));                    
+               }
+              var popup = modal(options, $('#order-return-ticket-modal')); 
+		      $("#orddercancel_brand").val(ordIncId);
+		      $("#orddercancel_style").val('');
+		      $("#orddercancelreturn_requesttype").val(2);
+		      $("#orddercancel_tickettype").val(2);
+		      $("#orddercancel_itemskus").val('');	
+		      $("#orddercancel_keyword").val( $.mage.__('Item Return request'));
+              $("#order-return-ticket-modal").modal("openModal");
+              $("#orddercancel_order_id").val(ordId);
+              $("#ordercancelreturn_reason").html($.mage.__('Item in the Order is not eligible for return. Please Create a Support Ticket for further assistance.'))
+              
+	      });
+	      
+	      $("#orddercancel_item").change(function(){
+			  var item_style =  $(this).val(); // SKU			  
+			  $("#orddercancel_style").val(item_style);
+		  })
+      
+  });
+</script>

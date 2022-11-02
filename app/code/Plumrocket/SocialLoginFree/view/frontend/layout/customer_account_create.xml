@@ -1,0 +1,30 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * @package     Plumrocket_SocialLoginFree
+ * @copyright   Copyright (c) 2015 Plumrocket Inc. (https://plumrocket.com)
+ * @license     https://plumrocket.com/license   End-user License Agreement
+ */
+-->
+<page xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" layout="1column" xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/page_configuration.xsd">
+    <head>
+        <script src="Plumrocket_SocialLoginFree::js/requiredfields.js"/>
+    </head>
+    <body>
+        <referenceBlock name="customer_form_register">
+            <referenceContainer name="customer.form.register.fields.before">
+                <block class="Plumrocket\SocialLoginFree\Block\Template" name="pslogin.customer.form.register.container" template="Plumrocket_SocialLoginFree::customer/form/register.phtml"> -->
+                    <block class="Plumrocket\SocialLoginFree\Block\Buttons" name="pslogin.customer.form.register.buttons" as="pslogin_buttons" template="Plumrocket_SocialLoginFree::customer/form/register/buttons.phtml">
+                        <action method="checkPosition">
+                            <argument name="position" xsi:type="string">register</argument>
+                        </action>
+                    </block>
+                    <block class="Plumrocket\SocialLoginFree\Block\Template" name="pslogin.customer.form.register.separator" as="pslogin_separator" template="Plumrocket_SocialLoginFree::customer/form/register/separator.phtml" before="pslogin.customer.form.register.buttons" />
+                </block>
+            </referenceContainer>
+        </referenceBlock>
+        <referenceContainer name="form.additional.info">
+            <block class="Plumrocket\SocialLoginFree\Block\Customer\Form\Register" name="pslogin.network.fields" template="Plumrocket_SocialLoginFree::customer/form/register/required_fields.phtml"/>
+        </referenceContainer>
+    </body>
+</page>

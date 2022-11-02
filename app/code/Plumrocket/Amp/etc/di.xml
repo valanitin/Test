@@ -1,0 +1,56 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Plumrocket Inc.
+ *
+ * NOTICE OF LICENSE
+ *
+ * This source file is subject to the End-user License Agreement
+ * that is available through the world-wide-web at this URL:
+ * http://wiki.plumrocket.net/wiki/EULA
+ * If you are unable to obtain it through the world-wide-web, please
+ * send an email to support@plumrocket.com so we can send you a copy immediately.
+ *
+ * @package     Plumrocket_Amp
+ * @copyright   Copyright (c) 2016 Plumrocket Inc. (http://www.plumrocket.com)
+ * @license     http://wiki.plumrocket.net/wiki/EULA  End-user License Agreement
+ */
+-->
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:ObjectManager/etc/config.xsd">
+    <type name="Magento\Framework\App\PageCache\Identifier">
+        <plugin name="design-exception-plumrocket-amp" type="Plumrocket\Amp\Model\Plugin\Framework\App\CacheIdentifierPlugin" sortOrder="5"/>
+    </type>
+    <type name="Magento\Framework\View\Result\Page">
+        <plugin name="set-amp-default-handle" type="Plumrocket\Amp\Model\Plugin\Framework\View\Result\PagePlugin" sortOrder="10"/>
+    </type>
+    <virtualType name="Plumrocket\Amp\ImageUploader" type="Magento\Catalog\Model\ImageUploader">
+        <arguments>
+            <argument name="baseTmpPath" xsi:type="string">catalog/tmp/category</argument>
+            <argument name="basePath" xsi:type="string">catalog/category</argument>
+            <argument name="allowedExtensions" xsi:type="array">
+                <item name="jpg" xsi:type="string">jpg</item>
+                <item name="jpeg" xsi:type="string">jpeg</item>
+                <item name="gif" xsi:type="string">gif</item>
+                <item name="png" xsi:type="string">png</item>
+            </argument>
+        </arguments>
+    </virtualType>
+    <type name="Plumrocket\Amp\Observer\Category\Adminhtml\CategorySaveBefore">
+        <arguments>
+            <argument name="imageUploader" xsi:type="object">Plumrocket\Amp\ImageUploader</argument>
+        </arguments>
+    </type>
+    <type name="Plumrocket\Amp\Model\Plugin\Framework\App\Config\ScopeConfigInterfacePlugin">
+        <arguments>
+            <argument name="dataHelper" xsi:type="object">Plumrocket\Amp\Helper\Data\Proxy</argument>
+        </arguments>
+    </type>
+    <preference for="Plumrocket\Amp\Model\AllowedAmpUrlCacheInterface" type="Plumrocket\Amp\Model\Cache\Allowed\AmpUrl" />
+    <!-- <type name="Plumrocket\Base\Model\Extensions\GetInformation">
+        <arguments>
+            <argument name="extensions" xsi:type="array">
+                <item name="Amp" xsi:type="object">Plumrocket\Amp\Model\Base\Information</item>
+            </argument>
+        </arguments>
+    </type> -->
+</config>

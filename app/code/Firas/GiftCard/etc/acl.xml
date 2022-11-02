@@ -1,0 +1,30 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * @Author      Firas Developers
+ * @package     Firas_GiftCard
+ * @copyright   Copyright (c) 2019 MAGETOP (https://www.firas.com)
+ * @terms       https://www.firas.com/terms
+ * @license     https://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
+ **/
+-->
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:Acl/etc/acl.xsd">
+    <acl>
+        <resources>
+            <resource id="Magento_Backend::admin">
+                <resource id="Firas_GiftCard::giftcard" title="Gift Card" sortOrder="10" >
+                    <resource id="Firas_GiftCard::giftcarddetails" title="Gift Card Details" sortOrder="10"/>
+                    <resource id="Firas_GiftCard::giftuser_index" title="Gift Card Index" sortOrder="20"/>
+                    <resource id="Firas_GiftCard::config" title="Configurations" sortOrder="30" />
+                </resource>
+                <!--<resource id="Magento_Backend::stores">
+                    <resource id="Magento_Backend::stores_settings">
+                        <resource id="Magento_Config::config">
+                            <resource id="Firas_GiftCard::config" title="GiftCard Configuration" sortOrder="50" />
+                        </resource>
+                    </resource>
+                </resource>-->
+            </resource>
+        </resources>
+    </acl>
+</config>

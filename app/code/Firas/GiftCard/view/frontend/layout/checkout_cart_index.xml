@@ -1,0 +1,20 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * @Author      Firas Developers
+ * @package     Firas_GiftCard
+ * @copyright   Copyright (c) 2019 MAGETOP (https://www.firas.com)
+ * @terms       https://www.firas.com/terms
+ * @license     https://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
+ **/
+-->
+<page xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/page_configuration.xsd">
+    <head>
+        <css src="Firas_GiftCard::css/giftcard.css"/>
+    </head>
+    <body>
+        <referenceContainer name="checkout.cart.container">
+            <block class="Firas\GiftCard\Block\CheckoutGiftCardCoupan" name="remove_price_and_addtocart" template="Firas_GiftCard::giftcard.phtml" after="-"/>
+        </referenceContainer>
+    </body>
+</page>

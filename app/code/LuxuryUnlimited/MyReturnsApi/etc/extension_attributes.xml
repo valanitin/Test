@@ -1,0 +1,13 @@
+<?xml version="1.0"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:noNamespaceSchemaLocation="urn:magento:framework:Api/etc/extension_attributes.xsd">
+    <extension_attributes for="Magento\Sales\Api\Data\OrderInterface">
+        <attribute code="is_cancellable" type="string"/>
+        <attribute code="is_returnable" type="string"/>
+    </extension_attributes>
+
+    <extension_attributes for="Magento\Sales\Api\Data\OrderItemInterface">
+        <attribute code="is_returnable" type="string"/>
+        <attribute code="is_cancellable" type="string"/>
+    </extension_attributes>
+</config>

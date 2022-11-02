@@ -1,0 +1,37 @@
+<?php
+/**
+ * @author    Tigren Solutions <info@tigren.com>
+ * @copyright Copyright (c) 2022 Tigren Solutions <https://www.tigren.com>. All rights reserved.
+ * @license   Open Software License ("OSL") v. 3.0
+ */
+
+use Magento\ConfigurableProduct\Block\Product\View\Type\Configurable;
+
+// @codingStandardsIgnoreFile
+
+?>
+<?php
+/** @var $block Configurable */
+$_product = $block->getProduct();
+$_attributes = $block->decorateArray($block->getAllowAttributes());
+?>
+<?php if ($_product->isSaleable() && count($_attributes)): ?>
+    <?php foreach ($_attributes as $_attribute): ?>
+        <div class="field configurable required">
+            <label class="label" for="attribute<?= $_attribute->getAttributeId() ?>">
+                <span><?= $block->escapeHtml($_attribute->getProductAttribute()->getStoreLabel()) ?></span>
+            </label>
+            <div class="control">
+                <select name="super_attribute[<?= $_attribute->getAttributeId() ?>]"
+                        data-validate="{required:true}"
+                        id="attribute<?= $_attribute->getAttributeId() ?>"
+                        class="super-attribute-select">
+                    <option value=""><?= __('Choose an Option...') ?></option>
+                    <?php foreach ($_attribute->getOptions() as $option): ?>
+                        <option value="<?= $option['value_index'] ?>"><?= $option['store_label'] ?></option>
+                    <?php endforeach; ?>
+                </select>
+            </div>
+        </div>
+    <?php endforeach; ?>
+<?php endif; ?>

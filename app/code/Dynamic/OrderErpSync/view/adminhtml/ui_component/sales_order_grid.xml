@@ -1,0 +1,13 @@
+<listing xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Ui:etc/ui_configuration.xsd">
+    <columns name="sales_order_columns">
+        <column name="order_erp_sync_flag" class="Dynamic\OrderErpSync\Ui\Component\Listing\Column\OrderErpSync">
+            <settings>
+                <filter>select</filter>
+                <sortable>false</sortable>
+                <options class="Dynamic\OrderErpSync\Model\Source\OptionErpSync"/>
+                <dataType>select</dataType>
+                <label translate="true">ERP Sync</label>
+            </settings>
+        </column>
+    </columns>
+</listing>

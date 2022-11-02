@@ -1,0 +1,78 @@
+<?xml version="1.0"?>
+<!--
+ * @package     Plumrocket_Base
+ * @copyright   Copyright (c) 2020 Plumrocket Inc. (https://plumrocket.com)
+ * @license     https://plumrocket.com/license/  End-user License Agreement
+-->
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Config:etc/system_file.xsd">
+    <system>
+        <tab id="plumrocket" translate="label" sortOrder="400" class="plumrocket-main">
+            <label>Plumrocket</label>
+        </tab>
+
+        <section id="plumbase" showInDefault="1" showInStore="1" showInWebsite="1" sortOrder="9999999999" translate="label">
+            <label>Base Settings</label>
+            <tab>plumrocket</tab>
+            <resource>Plumrocket_Base::config</resource>
+            <group id="installed_extensions" showInDefault="1" showInStore="1" showInWebsite="1" sortOrder="200" translate="label">
+                <label>Installed Extensions</label>
+                <attribute type="expanded">1</attribute>
+                <field id="enabled" showInDefault="1" showInWebsite="0" showInStore="0" sortOrder="100" type="text">
+                    <frontend_model>Plumrocket\Base\Block\Adminhtml\System\Config\Form\Extensions</frontend_model>
+                </field>
+            </group>
+            <group id="notifications" showInDefault="1" showInWebsite="0" showInStore="0" sortOrder="300" translate="label">
+                <label>Notifications</label>
+                <field id="enabled" showInDefault="1" showInWebsite="0" showInStore="0" sortOrder="100" translate="label comment" type="select">
+                    <label>Enable Notifications</label>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                    <comment>Enable Magento Admin notifications to receive important product updates, security patches and promotions</comment>
+                    <attribute type="pr_use_in_statistic">1</attribute>
+                </field>
+                <field id="subscribed_to" showInDefault="1" showInWebsite="0" showInStore="0" sortOrder="100" translate="label comment" type="multiselect" canRestore="1">
+                    <label>Subscribed to</label>
+                    <source_model>Plumrocket\Base\Model\OptionSource\SubscriptionLists</source_model>
+                    <depends>
+                        <field id="enabled">1</field>
+                    </depends>
+                    <attribute type="pr_use_in_statistic">1</attribute>
+                </field>
+            </group>
+            <group id="menu" showInDefault="1" showInWebsite="0" showInStore="0" sortOrder="400" translate="label">
+                <label>Menu</label>
+                <field id="enabled" showInDefault="1" showInWebsite="0" showInStore="0" sortOrder="100" translate="label comment" type="select">
+                    <label>Show Plumrocket Menu</label>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                    <comment>Plumrocket Menu give you easy access to all our extensions in one place.</comment>
+                    <attribute type="pr_use_in_statistic">1</attribute>
+                </field>
+            </group>
+            <group id="system" showInDefault="1" showInWebsite="0" showInStore="0" sortOrder="500" translate="label">
+                <label>System Settings</label>
+                <field id="enabled_statistic" showInDefault="1" showInWebsite="0" showInStore="0" sortOrder="100" translate="label comment" type="select">
+                    <label>Send Usage Statistics</label>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                    <comment>Help Plumrocket improve its products by sending anonymous data about features used, Plumrocket extension configuration and installed versions, magento version. Please note that this will not include personal data or any sensitive information, such as clients, orders, etc.</comment>
+                </field>
+            </group>
+            <group id="developer" showInDefault="1" showInWebsite="0" showInStore="0" sortOrder="600" translate="label">
+                <label>Developer</label>
+                <field id="magento_mode" translate="label" type="label" sortOrder="100" showInDefault="1" showInWebsite="0" showInStore="0">
+                    <label>Magento Mode</label>
+                    <frontend_model>Plumrocket\Base\Block\Adminhtml\System\Config\Developer\MagentoInfo</frontend_model>
+                </field>
+                <field id="magento_path" translate="label" type="label" sortOrder="200" showInDefault="1" showInWebsite="0" showInStore="0">
+                    <label>Magento Path</label>
+                    <frontend_model>Plumrocket\Base\Block\Adminhtml\System\Config\Developer\MagentoInfo</frontend_model>
+                </field>
+                <field id="time" translate="label" type="label" sortOrder="200" showInDefault="1" showInWebsite="0" showInStore="0">
+                    <label>Time</label>
+                    <frontend_model>Plumrocket\Base\Block\Adminhtml\System\Config\Developer\MagentoInfo</frontend_model>
+                </field>
+                <field id="debug_info" type="button" sortOrder="200" showInDefault="1" showInWebsite="0" showInStore="0">
+                    <frontend_model>Plumrocket\Base\Block\Adminhtml\System\Config\Developer\DebugInfo</frontend_model>
+                </field>
+            </group>
+        </section>
+    </system>
+</config>

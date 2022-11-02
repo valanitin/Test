@@ -1,0 +1,13 @@
+<?xml version="1.0"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:noNamespaceSchemaLocation="urn:magento:framework:ObjectManager/etc/config.xsd">
+    <type name="Magiccart\Testimonial\Controller\Index\Post">
+        <plugin name="testimonial-post-hide" type="LuxuryUnlimited\Testimonial\Plugin\Controller\TestimonialPostPlugin" sortOrder="15"/>
+    </type>
+    <type name="Magiccart\Testimonial\Controller\Index\Index">
+        <plugin name="testimonial-index-hide" type="LuxuryUnlimited\Testimonial\Plugin\Controller\TestimonialIndexPlugin" sortOrder="15"/>
+    </type>
+    <type name="Magiccart\Testimonial\Controller\Index\View">
+        <plugin name="testimonial-view-hide" type="LuxuryUnlimited\Testimonial\Plugin\Controller\TestimonialViewPlugin" sortOrder="15"/>
+    </type>
+</config>

@@ -1,0 +1,58 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * BSS Commerce Co.
+ *
+ * NOTICE OF LICENSE
+ *
+ * This source file is subject to the EULA
+ * that is bundled with this package in the file LICENSE.txt.
+ * It is also available through the world-wide-web at this URL:
+ * http://bsscommerce.com/Bss-Commerce-License.txt
+ *
+ * @category   BSS
+ * @package    Bss_AjaxSocialLogin
+ * @author     Extension Team
+ * @copyright  Copyright (c) 2017-2018 BSS Commerce Co. ( http://bsscommerce.com )
+ * @license    http://bsscommerce.com/Bss-Commerce-License.txt
+ */
+-->
+<page xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/page_configuration.xsd">
+    <head>
+        <css src="Bss_SocialLogin::css/jquery.fancybox.min.css" />
+    </head>
+    <body>
+        <referenceContainer name="after.body.start">
+            <block class="Bss\SocialLogin\Block\SocialLogin\EnableModule" name="sociallogin.general">
+                <action ifconfig="bss_sociallogin/general/enable" method="setTemplate">
+                    <argument name="template" xsi:type="string">Bss_SocialLogin::general.phtml</argument>
+                </action>
+            </block>
+        </referenceContainer>
+        <referenceBlock name="header.links">
+            <block class="Magento\Framework\View\Element\Template" name="sociallogin.theme.html.header.photo" as="sociallogin_photo" before="customer">
+                <action ifconfig="bss_sociallogin/general/enable" method="setTemplate">
+                    <argument name="template" xsi:type="string">Bss_SocialLogin::theme/html/header/photo.phtml</argument>
+                </action>
+                <arguments>
+                    <argument name="jsLayout" xsi:type="array">
+                        <item name="components" xsi:type="array">
+                            <item name="sociallogin-photo" xsi:type="array">
+                                <item name="component" xsi:type="string">sociallogin-photo</item>
+                            </item>
+                        </item>
+                    </argument>
+                </arguments>
+            </block>
+        </referenceBlock>
+        <!-- Popup , button login anywhere -->
+        <referenceContainer name="before.body.end">
+            <block class="Bss\SocialLogin\Block\SocialLogin" ifconfig="bss_sociallogin/general/enable" name="social-login-popup" as="popup.modal" template="sociallogin.phtml">
+                <block class="Bss\SocialLogin\Block\Recaptcha" name="form.repcapcha" as="form_repcapcha" template="Bss_SocialLogin::recaptcha.phtml" />
+                <block class="Bss\SocialLogin\Block\SocialLogin\Authentication" name="popup-login" as="popup.login" template="popup/form/login.phtml" />
+                <block class="Bss\SocialLogin\Block\SocialLogin\Create" name="popup-register" as="popup.register" template="popup/form/register.phtml" />
+                <block class="Bss\SocialLogin\Block\SocialLogin\Forgot" name="popup-forgotpassword" as="popup.forgotpassword" template="popup/form/forgotpassword.phtml" />
+            </block>
+        </referenceContainer>
+    </body>
+</page>

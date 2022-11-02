@@ -1,0 +1,16 @@
+<?xml version="1.0" ?>
+<!--
+/**
+ * @author      Toptal <code@toptal.com>
+ * @copyright   Copyright © 2022. All rights reserved.
+ */
+-->
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:noNamespaceSchemaLocation="urn:magento:framework:App/etc/routes.xsd">
+    <router id="standard">
+        <route id="newsletter" frontName="newsletter">
+            <module name="Magento_Newsletter"/>
+            <module name="LuxuryUnlimited_NewsLetterSubscription"/>
+        </route>
+    </router>
+</config>

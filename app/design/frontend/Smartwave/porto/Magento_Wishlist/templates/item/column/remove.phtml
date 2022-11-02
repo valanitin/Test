@@ -1,0 +1,93 @@
+<?php
+/**
+ * Copyright © Magento, Inc. All rights reserved.
+ * See COPYING.txt for license details.
+ */
+
+/* @var \Magento\Wishlist\Block\Customer\Wishlist\Item\Column\Remove $block */
+?>
+<?php 
+$item = $block->getItem();
+$_product = $item->getProduct();
+$dynamicHelper = $this->helper('\Dynamic\Customization\Helper\Data');
+$storeManager  = $dynamicHelper->getStoreManager();
+
+$customerSession = $dynamicHelper->getCustomerSessionManager();
+$customerName = $customerEmail = '';
+if ($customerSession->isLoggedIn()) {
+    $customerSession->getCustomerId();  // get Customer Id
+    $customerSession->getCustomerGroupId();
+    $customerSession->getCustomer();
+    $customerSession->getCustomerData();
+
+    $customerName = $customerSession->getCustomer()->getName();  // get  Full Name
+    $customerEmail = $customerSession->getCustomer()->getEmail(); // get Email
+}
+
+$storeCode = $storeManager->getStore()->getCode();
+$siteUrl = $dynamicHelper->getScopeConfig()->getValue("web/secure/base_url");
+
+$currency = $dynamicHelper->getCurrency();
+$currencysymbol = $currency->getCurrencySymbol();
+$productSku = $_product->getSku();
+$productPrice = $_product->getFinalPrice();
+$productName = $_product->getName();
+?>
+<a href="#" data-role="remove" data-post-remove='<?= /* @noEscape */ $block->getItemRemoveParams($block->getItem()) ?>' title="<?= $block->escapeHtmlAttr(__('Remove Item')) ?>" class="btn-remove action delete wishlist">
+    <span><?= $block->escapeHtml(__('Remove item')) ?></span>
+    <!-- script to send data to ERP for wishlist -->
+<?php if(!empty($customerName)): ?>
+<script type="text/javascript">
+require(['jquery', 'jquery/ui'], function($){
+  $(document).ready(function() {
+
+    var fileUrl = '<?php echo $siteUrl ?>apifiles/wishlistdelete.php';
+
+     $('a.wishlist.delete').click(function(){
+        
+         
+          $.ajax({
+              url: fileUrl,
+              type: "POST",
+              data: {
+                website:"WWW.SOLOLUXURY.COM",
+                product_sku: '<?php echo $productSku ?>',
+                customer_email: '<?php echo $customerEmail ?>'
+             },
+              dataType: "JSON",
+              beforeSend: function() {
+               },
+               complete: function(){
+               },
+              success: function (jsonStr) {
+                   var status = jsonStr['status'];
+                   var message = jsonStr['message'];
+                   var data = JSON.stringify(jsonStr);
+                   var obj = JSON.parse(data);
+                   var errors = obj.errors;
+                   if(errors){
+                    $.each( errors, function( key, value ) {
+                        alert(key + " : " + value);
+                   });
+                     
+                   }
+                   else{
+                        alert(message);
+                    }
+                  
+             }
+
+
+          });
+
+      });
+
+  });
+});
+
+</script>
+<?php endif; ?>
+<!-- end -->
+
+</a>
+

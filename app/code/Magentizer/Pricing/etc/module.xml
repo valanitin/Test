@@ -1,0 +1,15 @@
+<?xml version="1.0"?>
+<!--
+/*
+ * Magentizer_Pricing
+
+ * @category   SussexDev
+ * @package    Magentizer_Pricing
+ * @copyright  Copyright (c) 2019 Scott Parsons
+ * @license    https://github.com/ScottParsons/module-sampleuicomponent/blob/master/LICENSE.md
+ * @version    1.1.2
+ */
+-->
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:Module/etc/module.xsd">
+    <module name="Magentizer_Pricing" setup_version="1.0.1" />
+</config>

@@ -1,0 +1,54 @@
+<?php
+/**
+ * Plumrocket Inc.
+ *
+ * NOTICE OF LICENSE
+ *
+ * This source file is subject to the End-user License Agreement
+ * that is available through the world-wide-web at this URL:
+ * http://wiki.plumrocket.net/wiki/EULA
+ * If you are unable to obtain it through the world-wide-web, please
+ * send an email to support@plumrocket.com so we can send you a copy immediately.
+ *
+ * @package     Plumrocket_Amp v2.x.x
+ * @copyright   Copyright (c) 2018 Plumrocket Inc. (http://www.plumrocket.com)
+ * @license     http://wiki.plumrocket.net/wiki/EULA  End-user License Agreement
+ */
+
+/**
+ * @var $block \Plumrocket\Amp\Block\Page\Facebook\Pixel
+ */
+
+$category = $block->getCategory();
+if ($pageTitleBlock = $block->getLayout()->getBlock('page.main.title')) {
+    $pageTitleBlock = $pageTitleBlock->getPageTitle();
+} else {
+    $pageTitleBlock = false;
+}
+?>
+
+,"trackViewContent": {
+    "on": "visible",
+    "request": "eventViewContent",
+    "vars": {
+        "value": "0",
+        "currency": "<?php echo $block->escapeHtml($block->getCurrencyCode()); ?>",
+        "content_name": "<?php echo $block->escapeHtml($pageTitleBlock); ?>",
+        "content_category": "<?php echo $block->escapeHtml($category->getName()); ?>",
+        "content_type": "product_group",
+        "content_ids": "<?php echo $category->getId(); ?>"
+    }
+},
+"trackAddToCart": {
+    "on": "click",
+    "selector": ".add-to-cart",
+    "request": "eventAddToCart",
+    "vars": {
+        "value": "${price}",
+        "currency": "<?php echo $block->escapeHtml($block->getCurrencyCode()); ?>",
+        "content_name": "<?php echo $block->escapeHtml($pageTitleBlock); ?>",
+        "content_category": "<?php echo $block->escapeHtml($category->getName()); ?>",
+        "content_type": "product",
+        "content_ids": "${productId}"
+    }
+}

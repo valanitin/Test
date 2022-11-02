@@ -1,0 +1,53 @@
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:noNamespaceSchemaLocation="urn:magento:framework:ObjectManager/etc/config.xsd">
+    <preference for="Amasty\SeoToolKit\Api\Data\RedirectInterface" type="Amasty\SeoToolKit\Model\Redirect" />
+    <preference for="Amasty\SeoToolKit\Api\RedirectRepositoryInterface" type="Amasty\SeoToolKit\Model\Repository\RedirectRepository" />
+
+    <type name="Magento\Framework\View\Element\UiComponent\DataProvider\CollectionFactory">
+        <arguments>
+            <argument name="collections" xsi:type="array">
+                <item name="amasty_seotoolkit_redirect_listing_data_source"
+                      xsi:type="string">Amasty\SeoToolKit\Model\ResourceModel\Redirect\Grid\Collection</item>
+            </argument>
+        </arguments>
+    </type>
+
+    <type name="Amasty\SeoToolKit\Model\ResourceModel\Redirect\Grid\Collection">
+        <arguments>
+            <argument name="mainTable" xsi:type="string">amasty_seotoolkit_redirect</argument>
+            <argument name="resourceModel" xsi:type="string">Amasty\SeoToolKit\Model\ResourceModel\Redirect</argument>
+        </arguments>
+    </type>
+
+    <virtualType name="Amasty\SeoToolKit\Model\Source\Eav\Robots" type="Magento\Eav\Model\Entity\Attribute\Source\Config">
+        <arguments>
+            <argument name="options" xsi:type="array">
+                <item name="option1" xsi:type="array">
+                    <item name="value" xsi:type="string">default</item>
+                    <item name="label" xsi:type="string">Default</item>
+                </item>
+                <item name="option2" xsi:type="array">
+                    <item name="value" xsi:type="string">index,follow</item>
+                    <item name="label" xsi:type="string" translatable="true">index,follow</item>
+                </item>
+                <item name="option3" xsi:type="array">
+                    <item name="value" xsi:type="string">index,nofollow</item>
+                    <item name="label" xsi:type="string" translatable="true">index,nofollow</item>
+                </item>
+                <item name="option4" xsi:type="array">
+                    <item name="value" xsi:type="string">noindex,follow</item>
+                    <item name="label" xsi:type="string" translatable="true">noindex,follow</item>
+                </item>
+                <item name="option5" xsi:type="array">
+                    <item name="value" xsi:type="string">noindex,nofollow</item>
+                    <item name="label" xsi:type="string" translatable="true">noindex,nofollow</item>
+                </item>
+            </argument>
+        </arguments>
+    </virtualType>
+
+    <type name="Magento\Catalog\Ui\DataProvider\Product\Form\Modifier\Eav">
+        <plugin name="Amasty_SeoToolKit:show_attributes"
+                type="Amasty\SeoToolKit\Plugin\Catalog\Ui\DataProvider\Product\Form\Modifier\EavPlugin"/>
+    </type>
+</config>

@@ -1,0 +1,27 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * @Author      Firas Developers
+ * @package     Firas_GiftCard
+ * @copyright   Copyright (c) 2019 MAGETOP (https://www.firas.com)
+ * @terms       https://www.firas.com/terms
+ * @license     https://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
+ **/
+-->
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:Event/etc/events.xsd">
+    <event name="controller_action_catalog_product_save_entity_after">
+        <observer name="firas_giftcard_AfterProductSave" instance="Firas\GiftCard\Observer\AfterProductSave" shared="false" />
+    </event>      
+    <event name="sales_order_invoice_save_after">
+        <observer name="firas_giftcard_AfterInvoiceGeneration" instance="Firas\GiftCard\Observer\AfterInvoiceGeneration" shared="false" />
+    </event>     
+	<event name="checkout_cart_product_add_after">
+        <observer name="firas_giftcard_CartLoadBefore" instance="Firas\GiftCard\Observer\CartLoadBefore" shared="false" />
+    </event>  	
+    <event name="checkout_onepage_controller_success_action">
+        <observer name="firas_giftcard_AfterPlaceOrder" instance="Firas\GiftCard\Observer\AfterPlaceOrder" shared="false" />
+    </event>
+    <event name="adminhtml_sales_order_creditmemo_register_before">
+        <observer name="firas_giftcard_BeforeCreateCreditMemo" instance="Firas\GiftCard\Observer\BeforeCreateCreditMemo" shared="false" />
+    </event> 
+</config>

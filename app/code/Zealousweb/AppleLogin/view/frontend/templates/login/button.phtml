@@ -1,0 +1,69 @@
+<?php
+/**
+ * Copyright © Magento, Inc. All rights reserved.
+ * See COPYING.txt for license details.
+ */
+
+// @codingStandardsIgnoreFile
+
+/** @var \Zealousweb\AppleLogin\Block\Login\Button $block */
+
+$helper = $this->helper('\Zealousweb\AppleLogin\Helper\Data'); 
+$buttonLabel = $helper->getButtonLabel();
+$displayType = $helper->getDisplayType();
+$defaultImage = $helper->getDefaultImage();
+$buttonLayout = $helper->getButtonLayout();
+?>
+<?php if($helper->isEnabled() && !$helper->isCustomerLoggedIn()) :?>
+<div class="block block-customer-login apple-signup <?php echo (!empty($buttonLayout)) ? 'apple-btn-'.$buttonLayout: 'apple-btn-right'?>">
+    <div class="space-container <?php echo (!empty($buttonLayout)) ? 'apple-icon-'.$buttonLayout: 'apple-icon-left'?>">
+        <span class="space-container-inner"><span><?= $block->escapeHtml(__('Or')) ?></span></span>
+    </div>
+    <a href="javascript:void(0)" id="signinwithapple_login" class="action create primary signinwithapple <?php echo (!empty($displayType) && $displayType == \Zealousweb\AppleLogin\Model\Config\Source\DisplayType::DISPLAY_TYPE_BUTTON) ? '': 'login-icon';?>">
+        <?php if( !empty($displayType) && $displayType == \Zealousweb\AppleLogin\Model\Config\Source\DisplayType::DISPLAY_TYPE_BUTTON ) :?>
+            <span class="apple-icon">
+                <?php if( !empty($helper->getButtonImage()) ) :?>
+                    <?php 
+                        $buttonImage = 'apple/'.$helper->getButtonImage();
+                        $resizeImage = $helper->getResizeImage($buttonImage, 22, 27);
+                    ?>
+                    <img src="<?php echo $resizeImage; ?>">
+                <?php else :?>
+                    <img src="<?php echo $defaultImage;?>">
+                <?php endif;?>
+            </span>
+            <span class="apple-btn-text">
+                <?= $buttonLabel; ?>
+            </span>
+        <?php else :?>
+            <div class="apple-icon-inner">
+                <?php if( !empty($helper->getAppleIcon()) ) :?>
+                    <?php 
+                        $appleIcon = 'apple/'.$helper->getAppleIcon();
+                        $resizeIcon = $helper->getResizeImage($appleIcon, 90, 90);
+                    ?>
+                    <img src="<?php echo $resizeIcon; ?>">
+                <?php else :?>
+                    <img src="<?php echo $defaultImage;?>">
+                <?php endif;?>
+            </div>
+        <?php endif;?>
+    </a>
+</div>
+<?php endif;?>
+
+<script>
+    require(['jquery','jquery/ui'], function($){
+        $('#signinwithapple_login').on('click', function(event) {
+            
+            var isiPad = navigator.userAgent.match(/iPad/i) != null;
+            var isiPhone = navigator.userAgent.match(/iPhone/i) != null;
+            if (isiPad || isiPhone) {
+                window.open('<?php echo $block->getUrl('applelogin/apple/redirect');?>','popup','width=600,height=600');   
+            }else{
+                window.open('<?php echo $helper->getAuthorizationUrl();?>','popup','width=600,height=600'); 
+            }
+            return false;
+        });
+   });
+</script>

@@ -1,0 +1,22 @@
+<?xml version="1.0" ?>
+<!--
+ * @package     Plumrocket_Base
+ * @copyright   Copyright (c) 2020 Plumrocket Inc. (https://plumrocket.com)
+ * @license     https://plumrocket.com/license/  End-user License Agreement
+-->
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Store:etc/config.xsd">
+    <default>
+        <plumbase>
+            <notifications>
+                <enabled>1</enabled>
+                <subscribed_to>promotions,announcements,product_updates</subscribed_to>
+            </notifications>
+            <menu>
+                <enabled>1</enabled>
+            </menu>
+            <system>
+                <enabled_statistic>1</enabled_statistic>
+            </system>
+        </plumbase>
+    </default>
+</config>

@@ -1,0 +1,45 @@
+<?php
+/**
+ * Plumrocket Inc.
+ *
+ * NOTICE OF LICENSE
+ *
+ * This source file is subject to the End-user License Agreement
+ * that is available through the world-wide-web at this URL:
+ * http://wiki.plumrocket.net/wiki/EULA
+ * If you are unable to obtain it through the world-wide-web, please
+ * send an email to support@plumrocket.com so we can send you a copy immediately.
+ *
+ * @package     Plumrocket_Amp
+ * @copyright   Copyright (c) 2019 Plumrocket Inc. (http://www.plumrocket.com)
+ * @license     http://wiki.plumrocket.net/wiki/EULA  End-user License Agreement
+ */
+?>
+
+<?php
+/** @var \Plumrocket\Amp\Block\Page\Share $block */
+$shareButtons = $block->getActiveShareButtons();
+$width = $block->getShareButtonWidth() ? $this->getShareButtonWidth() : 44;
+$height = $block->getShareButtonHeight() ? $this->getShareButtonHeight() : 30;
+?>
+
+<?php if (! empty($shareButtons)) : ?>
+<div class="sharing-conttainer">
+    <div class="title"><?php echo __('Share with friends') ?></div>
+    <div class="buttons">
+        <?php foreach ($shareButtons as $type => $params) : ?>
+            <amp-social-share
+                width="<?php echo $width ?>"
+                height="<?php echo $height ?>"
+                layout="flex-item"
+                class="amp-social-share-<?php echo $type ?>"
+                type="<?php echo $type ?>"
+                aria-label="<?= $type ?>"
+                <?php foreach ($params as $key => $param) : ?>
+                    <?php echo $key ?>="<?php echo $param['value'] ?>"
+                <?php endforeach; ?>
+            ></amp-social-share>
+        <?php endforeach; ?>
+    </div>
+</div>
+<?php endif; ?>

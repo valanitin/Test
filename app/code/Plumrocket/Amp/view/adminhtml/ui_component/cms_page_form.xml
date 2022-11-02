@@ -1,0 +1,48 @@
+<?xml version="1.0"?>
+<!--
+ * Plumrocket Inc.
+ *
+ * NOTICE OF LICENSE
+ *
+ * This source file is subject to the End-user License Agreement
+ * that is available through the world-wide-web at this URL:
+ * http://wiki.plumrocket.net/wiki/EULA
+ * If you are unable to obtain it through the world-wide-web, please
+ * send an email to support@plumrocket.com so we can send you a copy immediately.
+ *
+ * @package     Plumrocket_Amp
+ * @copyright   Copyright (c) 2019 Plumrocket Inc. (http://www.plumrocket.com)
+ * @license     http://wiki.plumrocket.net/wiki/EULA  End-user License Agreement
+ -->
+<form xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+      xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Ui:etc/ui_configuration.xsd">
+    <settings>
+        <buttons>
+            <button name="amp.validation" class="Plumrocket\Amp\Block\Adminhtml\Cms\Page\Edit\AmpValidationButton"/>
+        </buttons>
+    </settings>
+    <fieldset name="pramp_content" class="Plumrocket\Amp\Ui\Component\Form\Cms\Page\Edit\AmpContentFieldset">
+        <argument name="data" xsi:type="array">
+            <item name="config" xsi:type="array">
+                <item name="collapsible" xsi:type="boolean">true</item>
+                <item name="label" xsi:type="string" translate="true">AMP Content</item>
+                <item name="sortOrder" xsi:type="number">90</item>
+            </item>
+        </argument>
+        <field name="pramp_html" sortOrder="20">
+            <argument name="data" xsi:type="array">
+                <item name="config" xsi:type="array">
+                    <item name="dataType" xsi:type="string">string</item>
+                    <item name="source" xsi:type="string">page</item>
+                    <item name="sortOrder" xsi:type="number">10</item>
+                    <item name="formElement" xsi:type="string">textarea</item>
+                </item>
+            </argument>
+        </field>
+        <container name="pramp_html_notice" sortOrder="30">
+            <htmlContent name="pramp_html_notice">
+                <block name="pramp_html_notice" class="Magento\Backend\Block\Template" template="Plumrocket_Amp::cms/amp_content_notice.phtml"/>
+            </htmlContent>
+        </container>
+    </fieldset>
+</form>

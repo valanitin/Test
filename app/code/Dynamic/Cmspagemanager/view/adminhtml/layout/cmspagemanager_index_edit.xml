@@ -1,0 +1,18 @@
+<?xml version="1.0"?>
+<page xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" layout="admin-2columns-left" xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/page_configuration.xsd">
+    <update handle="editor"/>
+    <body>
+        <referenceContainer name="content">
+            <block class="Dynamic\Cmspagemanager\Block\Adminhtml\Cmspagemanager\Edit" name="cmspagemanager_edit"/>
+        </referenceContainer>
+        <referenceContainer name="left">
+            <block class="Dynamic\Cmspagemanager\Block\Adminhtml\Cmspagemanager\Edit\Tabs" name="cmspagemanager_edit_tabs">
+                <block class="Dynamic\Cmspagemanager\Block\Adminhtml\Cmspagemanager\Edit\Tab\Main" name="cmspagemanager_edit_tab_main"/>
+                <action method="addTab">
+                    <argument name="name" xsi:type="string">main_section</argument>
+                    <argument name="block" xsi:type="string">cmspagemanager_edit_tab_main</argument>
+                </action>
+            </block>
+        </referenceContainer>
+    </body>
+</page>

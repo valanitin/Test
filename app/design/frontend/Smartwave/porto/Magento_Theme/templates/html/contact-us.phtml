@@ -1,0 +1,155 @@
+
+<?php
+
+$dynamicHelper = $this->helper('\Dynamic\Customization\Helper\Data');
+$storeManager = $dynamicHelper->getStoreManager();
+$baseUrl = $dynamicHelper->getBaseUrl();
+// Get country collection
+$countryCollectionFactory = $dynamicHelper->getCountryCollectionManager();
+$countryCollection = $countryCollectionFactory->create()->loadByStore();
+$status = "";
+$msg = "";
+
+$customerSession = $dynamicHelper->getCustomerSessionManager();
+$fname= ""; 
+$lname = "";
+if($customerSession->isLoggedIn()) {
+	$fname = $customerSession->getCustomer()->getFirstname();
+	$lname = $customerSession->getCustomer()->getLastname();
+}
+
+?>
+<div class="cls_contactus_main">
+	<!-- <div class="cls_page_title">
+		<h3>Contact Us</h3>
+	</div> -->
+	<p class="cls_cont_static"><?php echo __('General &amp; Order Enquiries') ?></p>
+	<p class="images">
+		<img style="width: 100%;" src="<?php echo $storeManager->getStore()->getBaseUrl(\Magento\Framework\UrlInterface::URL_TYPE_MEDIA); ?>images/cont_header_img1.png" />
+	</p>
+	<h3 class="contact-form__title"><?php echo __('Need more information?') ?></h3>
+	<p class="contact-form__description"><?php echo __('Whatever your query, use the contact form below to get in touch – our team is ready to help 24/7.') ?></p>
+	<form class="" action="<?php echo $baseUrl . 'requestcancelreturnticket/index/contact' ?>" id="contact-form" method="post" data-hasrequired="<?php /* @escapeNotVerified */ echo __('* Required Fields') ?>" data-mage-init='{"validation":{}}'>
+		<div class="row">
+			<div class="col-md-6">
+				<div class="field name required cls_comm_input">
+					<div class="control">
+						<input name="name" id="name" title="<?php /* @escapeNotVerified */ echo __('Name') ?>" placeholder="<?php /* @escapeNotVerified */ echo __('Name') ?>" value="<?php echo $block->escapeHtml($this->helper('Magento\Contact\Helper\Data')->getPostValue('name') ?: $fname); ?>" class="input-text" type="text" data-validate="{required:true}" />
+					</div>
+				</div>
+				<div class="field name required cls_comm_input">
+					<div class="control">
+						<input name="surname" id="surname" title="<?php /* @escapeNotVerified */ echo __('Surname') ?>" placeholder="<?php /* @escapeNotVerified */ echo __('Surname') ?>" value="<?php echo $block->escapeHtml($this->helper('Magento\Contact\Helper\Data')->getPostValue('surname') ?: $lname); ?>" class="input-text" type="text" data-validate="{required:true}" />
+					</div>
+				</div>
+				<div class="field email required cls_comm_input">
+					<div class="control">
+						<input name="email" id="email" title="<?php /* @escapeNotVerified */ echo __('Email') ?>" placeholder="<?php /* @escapeNotVerified */ echo __('Email') ?>" value="<?php echo $block->escapeHtml($this->helper('Magento\Contact\Helper\Data')->getPostValue('email') ?: $this->helper('Magento\Contact\Helper\Data')->getUserEmail()) ?>" class="input-text" type="email" data-validate="{required:true, 'validate-email':true}" />
+					</div>
+				</div>
+				<div class="field conform_email required cls_comm_input">
+					<div class="control">
+						<input name="email" id="conform_email" title="<?php /* @escapeNotVerified */ echo __('Email') ?>" placeholder="<?php /* @escapeNotVerified */ echo __('Email') ?>" value="<?php echo $block->escapeHtml($this->helper('Magento\Contact\Helper\Data')->getPostValue('email') ?: $this->helper('Magento\Contact\Helper\Data')->getUserEmail()) ?>" class="input-text" type="email" data-validate="{required:true, 'validate-email':true}" />
+					</div>
+				</div>
+				<div class="field typeofenquiry required cls_comm_input">
+					<div class="control">
+						<select name="typeofenquiry" id="typeofenquiry" class="input-text" data-validate="{required:true}">
+							<option value=""><?php echo __('Type Of Enquiry') ?></option>
+							<option value="Delivery"><?php echo __('Delivery') ?></option>
+							<option value="Orders"><?php echo __('Orders') ?></option>
+							<option value="Payment"><?php echo __('Payment') ?></option>
+							<option value="Product"><?php echo __('Product') ?></option>
+							<option value="Promotion"><?php echo __('Promotion') ?></option>
+							<option value="Returns"><?php echo __('Returns') ?></option>
+							<option value="Shipping"><?php echo __('Shipping') ?></option>
+							<option value="Technical"><?php echo __('Technical') ?></option>
+						</select>
+					</div>
+				</div>
+
+			</div>
+			<div class="col-md-6">
+				<div class="field subject required cls_comm_input">
+					<div class="control">
+						<input name="subject" id="subject" title="<?php /* @escapeNotVerified */ echo __('Subject') ?>" placeholder="<?php /* @escapeNotVerified */ echo __('Subject') ?>" value="<?php echo $block->escapeHtml($this->helper('Magento\Contact\Helper\Data')->getPostValue('subject') ?: '');//$this->helper('Magento\Contact\Helper\Data')->getUserName()) ?>" class="input-text" type="text" data-validate="{required:true}" />
+					</div>
+				</div>
+				<div class="field comment required cls_comm_input">
+					<div class="control">
+						<textarea name="comment" id="comment" title="<?php /* @escapeNotVerified */ echo __('What’s on your mind?') ?>" placeholder="<?php /* @escapeNotVerified */ echo __('What’s on your mind?') ?>" class="input-text textarea-text" cols="5" rows="2" data-validate="{required:true}"><?php echo $block->escapeHtml($this->helper('Magento\Contact\Helper\Data')->getPostValue('comment')) ?></textarea>
+					</div>
+				</div>
+
+
+                <div class="field subject required cls_comm_input">
+                    <div class="control">
+                            <input name="telephone" id="telephone" class="input-text"/>
+                    </div>
+                </div>
+
+
+				<div class="field contactbyme required cls_comm_input" style="display: none;">
+					<div class="control">
+						<span><?php echo __('Contact me by') ?> </span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+						<input type="radio" name="rndconactbyme" id="rndemail" />
+						<label for="contactByEmail" class=""><?php echo __('Email') ?>Email</label>
+						&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+						<input type="radio" name="rndconactbyme" id="rndphone" />
+						<label for="contactByEmail" class=""><?php echo __('Phone') ?></label>
+					</div>
+				</div>
+
+				<div class="field country required cls_comm_input">
+					<div class="control">
+						<select id="country" name="country" class="input-text" data-validate="{required:true}">
+							<?php
+							$country_code = $dynamicHelper->getStoreCode();
+							$country_code = strtok($country_code, '-');
+							$countryFactory = $dynamicHelper->getCountryFactoryManager()->create();
+							foreach ($countryCollection->getData() as $row_country) {
+								$countryCode = $row_country['country_id'];
+								$country = $countryFactory->loadByCode($countryCode);
+								$countryName = $country->getName();
+								if ($countryName != "") { ?>
+									<option value="<?php echo $countryName; ?>" <?php if (strtolower($countryCode) == strtolower(trim($country_code))) echo 'selected'; ?>><?php echo $countryName; ?></option>
+								<?php }
+								?>
+							<?php
+							}
+							?>
+						</select>
+					</div>
+				</div>
+
+				<?php echo $block->getChildHtml('form.additional.info'); ?>
+
+
+			</div>
+		</div>
+		<div class="row">
+			<div class="actions-toolbar">
+				<div class="primary">
+					<input type="hidden" name="hideit" id="hideit" value="" />
+					<button type="submit" name="btncontactus" title="<?php /* @escapeNotVerified */ echo __('Submit') ?>" class="action submit primary">
+						<span><?php /* @escapeNotVerified */ echo __('Submit') ?></span>
+					</button>
+				</div>
+			</div>
+
+			<div class="addressbox">
+				<h3>Head Office</h3>
+				<p>SOLO LUXURY, O LABELS LTD, 20-22 WENLOCK ROAD, LONDON, N1 7GU</p>
+				<a href="#">customercare@sololuxury.com</a>
+			</div>
+		</div>
+
+		<div class="cls-contact-details row">
+			<?php
+			echo $this->getLayout()->createBlock('Magento\Cms\Block\Block')->setBlockId('contactus_bottom_content')->toHtml();
+			?>
+		</div>
+
+	</form>
+
+</div>

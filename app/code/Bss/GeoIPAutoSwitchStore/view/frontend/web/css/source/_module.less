@@ -1,0 +1,99 @@
+/**
+ * BSS Commerce Co.
+ *
+ * NOTICE OF LICENSE
+ *
+ * This source file is subject to the EULA
+ * that is bundled with this package in the file LICENSE.txt.
+ * It is also available through the world-wide-web at this URL:
+ * http://bsscommerce.com/Bss-Commerce-License.txt
+ *
+ * @category  BSS
+ * @package   Bss_GeoIPAutoSwitchStore
+ * @author    Extension Team
+ * @copyright Copyright (c) 2017-2018 BSS Commerce Co. ( http://bsscommerce.com )
+ * @license   http://bsscommerce.com/Bss-Commerce-License.txt
+ */
+& when (@media-common = true) {
+    .popup_geoip_content {
+        max-width: 600px;
+        background: #fff;
+        padding: 20px;
+        position: relative;
+        border-radius: 4px;
+        margin: 0 auto;
+        text-align: center;
+        display: none;
+    }
+
+    .geoip_title {
+        width: 80%;
+        margin: 0 10% 20px 10%;
+        font-size: 15px;
+        font-weight: 700;
+        text-align: center;
+        float: left;
+    }
+}
+div.switcher-website {
+    max-height: 20px;
+}
+.switcher-website {
+    img.bss-flag {
+        display: inline-block;
+        position: relative;
+        top: -4px;
+        width: 32px;
+    }
+    li.switcher-option {
+        max-height: 35px;
+    }
+    div#switcher-website-trigger {
+        span {
+            position: relative;
+            top: -15px;
+        }
+    }
+    .switcher-option {
+        span {
+            position: relative;
+            top: -15px;
+        }
+    }
+}
+.page-header {
+    .switcher.switcher-website {
+        .options {
+            .action.toggle.switcher-trigger {
+                padding-left: 8px;
+                padding-right: 8px;
+            }
+        }
+    }
+}
+.nav-sections {
+    .switcher-website {
+        div#switcher-website-trigger {
+            padding-top: 10px;
+        }
+        .switcher-dropdown {
+            display: none;
+        }
+        .active {
+            .switcher-dropdown {
+                display: block;
+            }
+        }
+        .switcher-trigger {
+            strong {
+                display: inline-block;
+                &:after {
+                    top: -16px;
+                }
+            }
+        }
+    }
+    div.switcher-website {
+        max-height: none;
+    }
+}

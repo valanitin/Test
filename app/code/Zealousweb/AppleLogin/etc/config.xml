@@ -1,0 +1,29 @@
+<?xml version="1.0"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Store:etc/config.xsd">
+	<default>
+		<appleconfig>
+			<default>
+				<firstname>Apple</firstname>
+				<lastname>User</lastname>
+				<gender>1</gender>
+				<prefix>Mr</prefix>
+				<sufix>Jr</sufix>
+				<dob>04/05/1992</dob>
+				<taxvat>1234567890</taxvat>
+			</default>
+			<layout>
+				<display_type>1</display_type>
+				<button_label>Sign in with Apple</button_label>
+				<button_layout>left</button_layout>
+				<background_color>#000000</background_color>
+				<text_color>#ffffff</text_color>
+				<border_color>#000000</border_color>
+				<icon_background_color>#ffffff</icon_background_color>
+				<button_hover_color>#ffffff</button_hover_color>
+				<border_hover_color>#000000</border_hover_color>
+				<text_hover_color>#000000</text_hover_color>
+			</layout>
+		</appleconfig>
+	</default>
+</config>
+

@@ -1,0 +1,60 @@
+<?php
+/**
+ * Plumrocket Inc.
+ *
+ * NOTICE OF LICENSE
+ *
+ * This source file is subject to the End-user License Agreement
+ * that is available through the world-wide-web at this URL:
+ * http://wiki.plumrocket.net/wiki/EULA
+ * If you are unable to obtain it through the world-wide-web, please
+ * send an email to support@plumrocket.com so we can send you a copy immediately.
+ *
+ * @package     Plumrocket_Amp
+ * @copyright   Copyright (c) 2019 Plumrocket Inc. (http://www.plumrocket.com)
+ * @license     http://wiki.plumrocket.net/wiki/EULA  End-user License Agreement
+ */
+?>
+
+<?php
+/** @var \Plumrocket\Amp\Block\Page\Switcher\Currency $block */
+?>
+<?php if ($block->getCurrencyCount() > 1) : ?>
+    <?php $currencies = $block->getCurrencies(); ?>
+    <?php $currentCurrencyCode = $block->getCurrentCurrencyCode(); ?>
+    <div class="top__currency ddwn">
+        <form method="post"
+              target="_top"
+              id="top_currency_switcher"
+              action-xhr="<?= $block->getActionUrl() ?>"
+        >
+            <input type="hidden"
+                   name="currency"
+                   value=""
+                   [value]="<?= $block->getTargetGetterJs() ?>">
+            <input type="hidden" name="back_url" value="<?= $block->getBackUrl() ?>">
+            <input type="hidden" name="ajax" value="1">
+        </form>
+
+        <button class="ddwn_btn"
+                tabindex="1"
+                on="tap:AMP.setState({currencyToggle: !currencyToggle, langToggle: 0})"
+        ><?= $block->escapeHtml($currentCurrencyCode) ?><i class="fas fa-angle-down"></i></button>
+        <ul class="ddwn_list ddwn_list--close"
+            [class]="currencyToggle ? 'ddwn_list ddwn_list--open' : 'ddwn_list ddwn_list--close'">
+            <i></i>
+            <?php foreach ($currencies as $code => $name) : ?>
+                <?php if ($code !== $currentCurrencyCode) : ?>
+                    <li class="ddwn_item">
+                        <span role="button"
+                              tabindex="0"
+                              class="ddwn_link"
+                              on="tap:AMP.setState(<?= $block->getTargetSetJs($code) ?>),top_currency_switcher.submit">
+                        <?= $code ?>
+                    </span>
+                    </li>
+                <?php endif; ?>
+            <?php endforeach; ?>
+        </ul>
+    </div>
+<?php endif; ?>

@@ -1,0 +1,38 @@
+<?php
+/**
+ * Copyright © Magento, Inc. All rights reserved.
+ * See COPYING.txt for license details.
+ */
+
+// @codingStandardsIgnoreFile
+
+/** @var \Zealousweb\AppleLogin\Block\Login\Button $block */
+
+$helper = $this->helper('\Zealousweb\AppleLogin\Helper\Data');
+$backgroundColor = $helper->getButtonBackgroundColor();
+$buttonLayout = $helper->getButtonLayout();
+$buttonTextColor = $helper->getButtonTextColor();
+$buttonBorderColor = $helper->getButtonBorderColor();
+$buttonIconBackgroundColor = $helper->getIconBackgroundColor();
+$buttonHoverColor = $helper->getButtonHoverColor();
+$buttonBorderHoverColor = $helper->getBorderHoverColor();
+$buttonTextHoverColor = $helper->getTextHoverColor();
+?>
+<?php if($helper->isEnabled()) :?>
+<style type="text/css">
+    .apple-login-container, .checkout-step-shipping-login, .checkout-popup-modal {text-align: <?php echo $buttonLayout;?>;}
+    .apple-signup .action.primary.signinwithapple {
+        background: <?php echo $backgroundColor;?>;
+        color: <?php echo $buttonTextColor?>;
+        border-color: <?php echo $buttonBorderColor;?>;
+    }
+    .apple-signup .action.primary.signinwithapple:hover {
+        background: <?php echo $buttonHoverColor;?>;
+        color: <?php echo $buttonTextHoverColor;?>;
+        border-color: <?php echo $buttonBorderHoverColor;?>;
+    }
+    .apple-icon {
+        background: <?php echo $buttonIconBackgroundColor;?>
+    }
+</style>
+<?php endif;?>

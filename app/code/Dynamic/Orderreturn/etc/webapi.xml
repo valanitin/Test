@@ -1,0 +1,28 @@
+<?xml version="1.0"?>
+
+<routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Webapi:etc/webapi.xsd">
+    <route url="/V1/orderReturn" method="POST">
+        <service class="Dynamic\Orderreturn\Api\OrderreturnManagementInterface" method="submitForm"/>
+        <resources>
+            <resource ref="anonymous"/>
+        </resources>
+    </route>
+    <route url="/V1/updateReturnStatus" method="POST">
+        <service class="Dynamic\Orderreturn\Api\UpdatereturnManagementInterface" method="statusReturnForm"/>
+        <resources>
+            <resource ref="anonymous"/>
+        </resources>
+    </route>
+    <route url="/V1/returnStatus/" method="GET">
+        <service class="Dynamic\Orderreturn\Api\GetReturnStatus" method="getReturnStatusList"/>
+        <resources>
+            <resource ref="Dynamic_Orderreturn::api" />
+        </resources>
+    </route>
+    <route url="/V1/orderReturnList" method="GET">
+        <service class="Dynamic\Orderreturn\Api\OrderreturnlistManagementInterface" method="getOrderReturnList"/>
+        <resources>
+            <resource ref="self"/>
+        </resources>
+    </route>
+</routes>

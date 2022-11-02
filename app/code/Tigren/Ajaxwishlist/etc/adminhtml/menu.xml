@@ -1,0 +1,14 @@
+<?xml version="1.0"?>
+<!--
+  ~ @author    Tigren Solutions <info@tigren.com>
+  ~ @copyright Copyright (c) 2022 Tigren Solutions <https://www.tigren.com>. All rights reserved.
+  ~ @license   Open Software License ("OSL") v. 3.0
+  -->
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Backend:etc/menu.xsd">
+    <menu>
+        <add id="Tigren_Ajaxsuite::ajaxwishlist" title="Ajax Wishlist" module="Tigren_Ajaxsuite" sortOrder="4"
+             parent="Tigren_Ajaxsuite::ajaxsuite_main" resource="Tigren_Ajaxsuite::ajaxwishlist"
+             action="adminhtml/system_config/edit/section/ajaxwishlist"/>
+    </menu>
+</config>

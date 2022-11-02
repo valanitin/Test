@@ -1,0 +1,107 @@
+<?php
+/**
+ * Revered Technologies Pvt. Ltd.
+ *
+ * NOTICE OF LICENSE
+ *
+ * This source file is subject to the EULA
+ * that is bundled with this package in the file LICENSE.txt.
+ * It is also available through the world-wide-web at this URL:
+ * http://store.reveredtech.com/Revered-LICENSE-COMMUNITY.txt
+ *
+ ********************************************************************
+ * @category   Revered
+ * @package    Revered_GuestWishlist
+ * @copyright  Copyright (c) Revered Technologies Pvt. Ltd. (http://www.reveredtech.com)
+ * @license    http://store.reveredtech.com/Revered-LICENSE-COMMUNITY.txt
+ */
+
+// @codingStandardsIgnoreFile
+
+$helper =  $this->helper('\Revered\GuestWishlist\Helper\Data');
+?>
+<?php if ($helper->isEnabled()): ?>
+    <li class="item link wishlist" data-bind="scope: 'wishlist'">
+        <span class="action wish no-display"
+              id="wishlist-link"
+              title="<?= /* @escapeNotVerified */ $block->escapeHtml(__('My Wish List')) ?>"
+              data-bind="css: {'no-display': !wishlist().counter}">
+            <?= /* @escapeNotVerified */ __('My Wish List') ?>
+            <span class="counter qty" data-bind="text: wishlist().counter"></span>
+        </span>
+    </li>
+    <div id="mini-wishlist-modal" class="no-display">
+        <div data-bind="scope: 'wishlist'">
+            <!-- ko if: wishlist().counter -->
+                <div class="products wrapper grid products-grid">
+                    <ol class="products list items product-items" id="wishlist-popup" data-bind="foreach: wishlist().modalItems">
+                        <li class="item product product-item">
+                            <div class="product-item-info" data-container="product-grid">
+                                <a class="product photo product-item-photo"
+                                   tabindex="-1"
+                                   data-bind="attr: { 'href': product_url, 'title': product_name }">
+                                    <!-- ko template: {name: $data.image_modal.template, data: $data.image_modal} --><!-- /ko -->
+                                </a>
+                                <div class="product details product-item-details">
+                                    <strong class="product name product-item-name">
+                                        <a class="product-item-link"
+                                           data-bind="attr: { href: product_url }">
+                                            <span data-bind="text: product_name"></span>
+                                        </a>
+                                    </strong>
+                                    <div data-bind="html: product_price"></div>
+                                    <div class="product-item-inner">
+                                        <div class="product actions product-item-actions">
+                                            <!-- ko if: product_is_saleable_and_visible -->
+                                                <div class="actions-primary" data-role="tocart-form">
+                                                    <!-- ko if: product_has_required_options -->
+                                                        <a href="#"
+                                                           class="action tocart primary"
+                                                           data-bind="attr: {'data-post': add_to_cart_params }">
+                                                            <span><?= /* @escapeNotVerified */ __('Add to Cart') ?></span>
+                                                        </a>
+                                                    <!-- /ko -->
+                                                    <!-- ko ifnot: product_has_required_options -->
+                                                        <button type="button"
+                                                                class="action tocart primary"
+                                                                data-bind="attr: {'data-post': add_to_cart_params }">
+                                                            <span><?= /* @escapeNotVerified */ __('Add to Cart') ?></span>
+                                                        </button>
+                                                    <!-- /ko -->
+                                                </div>
+                                            <!-- /ko -->
+                                            <div class="actions-secondary">
+                                                <a href="#" data-role="remove"
+                                                   title="<?= /* @escapeNotVerified */ $block->escapeHtml(__('Remove item')) ?>"
+                                                   class="action removefromwish"
+                                                   data-bind="attr: {'data-post': delete_item_params }">
+                                                    <span><?= /* @escapeNotVerified */ __('Remove item') ?></span>
+                                                </a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </li>
+                    </ol>
+                </div>
+            <!-- /ko -->
+            <!-- ko ifnot: wishlist().counter -->
+                 <div class="message info empty"><div><?= /* @escapeNotVerified */ __('You have no items in your wish list.') ?></div></div>
+            <!-- /ko -->
+        </div>
+    </div>
+    <script type="text/x-magento-init">
+        {
+            "*": {
+                "Magento_Ui/js/core/app": {
+                    "components": {
+                        "wishlist": {
+                            "component": "Revered_GuestWishlist/js/view/wishlist"
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+<?php endif;?>

@@ -1,0 +1,40 @@
+<?php
+/**
+ * Plumrocket Inc.
+ *
+ * NOTICE OF LICENSE
+ *
+ * This source file is subject to the End-user License Agreement
+ * that is available through the world-wide-web at this URL:
+ * http://wiki.plumrocket.net/wiki/EULA
+ * If you are unable to obtain it through the world-wide-web, please
+ * send an email to support@plumrocket.com so we can send you a copy immediately.
+ *
+ * @package     Plumrocket_Amp
+ * @copyright   Copyright (c) 2019 Plumrocket Inc. (http://www.plumrocket.com)
+ * @license     http://wiki.plumrocket.net/wiki/EULA  End-user License Agreement
+ */
+?>
+<?php /** @var \Plumrocket\Amp\Block\Widget\Slider $block */ ?>
+<?php if ($block->hasEnabledSlides()) : ?>
+<div class="pramp-slider">
+    <amp-carousel
+      height="<?= $block->getImageHeight() ?>"
+      width="<?= $block->getImageWidth() ?>"
+      layout="responsive"
+      type="slides"
+      autoplay delay="5000"
+    >
+        <?php foreach ($block->getSlides() as $slide) : ?>
+            <?php if ($slide['banner_url']) : ?>
+            <a href="<?= $slide['banner_url'] ?>" <?= $slide['url_blank'] ? 'target="_blank"' : '' ?>
+               title="<?= __('Link for: %1', $slide['image_alt']) ?>">
+                <?= $block->getImageHtml($slide) ?>
+            </a>
+            <?php else : ?>
+                <?= $block->getImageHtml($slide) ?>
+            <?php endif; ?>
+        <?php endforeach; ?>
+    </amp-carousel>
+</div>
+<?php endif; ?>

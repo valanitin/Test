@@ -1,0 +1,581 @@
+<?php
+
+/**
+ * Copyright © Magento, Inc. All rights reserved.
+ * See COPYING.txt for license details.
+ */
+
+/** @var  $block \Magento\Sales\Block\Order\Item\Renderer\DefaultRenderer */
+
+$ticketsList= $block->getLayout()->createBlock('Dynamic\Mytickets\Block\Myticketslist');
+$myTicketsRequest = $ticketsList->checkMyTicketsRequest($block->getSku());
+$myTicketsCancel = $ticketsList->checkMyTicketsCancel($block->getSku());
+
+$dynamicHelper = $this->helper('\Dynamic\Customization\Helper\Data');
+$storeManager  = $dynamicHelper->getStoreManager();
+$storeCode = $storeManager->getStore()->getCode();
+$siteUrl = $dynamicHelper->getScopeConfig()->getValue("web/secure/base_url");
+$_item = $block->getItem();
+$rawSku = $block->getSku();
+$sku = $block->getSku();
+$sku = strtolower($sku);
+$sku = preg_replace('/\s+/', '-', $sku);
+$productName = $_item->getName();
+$productSku = $_item->getSku();
+$_order = $block->getOrder();
+$orderId = $_order->getIncrementId();
+$orderOriginalId = $_order->getId();
+$customerEmail = $_order->getCustomerEmail();
+$currencySymbol = $_order->getOrderCurrency()->getCurrencySymbol();
+$rowTotal = (float)$_item->getRowTotal();
+$discount = (float)$_item->getDiscountAmount();
+$total = (float)$rowTotal - $discount;
+$product = $dynamicHelper->getProductManager()->load($_item->getProductId());
+$imagewidth = 80;
+$imageheight = 200;
+$imageHelper  = $dynamicHelper->getImageHelperManager();
+$image_url = $imageHelper->init($product, 'product_page_image_small')->setImageFile($product->getFile())->resize($imagewidth, $imageheight)->getUrl();
+
+
+$returnHelper = $this->helper("Dynamic\Orderreturn\Helper\Data");
+
+$url = 'https://erp.theluxuryunlimited.com/api/order/check-cancellation';
+
+//Initiate cURL.
+$ch = curl_init($url);
+$newjsonData = array(
+    "website" => "WWW.SOLOLUXURY.COM",
+    "order_id" => $orderId
+);
+
+//Encode the array into JSON.
+$jsonDataEncoded = json_encode($newjsonData);
+
+//Tell cURL that we want to send a POST request.
+curl_setopt($ch, CURLOPT_POST, 1);
+
+//Attach our encoded JSON string to the POST fields.
+curl_setopt($ch, CURLOPT_POSTFIELDS, $jsonDataEncoded);
+
+//Set the content type to application/json
+curl_setopt($ch, CURLOPT_HTTPHEADER, array('Content-Type: application/json'));
+curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
+curl_setopt($ch, CURLOPT_TIMEOUT, 3);
+$content = trim(curl_exec($ch));
+curl_close($ch);
+$data = json_decode($content, true);
+$apiStatus = $data['code'];
+if ($apiStatus == 200) {
+    $isReturned = $data['data']['isrefund'];
+} else {
+    $isReturned = false;
+}
+// Return response instead of outputting
+// curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+?>
+<!-- API code to check if the sku is eligible for return -->
+<?php
+$canReturn = '';
+$url = 'https://erp.theluxuryunlimited.com/api/order/check-return';
+
+//Initiate cURL.
+$ch = curl_init($url);
+$newjsonData = array(
+    "website" => "WWW.SOLOLUXURY.COM",
+    "product_sku" => $rawSku,
+    "order_id" => $orderId
+);
+
+//Encode the array into JSON.
+$jsonDataEncoded = json_encode($newjsonData);
+
+//Tell cURL that we want to send a POST request.
+curl_setopt($ch, CURLOPT_POST, 1);
+
+//Attach our encoded JSON string to the POST fields.
+curl_setopt($ch, CURLOPT_POSTFIELDS, $jsonDataEncoded);
+
+//Set the content type to application/json
+curl_setopt($ch, CURLOPT_HTTPHEADER, array('Content-Type: application/json'));
+curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
+curl_setopt($ch, CURLOPT_TIMEOUT, 3);
+$content = trim(curl_exec($ch));
+curl_close($ch);
+$result = json_decode($content, true);
+$canReturn = $result['data']['has_return_request'];
+$apiStatus = $result['code'];
+if ($apiStatus == 200 && $canReturn == 1) {
+    $isReturnEligible = 'yes';
+} else {
+    $isReturnEligible = 'no';
+}
+?>
+<!-- End -->
+<tr id="order-item-row-<?= (int) $_item->getId() ?>">
+    <td class="col image" data-th="<?= $block->escapeHtml(__('Image')) ?>">
+        <img src="<?php echo $image_url ?>" />
+    </td>
+    <td class="col name" data-th="<?= $block->escapeHtml(__('Product Name')) ?>">
+        <div class="item_group_order">
+            <?php
+            if (strlen($_item->getName()) >= 25) {
+            ?>
+                <strong id="product-name-less-more-<?php echo $_item->getId(); ?>" class="product name product-item-name"><?= $block->escapeHtml(substr_replace($_item->getName(), "...", 25)) ?><a href="javascript:void(0);" class="product_name_see_more" product_name_id="<?php echo $_item->getId(); ?>">See More</a></strong>
+            <?php } else { ?>
+                <strong class="product name product-item-name"><?= $block->escapeHtml($_item->getName()) ?></strong>
+            <?php }  ?>
+
+            <strong id="product-name-see-more-<?php echo $_item->getId(); ?>" class="product name product-item-name" style="display:none;"><?= $block->escapeHtml($_item->getName()) ?> <a href="javascript:void(0);" class="product_name_lee_more" product_name_id="<?php echo $_item->getId(); ?>">Less More</a></strong>
+
+
+        </div>
+    </td>
+    <?php //if ($_options = $block->getItemOptions()) : ?>
+        <td class="col options" data-th="<?= $block->escapeHtml(__('Product Options')) ?>">
+            <?php if ($_options = $block->getItemOptions()) : ?>
+                <dl class="item-options">
+                    <?php foreach ($_options as $_option) : ?>
+                        <!--<dt><?= $block->escapeHtml($_option['label']) ?></dt>-->
+                        <?php if (!$block->getPrintStatus()) : ?>
+                            <?php $_formatedOptionValue = $block->getFormatedOptionValue($_option) ?>
+                            <dd>
+                                <?php if (isset($_formatedOptionValue['full_view'])) : ?>
+                                    <?= $block->escapeHtml($_formatedOptionValue['full_view'], ['a']) ?>
+                                <?php else : ?>
+                                    <?= $block->escapeHtml($_formatedOptionValue['value'], ['a']) ?>
+                                <?php endif; ?>
+                            </dd>
+                        <?php else : ?>
+                            <dd>
+                                <?= /* @noEscape */ nl2br($block->escapeHtml($_option['print_value'] ?? $_option['value'])) ?>
+                            </dd>
+                        <?php endif; ?>
+                    <?php endforeach; ?>
+                </dl>
+            <?php endif; ?>
+            <?php $addtInfoBlock = $block->getProductAdditionalInformationBlock(); ?>
+            <?php if ($addtInfoBlock) : ?>
+                <?= $addtInfoBlock->setItem($_item)->toHtml() ?>
+            <?php endif; ?>
+            <?= $block->escapeHtml($_item->getDescription()) ?>
+        </td>
+    <?php //endif; ?>
+    <td class="col sku" data-th="<?= $block->escapeHtml(__('SKU')) ?>"><?= /* @noEscape */ $block->prepareSku($block->getSku()) ?></td>
+    <td class="col price" data-th="<?= $block->escapeHtml(__('Price')) ?>">
+        <?= $block->getItemPriceHtml() ?>
+    </td>
+    <td class="col qty" data-th="<?= $block->escapeHtml(__('Qty')) ?>">
+        <ul class="items-qty">
+            <?php if ($block->getItem()->getQtyOrdered() > 0) : ?>
+                <li class="item">
+                    <!--<span class="title"><?= $block->escapeHtml(__('Ordered')) ?></span>-->
+                    <span class="content"><?= (int) $block->getItem()->getQtyOrdered() ?></span>
+                </li>
+            <?php endif; ?>
+            <?php if ($block->getItem()->getQtyShipped() > 0) : ?>
+                <li class="item">
+                    <!--<span class="title"><?= $block->escapeHtml(__('Shipped')) ?></span>-->
+                    <span class="content"><?= (int) $block->getItem()->getQtyShipped() ?></span>
+                </li>
+            <?php endif; ?>
+            <?php if ($block->getItem()->getQtyCanceled() > 0) : ?>
+                <li class="item">
+                    <!--<span class="title"><?= $block->escapeHtml(__('Canceled')) ?></span>-->
+                    <span class="content"><?= (int) $block->getItem()->getQtyCanceled() ?></span>
+                </li>
+            <?php endif; ?>
+            <?php if ($block->getItem()->getQtyRefunded() > 0) : ?>
+                <li class="item">
+                    <!--<span class="title"><?= $block->escapeHtml(__('Refunded')) ?></span>-->
+                    <span class="content"><?= (int) $block->getItem()->getQtyRefunded() ?></span>
+                </li>
+            <?php endif; ?>
+        </ul>
+    </td>
+    <td class="col subtotal" data-th="<?= $block->escapeHtml(__('Subtotal')) ?>">
+        <?= $block->getItemRowTotalHtml() ?>
+    </td>
+    <td class="col subtotal" data-th="<?= $block->escapeHtml(__('Status')) ?>">
+        <a href="javascript:void(0);" class="order-status-popup" order-content-id="<?php echo $_order->getId(); ?>">
+            <span><?= __('Status') ?></span>
+        </a>
+    </td>
+    <td class="col return" data-th="<?= $block->escapeHtml(__('Return')) ?>" style="text-align:center;font-size: 1.3rem;">
+    <?php        
+    if ($isReturnEligible == 'yes') {
+
+        $config = $returnHelper->getScopeConfig()->getValue('orderreturn_reason/orderreturn_configuration/reason', \Magento\Store\Model\ScopeInterface::SCOPE_STORE);
+        $reasonData = json_decode($config, true);
+    ?>
+        <!--<td class="col return" data-th="<?= $block->escapeHtml(__('Return')) ?>" style="text-align:center;font-size: 1.3rem;">-->
+            <span id="<?php echo $sku ?>"><i class="porto-icon-action-undo"></i><?php echo __('Return') ?></span>
+            <div class="show-<?php echo $sku ?> modal">
+                <div class="modal-content">
+                    <span class="close">&times;</span>
+                    <p>Return Item: <?php echo $productName ?></p>
+                    <!-- <form action="" method="post"> -->
+                    <div id="result-<?php echo $sku ?>"></div>
+                    <div id="loader-<?php echo $sku ?>" style="display:none;">loading</div>
+                    <div class="form-data">
+                    <div id="order-refund-details">
+                        <span id="order-refund-amount"><?php echo "You are eligible for a refund of ". $currencySymbol. $total ." excluding discount amount of ".$currencySymbol.$discount ?></span>
+                    </div>
+                        <?php if (!empty($reasonData)) { ?>
+							<label><?php echo __('Select Reason') ?></label>
+                            <select>
+                                <option value=""><?php echo __('Reason to return') ?></option>
+                                <?php foreach ($reasonData as $reason) { ?>
+                                    <option value="<?php echo $reason['reason_data']; ?>"><?php echo $reason['reason_data']; ?></option>
+                                <?php } ?>
+                            </select>
+                        <?php } ?>
+                        <input type="submit" value="Send" name="submit" class="<?php echo $sku ?>">
+                    </div>
+
+                </div>
+            </div>
+
+          </div>
+        </div>
+
+    <!--</td>-->
+    <?php }else{ ?>
+    <!--<td class="col ret" data-th="<?= $block->escapeHtml(__('Return')) ?>" style="text-align:center;font-size: 1.3rem;">-->
+        <!--<span id="<?php echo $sku ?>"><?php echo __('N/A') ?></span>-->
+         <span id="disabled-itemreturn-<?php echo $sku ?>" class="disabled-itemreturn" style="color:#4c566a;"><i class="porto-icon-action-undo"></i><?php echo __('Return') ?></span>
+    <!--</td>-->
+    
+  <?php } ?>
+    <?php if($_order->canCancel() && $myTicketsCancel == 0){ ?>
+        <!--<td class="col return" style="text-align:center;font-size: 1.3rem;">-->
+        <?php  $customerEmail = $_order->getCustomerEmail(); ?>            
+            <span class="order-canel <?php echo 'cancel-'.$_order->getRealOrderId()."-".$_item->getItemId() ?>">
+                <span class="cancel"><?php echo __('Cancel') ?></span>
+            </span>
+            <div class="show-<?php echo $_order->getRealOrderId() ?> modal">
+                <div class="modal-content">
+                <span class="close">&times;</span>
+                 <p><?php echo __('Cancel Order #%1',$_order->getRealOrderId());?></p>
+                 <div id="order-refund-details">
+                    <span id="order-refund-amount"><?php echo "You are eligible for a refund of ". $currencySymbol. $total ." excluding discount amount of ".$currencySymbol.$discount ?></span>
+                </div>
+                <div id="result-<?php echo $_order->getRealOrderId() ?>"></div>
+                <div class="form-data">
+					<?php
+					$config = $returnHelper->getScopeConfig()->getValue('ordercancel_reason/ordercancel_configuration/reason', \Magento\Store\Model\ScopeInterface::SCOPE_STORE);
+                    $reasonData = json_decode($config, true);
+                    ?>
+                        <?php if (!empty($reasonData)) { ?>
+							<label><?php echo __('Select Reason') ?></label>
+                            <select name="ordercancel-reason" id="ordercancel-reason-<?php echo $_order->getRealOrderId()."-".$_item->getItemId() ?>">
+                                <option value=""><?php echo __('Reason to cancel') ?></option>
+                                <?php foreach ($reasonData as $reason) { ?>
+                                    <option value="<?php echo $reason['reason_data']; ?>"><?php echo $reason['reason_data']; ?></option>
+                                <?php } ?>
+                            </select>
+                        <?php } ?>
+                        <input type="button" value="Send" name="submit" id="ordercancel-submit-<?php echo $_order->getRealOrderId()."-".$_item->getItemId() ?>">
+                    </div>
+                <div id="loader-<?php echo $_order->getRealOrderId() ?>" style="display:none;">loading</div>
+                </div>
+            </div>
+            <script type="text/javascript">
+                require(['jquery',  'jquery/ui'], function($){
+               // $(document).ready(function() {
+                    var orderNo = '<?php echo $_order->getRealOrderId() ?>';
+                    var itemId = '<?php echo $_item->getItemId() ?>';
+                    var fileUrl = '<?php echo $siteUrl ?>apifiles/orderCancel.php';
+                    //var elem = '.cancel-'+orderNo;
+                    var elem = '.cancel-'+orderNo+"-"+itemId;
+                    /*$('.show-'+orderNo).click(function(){
+                       $('.show-'+orderNo).fadeOut(200);
+                    });*/
+                    
+                    $('.show-'+orderNo+' .close').click(function(){						
+						$('.show-'+orderNo).fadeOut(200);						
+				   });
+				   
+				   $(elem).click(function(){	
+					   $('.show-'+orderNo).fadeIn(200);						
+                        $("#result-"+orderNo).text('');
+                        $('.show-'+orderNo).fadeIn(200);
+				   });
+     
+                    $("#ordercancel-submit-" + orderNo + "-" + itemId).click(function(){
+                        alert('Good11');
+						if($("#ordercancel-reason-" + orderNo + "-" + itemId).val()==''){
+							   alert( $.mage.__("Please Select reason to Cacnel the Order"));									
+								return;
+					      }
+								
+                        $.ajax({
+                            url: fileUrl,
+                            type: "POST",
+                            data: {
+                                // customer_email: '<?php //echo $customerEmail ?>',
+                                customer_email: '<?php echo $customerEmail ?>',
+                                website:"WWW.SOLOLUXURY.COM",
+                                order_id: orderNo,
+                                // product_sku: 'Test01',
+                                type:"cancellation",
+                                reason:$("#ordercancel-reason-" + orderNo + "-" + itemId).val(),
+                                lang_code : '<?php echo $storeCode ?>'
+                            },
+                            dataType: "JSON",
+                            beforeSend: function() {								
+								$("#ordercancel-submit-" + orderNo + "-" + itemId).attr('disabled','disabled');
+                                $('#loader-'+orderNo).show();
+                            },
+                            complete: function(){								
+                                //$('#loader-'+orderNo).hide();
+                                // $('#result').fadeIn(800);
+                            },
+                            success: function (jsonStr) {
+								var status = jsonStr['status'];
+                                var message = jsonStr['message'];
+                                var data = JSON.stringify(jsonStr);
+                                var obj = JSON.parse(data);
+                                var errors = obj.errors;
+                                
+							    if(status!=='failed'){
+								    UpdateOrderItem( jsonStr['message']);
+							    } else {
+									$("#result-"+orderNo).text(message);
+									$('#loader-'+orderNo).hide();
+									//$('#result-'+orderNo).delay(3000).fadeOut(800);
+								}                                
+                                // $("#result").text(JSON.stringify(jsonStr));
+                                console.log(jsonStr['status']);
+                                if(errors){
+                                    $.each( errors, function( key, value ) {
+                                    $("#result-"+orderNo).text(key + " : " + value);
+                                    // alert( key + ": " + value );
+                                   });
+                                   $('#loader-'+orderNo).hide();
+                                   $("#ordercancel-submit-" + orderNo + "-" + itemId).removeAttr('disabled');
+                                } else {
+                                    //$("#result-"+orderNo).text(message);
+                                    //$('#result-'+orderNo).delay(3000).fadeOut(800);
+                            }
+                        }
+                    });
+                    });
+               // });
+                
+                function UpdateOrderItem(preajax_message){	
+					 var orderNo = '<?php echo $_order->getRealOrderId() ?>';				
+					 var orderoriginal_id = '<?php echo $orderOriginalId ?>'; 
+					 var item_id = '<?php echo $_item->getItemId() ?>'; 
+					 var cancelReason = $("#ordercancel-reason-" + orderNo + "-" + itemId).val();
+					 //alert("UpdateOrderItem Order ID="+orderoriginal_id+", Item ID="+item_id);
+					
+					 var Urlupdate = '<?php echo $this->getUrl('orderhistory/ajax/UpdateItem'); ?>';			 
+					 $.ajax({
+                        url: Urlupdate,
+                        type: "POST",
+                        data: {                                                        
+                            orderoriginal_id: orderoriginal_id, 
+                            item_id: item_id,                           
+                            type:"cancellation",
+                            reason:cancelReason,
+                            lang_code : '<?php echo $storeCode ?>'
+                        },
+                        dataType: "JSON",
+                        beforeSend: function() {
+                            
+                        },
+                        complete: function(){                            
+                            // $('#result').fadeIn(800);
+                            $('#loader-'+orderNo).hide();
+                        },
+                        success: function (jsonStr) {
+							var status = jsonStr['status'];      
+							var message = jsonStr['message'];   
+							allmessage  = preajax_message+"<br />"+message;
+							$("#result-"+orderNo).html(allmessage);
+							//$('#result-'+orderNo).delay(3000).fadeOut(800);
+		
+                        }
+                    });
+				 } 
+				 
+                });
+            </script>
+        <!--</td>-->
+    <?php } else { ?>
+		<span  style="color:#4c566a;" id="disabled-order-canel-<?php echo $_order->getRealOrderId()."-".$_item->getItemId() ?>">
+                <span class="cancel"><?php echo __('Cancel') ?></span>
+            </span>
+		
+     <?php }?>
+    </td>
+</tr>
+
+<?php
+$trackingHelper = $this->helper("Dynamic\OrderTracking\Helper\Data");
+$orderStatus = $trackingHelper->getOrderStatusList($_order);
+?>
+<?php if (!empty($orderStatus) && count($orderStatus) > 0) { ?>
+    <div class="order-status-modal modal" id="order-status-model-<?php echo $_order->getId(); ?>">
+        <div class="modal-content">
+            <span class="close" order-content-id="<?php echo $_order->getId(); ?>">×</span>
+            <div class="modal-progress-bar">
+                <div class="card card-timeline">
+                    <ul class="order-tracking-steps">
+                        <?php $i = 1; ?>
+                        <?php foreach ($orderStatus as $statusData) { ?>
+                            <li class="step <?php echo (isset($statusData["status_date"]) ? "active" : ""); ?>">
+                                <div><?php echo $i; ?></div>
+                                <span><?php echo $statusData["status_title"]; ?></span>
+                                <?php if (isset($statusData["status_date"])) { ?>
+                                    <p><?php echo $statusData["status_date"]; ?></p>
+                                <?php } ?>
+                            </li>
+                            <?php $i++; ?>
+                        <?php } ?>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+<?php } ?>
+
+
+<script type="text/javascript">
+require(['jquery', 'Magento_Ui/js/modal/modal', 'jquery/ui'], function($, modal){
+  $(document).ready(function() {
+	 
+            
+      var Url = '<?php echo $this->getUrl('orderreturn/index/post'); ?>';
+      var successUrl = '<?php echo $this->getUrl('orderreturn/index/success'); ?>';
+      
+
+     $('#<?php echo $sku ?>').click(function(){
+       // alert('<?php echo $productName ?>');
+       $('.show-<?php echo $sku ?>').fadeIn(200);
+     });
+     $('.show-<?php echo $sku ?> .close').click(function(){
+       // alert('<?php echo $productName ?>');
+       $('.show-<?php echo $sku ?>').fadeOut(200);
+     });
+     var elem = '<?php echo $sku ?>';
+      $('.<?php echo $sku ?>').click(function(){
+        var returnReason = $('.show-<?php echo $sku ?> select option:selected').val();         
+         if(returnReason == ''){
+			   alert( $.mage.__("Please Select reason to Return the item"));									
+                   return;
+		 }
+         $("#result-<?php echo $sku ?>").text('').css({"display":"block"});
+          $.ajax({
+              url: Url,
+              type: "POST",
+              data: {
+                customer_email: '<?php echo $customerEmail ?>',
+                website:"WWW.SOLOLUXURY.COM",
+                order_id: '<?php echo $orderId ?>',
+                orderoriginal_id: '<?php echo $orderOriginalId ?>', 
+                item_id:'<?php echo $_item->getItemId() ?>',        
+                product_sku: '<?php echo $rawSku ?>',
+                type:"return",
+                reason: returnReason,
+                lang_code : '<?php echo $storeCode ?>'
+              },
+              dataType: 'json',
+              async: true,
+              beforeSend: function() {
+                  $('#loader-<?php echo $sku ?>').show();
+               },
+               complete: function(){
+                  $('#loader-<?php echo $sku ?>').hide();
+                  // $('#result').fadeIn(800);
+               },
+              success: function (response) {
+                if(response.errors == false){
+                    window.location.href = successUrl;
+                } else {
+                    $("#result-<?php echo $sku ?>").text(response.message);
+                    $('#result-<?php echo $sku ?>').delay(3000).fadeOut(800);
+                }
+             }
+
+          });
+
+      });
+
+  });
+  
+      
+      $("#disabled-itemreturn-<?php echo $sku ?>").click(function(){
+		   var options = {
+                type: 'popup',
+                responsive: true,
+                title:  $.mage.__('Return Item Request Ticket'),
+                innerScroll: true,
+                modalClass:'detail-rc-modal',
+                buttons: [{
+                    text: $.mage.__('Return Item Request Ticket'),
+                    class: 'ticketmodal1',
+                    click: function () {
+                        this.closeModal();
+                    }
+                }]
+            };		
+          
+          <?php if ($myTicketsRequest > 0) { ?>
+            var popup = modal(options, $('#order-return-ticket-modal-exist'));
+            $("#order-return-ticket-modal-exist").modal("openModal");
+          <?php } else { ?>
+            $("#orddercancel_brand").val('<?php echo $productName; ?>');
+            $("#orddercancel_style").val('<?php echo $productSku; ?>');         
+            $("#orddercancel_order_id").val('<?php echo $orderOriginalId;?>');          
+            $("#orddercancelreturn_requesttype").val('2');
+            $("#orddercancel_tickettype").val('2');
+            $("#orddercancel_itemskus").val('<?php echo $productSku; ?>');    
+            $("#ordercancelreturn_reason").html($.mage.__('Item is not eligible for return. Please Create a Support Ticket for further assistance.')); 
+            $("#orddercancel_keyword").val($.mage.__('Item Return Request'));
+            $("#order-refund-amount").html('<?php echo "You are eligible for a refund of ". $currencySymbol. $total ." excluding discount amount of ".$currencySymbol.$discount ?>');   
+            var popup = modal(options, $('#order-return-ticket-modal'));
+            $("#order-return-ticket-modal").modal("openModal");
+          <?php } ?>		  
+      });
+      
+      
+      $("#disabled-order-canel-<?php echo $_order->getRealOrderId().'-'.$_item->getItemId() ?>").click(function(){
+		   var options = {
+                type: 'popup',
+                responsive: true,
+                title:  $.mage.__('Cancel Order Request Ticket'),
+                innerScroll: true,
+                modalClass:'detail-rc-modal',
+                buttons: [{
+                    text: $.mage.__('Cancel Order Request ,'),
+                    class: 'ticketmodal1',
+                    click: function () {
+                        this.closeModal();
+                    }
+                }]
+            };
+
+        <?php if ($myTicketsCancel > 0) { ?>
+            var popup = modal(options, $('#order-return-ticket-modal-exist'));
+            $("#order-return-ticket-modal-exist").modal("openModal");
+        <?php } else { ?>
+          $("#order-refund-amount").html('<?php echo "You are eligible for a refund of ". $currencySymbol. $total ." excluding discount amount of ".$currencySymbol.$discount ?>');
+		  $("#orddercancel_brand").val('<?php echo $orderId; ?>');
+		  $("#orddercancel_style").val('<?php echo $productSku; ?>');		  
+		  $("#orddercancel_order_id").val('<?php echo $orderOriginalId;?>');          
+		  $("#orddercancelreturn_requesttype").val('3');
+		  $("#orddercancel_tickettype").val('3');
+		  $("#orddercancel_itemskus").val('<?php echo $productSku; ?>');	
+          $("#ordercancelreturn_reason").html($.mage.__('Order is not eligible for Cancel. Please Create a Support Ticket for further assistance.')); 
+          $("#orddercancel_keyword").val($.mage.__('Cancl Order Request'));		  
+          var popup = modal(options, $('#order-return-ticket-modal'));
+		  $("#order-return-ticket-modal").modal("openModal");		  
+		  $("#order-return-ticket-modal").modal("openModal");
+        <?php } ?>
+      });
+      
+      
+});
+
+</script>

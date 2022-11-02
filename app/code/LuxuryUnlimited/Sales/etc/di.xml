@@ -1,0 +1,8 @@
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:ObjectManager/etc/config.xsd">
+    <preference for="LuxuryUnlimited\Sales\Api\SalesPaymentManagementInterface"
+                type="LuxuryUnlimited\Sales\Model\SalesPaymentManagement" />
+    <preference for="Magento\Sales\Model\Order"
+                type="LuxuryUnlimited\Sales\Model\Order" />
+    <preference for="Magento\GoogleAnalytics\Block\Ga"
+                type="LuxuryUnlimited\Sales\Block\Ga" />
+</config>

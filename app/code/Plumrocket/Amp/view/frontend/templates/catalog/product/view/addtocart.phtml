@@ -1,0 +1,54 @@
+<?php
+/**
+ * Plumrocket Inc.
+ *
+ * NOTICE OF LICENSE
+ *
+ * This source file is subject to the End-user License Agreement
+ * that is available through the world-wide-web at this URL:
+ * http://wiki.plumrocket.net/wiki/EULA
+ * If you are unable to obtain it through the world-wide-web, please
+ * send an email to support@plumrocket.com so we can send you a copy immediately.
+ *
+ * @package     Plumrocket_Amp
+ * @copyright   Copyright (c) 2017 Plumrocket Inc. (http://www.plumrocket.com)
+ * @license     http://wiki.plumrocket.net/wiki/EULA  End-user License Agreement
+ */
+?>
+<?php
+    /** @var $block \Magento\Catalog\Block\Product\View */
+
+    /** @var \Plumrocket\Amp\Helper\Form $helperForm  */
+    $helperForm = $this->helper('Plumrocket\Amp\Helper\Form');
+
+    /** @var \Plumrocket\Amp\Helper\Data $helperAmp  */
+    $helperAmp = $this->helper('Plumrocket\Amp\Helper\Form');
+
+    $buttonTitle = __('Add to Cart');
+    $product = $block->getProduct();
+    $addToCartUrl = $helperForm->getAmpAddToCartUrl($product);
+?>
+
+<?php if ($helperAmp->isSecure() && $block->shouldRenderQuantity()): ?>
+    <form class="amp-addtocart-form" method="get" action="<?php echo $addToCartUrl ?>" target="_top">
+        <div class="fieldset">
+    		<div class="field qty">
+    			<label class="label" for="qty"><span><?php /* @escapeNotVerified */ echo __('Qty') ?></span></label>
+    			<input
+    				class="qty-input input-text qty"
+    				type="number"
+    				name="qty"
+                    id="qty"
+    				min="1"
+    				max="255"
+    				value="<?php /* @escapeNotVerified */ echo $block->getProductDefaultQty() * 1 ?>"
+    				title="<?php /* @escapeNotVerified */ echo __('Qty') ?>"
+    				required
+    			>
+    		</div>
+    		<input type="submit" class="button btn-cart" value="<?php echo $buttonTitle ?>">
+        </div>
+  	</form>
+<?php else : ?>
+    <a href="<?php echo $addToCartUrl ?>" class="add-to-cart"><?php echo $buttonTitle ?></a>
+<?php endif; ?>

@@ -1,0 +1,31 @@
+<?xml version="1.0"?>
+<!-- /**
+ * Mage Tracer.
+ *
+ * @category  Magetracer
+ * @package   Magetracer_StoreOptimization
+ * @author    Magetracer
+ * @copyright Copyright (c) Mage Tracer (https://www.magetracer.com)
+ * @license   https://www.magetracer.com/license.html
+ */ -->
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Store:etc/config.xsd">
+    <default>
+        <mtoptimization>
+            <image_optimization>
+                <active>0</active>
+                <type>jpeg</type>
+                <enable_src_set>0</enable_src_set>
+                <pixels>2,3</pixels>
+            </image_optimization>
+            <defer_js>
+                <active>0</active>
+            </defer_js>
+            <infinite_scroll>
+                <active>0</active>
+            </infinite_scroll>
+            <lazyload>
+                <active>0</active>
+            </lazyload>
+        </mtoptimization>
+    </default>
+</config>

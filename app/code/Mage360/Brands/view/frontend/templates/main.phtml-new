@@ -1,0 +1,158 @@
+<?php $brands = $this->getBrands();
+$allReqChars = $this->getAllChars();
+$_helper = $this->helper('Smartwave\Porto\Helper\Data');
+$baseUrl = $_helper->getBaseLinkUrl();
+?>
+<!-- START CODE TO GET BRANDS -->
+<div class="clsbrand">
+	<div class="container">
+		<div class="row">
+			<!-- <div class="col-lg-3 col-md-4 col-sm-6 col-xs-12 brandlists">
+				<div class="searchbar">
+					<input type="text" name="" placeholder="Find Brand" class="form-control">
+				</div>
+				<div class="col-xs-12 aztexts"><b>A-Z</b></div>
+				<ul>
+					<?php foreach (range('A', 'Z') as $char): ?>
+					<li><a href="#"><?php echo $char; ?></a></li>
+					<?php endforeach; ?>
+				</ul>
+				<div class="col-xs-12 viewbtn"><a href="#">View All</a></div>
+			</div> -->
+			<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 branddetails">
+				<div class="close-brands" style="font-family:'Open Sans', sans-serif;float: right;font-size: 21px;padding: 10px 2px;"><a href="<?php echo $baseUrl ?>">X</a></div>
+				<div class="row">
+				<?php
+					$count = 1;
+					foreach (range('A', 'Z') as $char){
+
+						if (isset($brands[$char])){
+					?>
+							<div class="col-md-2 topics-detail">
+								<h3><?php echo $char; ?></h3>
+								<ul>
+									<?php
+									$brand_cnt = 0;
+									foreach ($brands[$char] as $_brand): ?>
+										<?php
+										$brandId = $_brand->getAttributeId();
+										$_objectManager = \Magento\Framework\App\ObjectManager::getInstance();
+
+										$productCollection = $_objectManager->create('Magento\Catalog\Model\ResourceModel\Product\CollectionFactory');
+
+										$collection = $productCollection->create()
+																 ->addAttributeToSelect('*')
+																 ->addAttributeToFilter('brands', $brandId)
+																 ->load();
+										$brandProductCount = count($collection);
+
+
+
+										if($brand_cnt > 6)
+										{
+											if($brandProductCount > 0){
+											?>
+											<li class="clsbrandsli morebrands morebrands<?php echo $char; ?>"><a href="<?php echo $_brand->getUrl(); ?>"><?php echo $_brand->getName(); ?></a></li>
+										<?php
+									}	} else {
+										if($brandProductCount > 0){
+										?>
+											<li class="clsbrandsli lessbrands lessbrands<?php echo $char; ?>"><a href="<?php echo $_brand->getUrl(); ?>"><?php echo $_brand->getName(); ?></a></li>
+										<?php } }
+
+										?>
+
+									<?php
+									if($brandProductCount > 0){
+										$brand_cnt++;
+									}
+									endforeach; ?>
+									<?php
+									if($brand_cnt > 6)
+									{ ?>
+										<li class="clsbrandslimorebtn "><a href="javascript:;" class="morebrandsbtn" id="morebrandsbtn" datachar="<?php echo $char; ?>" >& more...</a></li>
+									<?php }
+
+									?>
+
+								</ul>
+							</div>
+					<?php
+						 $count++;
+					 }
+					}
+				?>
+
+				<?php
+					$count2 = 1;
+					foreach (range('0', '9') as $char){
+						if (isset($brands[$char])){
+					?>
+							<div class="col-md-2 topics-detail">
+								<h3><?php echo $char; ?></h3>
+								<ul>
+									<?php foreach ($brands[$char] as $_brand): ?>
+										<li><a href="<?php echo $_brand->getUrl(); ?>"><?php echo $_brand->getName(); ?></a></li>
+									<?php endforeach; ?>
+								</ul>
+							</div>
+					<?php
+						 $count2++;
+					 }
+					}
+				?>
+
+
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+<!-- END CODE TO GET BRANDS -->
+<script type="text/javascript">
+
+	require([
+	    'jquery',
+	], function($){
+		$(".morebrandsbtn").click(function(){
+
+			var charbrand = $(this).attr("datachar");
+			if($(".morebrands"+charbrand).css('display') == 'block')
+			{
+				$(".morebrands"+charbrand).css('display','none');
+				$(".morebrands"+charbrand).css('display','none');
+				$(this).html("& more...");
+				$(this).removeClass("less");
+			}
+			else
+			{
+				// $(".morebrands"+charbrand).css('display','block', 'background','rgba(238,226,219, 1)', 'z-index','99');
+				$(".morebrands"+charbrand).css({"display":"block","background":"rgba(238,226,219, 1)","z-index":"99","position":"relative"})
+				$(this).html("less");
+				$(this).addClass("less");
+
+
+			}
+		});
+	});
+</script>
+
+<style>
+.col-md-2.topics-detail{
+	position: relative;
+	min-height: 250px;
+}
+.col-md-2.topics-detail ul{
+	position: absolute;
+}
+.clsbrand .topics-detail ul li{
+	margin-bottom: 0!important;
+}
+.clsbrandslimorebtn  a.less{
+	display: block;
+  background: rgba(238,226,219, 1);
+  position: relative;
+  z-index: 99;
+  padding-bottom: 30px;
+}
+</style>

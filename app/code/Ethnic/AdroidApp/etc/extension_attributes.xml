@@ -1,0 +1,32 @@
+<?xml version="1.0"?>
+
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:Api/etc/extension_attributes.xsd">
+    <extension_attributes for="Magento\Customer\Api\Data\CustomerInterface">
+        <attribute code="dob" type="string" />
+        <attribute code="dom" type="string" />
+    </extension_attributes>
+     <extension_attributes for="Magento\Quote\Api\Data\CartItemInterface">
+      <attribute code="image" type="string" />
+      <attribute code="pcoin" type="string" />
+    </extension_attributes>
+    <extension_attributes for="Magento\Quote\Api\Data\CartInterface">
+        <attribute code="total" type="string" />
+        <attribute code="totalpcoin" type="string" />
+    </extension_attributes>
+
+     <extension_attributes for="Magento\Sales\Api\Data\OrderInterface">
+      <attribute code="usedpcoin" type="string" />
+    </extension_attributes>
+
+    <extension_attributes for="Magento\Sales\Api\Data\OrderItemInterface">
+      <attribute code="image" type="string" />
+    </extension_attributes>
+
+    <extension_attributes for="Magento\Sales\Api\Data\OrderAddressInterface">
+      <attribute code="is_home" type="string" />
+    </extension_attributes>
+
+    <extension_attributes for="Magento\Quote\Api\Data\AddressInterface">
+      <attribute code="is_home" type="int" />
+    </extension_attributes>
+</config>

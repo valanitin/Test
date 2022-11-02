@@ -1,0 +1,443 @@
+<?php
+/*
+* @category: Magepow
+* @copyright: Copyright (c) 2014 Magepow (http://www.magepow.com/)
+* @licence: http://www.magepow.com/license-agreement
+* @author: MichaelHa
+* @create date: 2019-06-14 17:19:50
+* @LastEditors: MichaelHa
+* @LastEditTime: 2019-06-29 12:48:03
+*/
+?>
+<?php
+use Magento\Framework\App\Action\Action;
+
+$freeShipping_status = $block->getFreeShippingStatus();
+$currencySymbols = $block->getStoreCurrency();
+$currencyCode = $block->getCurrentCurrencyCode();
+$freeShipping = $block->getFreeShippingValue();
+$helper = $block->getAjaxHelper();
+$imageHelper = $block->getImageHelper();
+$resultItem = $block->getItem();
+$product = $resultItem->getProduct();
+$resultPrice = $helper->getProductTaxDisplayType() == \Magento\Tax\Model\Config::DISPLAY_TYPE_EXCLUDING_TAX ?
+$resultItem->getPrice() : $resultItem->getPriceInclTax();
+$cart = $block->getCartHelper()->getCart();
+$showContinue = $helper->isShowContinueBtn();
+$showCartInfo = $helper->isShowCartInfo();
+$showCheckoutLink = $helper->isShowCheckoutLink();
+$freeShipping_message = $helper->getFreeShippingMessageText();
+$congratulation_message = $helper->getCongratulationMessageText();
+$countDown = ($helper->getCountDownTime() > 0) ? $helper->getCountDownTime() : 0;
+$productType = $product->getTypeId();
+$compositeCartViewUrl = $block->getUrl('ajaxcart/index/view', ['id' => $product->getId()]);
+?>
+<div class="popup">
+    <div class="block">
+        <div class="header"><strong><?php echo $block->escapeHtml(__('Shopping Cart')); ?></strong></div>
+
+        <p class="message">
+            <?php 
+            $link = '<a href="' . $block->escapeUrl($product->getProductUrl()) . '" title="' . $block->escapeHtml($resultItem->getName()) . '">' . $block->escapeHtml($resultItem->getName()) . '</a>';
+            if($block->getRelatedAdded()){
+                echo __(
+                    'You added %1 and related products to your shopping cart.',
+                    $link
+                );   
+            } else if ($productType == "configurable") {
+                echo $block->escapeHtml($resultItem->getName());                
+            } else {
+                echo __(
+                    ' %1 Added Into The Cart.',
+                    $link
+                ); 
+            }
+            ?>
+        </p>
+        <div class="ajaxcart-wrapper-main">
+            <?php if ($helper->isShowProductImage()) :?>
+                <div class="product-image">
+                    <img src="<?php echo $block->escapeUrl(
+                            $imageHelper->init(
+                                $product,
+                                'mini_cart_product_thumbnail',
+                                ['height' => $helper->getImageHeight() , 'width'=> $helper->getImageWidth()]
+                            )->getUrl()
+                        ); ?>">
+                    <?php if ($helper->isShowProductPrice() && $product->getTypeId() != \Magento\GroupedProduct\Model\Product\Type\Grouped::TYPE_CODE) :?>
+                        <div>
+                            <span>
+                                <?php
+                                echo $block->escapeHtml(
+                                    $block->getPricingHelper()->currency(
+                                        $resultPrice,
+                                        true,
+                                        false
+                                    )
+                                );
+                                ?>
+                            </span>
+                        </div>
+                        <?php endif; ?>
+                </div>
+                <?php endif; ?>
+                <button class="product-option-btn" style="display:none"></button>
+            <?php if ($product->getTypeId() == 'configurable') :?>
+                <div class="wp-product-container">
+                    <div class="select-option">
+                        <div class="product-options-wrapper" id="product-options-wrapper">
+                            <select class="super-attribute-select">
+                                <option value="">Choose an Option...</option>
+                            </select>
+                        </div>
+                        <div class="sizechart">
+                            <span class="cls_attributesname">
+                                <div id="openSizeModal2">Size Chart</div>
+                            </span>
+                        </div>
+                    </div>
+                </div>
+            <?php else: ?>
+                <div class="wp-product-container"></div>
+            <?php endif; ?>
+            <div class="actions">
+                <div class="checkout-buy-now">
+                    <a href="<?php echo $block->escapeUrl($block->getUrl('checkout')); ?>">
+                        <button type="button">
+                            <span>
+                                <?php echo $block->escapeHtml(__('Buy Now')); ?>
+                            </span>
+                        </button>
+                    </a>
+                </div>
+                <?php if ($showCheckoutLink) : ?>
+                    <div class="checkout-link">
+                        <a href="<?php echo $block->escapeUrl($block->getUrl('checkout')); ?>">
+                            <span><?php echo $block->escapeHtml(__('Go to checkout')); ?></span>
+                        </a>
+                    </div>
+                    <?php endif; ?>
+                <div class="btn-viewcart <?php echo (!$showContinue) ? 'full-width' : ''; ?>">
+                    <a
+                        href="<?php echo $block->escapeUrl($block->getUrl('checkout/cart')); ?>"
+                        title="<?php echo $block->escapeHtml(__($helper->getBtnViewcartText())); ?>"
+                        class="view-cart"
+                        >
+                        <button class="viewcart"
+                            type="button"
+                            title="<?php echo $block->escapeHtml(__($helper->getBtnViewcartText())); ?>">
+                            <span><?php echo $block->escapeHtml(__($helper->getBtnViewcartText())); ?></span>
+                            <?php if ($helper->getCountDownActive() == \Magepow\Ajaxcart\Model\Config\Source\Countdown::POPUP_COUNTDOWN_VIEW_CART_BTN
+                                && $helper->getCountDownTime() > 0) :?>
+                                <span class="<?php echo ($helper->getCountDownActive() == \Magepow\Ajaxcart\Model\Config\Source\Countdown::POPUP_COUNTDOWN_VIEW_CART_BTN) ? 'countdown' : ''; ?>">
+                                    (<?php echo $block->escapeHtml($helper->getCountDownTime()); ?>)
+                                </span>
+                                <?php endif; ?>
+                        </button>
+                    </a>
+                </div>
+
+                <?php if ($showContinue) : ?>
+                    <div class="btn-continue">
+                        <button
+                            class="continue"
+                            type="button"
+                            title="<?php echo $block->escapeHtml(__($helper->getBtnContinueText())); ?>"
+                            >
+                            <span><?php echo $block->escapeHtml(__($helper->getBtnContinueText())); ?></span>
+                            <?php if ($helper->getCountDownActive() == \Magepow\Ajaxcart\Model\Config\Source\Countdown::POPUP_COUNTDOWN_CONTINUE_BTN
+                                && $helper->getCountDownTime() > 0) :?>
+                                <span class="<?php echo ($helper->getCountDownActive() == \Magepow\Ajaxcart\Model\Config\Source\Countdown::POPUP_COUNTDOWN_CONTINUE_BTN) ? 'countdown' : ''; ?>">
+                                    (<?php echo $block->escapeHtml($helper->getCountDownTime()); ?>)
+                                </span>
+                                <?php endif; ?>
+                        </button>
+                    </div>
+                    <?php endif; ?>
+            </div>       
+        </div>
+
+        <?php
+        $categories = $product->getCategoryIds();
+        $dynamicHelper = $this->helper('\Dynamic\Customization\Helper\Data');
+        $categoryFactory = $dynamicHelper->getCategoryManager();
+        //$categoryHelper = $objectManager->get('\Magento\Catalog\Helper\Category');
+        //$categoryRepository = $objectManager->get('\Magento\Catalog\Model\CategoryRepository');
+        //$categoryCollection = $objectManager->get('\Magento\Catalog\Model\ResourceModel\Category\CollectionFactory');
+        //$productRepository = $objectManager->get('\Magento\Catalog\Model\ProductRepository');
+        $helperImport = $dynamicHelper->getImageHelperManager();
+        $priceHelper = $dynamicHelper->getPriceHelperManager();
+
+        $_product = $resultItem->getProduct();;
+        $currentNameID =  $_product->getId();
+
+        $percentage = $_product->getFinalPrice() * 70 / 100;
+        $min_price = $_product->getFinalPrice() - $percentage;
+        $max_price = $_product->getFinalPrice() + $percentage;
+
+        $categories = $_product->getCategoryIds();
+
+        $category = $categoryFactory->create()->load(end($categories));
+        $categoryProducts = $category->getProductCollection()->addAttributeToSelect('*')->setPageSize(25);
+        ?>
+        <div class="productcount" style="display: none;">    <?php    echo "Found Count : ".count($categoryProducts); echo "<br/>"; ?></div>
+        <?php
+        //$categoryProducts->addAttributeToFilter('color', array('like' => $_product->getColor()));
+        //$categoryProducts->addAttributeToFilter('brands', array('nin' => array($_product->getBrands())));
+        $categoryProducts->addAttributeToFilter('price', array('gteq' => $min_price));
+
+        $categoryProducts->addAttributeToFilter('price', array('lteq' => $max_price));
+
+        $categoryProducts->addAttributeToFilter('entity_id', array('nin' => array($currentNameID)));
+
+        if(count($categoryProducts) < 1)
+        {
+            $cat = $dynamicHelper->getCategoryManager()->load($categories[0]);
+            $categoryId = $cat->getId();
+            $category = $categoryFactory->create()->load($categoryId);
+            $categoryProducts = $category->getProductCollection()->addAttributeToSelect('*')->setPageSize(25);
+            ?>
+            <div class="productcount" style="display: none;">    <?php    echo "Found Count : ".count($categoryProducts); echo "<br/>"; ?></div>
+            <?php
+            $categoryProducts->addAttributeToFilter('price', array('gteq' => $min_price));
+            $categoryProducts->addAttributeToFilter('price', array('lteq' => $max_price));
+            $categoryProducts->addAttributeToFilter('entity_id', array('nin' => array($currentNameID)));
+
+        }
+        ?>
+        <div class="productcount" style="display: none;">
+            <?php
+            echo "c p id :" . $_product->getId(); echo "<br/>";
+            echo "c name :" . $_product->getName(); echo "<br/>";
+            echo "c color :" . $_product->getColor(); echo "<br/>";
+            echo "c brand :" . $_product->getBrands(); echo "<br/>";
+            echo "c finalprice :" . $_product->getFinalPrice(); echo "<br/>";
+            echo "c percentage :" . $percentage = $_product->getFinalPrice() * 20 / 100; echo "<br/>";
+            echo "<br/>";
+            echo "Category ID :" .end($categories);
+            echo "Found Count : ".count($categoryProducts); echo "<br/>";
+            ?>
+        </div>
+        <div class="section-title slider-title">
+            <p id="block-upsell-heading" role="heading" aria-level="2"><?php echo __('Recommendation') ?></p>
+        </div>
+        <?php 
+
+        if(count($categoryProducts)>0){ ?>
+            <div class="product info detailed cls_recommendation">
+                <div class="product data items">
+                    <div class="block upsells">
+                        <div class="block-content content">
+                            <div class="products wrapper grid products-grid products-recommandation">
+                                <div class="products list items product-items owl-carousel">
+                                    <!-- START CODE FOR FIRST BLOCK -->
+                                    <?php $f=0; foreach ($categoryProducts as $product) {
+										$f++;
+                                        $imageUrl = $helperImport->init($product, 'product_page_image_small')
+                                        ->setImageFile($product->getThumbnail()) // image,small_image,thumbnail
+                                        ->resize(234)
+                                        ->getUrl();
+                                        ?>
+                                        <div class="item product product-item">
+                                            <div class="product-item-info type1" data-container="product-grid">
+                                                <div class="product photo product-item-photo">
+                                                    <a href="<?php echo $product->getProductUrl(); ?>">
+                                                        <img class="product-image-photo default_image" src="<?php echo $imageUrl; ?>" alt="<?php echo $product->getName(); ?>">
+                                                    </a>
+                                                    <div class="product-addto-links" style="display: block;" data-role="add-to-links">
+                                                        <a href="#" data-post='<?php  echo $this->helper('Magento\Wishlist\Helper\Data')->getAddParams($product) ?>' class="action towishlist" data-action="add-to-wishlist"><span>' .__('Add to Wish List') . '</span></a>
+                                                    </div>
+                                                </div>
+                                                <div class="product details product-item-details">
+                                                    <strong class="product name product-item-name clsbrandname">
+                                                        <a class="product-item-link" href="<?php echo $product->getProductUrl(); ?>" title="<?php echo $product->getResource()->getAttribute('brands')->getFrontend()->getValue($product); ?>"><?php echo substr($product->getResource()->getAttribute('brands')->getFrontend()->getValue($product),0,12); ?>..</a>
+                                                    </strong>
+
+
+                                                    <?php
+                                                    $objectManager = \Magento\Framework\App\ObjectManager::getInstance();
+                                                    $listBlock = $objectManager->get('\Magento\Catalog\Block\Product\ListProduct');
+                                                    $postParams = $listBlock->getAddToCartPostParams($product);
+
+                                                    ?>
+
+                                                    <form id="frm_recomend_<?php echo $f; ?>" data-role="tocart-form" data-product-sku="<?= $block->escapeHtmlAttr($product->getSku()) ?>" action="<?= $block->escapeUrl($postParams['action']) ?>" method="post">
+                                                        <input type="hidden" name="product" value="<?= /* @noEscape */ $postParams['data']['product'] ?>">
+                                                        <input type="hidden" name="<?= /* @noEscape */ Action::PARAM_NAME_URL_ENCODED ?>" value="<?= /* @noEscape */ $postParams['data'][Action::PARAM_NAME_URL_ENCODED] ?>">
+                                                        <?= $block->getBlockHtml('formkey') ?>
+														
+														<div class="price-box price-final_price">
+															<span class="normal-price">
+																<span class="price-container price-final_price tax weee">
+																	<span class="price-wrapper"><span class="price"><?php echo $priceHelper->currency($product->getFinalPrice(), true, false); ?></span></span>
+																</span>
+																<span><a href="javascript:void(0);" onclick="document.getElementById('frm_recomend_<?php echo $f; ?>').submit();"><i class="fa fa-shopping-cart" aria-hidden="true"></i></a></span>
+															</span>
+														</div>
+                                                        
+                                                    </form>
+
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <?php } //end foreach ?>
+                                    <!-- END CODE FOR FIRST BLOCK -->
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <?php } else { ?>
+            <div class="product info detailed cls_recommendation noproductrecome">
+                <p class="clsnoprod"><?php echo __('No Products Found') ?></p>
+            </div>
+            <?php } ?>
+        <div class="product info detailed cls_recommendation noproductrecome">
+            <?php
+            $storeManager = $dynamicHelper->getStoreManager();
+            $currentStore = $storeManager->getStore();
+            $mediaUrl = $currentStore->getBaseUrl(\Magento\Framework\UrlInterface::URL_TYPE_MEDIA);
+            ?>
+
+
+        </div>
+        <?php if ($showCartInfo || $showCheckoutLink) :?>
+            <div class="cart-info">
+                <?php if ($showCartInfo) : ?>
+                    <div class="items-count">
+                        <span>
+                            <?php
+                            if ($cart->getItemsQty() > 1) {
+                                echo $block->escapeHtml(__('%1 items in your cart', $cart->getItemsQty()));
+                            } else {
+                                echo $block->escapeHtml(__('1 item in your cart'));
+                            }
+                            ?>
+                        </span>
+                    </div>
+                    <div class="subtotal">
+                        <span class="label"><?php echo $block->escapeHtml(__('Cart Subtotal'));?></span>
+                        <?php
+                        $quote = $block->getCartHelper()->getQuote();
+                        if(isset($currencySymbols))
+                        {
+                            echo $block->escapeHtml(__($currencySymbols));
+                        }else{
+                            echo $block->escapeHtml(__($currencyCode));
+                        }
+                        echo $block->escapeHtml(__($quote->getSubtotal()));
+                        ?>
+                    </div>
+                    <?php endif; ?>
+                <?php
+                if($freeShipping_status == 1)
+                {
+                    $quote = $block->getCartHelper()->getQuote();
+                    $total = $quote->getSubtotal();
+                    $freeShipping = $block->getPricingHelper()->currency(
+                        $freeShipping,
+                        false,
+                        false
+                    );
+
+                    if($total < $freeShipping) {
+                        $currency = isset($currencySymbols) ? $currencySymbols : $currencyCode;
+                        $needMore = $currency . ($freeShipping - $total);
+                        ?>
+                        <div class="freeShipping_message">
+                            <?php
+                            ?>
+                            <div class="needMore">
+                                <?php
+                                echo $block->escapeHtml(__('Spend %1 more to get free shipping!', $needMore));
+                                ?>
+                            </div>
+                            <?php
+                            echo $block->escapeHtml(__($freeShipping_message));
+                            ?>
+                        </div>
+                        <?php
+                    }else{
+                        ?>
+                        <div class="congratulation"><?php echo $block->escapeHtml(__($congratulation_message)); ?></div>
+                        <?php
+                    }
+                }
+                ?>
+
+            </div>
+            <?php endif; ?>
+    </div>
+    <?php echo $block->getChildHtml('ajaxcart.popup.suggest'); ?>
+</div>
+<script type="text/javascript">
+    require([
+        'jquery',
+        'owl.carousel/owl.carousel.min'
+        ], function ($) {
+            var productFormHtml = '';
+            $(document).on('click', 'BUTTON.addtocart-wp' , function(e) {
+                e.preventDefault();
+                e.stopImmediatePropagation();
+                $('body').find('#product-addtocart-button').trigger('click');
+            });
+
+            $('body').on('click',".product-option-btn", function(e) {
+                if (e.target.nodeName != 'BUTTON') {
+                    return false;
+                }
+                e.stopImmediatePropagation();
+                $.ajax({
+                    url: "<?php echo $compositeCartViewUrl ?>",
+                    type:'POST',
+                    showLoader: true,
+                    cache:false,  
+                    success:function(data) {
+                        productFormHtml = $(data).find('.product-add-form').html();
+                        $('.wp-product-container').empty();
+                        $('.wp-product-container').append(data);
+                        $('#modals_ajaxcart').trigger('contentUpdated');
+                    },
+                    complete : function() {
+                        $('#product_addtocart_form').append($('<input/>').attr({'type':'hidden','name':'visited','value':1}));
+                        $('.wp-product-container').find('#buy-now, #ajax-goto, .firstCustomDiv, .delivery, .sku, .towishlist, .firstCustomDiv, .media').remove();
+                        $('.wp-product-container').find('.header').remove();
+                        $('.wp-product-container').find('.messages').remove();
+                        $('.wp-product-container').find('noscript').remove();
+                        $('.wp-product-container').find('.price-comparison-main, .price-box, .tax-text, .price-match-main, .custtabs, .clsspecialreqpop').hide();
+                        $('.wp-product-container').find('#product-addtocart-button, .product-options-bottom').hide();
+                        $('.viewcart').addClass('addtocart-wp').text($.mage.__("Add To Cart"));
+                        $('#modals_ajaxcart').trigger('contentUpdated');
+                    }
+                });
+            });
+
+            $('body').find('.product-option-btn').trigger('click');
+
+            $(".products-recommandation .owl-carousel").owlCarousel({
+                margin: 0,
+                nav: true,
+                navText: ["<em class='porto-icon-left-open-huge'></em>","<em class='porto-icon-right-open-huge'></em>"],
+                dots: false,
+                autoplay:true,
+                autoplayTimeout:2000,
+                autoplayHoverPause:true,
+                loop:true,
+                responsive: {
+                    0: {
+                        items:2
+                    },
+                    768: {
+                        items:2
+                    },
+                    992: {
+                        items:3
+                    },
+                    1200: {
+                        items:5
+                    }
+                }
+            });
+    });
+</script>

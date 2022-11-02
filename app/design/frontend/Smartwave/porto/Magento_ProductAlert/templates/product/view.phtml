@@ -1,0 +1,182 @@
+<?php
+/**
+ * Copyright © Magento, Inc. All rights reserved.
+ * See COPYING.txt for license details.
+ */
+?>
+
+
+<?php /* @var $block \Magento\ProductAlert\Block\Product\View */?>
+
+<?php
+$viewModel = $block->getData('view_model');
+$dynamicHelper = $this->helper('\Dynamic\Customization\Helper\Data');
+$storeManager  = $dynamicHelper->getStoreManager();
+$storeCode = $storeManager->getStore()->getCode();
+$siteUrl = $dynamicHelper->getScopeConfig()->getValue("web/secure/base_url");
+$customerSession = $dynamicHelper->getCustomerSessionManager();
+$product = $dynamicHelper->getRegistry()->registry('current_product');//get current product
+$userContext = $dynamicHelper->getHttpManager();
+$isLoggedIn = $userContext->getValue(\Magento\Customer\Model\Context::CONTEXT_AUTH);
+$customerEmail = '';
+if($isLoggedIn) {
+// do coding for customer loggin
+$customerEmail = $customerSession->getCustomer()->getEmail(); // get Email
+$blockUrl = '';
+}
+else{
+  $blockUrl = $block->getPostAction();
+}
+$productSku = $product->getSku();
+?>
+    <!-- <div class="custom-success">
+        <span class="close" id="Custom-myModalspecsizeclose">&times;</span>
+        <div id="loader-oos" style="display:none;"></div>
+    </div> -->
+
+<div class="clsspecialreqpop custom-success">
+    <div id="myModalspecsize-new1" class="modal custom-success" class="notifyme-modal">
+        <div class="modal-content">
+            <span class="close" id="myModalspecsizeclose-new">&times;</span>
+            <div id="loader-oos" style="display:none;"></div>
+        </div>
+    </div>
+</div>
+
+<div id="loader-oos" style="display:none;"></div>
+
+<div class="product alert <?= $block->getHtmlClass() ?>">
+    <div class="actions">
+        <span class="action primary tocart"
+                id="product-addtocart-button">
+            <span><?php echo __('Sold Out') ?></span>
+        </span>
+    </div>
+	<a href="#" class="action towishlist primary cls_wishlist" title="<?php echo $block->escapeHtml(__('Add to Wish List')); ?>" aria-label="<?php echo $block->escapeHtml(__('Add To Wish List')); ?>" data-post='' data-action="add-to-wishlist" role="button">
+        <span><?php /* @escapeNotVerified */ echo __('<i class="fa fa-heart" aria-hidden="true"></i>') ?><?php /* @escapeNotVerified */ echo "Add to Wish List" ?></span>
+    </a>
+    <?php if($isLoggedIn) { ?>
+        <span class="out-of-stock-click">
+                    <a href="javascript:void(0);" class="action alert" id="notifyme-btn">
+                        <?= $block->escapeHtml(__($block->getSignupLabel())) ?>
+                    </a>
+        </span>
+        <?php if($viewModel->isConfigurable($product)): ?>
+        <?php foreach ($viewModel->getConfigurableOptions() as $attr => $options): ?>
+            <div class="field name required cls_comm_input">
+                <div class="control">
+                    <label class="select_label" for="dropdown">Select <?php echo $options["label"]; ?></label>
+                    <select id="<?php echo $attr == "size_v2" ? "selectedsize" : $attr; ?>" class="input-text" title="<?php echo $options["label"] ?>" name="<?php echo $options["label"] ?>">
+                        <?php foreach ($options["values"] as $attribute): ?>
+                            <option value='<?php echo $attribute["option_title"]; ?>'><?php echo $attribute["option_title"]; ?></option>
+                        <?php endforeach; ?>
+                    </select>
+                </div>
+            </div>
+        <?php endforeach; ?>
+        <?php endif;?>
+        <input id="email" class="input-text notifyme-email" title="Email" name="email" type="hidden" value="<?php echo $customerEmail; ?>">
+        <input type="hidden" name="product_sku" class="product-sku" value="<?php echo $product->getSku(); ?>">
+    <?php } else { ?>
+        <span class="out-of-stock-click" style="margin-left: auto">
+          <a href="javascript:void(0);" class="action alert notifyme"><?= $block->escapeHtml(__($block->getSignupLabel())) ?></a>
+        </span>
+        <div class="clsspecialreqpop">
+            <div id="myModalspecsize" class="modal" class="notifyme-modal">
+                <div class="modal-content">
+                    <span class="close" id="myModalspecsizeclose">&times;</span>
+                    <h3 class="clsspecialpopupheading"><?php echo __('Notify Requests'); ?></h3>
+					<label class="select_label text-center"><?php echo __('Please Share Your Email & Phone Number, So That We Can Notify You by Email and Whats App When this Product is Back in Stock.'); ?></label>
+                    <div class="control">
+                        <input id="email" class="input-text notifyme-email" title="Email" name="email" type="email" placeholder="<?php echo __('Enter email')?>" style="width: 100%;">
+                        <input id="phone" class="input-text notifyme-phone" title="Phone-Number" name="phone" type="tel" placeholder="<?php echo __('123-45-678')?>" style="width: 100%;">
+                    </div>
+                    <?php if($viewModel->isConfigurable($product)): ?>
+                    <?php foreach ($viewModel->getConfigurableOptions($product->getId()) as $attr => $options): ?>
+                        <div class="field name required cls_comm_input">
+                            <div class="control">
+                                <label class="select_label" for="dropdown">Select <?php echo $options["label"]; ?></label>
+                                <select id="<?php echo $attr == "size_v2" ? "selectedsize" : $attr; ?>" class="input-text text-center" title="<?php echo $options["label"] ?>" name="<?php echo $options["label"] ?>">
+                                    <?php foreach ($options["values"] as $attribute): ?>
+                                        <option value='<?php echo $attribute["option_title"]; ?>'><?php echo $attribute["option_title"]; ?></option>
+                                    <?php endforeach; ?>
+                                </select>
+                            </div>
+                        </div>
+                    <?php endforeach; ?>
+                    <?php endif;?>
+                    <input type="hidden" name="product_sku" class="product-sku" value="<?php echo $product->getSku(); ?>">
+                    <div class="mm-action"><span id="notifyme-btn" class="btn btn-custom"><?php echo __('Submit'); ?></span></div>
+                </div>
+            </div>
+        </div>
+    <?php } ?>
+</div>
+
+<!-- Out of stock notification api integration -->
+
+<script type="text/javascript">
+require(['jquery', 'jquery/ui'], function($){
+
+    $(document).ready(function() {
+        $(".notifyme").click(function(){
+            $("#myModalspecsize").fadeIn(200);
+        });
+
+        $("#myModalspecsize .close").click(function(){
+            $("#myModalspecsize").fadeOut(200);
+        });
+
+        $(".custom-success .close").click(function(){
+            $(".custom-success").fadeOut(200);
+        });
+
+        var url = "<?php echo $this->getUrl('notifyme/index/post'); ?>";
+        $("#notifyme-btn").on("click", function() {
+            var productSku = $(".product-sku").val();
+            var email = $(".notifyme-email").val();
+            var phone = $(".notifyme-phone").val();
+            var data = {
+                    product_sku: productSku,
+                    email: email,
+                    phone: phone,
+                };
+            <?php if ($viewModel->isConfigurable($product)): ?>
+                data.product_size = $("#selectedsize").val();
+            <?php endif; ?>
+
+            $.ajax({
+                url: url,
+                type: "POST",
+                data: data,
+                dataType: 'json',
+                async: true,
+                beforeSend: function() {
+                    $('body').trigger('processStart');
+                },
+                complete: function(){
+                    $('body').trigger('processStop');
+                },
+                success: function (response) {
+                    $("#myModalspecsize").fadeOut(200);
+                    if(response.errors == false) {
+                        $('#loader-oos').show();
+                        $(".custom-success").fadeIn(200);
+                        $('#loader-oos').html(response.message);
+                    } else {
+                        $('#loader-oos').show();
+                        $(".custom-success").fadeIn(200);
+                        $('#loader-oos').html(response.message);
+                    }
+                },
+                error: function (response) {
+                    $("#myModalspecsize").fadeOut(200);
+                    console.log(JSON.parse(response));
+                },
+            });
+        });
+    });
+});
+</script>
+</div> <!-- end of div with class secondCustomDiv-->
+<!-- End -->

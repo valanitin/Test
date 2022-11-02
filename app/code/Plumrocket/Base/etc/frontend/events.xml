@@ -1,0 +1,12 @@
+<?xml version="1.0"?>
+<!--
+ * @package     Plumrocket_Base
+ * @copyright   Copyright (c) 2020 Plumrocket Inc. (https://plumrocket.com)
+ * @license     https://plumrocket.com/license/  End-user License Agreement
+-->
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:Event/etc/events.xsd">
+    <event name="layout_load_before">
+        <observer name="plumrocket_base_add_theme_handle" instance="Plumrocket\Base\Observer\AddThemeHandleObserver"/>
+        <observer name="plumrocket_add_body_class" instance="Plumrocket\Base\Observer\AddClassToBodyObserver"/>
+    </event>
+</config>

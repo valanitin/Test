@@ -1,0 +1,8 @@
+<?xml version="1.0"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Backend:etc/menu.xsd">
+    <menu>
+        <add id="Dynamic_Orderreturn::orderreturn" title="Order Return" module="Dynamic_Orderreturn" sortOrder="30" resource="Dynamic_Orderreturn::orderreturn"/>
+
+		<add id="Dynamic_Orderreturn::orderreturn_manage" title="Order Return Manager" module="Dynamic_Orderreturn" sortOrder="10" parent="Dynamic_Orderreturn::orderreturn" action="orderreturn/index/" resource="Dynamic_Orderreturn::manage"/>
+    </menu>
+</config>

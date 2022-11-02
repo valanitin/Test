@@ -1,0 +1,18 @@
+<?xml version="1.0"?>
+<routes
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="../../../../../app/code/Magento/Webapi/etc/webapi.xsd">
+	<route method="POST" url="/V1/configvalue/set">
+		<service class="Firas\ApiConfigValue\Api\CustomInterface" method="updateConfigValue"/>
+		<resources>
+			<resource ref="self"/>
+		</resources>
+	</route>
+	<route method="POST" url="/V1/configvalue/get">
+		<service class="Firas\ApiConfigValue\Api\CustomInterface" method="getConfigValue"/>
+		<resources>
+			<resource ref="anonymous"/>
+		</resources>
+	</route>
+	
+
+</routes>

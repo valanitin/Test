@@ -1,0 +1,113 @@
+<?xml version="1.0"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Config:etc/system_file.xsd">
+    <system>
+        <tab id="cron_time" translate="label" sortOrder="100">
+            <label>Cron time</label>
+        </tab>
+        <section id="cron_time_setting" translate="label" type="text" sortOrder="10" showInDefault="1" showInWebsite="1"
+                 showInStore="1">
+            <class>separator-top</class>
+            <label>Settings</label>
+            <tab>cron_time</tab>
+            <resource>Dynamic_Crontime::config_extension</resource>
+            <group id="general_cron_time" translate="label" type="text" sortOrder="10" showInDefault="1" showInWebsite="1"
+                   showInStore="1">
+                <label>Amasty Base Cron Settings</label>
+                <field id="frequency_cron_time" translate="label" type="select" sortOrder="1" showInDefault="1" showInWebsite="0"
+                       showInStore="0">
+                    <label>Frequency</label>
+                    <source_model>Magento\Cron\Model\Config\Source\Frequency</source_model>
+                    <backend_model>Dynamic\Crontime\Model\Config\Cronconfig</backend_model>
+                </field>
+                <field id="time_cron_time" translate="label comment" sortOrder="2" type="time" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Start Time</label>
+                </field>
+            </group>
+            <group id="general_amastycronschedule" translate="label" type="text" sortOrder="10" showInDefault="1" showInWebsite="1"
+                   showInStore="1">
+                <label>Amasty CronSchedule Time Settings</label>
+                <field id="frequency_amastycronschedule" translate="label" type="select" sortOrder="1" showInDefault="1" showInWebsite="0"
+                       showInStore="0">
+                    <label>Frequency</label>
+                    <source_model>Magento\Cron\Model\Config\Source\Frequency</source_model>
+                    <backend_model>Dynamic\Crontime\Model\Config\CronconfigAmastyCronScheduleList</backend_model>
+                </field>
+                <field id="time_amastycronschedule" translate="label comment" sortOrder="2" type="time" showInDefault="1" showInWebsite="1"
+                       showInStore="1">
+                    <label>Start Time</label>
+                </field>
+            </group>
+            <group id="general_amastysorting" translate="label" type="text" sortOrder="10" showInDefault="1" showInWebsite="1"
+                   showInStore="1">
+                <label>Amasty Sorting Time Settings</label>
+                <field id="frequency_amastysorting" translate="label" type="select" sortOrder="1" showInDefault="1" showInWebsite="0"
+                       showInStore="0">
+                    <label>Frequency</label>
+                    <source_model>Magento\Cron\Model\Config\Source\Frequency</source_model>
+                    <backend_model>Dynamic\Crontime\Model\Config\CronconfigAmastySorting</backend_model>
+                </field>
+                <field id="time_amastysorting" translate="label comment" sortOrder="2" type="time" showInDefault="1" showInWebsite="1"
+                       showInStore="1">
+                    <label>Start Time</label>
+                </field>
+            </group>
+            <group id="general_bss" translate="label" type="text" sortOrder="10" showInDefault="1" showInWebsite="1"
+                   showInStore="1">
+                <label>BSS GeoIPAutoSwitchStore Time Settings</label>
+                <field id="frequency_bss" translate="label" type="select" sortOrder="1" showInDefault="1" showInWebsite="0"
+                       showInStore="0">
+                    <label>Frequency</label>
+                    <source_model>Magento\Cron\Model\Config\Source\Frequency</source_model>
+                    <backend_model>Dynamic\Crontime\Model\Config\CronconfigBss</backend_model>
+                </field>
+                <field id="time_bss" translate="label comment" sortOrder="2" type="time" showInDefault="1" showInWebsite="1"
+                       showInStore="1">
+                    <label>Start Time</label>
+                </field>
+            </group>
+            <group id="general_firsaadminactivity" translate="label" type="text" sortOrder="10" showInDefault="1" showInWebsite="1"
+                   showInStore="1">
+                <label>Firas AdminActivity Time Settings</label>
+                <field id="frequency_firsaadminactivity" translate="label" type="select" sortOrder="1" showInDefault="1" showInWebsite="0"
+                       showInStore="0">
+                    <label>Frequency</label>
+                    <source_model>Magento\Cron\Model\Config\Source\Frequency</source_model>
+                    <backend_model>Dynamic\Crontime\Model\Config\CronconfigFirasAdminActivity</backend_model>
+                </field>
+                <field id="time_firsaadminactivity" translate="label comment" sortOrder="2" type="time" showInDefault="1" showInWebsite="1"
+                       showInStore="1">
+                    <label>Start Time</label>
+                </field>
+            </group>
+            <group id="general_firascronbrands" translate="label" type="text" sortOrder="10" showInDefault="1" showInWebsite="1"
+                   showInStore="1">
+                <label>Firas Cron Brands Time Settings</label>
+                <field id="frequency_firascronbrands" translate="label" type="select" sortOrder="1" showInDefault="1" showInWebsite="0"
+                       showInStore="0">
+                    <label>Frequency</label>
+                    <source_model>Magento\Cron\Model\Config\Source\Frequency</source_model>
+                    <backend_model>Dynamic\Crontime\Model\Config\CronconfigFirasBrands</backend_model>
+                </field>
+                <field id="time_firascronbrands" translate="label comment" sortOrder="2" type="time" showInDefault="1" showInWebsite="1"
+                       showInStore="1">
+                    <label>Start Time</label>
+                </field>
+            </group>
+            <group id="general_firasabandonedcart" translate="label" type="text" sortOrder="10" showInDefault="1" showInWebsite="1"
+                   showInStore="1">
+                <label>Firas Cron Brands Cart Time Settings</label>
+                <field id="frequency_firasabandonedcart" translate="label" type="select" sortOrder="1" showInDefault="1" showInWebsite="0"
+                       showInStore="0">
+                    <label>Frequency</label>
+                    <source_model>Magento\Cron\Model\Config\Source\Frequency</source_model>
+                    <backend_model>Dynamic\Crontime\Model\Config\CronconfigFirasCart</backend_model>
+                </field>
+                <field id="time_firasabandonedcart" translate="label comment" sortOrder="2" type="time" showInDefault="1" showInWebsite="1"
+                       showInStore="1">
+                    <label>Start Time</label>
+                </field>
+            </group>
+        </section>
+    </system>
+</config>

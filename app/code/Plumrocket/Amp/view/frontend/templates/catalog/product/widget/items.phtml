@@ -1,0 +1,122 @@
+<?php
+/**
+ * Plumrocket Inc.
+ *
+ * NOTICE OF LICENSE
+ *
+ * This source file is subject to the End-user License Agreement
+ * that is available through the world-wide-web at this URL:
+ * http://wiki.plumrocket.net/wiki/EULA
+ * If you are unable to obtain it through the world-wide-web, please
+ * send an email to support@plumrocket.com so we can send you a copy immediately.
+ *
+ * @package     Plumrocket_Amp
+ * @copyright   Copyright (c) 2016 Plumrocket Inc. (http://www.plumrocket.com)
+ * @license     http://wiki.plumrocket.net/wiki/EULA  End-user License Agreement
+ */
+?>
+<?php
+/**
+ * Product list toolbar
+ *
+ * @var $block Plumrocket\Amp\Block\Catalog\Product\Widget\Category
+ */
+/** @var \Plumrocket\Amp\Helper\Data $helperAmp */
+$helperAmp = $this->helper(\Plumrocket\Amp\Helper\Data::class);
+?>
+<?php
+switch ($type = $block->getType()) {
+    case \Plumrocket\Amp\Block\Catalog\Product\Widget\Category::WIDGET_TYPE:
+        if ($exist = $block->hasItems()) {
+            $type = 'category';
+            $mode = 'grid';
+            $type = $type . ' ' . $mode;
+
+            $class = 'widget' . ' ' . $type;
+
+            $title = __($block->getTitle());
+            $items = $block->getProductCollection();
+
+            $showWishlist = true;
+            $showCompare = true;
+            $showCart = true;
+            $templateType = \Magento\Catalog\Block\Product\ReviewRendererInterface::SHORT_VIEW;
+            $canItemsAddToCart = false;
+        }
+        break;
+
+    case 'other':
+        break;
+}
+?>
+
+<?php if ($exist) : ?>
+    <?php
+        /** @var \Plumrocket\Amp\Block\Catalog\Product\ListForm $listForm */
+        $listForm = $block->getLayout()->getBlock('amp.global.ajax.product.list.form');
+    ?>
+
+    <div class="amp-product-items-block">
+        <div class="items-block items-block-<?php /* @escapeNotVerified */ echo $class; ?> prw-slider">
+            <?php if ('' !== (string)$title) : ?>
+                <h3 class="mtop"><?= $block->escapeHtml($title); ?></h3>
+            <?php endif; ?>
+            <amp-carousel height="300" width="300" layout="responsive" type="slides" autoplay delay="5000">
+                <?php foreach ($items as $item) : ?>
+                    <?php
+                        /**
+                         * Get product data
+                         */
+                        $productName = $item->getName();
+                        $productUrl = $block->escapeUrl($block->getProductUrl($item));
+
+                        /**
+                         * Get product image and set amp-image template
+                         */
+                        $productImage = $block->getImage($item, 'pr_amp_sliders');
+                        $productImage->setCustomAttributes('layout="responsive"');
+                        $productImage->setTemplate('Plumrocket_Amp::catalog/product/image.phtml');
+                    ?>
+                    <div class="item-content">
+                    <a class="item-image" href="<?= $productUrl ?>" title="<?= $block->escapeHtmlAttr($productName) ?>">
+                            <?= $productImage->toHtml() ?>
+                        </a>
+                        <a class="item-detail" href="<?= $productUrl ?>" title="<?= $block->escapeHtmlAttr($productName) ?>">
+                            <span class="item-name"><?= $block->escapeHtml($productName) ?></span>
+                            <span class="item-price"><?php /* @escapeNotVerified */ echo $block->getProductPrice($item); ?></span>
+                        </a>
+                        <?php if ($block->showAddToCart()) : ?>
+                            <div class="product actions product-item-actions">
+                                <div class="actions-primary">
+                                    <?php $hasOptions = $item->getTypeInstance()->hasOptions($item) ?>
+                                    <?php if ($item->isSaleable()) : ?>
+                                        <?php if (! $hasOptions && $item->isInStock()) : ?>
+                                            <?= $listForm->getProductButtonsHtml($item) ?>
+                                        <?php elseif ($hasOptions && $item->isInStock()) : ?>
+                                            <?php
+                                            $viewDetailsHref = $helperAmp->getIframeSrc($item)
+                                                ? $helperAmp->getAmpUrl($item->getProductUrl())
+                                                : $helperAmp->getCanonicalUrl($item->getProductUrl(), ['noforce' => 1]);
+                                            ?>
+                                        <a href="<?= $block->escapeUrl($viewDetailsHref) ?>">
+                                            <?= $block->escapeHtml(__('View Details')) ?>
+                                        </a>
+                                        <?php else : ?>
+                                        <div class="stock unavailable">
+                                            <span><?= $block->escapeHtml(__('Out of stock')) ?></span>
+                                        </div>
+                                        <?php endif; ?>
+                                    <?php else : ?>
+                                      <div class="stock unavailable">
+                                          <span><?= $block->escapeHtml(__('Out of stock')) ?></span>
+                                      </div>
+                                    <?php endif; ?>
+                                </div>
+                            </div>
+                        <?php endif; ?>
+                    </div>
+                <?php endforeach; ?>
+            </amp-carousel>
+        </div>
+    </div>
+<?php endif; ?>

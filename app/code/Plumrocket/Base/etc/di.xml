@@ -1,0 +1,116 @@
+<?xml version="1.0"?>
+<!--
+ * @package     Plumrocket_Base
+ * @copyright   Copyright (c) 2020 Plumrocket Inc. (https://plumrocket.com)
+ * @license     https://plumrocket.com/license/  End-user License Agreement
+-->
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:ObjectManager/etc/config.xsd">
+    <preference for="Plumrocket\Base\Api\GetModuleVersionInterface" type="Plumrocket\Base\Model\GetModuleVersion" />
+    <preference for="Plumrocket\Base\Api\UsageStatisticCollectorInterface" type="Plumrocket\Base\Model\Statistic\Usage\CompositeCollector" />
+    <preference for="Plumrocket\Base\Api\GetExtensionInformationInterface" type="Plumrocket\Base\Model\Extension\Information\Get" />
+    <preference for="Plumrocket\Base\Api\ExtensionInformationListInterface" type="Plumrocket\Base\Model\Extension\Information\ListProvider" />
+    <preference for="Plumrocket\Base\Api\GetExtensionStatusInterface" type="Plumrocket\Base\Model\Extension\Status\Get" />
+    <preference for="Plumrocket\Base\Api\ExtensionStatusInterface" type="Plumrocket\Base\Model\Extension\Status\Provider" />
+    <preference for="Plumrocket\Base\Api\Data\ExtensionInformationSearchResultsInterface" type="Magento\Framework\Api\SearchResults" />
+    <preference for="Plumrocket\Base\Api\Data\ExtensionInformationInterface" type="Plumrocket\Base\Model\Extensions\Information" />
+    <preference for="Plumrocket\Base\Api\Data\ExtensionAuthorizationInterface" type="Plumrocket\Base\Model\Extension\Authorization\Data\ExtensionAuthorization" />
+    <preference for="Plumrocket\Base\Api\ExtensionAuthorizationRepositoryInterface" type="Plumrocket\Base\Model\Extension\Authorization\Repository" />
+    <preference for="Plumrocket\Base\Model\Utils\DeviceDetectInterface" type="Plumrocket\Base\Model\Utils\DeviceDetect" />
+    <preference for="Plumrocket\Base\Api\ConfigUtilsInterface" type="Plumrocket\Base\Model\Utils\Config" />
+
+    <!-- Fix for read system config in crontab scope-->
+    <preference for="Magento\Config\Model\Config\Structure\ElementVisibilityInterface" type="Magento\Config\Model\Config\Structure\ElementVisibilityComposite" />
+
+    <type name="Plumrocket\Base\Setup\AbstractUninstall">
+        <arguments>
+            <argument name="shell" xsi:type="object">\Magento\Framework\Shell</argument>
+        </arguments>
+    </type>
+
+    <virtualType name="plStatBaseStatus" type="Plumrocket\Base\Model\Statistic\Usage\Status">
+        <arguments>
+            <argument name="xmlPath" xsi:type="string">plumbase</argument>
+        </arguments>
+    </virtualType>
+
+    <type name="Plumrocket\Base\Observer\CheckNewConfigUsageStatistic">
+        <arguments>
+            <argument name="statuses" xsi:type="array">
+                <item name="plumbase" xsi:type="object">plStatBaseStatus</item>
+            </argument>
+        </arguments>
+    </type>
+
+    <type name="Plumrocket\Base\Model\Statistic\Usage\Collector">
+        <arguments>
+            <argument name="status" xsi:type="object">plStatBaseStatus</argument>
+            <argument name="collectors" xsi:type="array">
+                <item name="config" xsi:type="object">Plumrocket\Base\Model\Statistic\Usage\Config\Collector</item>
+            </argument>
+        </arguments>
+    </type>
+
+    <type name="Plumrocket\Base\Model\Statistic\Usage\CompositeCollector">
+        <arguments>
+            <argument name="moduleCollectors" xsi:type="array">
+                <item name="Base" xsi:type="object">Plumrocket\Base\Model\Statistic\Usage\Collector</item>
+            </argument>
+        </arguments>
+    </type>
+
+    <type name="Plumrocket\Base\Model\Extension\Updates\Load">
+        <arguments>
+            <argument name="httpsDriver" xsi:type="object">Magento\Framework\Filesystem\Driver\Https</argument>
+        </arguments>
+    </type>
+
+    <virtualType name="PrExtensionsConfigSchemaLocator" type="Magento\Framework\Config\SchemaLocator">
+        <arguments>
+            <argument name="realPath" xsi:type="string">urn:magento:module:Plumrocket_Base:etc/pr_extensions.xsd</argument>
+        </arguments>
+    </virtualType>
+    <virtualType name="PrExtensionsConfigReader" type="Magento\Framework\Config\Reader\Filesystem">
+        <arguments>
+            <argument name="idAttributes" xsi:type="array">
+                <item name="/extensions/extension" xsi:type="string">name</item>
+            </argument>
+            <argument name="fileName" xsi:type="string">pr_extensions.xml</argument>
+            <argument name="converter" xsi:type="object">Plumrocket\Base\Model\Extension\Config\Converter</argument>
+            <argument name="schemaLocator" xsi:type="object">PrExtensionsConfigSchemaLocator</argument>
+        </arguments>
+    </virtualType>
+    <virtualType name="PrExtensionsConfigData" type="Magento\Framework\Config\Data">
+        <arguments>
+            <argument name="reader" xsi:type="object">PrExtensionsConfigReader</argument>
+            <argument name="cacheId" xsi:type="string">pr_extensions</argument>
+        </arguments>
+    </virtualType>
+
+    <type name="Plumrocket\Base\Model\Extension\Information\Get">
+        <arguments>
+            <argument name="extensionsConfig" xsi:type="object">PrExtensionsConfigData</argument>
+            <argument name="generatorPool" xsi:type="object">Magento\Framework\View\Layout\GeneratorPool\Proxy</argument>
+        </arguments>
+    </type>
+    <type name="Plumrocket\Base\Model\Extension\Customer\GetKey">
+        <arguments>
+            <argument name="extensionsConfig" xsi:type="object">PrExtensionsConfigData</argument>
+        </arguments>
+    </type>
+    <type name="Plumrocket\Base\Model\GetModuleVersion">
+        <arguments>
+            <argument name="extensionsConfig" xsi:type="object">PrExtensionsConfigData</argument>
+        </arguments>
+    </type>
+    <type name="Plumrocket\Base\Model\Extension\Updates\Get">
+        <arguments>
+            <argument name="extensionsConfig" xsi:type="object">PrExtensionsConfigData</argument>
+        </arguments>
+    </type>
+
+    <type name="Plumrocket\Base\Model\Extension\Status\Get">
+        <arguments>
+            <argument name="fullModuleList" xsi:type="object">Magento\Framework\Module\FullModuleList</argument>
+        </arguments>
+    </type>
+</config>

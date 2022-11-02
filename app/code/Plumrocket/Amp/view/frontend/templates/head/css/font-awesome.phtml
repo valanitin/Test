@@ -1,0 +1,108 @@
+<?php
+/** @var \Plumrocket\Amp\Block\Page\Head\Style $block */
+/** @var \Plumrocket\Amp\Helper\Config $configHelper */
+$configHelper = $this->helper(\Plumrocket\Amp\Helper\Config::class);
+$iconColor = $configHelper->getIconColor();
+?>
+
+.fa,
+.fas,
+.far,
+.fal,
+.fab {
+  -moz-osx-font-smoothing: grayscale;
+  -webkit-font-smoothing: antialiased;
+  display: inline-block;
+  font-style: normal;
+  font-variant: normal;
+  text-rendering: auto;
+  color: <?php echo $iconColor ?>;
+  line-height: 1;
+}
+
+.fa-lg {
+  font-size: 1.33333rem;
+  line-height: 0.75em;
+  vertical-align: -.0667em; }
+
+.fa-xs {
+  font-size: 12px; }
+
+.fa-sm {
+  font-size: 12px; }
+
+.fa-1 {
+  font-size: 14px; }
+
+.fa-2 {
+  font-size: 16px; }
+
+.fa-3 {
+  font-size: 18px; }
+
+.fa-4 {
+  font-size: 20px; }
+
+.fa-5 {
+  font-size: 22px; }
+
+.fa-fw {
+  text-align: center;
+  width: 1.25em; }
+
+.fa-stack {
+  display: inline-block;
+  height: 2em;
+  line-height: 2em;
+  position: relative;
+  vertical-align: middle;
+  width: 2em; }
+
+.fa-stack-1x,
+.fa-stack-2x {
+  left: 0;
+  position: absolute;
+  text-align: center;
+  width: 100%; }
+
+.fa-stack-1x {line-height: inherit;}
+
+.fa-stack-2x {font-size: 2em;}
+
+.fa-inverse {
+  color: #fff; }
+
+@font-face {
+  font-family: 'Font Awesome 5 Brands';
+  font-style: normal;
+  font-weight: normal;
+  font-display: swap;
+  src: url(<?= $block->getAmpSkinUrl('Plumrocket_Amp::font-awesome/webfonts/fa-brands-400.eot') ?>);
+  src: url(<?= $block->getAmpSkinUrl('Plumrocket_Amp::font-awesome/webfonts/fa-brands-400.eot?#iefix') ?>) format("embedded-opentype"), url(<?= $block->getAmpSkinUrl('Plumrocket_Amp::font-awesome/webfonts/fa-brands-400.woff2') ?>) format("woff2"), url(<?= $block->getAmpSkinUrl('Plumrocket_Amp::font-awesome/webfonts/fa-brands-400.woff') ?>) format("woff"), url(<?= $block->getAmpSkinUrl('Plumrocket_Amp::font-awesome/webfonts/fa-brands-400.ttf') ?>) format("truetype"), url(<?= $block->getAmpSkinUrl('Plumrocket_Amp::font-awesome/webfonts/fa-brands-400.svg#fontawesome') ?>) format("svg"); }
+
+.fab {
+  font-family: 'Font Awesome 5 Brands'; }
+@font-face {
+  font-family: 'Font Awesome 5 Free';
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url(<?= $block->getAmpSkinUrl('Plumrocket_Amp::font-awesome/webfonts/fa-regular-400.eot') ?>);
+  src: url(<?= $block->getAmpSkinUrl('Plumrocket_Amp::font-awesome/webfonts/fa-regular-400.eot?#iefix') ?>) format("embedded-opentype"), url(<?= $block->getAmpSkinUrl('Plumrocket_Amp::font-awesome/webfonts/fa-regular-400.woff2') ?>) format("woff2"), url(<?= $block->getAmpSkinUrl('Plumrocket_Amp::font-awesome/webfonts/fa-regular-400.woff') ?>) format("woff"), url(<?= $block->getAmpSkinUrl('Plumrocket_Amp::font-awesome/webfonts/fa-regular-400.ttf') ?>) format("truetype"), url(<?= $block->getAmpSkinUrl('Plumrocket_Amp::font-awesome/webfonts/fa-regular-400.svg#fontawesome') ?>) format("svg"); }
+
+.far {
+  font-family: 'Font Awesome 5 Free';
+  font-weight: 400; }
+@font-face {
+  font-family: 'Font Awesome 5 Free';
+  font-style: normal;
+  font-weight: 900;
+  font-display: swap;
+  src: url(<?= $block->getAmpSkinUrl('Plumrocket_Amp::font-awesome/webfonts/fa-solid-900.eot') ?>);
+  src: url(<?= $block->getAmpSkinUrl('Plumrocket_Amp::font-awesome/webfonts/fa-solid-900.eot?#iefix') ?>) format("embedded-opentype"), url(<?= $block->getAmpSkinUrl('Plumrocket_Amp::font-awesome/webfonts/fa-solid-900.woff2') ?>) format("woff2"), url(<?= $block->getAmpSkinUrl('Plumrocket_Amp::font-awesome/webfonts/fa-solid-900.woff') ?>) format("woff"), url(<?= $block->getAmpSkinUrl('Plumrocket_Amp::font-awesome/webfonts/fa-solid-900.ttf') ?>) format("truetype"), url(<?= $block->getAmpSkinUrl('Plumrocket_Amp::font-awesome/webfonts/fa-solid-900.svg#fontawesome') ?>) format("svg"); }
+
+.fa,
+.fas {
+  font-family: 'Font Awesome 5 Free';
+  font-weight: 900;
+}

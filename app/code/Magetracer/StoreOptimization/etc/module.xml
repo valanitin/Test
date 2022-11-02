@@ -1,0 +1,16 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Mage Tracer.
+ *
+ * @category  Magetracer
+ * @package   Magetracer_StoreOptimization
+ * @author    Magetracer
+ * @copyright Copyright (c) Mage Tracer (https://www.magetracer.com)
+ * @license   https://www.magetracer.com/license.html
+ */
+ -->
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:Module/etc/module.xsd">
+    <module name="Magetracer_StoreOptimization">
+    </module>
+</config>

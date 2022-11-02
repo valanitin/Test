@@ -1,0 +1,30 @@
+<?php
+$originalorder = $block->getCurrentOriginalOrder();
+$historicalorder = $block->getCurrentHistoricalorder();
+?>
+<h2><?php echo __('Actual Items Ordered For Order # %1 ',$originalorder->getIncrementId());?></h2>
+
+<?php
+/**
+ * Copyright © Magento, Inc. All rights reserved.
+ * See COPYING.txt for license details.
+ */
+
+// phpcs:disable Magento2.Templates.ThisInTemplate
+?>
+<?php /** @var  $block \Magento\Sales\Block\Order\View*/?>
+<div class="order-details-items ordered">
+    <?php $_order = $block->getCurrentHistoricalorder() ?>
+
+
+    <?= $block->getChildHtml('historical_order_items') ?>
+
+    
+     <div class="actions-toolbar">
+        <div class="secondary">
+            <a class="action back" href="<?= $block->escapeUrl($block->getBackUrl()) ?>">
+                <span><?= $block->escapeHtml($block->getBackTitle()) ?></span>
+            </a>
+        </div>
+    </div>
+</div>

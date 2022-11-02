@@ -1,0 +1,15 @@
+<?xml version="1.0"?>
+<!--
+  ~ Copyright (c) 2020 acidgreen. All Rights Reserved.
+  ~ Unauthorized copying of this file, via any medium is strictly prohibited.
+  ~ Proprietary and confidential.
+  ~
+  ~ @author         acidgreen <contact@acidgreen.com.au>
+  ~ @website        www.acidgreen.com.au
+  ~
+  -->
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Email:etc/email_templates.xsd">
+    <template id="app_link_email" label="Send App Link To User"
+              file="app_link_send.html" type="html" module="LuxuryUnlimited_App" area="frontend"/>
+
+</config>

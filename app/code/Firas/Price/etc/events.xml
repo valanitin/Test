@@ -1,0 +1,14 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Copyright © Firas Mohammed(firasath90@gmail.com)
+ * See COPYING.txt for license details.
+ */
+-->
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:noNamespaceSchemaLocation="urn:magento:framework:Event/etc/events.xsd">
+    <!-- event salesrule_validator_process -->
+    <event name="salesrule_validator_process">
+        <observer name="firas_price" instance="Firas\Price\Observer\ValidatorObserver"/>
+    </event>
+</config>

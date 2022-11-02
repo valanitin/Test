@@ -1,0 +1,124 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+/**
+ * @package     Plumrocket_SocialLoginFree
+ * @copyright   Copyright (c) 2022 Plumrocket Inc. (https://plumrocket.com)
+ * @license     https://plumrocket.com/license   End-user License Agreement
+ */
+-->
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema">
+    <xs:element name="networks">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="network" type="networkDeclaration" maxOccurs="unbounded" />
+            </xs:sequence>
+        </xs:complexType>
+        <xs:unique name="uniqueNetworkCode">
+            <xs:annotation>
+                <xs:documentation>
+                    Network code must be unique.
+                </xs:documentation>
+            </xs:annotation>
+            <xs:selector xpath="network" />
+            <xs:field xpath="@code" />
+        </xs:unique>
+    </xs:element>
+
+    <xs:complexType name="networkDeclaration">
+        <xs:annotation>
+            <xs:documentation>
+                Social Network declaration.
+            </xs:documentation>
+        </xs:annotation>
+        <xs:sequence>
+            <xs:element name="connector" type="connectorDeclaration" />
+            <xs:element name="modal" type="modalDeclaration" />
+        </xs:sequence>
+        <xs:attribute name="code" type="networkCode" use="required" />
+        <xs:attribute name="protocol" type="xs:string" default="OAuth" />
+    </xs:complexType>
+
+    <xs:complexType name="connectorDeclaration">
+        <xs:annotation>
+            <xs:documentation>
+                Connector used for retrieving data from network
+            </xs:documentation>
+        </xs:annotation>
+        <xs:attribute name="class" type="phpClassName" use="required" />
+    </xs:complexType>
+
+    <xs:complexType name="modalDeclaration">
+        <xs:annotation>
+            <xs:documentation>
+                Modal Window for each network has unique size
+            </xs:documentation>
+        </xs:annotation>
+        <xs:sequence>
+            <xs:element name="url" type="urlParamsDeclaration" minOccurs="0" />
+        </xs:sequence>
+        <xs:attribute name="height" type="xs:int" use="required" />
+        <xs:attribute name="width" type="xs:int" use="required" />
+    </xs:complexType>
+
+    <xs:complexType name="urlParamsDeclaration">
+        <xs:annotation>
+            <xs:documentation>
+                Container for popup url params
+            </xs:documentation>
+        </xs:annotation>
+        <xs:sequence>
+            <xs:element name="path" type="urlPathDeclaration" minOccurs="0" />
+            <xs:element ref="param" minOccurs="0" maxOccurs="unbounded" />
+        </xs:sequence>
+        <xs:attribute name="resolver" type="phpClassName" />
+    </xs:complexType>
+
+    <xs:element name="param">
+        <xs:annotation>
+            <xs:documentation>
+                Parameter for popup url
+            </xs:documentation>
+        </xs:annotation>
+        <xs:complexType>
+            <xs:simpleContent>
+                <xs:extension base="xs:string">
+                    <xs:attribute type="xs:string" name="name" use="required"/>
+                </xs:extension>
+            </xs:simpleContent>
+        </xs:complexType>
+    </xs:element>
+
+    <xs:simpleType name="urlPathDeclaration">
+        <xs:annotation>
+            <xs:documentation>
+                Parameter for popup url
+            </xs:documentation>
+        </xs:annotation>
+        <xs:restriction base="xs:anyURI"/>
+    </xs:simpleType>
+
+    <xs:simpleType name="networkCode">
+        <xs:annotation>
+            <xs:documentation>
+                Network code can contain only [a-zA-Z0-9_].
+            </xs:documentation>
+        </xs:annotation>
+        <xs:restriction base="xs:string">
+            <xs:pattern value="[a-zA-Z0-9_]+" />
+        </xs:restriction>
+    </xs:simpleType>
+
+    <xs:simpleType name="phpClassName">
+        <xs:annotation>
+            <xs:documentation>
+                A string that matches a Fully Qualified Class Name from PHP, especially not starting
+                with a backslash as this is an invalid character to start a class name with but a
+                somewhat common mistake so this simple type can be used to validate against it
+                already
+            </xs:documentation>
+        </xs:annotation>
+        <xs:restriction base="xs:string">
+            <xs:pattern value="(\\?[a-zA-Z_&#x7f;-&#xff;][a-zA-Z0-9_&#x7f;-&#xff;]*)(\\[a-zA-Z_&#x7f;-&#xff;][a-zA-Z0-9_&#x7f;-&#xff;]*)*"/>
+        </xs:restriction>
+    </xs:simpleType>
+</xs:schema>

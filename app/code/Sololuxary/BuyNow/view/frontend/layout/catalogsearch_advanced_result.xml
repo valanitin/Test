@@ -1,0 +1,14 @@
+<?xml version="1.0"?>
+
+<page xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/page_configuration.xsd">
+    <body>
+        <referenceContainer name="content">
+            <referenceBlock name="catalogsearch.product.addto">
+                <block class="Sololuxary\BuyNow\Block\Product\ListProduct"
+                       ifconfig="buynow/general/enable_advanced_search"
+                       name="product.buynow.search"
+                       before="-" template="Sololuxary_BuyNow::buynow-list.phtml"/>
+            </referenceBlock>
+        </referenceContainer>
+    </body>
+</page>

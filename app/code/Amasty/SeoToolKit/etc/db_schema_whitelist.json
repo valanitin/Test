@@ -1,0 +1,34 @@
+{
+    "amasty_seotoolkit_redirect": {
+        "column": {
+            "redirect_id": true,
+            "status": true,
+            "request_path": true,
+            "target_path": true,
+            "redirect_type": true,
+            "undefined_page_only": true,
+            "description": true,
+            "priority": true
+        },
+        "constraint": {
+            "PRIMARY": true,
+            "AMASTY_SEOTOOLKIT_REDIRECT_REDIRECT_ID": true
+        }
+    },
+    "amasty_seotoolkit_redirect_store": {
+        "column": {
+            "redirect_id": true,
+            "store_id": true
+        },
+        "constraint": {
+            "FK_3C0600839D1AB50B5C12827B742BBB49": true,
+            "FK_B84D6FA63E786BAF6193A006BE57AE8F": true
+        }
+    },
+    "cms_page": {
+        "column": {
+            "robots": true,
+            "canonical": true
+        }
+    }
+}

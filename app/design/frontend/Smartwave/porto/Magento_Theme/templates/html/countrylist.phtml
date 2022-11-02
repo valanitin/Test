@@ -1,0 +1,116 @@
+<?php
+$customBlock_helper = $this->helper('Custom\LanguagePopup\Helper\Data');
+$dynamicHelper = $this->helper('\Dynamic\Customization\Helper\Data');
+$storeManager = $dynamicHelper->getStoreManager();
+$websites = $storeManager->getWebsites();
+function cmp($a, $b) {
+    return strcmp($a->getName(), $b->getName());
+}
+usort($websites,"cmp");
+?>
+<div class="choosecountry">
+	<div class="country-top-section">
+	<h3><?php echo __('Choose your country') ?></h3>
+    <div class="searchbar">
+        <input type="text" name="" placeholder="Search" class="form-control" id="searchText">
+    </div>
+	</div>
+	<div id="no-result" style="display:none">
+			<p style="text-align: center"><?= __('We don\'t ship to this country. Please raise a ticket for any queries.') ?></p>
+			<p style="text-align: center">
+                <a id="create-ticket-btn" data-title="<?php echo $block->escapeHtml(__('Country Search Query')); ?>" style="cursor: pointer"><?php echo $block->escapeHtml(__('Create Ticket')); ?></a> | <a href="<?php echo $block->getUrl('brands'); ?>"><?php echo $block->escapeHtml(__('Continue Shopping')); ?></a>
+            </p>
+	</div>
+		<div class="countrylist">
+			<ul>
+				<?php foreach ($websites as $website): ?>
+					<li><a class="country-switcher" data-websiteid="<?php echo $website['website_id'];?>" href='<?= strtok($website->getDefaultStore()->getBaseUrl(), '?') ?>'>
+					<?php echo __($website->getName());?>
+					</a>
+					<?php  $storeList = $customBlock_helper->getStoresList($website['website_id']);?>
+					<div style="display:none;" data-langcount=<?php echo count($storeList);?> id="website_languageselector_<?php echo $website['website_id'];?>">
+						<p><?php echo __('Please choose from the following language.');?></p>
+					     <ul>
+						    <?php					        
+					         foreach($storeList as $wstore){							 
+								 $lanStoreUrl = $customBlock_helper->getStoreUrl($wstore->getStoreId());		?>					     
+							      <li><a href="<?php echo $lanStoreUrl;?>"><?php echo __($website->getName());?> : <span><?php echo __($wstore->getData('name'));?></span></a></li>
+						    <?php  } ?>
+					     </ul>
+					</div>
+					</li>
+				<?php endforeach; ?>
+			</ul>
+		</div>
+</div>
+<div id="countrypopup-modal" style="display:none;" >   </div>
+<script>
+	require(
+	[
+	    'jquery',
+	    'Magento_Ui/js/modal/modal'
+	],
+	function(
+	    $,
+	    modal
+	){
+		
+		$(".country-switcher").click(function(event){
+			var $el = $(this);	            
+			var storeLanguageWrapperId = $('#website_languageselector_'+$el.data('websiteid'))		    
+		    var languageCount =  $(storeLanguageWrapperId).data('langcount');
+		    if(languageCount>1)
+		    {
+			     var options = {
+                    type: 'popup',
+					modalClass: 'country-popup-modal-wraper',
+                    title: $.mage.__('<?php echo __("Select Language"); ?>'),
+                    responsive: true,
+                    innerScroll: true,
+                    buttons: [{
+                        text: $.mage.__('Close'),
+                        class: 'chooseLanguageModal1',
+                        click: function () {
+                            this.closeModal();
+                        }
+                    }]
+                 };
+                $('#countrypopup-modal').html('');
+                $('#countrypopup-modal').html(  $('#website_languageselector_'+$el.data('websiteid')).html()   );
+                var popup = modal(options, $('#countrypopup-modal'));			
+			    $("#countrypopup-modal").modal("openModal");
+			    event.preventDefault();
+		    }			
+		});		
+        
+	});
+</script>
+
+
+<script>
+    require([
+        'jquery',
+    ], function($){
+
+        $.extend($.expr[":"], {
+            "containsIN": function(elem, i, match, array) {
+                return (elem.textContent || elem.innerText || "").toLowerCase().indexOf((match[3] || "").toLowerCase()) >= 0;
+            }
+        });
+        $('#searchText').keyup(function(){
+            var text = $(this).val().toLowerCase();
+            if(!text){
+                $('.countrylist li').show();
+            }
+            else{
+                $('.countrylist li').hide();
+                $('.countrylist li:containsIN("'+text+'")').show();
+				if($('.countrylist li:containsIN("'+text+'")').length == 0){
+					$('#no-result').show();
+				} else{
+					$('#no-result').hide();
+				}
+            }
+        });
+    });
+</script>

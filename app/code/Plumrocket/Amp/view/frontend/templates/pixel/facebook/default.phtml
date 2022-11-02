@@ -1,0 +1,44 @@
+<?php
+/**
+ * Plumrocket Inc.
+ *
+ * NOTICE OF LICENSE
+ *
+ * This source file is subject to the End-user License Agreement
+ * that is available through the world-wide-web at this URL:
+ * http://wiki.plumrocket.net/wiki/EULA
+ * If you are unable to obtain it through the world-wide-web, please
+ * send an email to support@plumrocket.com so we can send you a copy immediately.
+ *
+ * @package     Plumrocket_Amp v2.x.x
+ * @copyright   Copyright (c) 2018 Plumrocket Inc. (http://www.plumrocket.com)
+ * @license     http://wiki.plumrocket.net/wiki/EULA  End-user License Agreement
+ */
+
+/**
+ * @var $block \Plumrocket\Amp\Block\Page\Facebook\Pixel
+ */
+
+$facebookPixelHelper = $this->helper('\Plumrocket\Amp\Helper\Facebook\Pixel');
+?>
+
+<?php  if ($facebookPixelHelper->isFacebookPixelEnable()) : ?>
+    <!-- Start Amp Facebook Pixel Analytics Code -->
+    <amp-analytics type="facebookpixel" id="facebook-pixel">
+        <script type="application/json">
+        {
+            "vars": {
+                "pixelId": "<?php echo $facebookPixelHelper->getPixelId(); ?>"
+            },
+            "triggers": {
+                "trackPageview": {
+                    "on": "visible",
+                    "request": "pageview"
+                }
+                <?php echo $block->getChildHtml(); ?>
+            }
+        }
+        </script>
+    </amp-analytics>
+    <!-- End Amp Facebook Pixel Analytics Code -->
+<?php endif; ?>

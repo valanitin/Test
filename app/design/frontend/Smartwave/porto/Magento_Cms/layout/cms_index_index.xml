@@ -1,0 +1,27 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Copyright © Magento, Inc. All rights reserved.
+ * See COPYING.txt for license details.
+ */
+-->
+<page xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/page_configuration.xsd">
+    <head>
+        <remove src="css/print.css" />
+        <remove src="mage/calendar.css" />
+        <remove src="owl.carousel/assets/owl.carousel.css" />
+        <remove src="fancybox/css/jquery.fancybox.css" />
+        <remove src="Bss_GeoIPAutoSwitchStore::css/magnific-popup.css" />
+        <remove src="Bss_SocialLogin::css/jquery.fancybox.min.css" />
+        <remove src="Firas_DonationProduct::css/donation.css" />
+        <remove src="Smartwave_Dailydeals::css/style.css" />
+        <remove src="WeltPixel_Quickview::css/magnific-popup.css" />
+        <remove src="Amasty_ShopbyBase::css/swiper.min.css" />
+        <remove src="Amasty_SeoToolKit::css/source/mkcss/amseokit.css" />
+        <remove src="Amasty_ShopbyBase::css/source/mkcss/am-shopby-base.css" />
+        <remove src="Amasty_Shopby::css/source/mkcss/am-shopby.css" />
+        <remove src="css/style_new.css" />
+        <remove src="icon-fonts/css/porto-icons-codes.css" />
+        <remove src="icon-fonts/css/animation.css" />
+    </head>
+</page>

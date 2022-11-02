@@ -1,0 +1,29 @@
+<?php
+/**
+ * Plumrocket Inc.
+ *
+ * NOTICE OF LICENSE
+ *
+ * This source file is subject to the End-user License Agreement
+ * that is available through the world-wide-web at this URL:
+ * http://wiki.plumrocket.net/wiki/EULA
+ * If you are unable to obtain it through the world-wide-web, please
+ * send an email to support@plumrocket.com so we can send you a copy immediately.
+ *
+ * @package     Plumrocket_Amp
+ * @copyright   Copyright (c) 2019 Plumrocket Inc. (http://www.plumrocket.com)
+ * @license     http://wiki.plumrocket.net/wiki/EULA  End-user License Agreement
+ */
+
+/** @var \Magento\Framework\View\Element\Template $block */
+/** @var \Plumrocket\Amp\ViewModel\Form\Product\MessageState $viewModel */
+$viewModel = $block->getData('viewModel');
+$productId = $block->getData('product_id');
+$path = $block->getData('product_id_state_path');
+?>
+<?= $block->getChildHtml('amp.product.form.message'); ?>
+<button on="tap:AMP.setState(<?= $viewModel->getEnableJs($path, $productId) ?>),productAddToCartForm.submit"
+        class="button btn-cart"
+        [class]="(<?= $viewModel->getClassJs($path, $productId) ?>) ? 'button btn-cart loading' : 'button btn-cart'">
+    <?= __('Add to Cart') ?>
+</button>

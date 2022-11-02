@@ -1,0 +1,8 @@
+<?xml version="1.0"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Backend:etc/menu.xsd">
+    <menu>
+        <add id="Dynamic_Referfriend::referfriend" title="Dynamic" module="Dynamic_Referfriend" sortOrder="30" resource="Dynamic_Referfriend::referfriend"/>
+
+		<add id="Dynamic_Referfriend::referfriend_manage" title="Refer Friend Manager" module="Dynamic_Referfriend" sortOrder="10" parent="Dynamic_Referfriend::referfriend" action="referfriend/index/" resource="Dynamic_Referfriend::manage"/>
+    </menu>
+</config>

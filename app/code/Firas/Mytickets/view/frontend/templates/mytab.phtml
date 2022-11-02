@@ -1,0 +1,94 @@
+<?php
+$dynamicHelper = $this->helper('\Dynamic\Customization\Helper\Data');
+$customerSession = $dynamicHelper->getCustomerSessionManager();
+$config = $block->getLayout()->createBlock(\Magento\Config\Block\System\Config\Form::class);
+
+$ticketList = '';
+if ($customerSession->isLoggedIn()) {
+    $customerSession->getCustomerId();  // get Customer Id
+    $customerSession->getCustomerGroupId();
+    $customerSession->getCustomer();
+    $customerSession->getCustomerData();
+    $customerName = $customerSession->getCustomer()->getName();  // get  Full Name
+    $customerEmail = $customerSession->getCustomer()->getEmail(); // get Email
+    $website = 'WWW.SOLOLUXURY.COM';
+
+    $url = $config->getConfigValue('custom/erp_api/erp_api_url').'ticket/send'; 
+
+    //Initiate cURL.
+    $ch = curl_init($url);
+
+    //The JSON data.
+    $newjsonData = array(
+      'website' => $website,
+      'email' => $customerEmail
+      //'website' => 'www.abc.com',
+      //'email' => 'test@gmail.com'
+    );
+
+    //Encode the array into JSON.
+    $jsonDataEncoded = json_encode($newjsonData);
+
+    //Tell cURL that we want to send a POST request.
+    curl_setopt($ch, CURLOPT_POST, 1);
+    curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
+    //Attach our encoded JSON string to the POST fields.
+    curl_setopt($ch, CURLOPT_POSTFIELDS, $jsonDataEncoded);
+
+    //Set the content type to application/json
+    curl_setopt($ch, CURLOPT_HTTPHEADER, array('Content-Type: application/json'));
+
+    // Return response instead of outputting
+    // curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+
+    //Execute the request
+
+      $content = trim(curl_exec($ch));
+      curl_close($ch);
+      $data = json_decode($content, true);
+      $apiStatus = $data['status'];
+      $apiTickets = $data['tickets'];
+      $apiTicketsData = $apiTickets['data'];
+
+      foreach($apiTicketsData as $ticket){
+          $ticketId = $ticket['ticket_id'];
+          $ticketName = $ticket['subject'];
+          $ticketCreate = $ticket['created_at'];
+          $ticketUpdated = $ticket['updated_at'];
+          $ticketMessage = $ticket['message'];
+          $ticketStatus = $ticket['status'];
+          // echo '<pre>';
+          // print_r($ticket);
+          $ticketList .= '<ul>
+            <li>'.$ticketId.'</li>
+            <li>'.$ticketName.'</li>
+            <li>'.$ticketCreate.'</li>
+            <li>'.$ticketUpdated.'</li>
+            <li>'.$ticketMessage.'</li>
+            <li>'.$ticketStatus.'</li>
+          </ul>';
+      }
+}
+?>
+<div class="mytickets-container">
+  <div class="row">
+    <div class="col-md-12">
+      <h2><?php echo __('My Tickets') ?></h2>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-md-12">
+      <ul class="titles test">
+        <li><?php echo __('ID') ?></li>
+        <li><?php echo __('Name') ?></li>
+        <li><?php echo __('Created') ?></li>
+        <li><?php echo __('Last Updated') ?></li>
+        <li><?php echo __('Message') ?></li>
+        <li><?php echo __('Current Status') ?></li>
+      </ul>
+      <div class="ticket-content">
+        <?php echo $ticketList; ?>
+      </div>
+    </div>
+  </div>
+</div>

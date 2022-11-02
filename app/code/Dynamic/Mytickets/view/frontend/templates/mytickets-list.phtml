@@ -1,0 +1,356 @@
+<?php 
+$itemCollections = $block->gettMyTicketsCollection(); 
+$ticketTypes = array();
+$ticketTypes[0] = __('N/A');
+$ticketTypes[1] = __('Special Request');
+$ticketTypes[2] = __('Item Return Request');
+$ticketTypes[3] = __('Order Cancel Request');
+$ticketTypes[4] = __('OUS Query');
+$ticketList = '';
+$ticketreply = "";
+?>
+<div class="mytickets-container">
+  <div class="row">
+    <div class="col-md-12">
+      <h2><?php echo __('My Tickets') ?></h2>
+    </div>
+  </div>
+  <div class="row">	
+      <div class="col-md-12" id="ticketresult-message"></div>
+   </div>   
+  <div class="desktop-view">
+  <div class="row">	
+    <div class="col-md-12">
+      <ul class="titles test">
+        <li><?php echo __('ID') ?></li>
+        <li><?php echo __('Type') ?></li>
+        <li class="ticket-date"><?php echo __('Created') ?></li>
+        <li class="ticket-date"><?php echo __('Last Updated') ?></li>
+        <li><?php echo __('Message') ?></li>
+        <li><?php echo __('Current Status') ?></li>
+        <li><?php echo __('Action') ?></li>
+      </ul>
+      <div class="ticket-content">
+		  <?php if( $itemCollections && $itemCollections->getSize()){?>
+			  <?php foreach($itemCollections as $item){
+				  $ticketStatus=$item->getStatus();
+				  if($ticketStatus==1){
+					  $ticketStatus='<span class="ticket-active">Active</span>';
+				  }else{
+					  $ticketStatus='<span class="ticket-pending">Inactive</span>';
+				  }
+				  ?>
+                  <?php $ticketCode = ''?>
+				  <?php $ticketCode = $item->getTicketCode();?>
+			   <ul>				  
+				   <li><?php echo ($ticketCode!='')?$ticketCode:__('Ticket id Shall be Updated Shortly');?></li>
+				   <?php /*<li><?php echo $item->getName().' '.$item->getLastName();?></li>*/ ?>
+				   <li><?php echo $ticketTypes[$item->getTicketType()] ;?></li>
+				   <li class="ticket-date"><?php echo date('d-m-Y | H:i:s', strtotime($item->getCreatedAt()));?></li>
+				   <li class="ticket-date"><?php if($item->getUpdatedAt() !='') echo date('d-m-Y | H:i:s', strtotime($item->getUpdatedAt()));?></li>
+				   <li><?php echo $item->getRemarks();?></li>
+				   <li><?php echo  ($ticketStatus);?></li>
+				   <?php if(isset($ticketCode) && $ticketCode!=''){?>
+				         <li class="text-center"><a class="porto-icon-eye showticketmessage" data-tcode="<?php echo $ticketCode;?>" data-tid="<?php  echo $item->getMyticketsId()?>">View</a>
+				    <?php }else {?>   
+						 <li class="text-center"><a class="showticketnomessage" data-tcode="<?php echo $ticketCode;?>" data-tid="<?php  echo $item->getMyticketsId()?>">View</a>
+						<?php }?>   
+				   </li>
+				   
+			   </ul>
+			  <?php }?>
+           
+           <?php } else {?>
+			   <ul>
+				   <li><?php echo __('No Records Found'); ?></li>
+			   </ul>
+		   <?php }?>	   
+        </div>               
+    </div>
+  </div>
+  </div> 
+  <div class="row">	
+    <div class="col-md-12">
+		<?php if ($block->getPagerHtml()): ?>			  
+                 <div class="order-products-toolbar toolbar bottom"><?php echo $block->getPagerHtml(); ?></div>
+         <?php endif ?>
+     </div>
+  </div>
+  <!--Start Mobile View-->
+  <div class="mobile-view">
+	  <div class="row">
+		  <div class="col-md-12">
+			  <br /><br /><br /><br /><br /><br /><br /><br /><br />
+		  </div>
+		  
+	  </div>
+		  
+		<div class="row">
+			<div class="col-md-12">
+				<ul class="titles">
+					<li><?php echo __('ID') ?></li>
+					<li><?php echo __('Message') ?></li>
+					<li class="text-center"><?php echo __('Action') ?></li>
+				</ul>
+				<div class="ticket-content">
+					<?php if( $itemCollections && $itemCollections->getSize()){?>
+			  <?php foreach($itemCollections as $item){?>
+                            <?php $ticketCode = ''?>
+				  <?php $ticketCode = $item->getTicketCode();?>
+			   <ul>				  
+				   <li><?php echo ($ticketCode!='')?$ticketCode:__('Ticket id Shall be Updated Shortly');?></li>
+				   <li><?php echo $item->getRemarks();?></li>				   
+				   <?php if(isset($ticketCode) && $ticketCode!=''){?>
+				         <li class="text-center"><a class="porto-icon-eye showticketmessage" data-tcode="<?php echo $ticketCode;?>" data-tid="<?php  echo $item->getMyticketsId()?>">View</a>
+				    <?php }else {?>   
+						  <li class="text-center"><a class="porto-icon-eye showticketnomessage" data-tcode="<?php echo $ticketCode;?>" data-tid="<?php  echo $item->getMyticketsId()?>">View</a>
+						<?php }?>
+				   </li>
+			   </ul>
+			  <?php }?>
+           
+           <?php } else {?>
+			   <ul>
+				   <li><?php echo __('No Records Found'); ?></li>
+			   </ul>
+		   <?php }?>	   
+				</div>
+			
+			</div>
+		</div>
+	</div>
+  <!--End Mobile View-->	
+    <div class="row">
+		 <div class="col-md-12"> 
+			<div class='replymessages' id="replymessages" style='display:none;'>		</div>
+         </div>
+    </div>	
+</div>
+
+<div id="ticketmesage-modal" style="display:none;">
+</div>
+
+
+
+
+
+<script type="text/javascript">
+require(['jquery','Magento_Ui/js/modal/modal','Magento_Ui/js/modal/alert','mage/mage','jquery/ui'
+         ],function($, modal, alert){
+	     
+	      $(".showticketmessage").click(function(){		 
+		 var UrlMessage = '<?php echo $this->getUrl("mytickets/ajax/message"); ?>';					 
+		 //var UrlMessage = '<?php //echo $this->getUrl("tickets/ajax/message"); ?>';					 
+		 var tcode =  $(this).data("tcode");		      
+		 var tid =  $(this).data("tid");			 
+		 $.ajax({
+                   url: UrlMessage,
+                   type: "GET",
+                    data: {                                                        
+                          tid   : tid,
+                          tcode : tcode 
+                                          
+                      },
+                    dataType: 'json',
+                    async: true,
+                    showLoader: true ,
+                    beforeSend: function() {
+                        $("#ticketmesage-modal").html('');  
+                        //console.log(dataForm.serialize());
+                    },
+                    complete: function(){
+                        
+                    },
+                    success: function (jsonStr) {
+						//console.log(jsonStr);
+						var errors = jsonStr['errors'];
+                         var message = jsonStr['message'];                         
+                        if(errors == false) {                          
+                            var ticketMessagesArr = jsonStr['ticketMessages'];                                                         
+                            showMessagePopup( tcode , ticketMessagesArr);
+                        } else {    
+							                        
+                             alert({
+                                    title: $.mage.__('Error'),
+                                    content: jsonStr.message,
+                                    actions: {
+                                        always: function(){}
+                                    }
+                              });                          
+                        }
+                    },
+                    error: function (response) {                        
+                         alert({
+                                  title: $.mage.__('Error'),
+                                  content: response.message,
+                                  actions: {
+                                        always: function(){}
+                                  }
+                              }); 
+                    },
+       });
+       	      
+	  })
+	  
+          
+          $(".showticketnomessage").click(function(){
+			var UrlMessage = '<?php echo $this->getUrl("mytickets/ajax/message"); ?>';					 
+		 //var UrlMessage = '<?php //echo $this->getUrl("tickets/ajax/message"); ?>';					 
+		 var tcode =  $(this).data("tcode");		      
+		 var tid =  $(this).data("tid");			 
+		 $.ajax({
+                   url: UrlMessage,
+                   type: "GET",
+                    data: {                                                        
+                          tid   : tid,
+                          tcode : tcode 
+                                          
+                      },
+                    dataType: 'json',
+                    async: true,
+                    showLoader: true ,
+                    beforeSend: function() {
+                        $("#ticketmesage-modal").html('');  
+                        //console.log(dataForm.serialize());
+                    },
+                    complete: function(){
+                        
+                    },
+                    success: function (jsonStr) {
+						//console.log(jsonStr);
+						var errors = jsonStr['errors'];
+                         var message = jsonStr['message'];                         
+                        if(errors == false) {                          
+                            var ticketMessagesArr = jsonStr['ticketMessages'];                                                         
+                            showMessagePopup( tid , ticketMessagesArr);
+                        } else {    
+							                        
+                             alert({
+                                    title: $.mage.__('Error'),
+                                    content: jsonStr.message,
+                                    actions: {
+                                        always: function(){}
+                                    }
+                              });                          
+                        }
+                    },
+                    error: function (response) {                        
+                         alert({
+                                  title: $.mage.__('Error'),
+                                  content: response.message,
+                                  actions: {
+                                        always: function(){}
+                                  }
+                              }); 
+                    },
+       });	
+		  });
+          
+	  
+      $(".closepopup").live('click', function(){
+		  $("#replymessages").css('display','none');
+	  });
+
+    function showMessagePopup(ticketId,messagesArr){
+        if(messagesArr){
+            console.log(messagesArr);
+            messageId =  "message"+ticketId;
+            var ticketreply = '';
+            var firstMessage = '';
+            //ticketreply = ticketreply+ "<div class='replymessages' style='display:none;' >";
+            if (messagesArr['remarks']) {
+                ticketreply = ticketreply + "<div class='messages_section'>";
+                firstMessage = messagesArr['remarks'];
+            } else {
+                ticketreply = ticketreply + "<div class='messages_section'><form action='<?php echo $this->getUrl('mytickets/ajax/addMessage');?>?id=" + messagesArr['ticket_id'] + "' method='post' class='ticketaddmsg'><input type='text' id='message' name='message' placeholder='Type Your Message Here..'><input type='submit' value='Submit' class='add-btn'></form>";
+                firstMessage = messagesArr['message'];
+            }
+            ticketreply = ticketreply + '<div class="ticket_info"><ul><li>Message</li><li>Date Time</li><li>Sent By</li></ul>';
+            ticketreply = ticketreply + '<ul><li>'+firstMessage+'</li><li>'+messagesArr['created_at'] +'</li><li>'+messagesArr['name']+'</li></ul>';
+            ticketreply =  ticketreply+"<div class='closepopup'>×</div>";
+
+            if (ticketId !== "" && ticketId === messagesArr['ticket_id']) {
+                $.each(messagesArr['messages'], function (key, value) {
+                    var current_datetime = new Date(value.created_at);
+                    let date = current_datetime.getFullYear() + "-" + (current_datetime.getMonth() + 1) + "-" + current_datetime.getDate() + " " + current_datetime.getHours() + ":" + current_datetime.getMinutes() + ":" + current_datetime.getSeconds()
+                    // ticketreply = ticketreply + "<div class='message_body'>";
+                    ticketreply = ticketreply + "<ul><li>" + value.message + "</li>";
+                    ticketreply = ticketreply + "<li>" + date + "</li>";
+                    if (value.send_by !== 'Admin') {
+                        ticketreply = ticketreply + "<li>" + messagesArr['name'] + " </li></ul>";
+                    } else {
+                        ticketreply = ticketreply + "<li> Merchant </li></ul>";
+                    }
+
+
+                });
+            }
+            if(messagesArr['status'] === 1){
+                ticketreply = ticketreply+"<form action='<?php echo $this->getUrl('mytickets/ajax/addMessage');?>?id="+messagesArr['ticket_id']+"' method='post'><input type='text' id='message' name='message'><input type='submit' value='Submit'></form></div></div></div>";
+            }
+		  
+		  $("#replymessages").html(ticketreply);  
+		  $("#replymessages").css('display','block');
+		  
+	        /*$("#ticketmesage-modal").html(ticketreply);  
+	        var options = {
+                type: 'popup',
+                responsive: true,
+                title:  $.mage.__('Ticket Messages'),
+                innerScroll: true,
+                buttons: [{
+                    text: $.mage.__('Close'),
+                    class: 'ticketmsgmodal1',
+                    click: function () {
+                        this.closeModal();
+                    }
+                }]
+            };
+            var popup = modal(options, $('#ticketmesage-modal')); 
+            $("#ticketmesage-modal").modal("openModal");*/
+	       
+
+		}
+		
+	}
+	
+	
+	function showmessage(id){	  
+	   var messagesmodal = document.getElementById("messages"+tid);
+	   if (window.getComputedStyle(messagesmodal).display === "none") {
+	   messagesmodal.style.display = "block";
+	   }else{
+	   messagesmodal.style.display = "none";
+	   }	
+     }
+
+
+    $(document).ready(function() {
+		$('.tickets-customer-index .mobile-popup-detials .close').on('click',function(){
+			$(this).parents('.modal').hide();
+		});
+		$('.tickets-customer-index .ticket-content li.porto-icon-eye').on('click',function(){
+			var ticketCode = $(this).attr('data-ticket');
+			$('.tickets-customer-index .mobile-popup-detials[data-ticketId="'+ticketId+'"]').show();
+		});
+	});
+	
+});
+</script>
+
+<style>
+@media(max-width:767px){
+	.account .mytickets-container .replymessages .messages_section ul li:nth-child(1)::before {
+		content: '<?php echo __("Message") ?>';
+	}
+	.account .mytickets-container .replymessages .messages_section ul li:nth-child(2)::before {
+		content: '<?php echo __("Date") ?>';
+	}
+	.account .mytickets-container .replymessages .messages_section ul li:nth-child(3)::before {
+		content: '<?php echo __("Time") ?>';
+	}
+	.account .mytickets-container .replymessages .messages_section ul li:nth-child(4)::before {
+		content: '<?php echo __("Send By") ?>';
+	}
+}
+</style>

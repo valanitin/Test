@@ -1,0 +1,23 @@
+<?xml version="1.0"?>
+
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:Acl/etc/acl.xsd">
+	<acl>
+		<resources>
+			<resource id="Magento_Backend::admin">
+				<resource id="Ethnic_Customfooter::ethnic" title="Ethnic" sortOrder="51">
+					<resource id="Ethnic_Customfooter::news_allnews" title="All News" sortOrder="10">
+						<resource id="Ethnic_Customfooter::save" title="Save News" translate="title" sortOrder="10" />
+						<resource id="Ethnic_Customfooter::news_delete" title="Delete News" translate="title" sortOrder="20" />
+					</resource>
+				</resource>
+				<resource id="Magento_Backend::stores">
+					<resource id="Magento_Backend::stores_settings">
+						<resource id="Magento_Config::config">
+							<resource id="Ethnic_Customfooter::news_config" title="Ethnic Customfooter" translate="title"/>
+						</resource>
+					</resource>
+				</resource>
+			</resource>
+		</resources>
+	</acl>
+</config>

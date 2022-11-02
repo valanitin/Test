@@ -1,0 +1,509 @@
+@black_color: #000000;
+@white_color: #ffffff;
+
+.apple-signup {
+	.login-icon {  
+	    border-radius: 50% !important;
+		padding: 0 !important;
+		margin: 0 !important;
+		.apple-icon-inner {
+			display: inline-block;
+			right: 0;
+			left: 0;
+			top: 50%;
+			transform: translateY(-50%);
+			-webkit-transform: translateY(-50%);
+			-moz-transform: translateY(-50%);
+			-o-transform: translateY(-50%);
+			position: absolute;
+			img {
+				width: 40px;
+			}
+		}
+	}
+	.action.primary.signinwithapple {
+		background: @black_color ;
+		padding: 0 15px 0 0 !important;
+		border: 1px solid @black_color;
+		margin-top: 10px;
+		transition: all 0.3s;
+		-webkit-transition: all 0.3s;
+		-moz-transition: all 0.3s;
+		-o-transition: all 0.3s;
+		border-radius: 3px ;
+		&:hover {
+			color: @black_color;
+			border-color: @black_color;
+		}
+		&:active, &:focus {
+			background-color: @black_color;
+			color: @black_color;
+			border-color: @black_color;
+		}
+		span.apple-btn-text {
+			display: inline-block;
+			vertical-align: middle;
+		}
+	}
+}
+.apple-icon {
+	display: inline-block;
+	padding: 9px 12px;
+	background: @white_color;
+	margin-right: 10px;
+	border-top-left-radius: 3px;
+	border-bottom-left-radius: 3px;
+	border-right: 1px solid @black_color;
+	vertical-align: middle;
+	img {
+	 	width: 22px;
+		max-width: 22px;
+	}
+	
+}
+
+.apple-login-container {	
+	width: 100%;
+	clear: none !important;
+	max-width: 100%;
+}
+.page-main {
+	.block.block-new-customer {
+		margin-bottom: 20px;
+	}
+}
+.space-container {
+	padding: 10px 0
+}
+.checkout-popup-modal {
+	text-align: center;	
+	.block.block-customer-login.apple-signup {
+		margin: 0 auto;    
+	    display: inline-block;
+	    float: none;
+	    padding: 0;	
+	}
+}
+.rtl {
+	.apple-signup {
+		.signinwithapple {
+			padding: 0 0 0 15px;
+		}
+	}
+	.apple-icon {
+		float: right;
+		margin-right: 0;
+		padding-left: 10px;
+		border-top-left-radius: 0;
+		border-bottom-left-radius: 0;
+		border-top-right-radius: 3px;
+		border-bottom-right-radius: 3px;
+		border-right: 0;
+		border-left: 1px solid @black_color;
+	}
+	.apple-btn-text {
+		padding: 13px 10px 10px 0;
+		display: inline-block;
+	}
+}
+.modal-popup._inner-scroll{
+	.modal-inner-wrap{
+		width: 360px;
+		vertical-align: middle;
+		display: flex;
+		overflow: hidden;
+		margin: 95px auto;		
+	}
+	.field.email.required{
+	.control {
+		position: relative;
+		z-index: 9999999;
+		&:before {
+			content: '';
+			position: absolute;
+			content: "";
+			top: 10px;
+			z-index: 999999;
+			left: 9px;
+			background-size: cover;
+			background-repeat: no-repeat;
+			height: 12px;
+			width: 12px;
+			right: 0;
+			background-image: url('../images/user.png');
+		}
+		input.input-text {
+			z-index: 1;
+			padding: 0 27px;
+		}
+	}
+}
+.field.password.required{
+	.control {
+		position: relative;
+		z-index: 9999999;
+		&:before {
+			content: '';
+			position: absolute;
+			content: "";
+			top: 10px;
+			z-index: 999999;
+			left: 9px;
+			background-size: cover;
+			background-repeat: no-repeat;
+			height: 12px;
+			width: 12px;
+			right: 0;
+			background-image: url('../images/padlock.png');
+		}
+		input.input-text {
+			z-index: 1;
+			padding: 0 27px;
+		}
+	}
+
+}
+div#modal-content-0 {
+	padding: 0 40px 25px;
+}
+.block.block-customer-login {
+	margin-bottom: 22px !important;
+}
+.block.block-customer-login.apple-signup.apple-btn-left {
+	width: 100%;
+}
+.block.block-customer-login.apple-signup.apple-btn-right {
+	width: 100% !important;
+	margin: 0 auto;
+	max-width: 100%;
+}
+.block.block-customer-login.apple-signup {
+	margin-bottom: 0 !important;
+    text-align: center;
+	.space-container{
+		&.apple-icon-right{
+			.space-container-inner{
+			text-align: center;
+			width: 100%;
+			display: block;
+			margin: 0 auto;
+				&:after{
+					right: 0 !important;
+					left: 0 !important;	
+				}
+			}
+		}
+		&.apple-icon-left{
+			.space-container-inner{
+			    text-align: center;
+				width: 100%;
+				display: block;
+				margin: 0 auto;
+				&:after{
+					right: 0 !important;
+					left: 0 !important;	
+				}
+			}
+		}
+	}
+}
+.space-container {
+		padding: 10px 0;
+		text-align: center;
+}
+.popup-logo {
+	text-align: center;
+	border-bottom: 2px solid #ccc;
+	margin-bottom: 23px;
+	padding-bottom: 17px;
+}	
+.actions-toolbar {
+	text-align: center;
+		.primary {
+			width: 100%;
+			text-align: center;
+			float: none !important;
+		button#send2 {
+			width: 100%;
+			text-align: center;
+			margin: 0 auto;
+		}
+	}
+	.secondary{
+		a{				
+		    text-decoration: revert;
+		}
+	}
+}
+.register-link-container {
+		text-align: center;
+		padding-top: 20px;
+			.register-link-inner {
+				a {
+					width: 100%;
+					display: block; 
+					text-decoration: revert;
+					position: relative;
+				&:after {
+					content: "";
+					position: absolute;
+					top: 5px;
+					left: 80px;
+					width: 12px;
+					 height: 12px;
+					z-index: 9999;
+					background-size: cover;
+					background-repeat: no-repeat;
+					right: 0;
+					background-image: url('../images/user.png');
+				}
+			}
+		}
+	}	
+}
+.space-container {
+    position: relative;
+    text-align: center;
+	&.apple-icon-left{
+		.space-container-inner {
+			text-align: center;
+		 	width: 100%;
+			display: block;
+			max-width: 225px;
+			&:after{
+		      	right: auto !important;
+			}
+		}
+	}
+	&.apple-icon-right{
+		span.space-container-inner{
+		    max-width: 225px;
+			display: block;
+			position: relative;
+			width: 100%;
+			margin-left: auto;
+			&:after{
+		      	right: 0 !important;
+				left: auto !important;
+			}
+		}
+	}
+	&.apple-icon-center{
+		span.space-container-inner{
+	        text-align: center;
+			width: 100%;
+			float: inherit;
+			display: block;
+			&:after{
+		      	right: 0 !important;
+				left: 0 !important;
+			}
+		}
+	}
+	span.space-container-inner{
+		span{
+			display: inline-block;
+			text-transform: uppercase;
+			background: #fdfdfd !important;
+			padding: 0 9px;
+			position: relative;
+			z-index: 99;
+		}
+		&:after {
+		  	content: "";
+   		 	position: absolute;
+    		width: 225px;
+    		height: 1px;
+    		left: 0;
+    		background: #000;
+    		right: 0;
+    		margin: 0 auto;
+    		top: 50%;
+		}
+	}
+}
+a.action.create.primary.signinwithapple.login-icon{
+    width: 66px;
+	height: 66px;
+	text-align: center;
+	position: relative;
+    background: transparent !important;
+    color: transparent !important;
+	&:hover {
+		background: transparent !important;
+    	color: transparent !important;
+	}
+}
+.apple-signup.apple-btn-left {
+    width: 100%;
+    text-align: left;
+}
+.apple-signup.apple-btn-right {
+    max-width: 100%;
+    margin-left: auto;
+    position: relative;
+    width: 100%;
+    display: block;
+    text-align: right;
+}
+.checkout-step-shipping-login.apple-btn-left{
+	width: 45%;
+    text-align: center;
+}
+.checkout-step-shipping-login.apple-btn-right{
+	max-width: 48%;
+    margin-left: auto;
+    position: relative;
+    width: 100%;
+    display: block;
+    text-align: center;
+}
+.checkout-popup-modal.apple-btn-right{
+	max-width: 60%;
+    margin-left: auto;
+    position: relative;
+    width: 100%;
+    display: block;
+    text-align: center;
+}
+.checkout-popup-modal.apple-btn-left{
+	width: 60%;
+    text-align: center;
+}
+.apple-signup .action.primary.signinwithapple:active, .apple-signup .action.primary.signinwithapple:focus{
+	background-color: #000;
+    color: #fff !important;
+    border-color: #000;
+}
+
+@media only screen and (max-width:991px) {
+	.checkout-popup-modal {		
+		.apple-signup {
+			.signinwithapple {
+				padding-right: 7px;
+			}			
+		}		
+	}
+	.checkout-popup-modal.apple-btn-left{
+		width: 100% !important;
+		text-align: inherit !important;
+	}
+	.checkout-popup-modal.apple-btn-right{
+	 	width: 100% !important;
+		max-width: 100% !important;
+		text-align: inherit !important;
+	}
+}
+
+
+@media only screen and (max-width:767px) {
+	.apple-login-container {
+		width: 100%;
+		margin-bottom: 15px;
+	}
+	.modal-popup.modal-slide {
+		left: 0 !important;
+	}
+	aside.modal-custom.authentication-dropdown.custom-slide._show {
+	    left: 0;
+	}
+	.apple-login-container {
+	    width: 100%;
+	    clear: none !important;
+	    max-width: 601px;
+	    padding: 0 15px;
+	    display: block;
+	    float: left;
+	}		
+}
+
+@media only screen and (max-width:680px) {
+	.apple-login-container {
+	    width: 100%;
+	    clear: none !important;
+	    max-width: 541px;
+	    padding: 0 15px;
+	    display: block;
+	    float: left;
+	}
+}
+@media only screen and (max-width:580px) {
+	.block.block-customer-login.apple-signup.apple-btn-left {
+		width: 100%;
+		text-align: inherit;
+	}
+	.block.block-customer-login.apple-signup.apple-btn-right {
+	 	width: 100%;
+		max-width: 100%;
+		text-align: inherit;
+	}
+	.apple-login-container {
+	    width: 100%;
+	    clear: none !important;
+	    max-width: 288px;
+	    padding: 0 15px;
+	    display: block;
+	    float: left;
+	}
+
+	.checkout-step-shipping-login.apple-btn-left{
+		width: 100% !important;
+		text-align: inherit !important;
+	}
+	.checkout-step-shipping-login.apple-btn-right{
+		width: 100% !important;
+		max-width: 100% !important;
+		text-align: inherit !important;
+	}
+	.checkout-popup-modal.apple-btn-left{
+		width: 100% !important;
+		text-align: inherit !important;
+	}
+	.checkout-popup-modal.apple-btn-right{
+		 width: 100% !important;
+		max-width: 100% !important;
+		text-align: inherit !important;
+	}
+
+}
+@media only screen and (max-width:480px) {
+	.space-container{
+		&.apple-icon-right{
+			.space-container-inner{
+				text-align: center !important;
+				width: auto !important;
+				display: block;
+				&:after{
+				 	right: 0 !important;
+    				left: 0!important;
+    				width: 100%;
+				}				
+			}
+		}
+		&.apple-icon-left{
+			.space-container-inner{
+			    text-align: center !important;
+				width: auto !important;
+				display: block;
+				max-width: 100% !important;
+				&:after{
+				 	right: 0 !important;
+    				left: 0!important;
+    				width: 100%;
+				}				
+			}
+		}
+		&.apple-icon-center{
+			.space-container-inner{
+			    text-align: center !important;
+				width: auto !important;
+				display: block;
+				&:after{
+				 right: 0 !important;
+					left: 0!important;
+					width: 100%;
+				}				
+			}
+		}
+	}
+}

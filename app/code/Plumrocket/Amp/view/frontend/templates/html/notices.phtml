@@ -1,0 +1,38 @@
+<?php
+/**
+ * Plumrocket Inc.
+ *
+ * NOTICE OF LICENSE
+ *
+ * This source file is subject to the End-user License Agreement
+ * that is available through the world-wide-web at this URL:
+ * http://wiki.plumrocket.net/wiki/EULA
+ * If you are unable to obtain it through the world-wide-web, please
+ * send an email to support@plumrocket.com so we can send you a copy immediately.
+ *
+ * @package     Plumrocket_Amp
+ * @copyright   Copyright (c) 2018 Plumrocket Inc. (http://www.plumrocket.com)
+ * @license     http://wiki.plumrocket.net/wiki/EULA  End-user License Agreement
+ */
+?>
+
+<?php if ($this->helper(\Plumrocket\Amp\Helper\Data::class)->isCookieRestrictionModeEnabled()): ?>
+    <amp-user-notification
+        class="message global cookie"
+        id="notice-cookie-block"
+        layout="nodisplay">
+        <div>
+            <div class="content">
+                <p>
+                    <strong><?php /* @escapeNotVerified */ echo __('We use cookies to make your experience better.') ?></strong>
+                    <span><?php /* @escapeNotVerified */ echo __('To comply with the new e-Privacy directive, we need to ask for your consent to set the cookies.') ?></span>
+                    <?php /* @escapeNotVerified */ echo __('<a href="%1">Learn more</a>.', $block->getPrivacyPolicyLink()) ?>
+                </p>
+                <div class="actions actions-primary">
+                    <button id="btn-cookie-allow" class="button" on="tap:notice-cookie-block.dismiss"><?php /* @escapeNotVerified */ echo __('Allow Cookies');?></button>
+                </div>
+            </div>
+        </div>
+      </div>
+    </amp-user-notification>
+<?php endif ?>

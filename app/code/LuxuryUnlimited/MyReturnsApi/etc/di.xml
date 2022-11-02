@@ -1,0 +1,26 @@
+<?xml version="1.0"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:noNamespaceSchemaLocation="urn:magento:framework:ObjectManager/etc/config.xsd">
+
+    <!-- Adding is_cancellable to the Order -->
+    <type name="Magento\Sales\Api\OrderRepositoryInterface">
+        <plugin name="add_is_cancellable_to_orders"
+                type="LuxuryUnlimited\MyReturnsApi\Plugin\Api\CancelReturnsToOrders"/>
+    </type>
+    <!-- Adding is_returnable to the Order -->
+    <type name="Magento\Sales\Api\OrderItemRepositoryInterface">
+        <plugin name="add_is_returnable_to_order_items" sortOrder="10"
+                type="LuxuryUnlimited\MyReturnsApi\Plugin\Api\CancelReturnsToOrderItems"/>
+    </type>
+
+    <!--    Cancellation Reasons-->
+    <preference for="LuxuryUnlimited\MyReturnsApi\Api\OrderCancelReasonsInterface"
+                type="LuxuryUnlimited\MyReturnsApi\Model\Order\Cancel\Reasons"/>
+    <!--   Order Cancellation-->
+    <preference for="LuxuryUnlimited\MyReturnsApi\Api\OrderCancelInterface"
+                type="LuxuryUnlimited\MyReturnsApi\Model\Order\Cancel"/>
+
+    <!--   Order Return-->
+    <preference for="LuxuryUnlimited\MyReturnsApi\Api\OrderReturnInterface"
+                type="LuxuryUnlimited\MyReturnsApi\Model\Order\ReturnOrder"/>
+</config>

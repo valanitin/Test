@@ -1,0 +1,17 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * @author      LuxuryUnlimited
+ * @copyright   Copyright © 2022. All rights reserved.
+ */
+-->
+
+<routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Webapi:etc/webapi.xsd">
+    <route url="/V1/payment/sales/order/:date" method="GET">
+        <service class="LuxuryUnlimited\Sales\Api\SalesPaymentManagementInterface" method="getSalesData"/>
+        <resources>
+			<resource ref="Magento_Sales::actions_view" />
+        </resources>
+    </route>
+</routes>

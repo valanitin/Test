@@ -1,0 +1,160 @@
+Delete,Delete
+"Are you sure you want to delete redirect?","Are you sure you want to delete redirect?"
+"Save And Continue","Save And Continue"
+"Please update Amasty Base module. Re-upload it and replace all the files.","Please update Amasty Base module. Re-upload it and replace all the files."
+"CMS Page","CMS Page"
+"Product View Page","Product View Page"
+"Category View Page","Category View Page"
+" (with Navigation)"," (with Navigation)"
+"There is no canonical tag set for this page","There is no canonical tag set for this page"
+"A canonical tag is set for this page","A canonical tag is set for this page"
+"%1 characters — not good.","%1 characters — not good."
+"%1 characters — Google typically displays the first 50–60 characters of a title tag. If you keep your titles under 60 characters, our research suggests that you can expect about 90% of your titles to display properly.","%1 characters — Google typically displays the first 50–60 characters of a title tag. If you keep your titles under 60 characters, our research suggests that you can expect about 90% of your titles to display properly."
+"%1 characters — optimal.","%1 characters — optimal."
+"No IFrames found on this page","No IFrames found on this page"
+"The page contains IFrames","The page contains IFrames"
+"NoFollow Links","NoFollow Links"
+"DoFollow Links","DoFollow Links"
+"Internal Links","Internal Links"
+"External Links","External Links"
+Redirects,Redirects
+"We can't find redirect to delete.","We can't find redirect to delete."
+"Redirect was successfully removed","Redirect was successfully removed"
+"This Redirect no longer exists.","This Redirect no longer exists."
+"Edit Redirect","Edit Redirect"
+"New Redirect","New Redirect"
+"A total of %1 record(s) have not been deleted.","A total of %1 record(s) have not been deleted."
+"A total of %1 record(s) have been deleted.","A total of %1 record(s) have been deleted."
+"A total of %1 record(s) have been deactivated.","A total of %1 record(s) have been deactivated."
+"A total of %1 record(s) have been activated.","A total of %1 record(s) have been activated."
+"Wrong count of ""*"".","Wrong count of ""*""."
+"You have saved the Redirect.","You have saved the Redirect."
+"Use Canonical to ‘View All‘ for Paginated Pages setting can’t be saved in ‘Yes’ state until the option to display all products per category is disabled under Stores-Catalog-Storefront-Allow All Products per Page.","Use Canonical to ‘View All‘ for Paginated Pages setting can’t be saved in ‘Yes’ state until the option to display all products per category is disabled under Stores-Catalog-Storefront-Allow All Products per Page."
+"Unable to save redirect with ID %1. Error: %2","Unable to save redirect with ID %1. Error: %2"
+"Unable to save new redirect. Error: %1","Unable to save new redirect. Error: %1"
+"Redirect with specified ID ""%1"" not found.","Redirect with specified ID ""%1"" not found."
+"Unable to remove redirect with ID %1. Error: %2","Unable to remove redirect with ID %1. Error: %2"
+"Unable to remove redirect. Error: %1","Unable to remove redirect. Error: %1"
+No,No
+"Yes (Deprecated)","Yes (Deprecated)"
+"301 Moved Permanently","301 Moved Permanently"
+"302 Found","302 Found"
+" | Page %1"," | Page %1"
+Edit,Edit
+"Seo Toolbar","Seo Toolbar"
+"Page Analysis","Page Analysis"
+"Robots Meta","Robots Meta"
+Canonical,Canonical
+Title,Title
+"Try to enlarge it to %1 characters.","Try to enlarge it to %1 characters."
+"Meta Description","Meta Description"
+Headings,Headings
+Images,Images
+"%1 image(s) without ALT tag","%1 image(s) without ALT tag"
+"In-Page Links","In-Page Links"
+"Schema.org Tags","Schema.org Tags"
+"Great. We have found several schema.org types","Great. We have found several schema.org types"
+"There are no schema.org types","There are no schema.org types"
+Iframes,Iframes
+"Page Content","Page Content"
+State,State
+"Applied Meta Tags Template","Applied Meta Tags Template"
+"Manage Redirects","Manage Redirects"
+"SEO Toolkit","SEO Toolkit"
+Information,Information
+"General Settings","General Settings"
+"301 Redirects to Home Page","301 Redirects to Home Page"
+"Requests to /index.php, /cms/index, /home will be redirected to Home Page","Requests to /index.php, /cms/index, /home will be redirected to Home Page"
+"Enable Redirect from 404 to Search Results","Enable Redirect from 404 to Search Results"
+"If option is enabled, customer will be redirected to the store search results of the broken URL text instead of the '404 Not Found' page","If option is enabled, customer will be redirected to the store search results of the broken URL text instead of the '404 Not Found' page"
+"Custom URL Key for Default Search Results Page","Custom URL Key for Default Search Results Page"
+"Search Result Page URL Key","Search Result Page URL Key"
+"Pagination Settings","Pagination Settings"
+"Use Canonical to 'View All' for Paginated Pages","Use Canonical to 'View All' for Paginated Pages"
+"If enabled, the canonical for the first category’s page will be its base URL, while the rest of paginated pages will have ‘?product_list_limit=all’ parameter in their canonical. If you are enabling this setting, please firstly make sure that ‘Yes’ option is selected under Stores-Configuration-Catalog-Storefront-Allow All Products per Page.","If enabled, the canonical for the first category’s page will be its base URL, while the rest of paginated pages will have ‘?product_list_limit=all’ parameter in their canonical. If you are enabling this setting, please firstly make sure that ‘Yes’ option is selected under Stores-Configuration-Catalog-Storefront-Allow All Products per Page."
+"Add Link Rel=""next/prev""","Add Link Rel=""next/prev"""
+"Google stopped treating rel=next/prev as an indexing signal, however it’s not recommended to change anything if these links have already been implemented on your website.","Google stopped treating rel=next/prev as an indexing signal, however it’s not recommended to change anything if these links have already been implemented on your website."
+"Add Page Number to Meta Title","Add Page Number to Meta Title"
+"Adds the Page Number at the end of the Meta Title, e.g. 'Apparel | Page 5'.","Adds the Page Number at the end of the Meta Title, e.g. 'Apparel | Page 5'."
+"Add Page Number to Meta Description","Add Page Number to Meta Description"
+"Adds the Page Number at the end of the Meta Description, e.g. 'Apparel Description | Page 5'","Adds the Page Number at the end of the Meta Description, e.g. 'Apparel Description | Page 5'"
+"SEO Toolbar","SEO Toolbar"
+"Enable Toolbar","Enable Toolbar"
+"Show only for IP","Show only for IP"
+"index,follow","index,follow"
+"index,nofollow","index,nofollow"
+"noindex,follow","noindex,follow"
+"noindex,nofollow","noindex,nofollow"
+Back,Back
+Save,Save
+General,General
+Status,Status
+Enabled,Enabled
+Disabled,Disabled
+"
+                        
+                               <small>
+                               Note! Insert URL with suffix which is configured under Configuration-Catalog-Search Engine Optimization.<br>
+                               It is possible to use wildcard to indicate ’any path’ option. Use * to activate it.<br>
+                                Example:<br>
+                                use Request Path <em>men/tops-men/*</em> and Target Path <em>men/tops/*</em><br>
+                                to redirect all URLs which start with <em>men/tops-men/</em> to URLs which start with <em>men/tops/</em><br></small>
+                            
+                    ","
+                        
+                               <small>
+                               Note! Insert URL with suffix which is configured under Configuration-Catalog-Search Engine Optimization.<br>
+                               It is possible to use wildcard to indicate ’any path’ option. Use * to activate it.<br>
+                                Example:<br>
+                                use Request Path <em>men/tops-men/*</em> and Target Path <em>men/tops/*</em><br>
+                                to redirect all URLs which start with <em>men/tops-men/</em> to URLs which start with <em>men/tops/</em><br></small>
+                            
+                    "
+"
+                        
+                               <small>
+                               Note! Insert URL with suffix which is configured under Configuration-Catalog-Search Engine Optimization.<br>
+                               You can use wildcard here if needed.
+                               </small>
+                            
+                    ","
+                        
+                               <small>
+                               Note! Insert URL with suffix which is configured under Configuration-Catalog-Search Engine Optimization.<br>
+                               You can use wildcard here if needed.
+                               </small>
+                            
+                    "
+"Redirect Type","Redirect Type"
+"Use for 404 Pages Only","Use for 404 Pages Only"
+"
+                        
+                                <small>If set to ‘Yes’, the redirect will be performed only if request path is returning Page 404.<br>
+                                Example:<br>
+                                set this setting to ‘Yes’,<br>
+                                use Request Path * and Target Path <em>contact</em><br>
+                                to redirect all 404 Pages to Contact Us page.<br></small>
+                            
+                    ","
+                        
+                                <small>If set to ‘Yes’, the redirect will be performed only if request path is returning Page 404.<br>
+                                Example:<br>
+                                set this setting to ‘Yes’,<br>
+                                use Request Path * and Target Path <em>contact</em><br>
+                                to redirect all 404 Pages to Contact Us page.<br></small>
+                            
+                    "
+"Store Views","Store Views"
+"If there are several redirects with identical Request Path, the redirect with the highest priority will be executed. Here 1 is the highest priority.","If there are several redirects with identical Request Path, the redirect with the highest priority will be executed. Here 1 is the highest priority."
+"Add New Redirect","Add New Redirect"
+Enable,Enable
+Disable,Disable
+"Delete Redirects","Delete Redirects"
+"Are you sure you wan't to delete selected Redirects?","Are you sure you wan't to delete selected Redirects?"
+ID,ID
+Request,Request
+Target,Target
+"Used for 404 Pages","Used for 404 Pages"
+Description,Description
+Robots,Robots
+"Canonical Link","Canonical Link"

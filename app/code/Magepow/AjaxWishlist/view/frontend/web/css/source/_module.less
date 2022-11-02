@@ -1,0 +1,218 @@
+/**
+ * @copyright Copyright © 2021 Magepow. All rights reserved.
+ * @author    Magepow
+ * @category Magepow
+ * @copyright Copyright (c) 2014 Magepow (<https://www.magepow.com>)
+ * @license <https://www.magepow.com/license-agreement.html>
+ * @Author: magepow<support@magepow.com>
+ * @github: <https://github.com/magepow>
+ */
+ & when (@media-common = true) {
+    .modal-popup {
+        &.customer-popup-ajaxwishlist {
+            opacity: 0;
+            
+           /* transform: scale(0) rotate(15deg) skewX(-30deg);*/
+            transition: transform 1s, opacity .8s ease-in-out;
+
+
+            &._show {
+                opacity: 1;
+                /* transform: scale(1) rotate(0) skewX(0deg);*/
+            }
+            .modal-inner-wrap {
+                position: absolute;
+
+                width: auto;
+                max-width: 430px;
+                margin: auto;
+                top: 50%;
+                transform: translateY(-50%);
+                max-height: 90%;
+                overflow-y: auto;
+                overflow-x: hidden;
+                padding: 30px;
+                .modal-content {
+                    padding: 0;
+                    overflow-y: visible;
+                }
+                .block-customer-login {
+                    margin-bottom: 0;
+                }
+                .image-system-wishlist {
+                    text-align: center;
+                    margin-bottom: 25px;
+                }
+                .fieldset {
+                    .field {
+                        &.note {
+                            font-size: 2.4rem;
+                            text-align: center;
+                        }
+                    }
+                    &.login {
+                        margin-bottom: 0;
+                        .password {
+                            .control {
+                                margin-bottom: 5px;
+                            }
+                            .secondary {
+                                text-align: right;
+
+                            }
+                        }
+
+                    }
+                }
+                .actions-toolbar {
+                    
+                    .primary {
+                        float: none;
+                        display: block;
+                    }
+                    >.primary {
+                        margin-bottom: 10px;
+                    }
+                    >.secondary {
+                        display: block;
+                        .action {
+                            font-size: 1.8rem;
+                        }
+                    }
+                    
+                }
+                
+                .mgp-message-successs {
+                    margin-bottom: 15px;
+                }
+                .action {
+                    &.primary {
+                        display: block;
+                        width: 100%;
+                        padding: 15px 15px;
+                    }
+                }
+                
+            }
+            &._show {
+                .modal-inner-wrap {
+                    transform: translateY(-50%);
+                }
+                
+            }
+            .modal-header {
+                padding-top: 0;
+                padding-bottom: 0;
+            }
+            .modal-footer {
+                display: none;
+            }
+        }
+        &.modal-popup_ajaxwishlist_magepow {
+            opacity: 0;
+            
+            transform: scale(0) rotate(15deg) skewX(-30deg);
+            transition: transform 1s, opacity .8s ease-in-out;
+
+
+            &._show {
+                opacity: 1;
+                transform: scale(1) rotate(0) skewX(0deg);
+            }
+            .modal-inner-wrap {
+                position: absolute;
+
+                width: auto;
+                max-width: 450px;
+                margin: auto;
+                top: 50%;
+                transform: translateY(-50%);
+                max-height: 90%;
+                overflow-y: auto;
+                overflow-x: hidden;
+                padding: 30px;
+                .modal-content {
+                    padding: 0;
+                    overflow-y: visible;
+                }
+                .product-name {
+                    margin-top: 10px;
+                }
+                .mgp-wishlist-popup-border {
+                    text-align: center;
+                    
+                }
+                .success_message_text {
+                    margin-bottom: 15px;
+                }
+                .action {
+                    &.primary {
+                        display: block;
+                        width: 100%;
+                        padding: 15px 15px;
+                        &.mgp-wishlist-close {
+                            display: none;
+                        }
+                    }
+                }
+                
+            }
+            &._show {
+                .modal-inner-wrap {
+                    transform: translateY(-50%);
+                }
+                
+            }
+            
+            .modal-header {
+                padding-top: 0;
+                padding-bottom: 0;
+            }
+            .modal-footer {
+                display: none;
+            }
+        }
+
+
+    }
+    @media only screen and (max-width: 767px) {
+        .modal-popup {
+            &.customer-popup-ajaxwishlist,
+            &.modal-popup_ajaxwishlist_magepow {
+                
+                &._inner-scroll {
+                    left: 0;
+                    .modal-inner-wrap[class] {
+                        min-height: initial;
+                        transform: translate(0, -50%);
+                        position: absolute;
+                        background-color: #ffffff;
+                        margin: auto;
+                        max-height: 90%;
+                    }
+                    &._show {
+                        .modal-inner-wrap[class] {
+                            transform: translate(0, -50%);
+
+                        }
+                    }
+                }
+            }
+            &.customer-popup-ajaxwishlist {
+                .modal-inner-wrap {
+                    .fieldset {
+                        .field {
+                            &.note {
+                                font-size: 1.8rem;
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+  .customer-popup-login._disabled{
+        display: none;
+    }
+}

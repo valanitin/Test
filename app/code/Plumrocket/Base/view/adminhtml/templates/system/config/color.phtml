@@ -1,0 +1,15 @@
+<?php
+/**
+ * @package     Plumrocket_Base
+ * @copyright   Copyright (c) 2020 Plumrocket Inc. (https://plumrocket.com)
+ * @license     https://plumrocket.com/license/  End-user License Agreement
+ */
+?>
+<?php /** @var \Plumrocket\Base\Block\Adminhtml\System\Config\Form\Color $block */ ?>
+<span id="pr-jscolor" data-dir="<?= /* @noEscape */ $block->getViewFileUrl('Plumrocket_Base/js') . '/' ?>"></span>
+<script>
+    var prColorPathId = "<?= /* @noEscape */ $block->getPathId() ?>";
+    require(["jquery", "mage/mage"], function($) {
+        $('#' + prColorPathId).mage('jscolor');
+    });
+</script>

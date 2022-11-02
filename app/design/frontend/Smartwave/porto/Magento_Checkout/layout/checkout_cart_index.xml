@@ -1,0 +1,30 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Copyright © 2015 Magento. All rights reserved.
+ * See COPYING.txt for license details.
+ */
+-->
+<page layout="1column" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+      xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/page_configuration.xsd">
+    <head>
+        <script src="Magento_Checkout::js/form.js" />
+        <script src="Magento_Checkout::js/coupon.js" />
+    </head>
+    <body>
+        <referenceContainer name="cart.summary">
+            <container name="cart.donation.summary" label="Cart donation Container" htmlTag="div" htmlClass="cart-donation" after="-" />
+			<container name="cart.rest.summary" label="Cart donation Container" htmlTag="div" htmlClass="cart-rest-summery" after="-" />
+        </referenceContainer>
+		
+        <move element="checkout.cart.crosssell" destination="checkout.cart.container" after="-" /> 
+		<move element="cart.donation.list" destination="cart.donation.summary" before="-" />
+        <move element="checkout.cart.summary.title" destination="cart.rest.summary" before="-" />
+		<move element="checkout.cart.shipping" destination="cart.rest.summary" after="checkout.cart.summary.title" />
+		<move element="checkout.cart.coupon" destination="checkout.cart.form" />
+		<move element="coupon.list.popup" destination="checkout.cart.form" />
+		<move element="checkout.cart.totals.container" destination="cart.rest.summary" after="checkout.cart.shipping" />
+		<move element="checkout.cart.methods.bottom" destination="cart.rest.summary" after="checkout.cart.totals.container" />
+        <move element="checkout.cart.shortcut.buttons" destination="checkout.cart.methods" after="checkout.cart.methods.onepage.bottom"/>
+    </body>
+</page>

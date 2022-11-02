@@ -1,0 +1,13 @@
+<?xml version="1.0"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:ObjectManager/etc/config.xsd">
+   <!-- <preference for="Magento\Framework\App\Config\ScopeCodeResolver" type="Magentizer\GeoIP\Model\Config\ScopeCodeResolver" />
+    <type name="Magento\Store\Api\StoreResolverInterface">
+        <plugin name="tobai-geo-store-switcher" type="Magentizer\GeoIP\Plugin\StoreResolver" sortOrder="999" />
+    </type>
+    <type name="Magento\Framework\App\State">
+        <plugin name="tobai-geo-store-switcher" type="Magentizer\GeoIP\Plugin\AppState" />
+    </type>
+    <type name="Magento\Framework\App\PageCache\Identifier">
+        <plugin name="tobai-geo-store-switcher" type="Magentizer\GeoIP\Plugin\PageCache\GeoIdentifier" />
+    </type> -->
+</config>

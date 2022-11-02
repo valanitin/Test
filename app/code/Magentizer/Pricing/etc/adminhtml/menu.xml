@@ -1,0 +1,17 @@
+<!--
+/*
+ * Magentizer_Pricing
+
+ * @category   SussexDev
+ * @package    Magentizer_Pricing
+ * @copyright  Copyright (c) 2019 Scott Parsons
+ * @license    https://github.com/ScottParsons/module-sampleuicomponent/blob/master/LICENSE.md
+ * @version    1.1.2
+ */
+-->
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Backend:etc/menu.xsd">
+    <menu>
+        <add id="Magentizer_Pricing::data" title="ERP Pricing" module="Magentizer_Pricing" sortOrder="75" resource="Magentizer_Pricing::data"
+             action="erppricing/data/index"/>
+    </menu>
+</config>

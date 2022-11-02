@@ -1,0 +1,233 @@
+<?php
+$dynamicHelper = $this->helper('\Dynamic\Customization\Helper\Data');
+$customerSession = $dynamicHelper->getCustomerSessionManager();
+$config = $block->getLayout()->createBlock(\Magento\Config\Block\System\Config\Form::class);
+$ticketList = '';
+$ticketreply = "";
+$apiTicketsData = array();
+if ($customerSession->isLoggedIn()) {
+    $customerSession->getCustomerId();  // get Customer Id
+    $customerSession->getCustomerGroupId();
+    $customerSession->getCustomer();
+    $customerSession->getCustomerData();
+    $customerName = $customerSession->getCustomer()->getName();  // get  Full Name
+    $customerEmail = $customerSession->getCustomer()->getEmail(); // get Email
+    $website = 'www.sololuxury.com';
+
+    $url = $config->getConfigValue('custom/erp_api/erp_api_url').'api/ticket/send';
+
+    //Initiate cURL.
+    $ch = curl_init($url);
+
+    //The JSON data.
+    $newjsonData = array(
+      'website' => $website,
+      'email' => $customerEmail
+    );
+
+    //Encode the array into JSON.
+    $jsonDataEncoded = json_encode($newjsonData);
+
+    //Tell cURL that we want to send a POST request.
+    curl_setopt($ch, CURLOPT_POST, 1);
+    curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
+    //Attach our encoded JSON string to the POST fields.
+    curl_setopt($ch, CURLOPT_POSTFIELDS, $jsonDataEncoded);
+
+    //Set the content type to application/json
+    curl_setopt($ch, CURLOPT_HTTPHEADER, array('Content-Type: application/json'));
+
+    // Return response instead of outputting
+    // curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+
+    //Execute the request
+
+	$content = trim(curl_exec($ch));
+	curl_close($ch);
+
+	$data = json_decode($content, true);
+	if(empty($data)){
+        $ticketList = "";        
+	}else{
+        $apiStatus = $data['status'];
+        $apiTickets = $data['tickets'];
+        $apiTicketsData = $apiTickets['data'];
+	}
+
+	//demo data
+	/*$apiTicketsData[0] = array('ticket_id' => '1360006','subject' => 'lorem ipsom dummy text','order' => '0000001','created_at' => 'Mar 29, 2021 7:33:13 AM','updated_at' => 'Mar 29, 2021 7:33:13 AM','message' => 'lorem ipsom dummy text','messages'=>array(0 => array('message'=>'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Quis ipsum suspendisse ultrices gravida. Risus commodo viverra maecenas accumsan.','created_at'=> 'Mar 29, 2021 7:33:13 AM', 'send_by'=>'admin'),2 => array('message'=>'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Quis ipsum suspendisse ultrices gravida. Risus commodo viverra maecenas accumsan.','created_at'=> 'Mar 29, 2021 7:33:13 AM', 'send_by'=>'admin')),'status' => 'Customer Wait');
+	$apiTicketsData[1] = array('ticket_id' => '1360007','subject' => 'lorem ipsom dummy text','order' => '0000001','created_at' => 'Mar 29, 2021 7:33:13 AM','updated_at' => 'Mar 29, 2021 7:33:13 AM','message' => 'lorem ipsom dummy text','messages'=>array(0 => array('message'=>'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Quis ipsum suspendisse ultrices gravida. Risus commodo viverra maecenas accumsan.','created_at'=> 'Mar 29, 2021 7:33:13 AM', 'send_by'=>'admin'),2 => array('message'=>'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Quis ipsum suspendisse ultrices gravida. Risus commodo viverra maecenas accumsan.','created_at'=> 'Mar 29, 2021 7:33:13 AM', 'send_by'=>'admin')),'status' => 'Customer Wait');
+	$apiTicketsData[2] = array('ticket_id' => '1360008','subject' => 'lorem ipsom dummy text','order' => '0000001','created_at' => 'Mar 29, 2021 7:33:13 AM','updated_at' => 'Mar 29, 2021 7:33:13 AM','message' => 'lorem ipsom dummy text','messages'=>array(0 => array('message'=>'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Quis ipsum suspendisse ultrices gravida. Risus commodo viverra maecenas accumsan.','created_at'=> 'Mar 29, 2021 7:33:13 AM', 'send_by'=>'admin'),2 => array('message'=>'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Quis ipsum suspendisse ultrices gravida. Risus commodo viverra maecenas accumsan.','created_at'=> 'Mar 29, 2021 7:33:13 AM', 'send_by'=>'admin')),'status' => 'Customer Wait');
+	$apiTicketsData[3] = array('ticket_id' => '1360009','subject' => 'lorem ipsom dummy text','order' => '0000001','created_at' => 'Mar 29, 2021 7:33:13 AM','updated_at' => 'Mar 29, 2021 7:33:13 AM','message' => 'lorem ipsom dummy text','messages'=>array(0 => array('message'=>'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Quis ipsum suspendisse ultrices gravida. Risus commodo viverra maecenas accumsan.','created_at'=> 'Mar 29, 2021 7:33:13 AM', 'send_by'=>'admin'),2 => array('message'=>'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Quis ipsum suspendisse ultrices gravida. Risus commodo viverra maecenas accumsan.','created_at'=> 'Mar 29, 2021 7:33:13 AM', 'send_by'=>'admin')),'status' => 'Customer Wait');*/
+	//demo data
+	
+	foreach($apiTicketsData as $ticket){
+		$ticketId = $ticket['ticket_id'];
+		$ticketName = $ticket['subject'];
+		$ticketCreate = $ticket['created_at'];
+		$ticketUpdated = $ticket['updated_at'];
+		$ticketMessage = $ticket['message'];
+		$ticketStatus = $ticket['status'];
+		
+		$ticketreplyarray = $ticket['messages'];
+		$ticketreply .= "<div class='replymessages' style='display:none;' id='messages".$ticketId."'>";
+		$ticketreply .= '<div class="messages_section"><div><ul><li>'.__('Message').'</li><li>'.__('Date').'</li><li>'.__('Time').'</li><li>'.__('Send By').'</li></ul>';
+		foreach($ticketreplyarray as $replyarray){
+			$date = date('Y-m-d',strtotime($replyarray['created_at']));
+			$time = date('h:i:s',strtotime($replyarray['created_at']));
+			$ticketreply .= '<ul><li>'.$replyarray['message'].'</li><li>'.$date .'</li><li>'.$time.'</li><li>'.$replyarray['send_by'].'</li></ul>';
+		}
+		$ticketreply .= "<div class='closepopup' onclick='showmessage(".'"'.$ticketId.'"'.")'>×</div></div></div></div>";
+		
+		// echo '<pre>';
+		// print_r($ticket);
+		$ticketList .= 	'<ul>
+						<li>'.$ticketId.'</li>
+						<li>'.$ticketName.'</li>
+						<li>'.$ticketCreate.'</li>
+						<li>'.$ticketUpdated.'</li>
+						<li>'.$ticketMessage.'</li>
+						<li>'.$ticketStatus.'</li>
+						<li class="text-center"><a class="porto-icon-eye" onclick="showmessage('."'".$ticketId."'".');"></a></li>
+						</ul>';
+	}
+
+?>
+<div class="mytickets-container">
+	<div class="row">
+		<div class="col-md-12">
+		  <h2><?php echo __('My Tickets') ?></h2>
+		</div>
+	</div>
+	<div class="desktop-view">
+		<div class="row">
+			<div class="col-md-12">
+				<ul class="titles">
+					<li><?php echo __('ID') ?></li>
+					<li><?php echo __('Name') ?></li>
+					<li><?php echo __('Created') ?></li>
+					<li><?php echo __('Last Updated') ?></li>
+					<li><?php echo __('Message') ?></li>
+					<li><?php echo __('Current Status') ?></li>
+					<li class="text-center"><?php echo __('Action') ?></li>
+				</ul>
+				<div class="ticket-content">
+					<?php 
+					  if($ticketList != ''){
+						echo $ticketList; 
+					  }else{
+						echo '<ul><li class="no-record">'.__('No Records Found').'</li></ul>';
+					  }
+					?>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div class="mobile-view">
+		<div class="row">
+			<div class="col-md-12">
+				<ul class="titles">
+					<li><?php echo __('ID') ?></li>
+					<li><?php echo __('Subject') ?></li>
+					<li class="text-center"><?php echo __('Action') ?></li>
+				</ul>
+				<div class="ticket-content">
+					<?php if(count($apiTicketsData) > 0):?>
+						<?php foreach($apiTicketsData as $ticket):?>
+							<ul>
+								<li><?= $ticket['ticket_id'] ?></li>
+								<li><?= $ticket['subject'] ?></li>
+								<li class="porto-icon-eye text-center" data-ticket="<?= $ticket['ticket_id'] ?>"></li>
+							</ul>
+						<?php endforeach; ?>
+					<?php else:?>
+						<ul><li class="no-record"><?= __('No Records Found') ?></li></ul>
+					<?php endif; ?>
+				</div>
+			</div>
+		</div>
+		<div class="row">
+			<div class="col-md-12">
+				<?php if(count($apiTicketsData) > 0):?>
+					<?php foreach($apiTicketsData as $ticket):?>
+						<div class="mobile-popup-detials modal" data-ticketId="<?= $ticket['ticket_id'] ?>">
+							<div class="detials-outter">
+								<span class="close">&times;</span>
+								<div class="details-wrapper">
+									<div class="column id">	
+										<span><?php echo __('ID') ?></span>
+										<span><?= $ticket['ticket_id'] ?></span>
+									</div>
+									<div class="column subject">	
+										<span><?php echo __('Subject') ?></span>
+										<span><?= $ticket['subject'] ?></span>
+									</div>
+									<div class="column order">	
+										<span><?php echo __('Created At') ?></span>
+										<span><?= $ticket['created_at'] ?></span>
+									</div>
+									<div class="column request-type">	
+										<span><?php echo __('Message') ?></span>
+										<span><?= $ticket['message'] ?></span>
+									</div>
+									<div class="column update-date">	
+										<span><?php echo __('Last Update') ?></span>
+										<span><?= $ticket['updated_at'] ?></span>
+									</div>
+									<div class="column status">	
+										<span><?php echo __('Status') ?></span>
+										<span><?= $ticket['status'] ?></span>
+									</div>
+									<div class="show-message" onclick="showmessage('<?= $ticket['ticket_id'] ?>')">Show all message</div>
+								</div>
+							</div>
+						</div>
+					<?php endforeach; ?>
+				<?php endif; ?>
+			</div>
+		</div>
+	</div>
+	<div class="row">
+		<div class="col-md-12"> <?php echo $ticketreply; ?>
+		</div>
+	</div>
+</div>
+<script type="text/javascript">
+function showmessage(tid)
+{
+	var messagesmodal = document.getElementById("messages"+tid);
+	if (window.getComputedStyle(messagesmodal).display === "none") {
+	messagesmodal.style.display = "block";
+	}else{
+	messagesmodal.style.display = "none";
+	}
+}
+require(['jquery','mage/mage','jquery/ui'], function($){
+    $(document).ready(function() {
+		$('.tickets-customer-index .mobile-popup-detials .close').on('click',function(){
+			$(this).parents('.modal').hide();
+		});
+		$('.tickets-customer-index .ticket-content li.porto-icon-eye').on('click',function(){
+			var ticketId = $(this).attr('data-ticket');
+			$('.tickets-customer-index .mobile-popup-detials[data-ticketId="'+ticketId+'"]').show();
+		});
+	});
+});
+</script>
+<?php } ?>
+<style>
+@media(max-width:767px){
+	.account .mytickets-container .replymessages .messages_section ul li:nth-child(1)::before {
+		content: '<?php echo __("Message") ?>';
+	}
+	.account .mytickets-container .replymessages .messages_section ul li:nth-child(2)::before {
+		content: '<?php echo __("Date") ?>';
+	}
+	.account .mytickets-container .replymessages .messages_section ul li:nth-child(3)::before {
+		content: '<?php echo __("Time") ?>';
+	}
+	.account .mytickets-container .replymessages .messages_section ul li:nth-child(4)::before {
+		content: '<?php echo __("Send By") ?>';
+	}
+}
+</style>

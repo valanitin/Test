@@ -1,0 +1,33 @@
+<?php
+/**
+ * Plumrocket Inc.
+ *
+ * NOTICE OF LICENSE
+ *
+ * This source file is subject to the End-user License Agreement
+ * that is available through the world-wide-web at this URL:
+ * http://wiki.plumrocket.net/wiki/EULA
+ * If you are unable to obtain it through the world-wide-web, please
+ * send an email to support@plumrocket.com so we can send you a copy immediately.
+ *
+ * @package     Plumrocket_Amp
+ * @copyright   Copyright (c) 2016 Plumrocket Inc. (http://www.plumrocket.com)
+ * @license     http://wiki.plumrocket.net/wiki/EULA  End-user License Agreement
+ */
+?>
+.amp-cat{text-align:center;font-size:0;margin-left:-1.5%;margin-right:-1.5%}
+.amp-cat a{margin:1%;width:31%;letter-spacing:0;display:inline-block;color:#636363;box-sizing:border-box;text-transform:uppercase;font-size:20px;position:relative}
+.amp-cat a:hover{opacity:0.6;text-decoration:none}
+.amp-cat a > span{display:block;background-color:#f4f4f4;background-size:cover;background-position:center}
+.amp-cat a span span{display:inline-block;line-height:normal;background:#fff;padding:3px 10px;min-width:80px;position:absolute;top:50%;transform:translate(-50%,-50%);left:50%}
+
+@media (max-width:760px){
+.amp-cat{margin-left:0;margin-right:0}
+.amp-cat a > span{line-height:100px}
+.amp-cat a{width:48%;font-size: 15px;}
+.amp-cat a.sale,.amp-cat a.vip{width:auto;display:block;margin-bottom:2%}
+}
+@media (max-width:550px){
+.amp-cat a{width:auto;display:block;margin-bottom:2%}
+.amp-cat a.sale,.amp-cat a.vip{width:48%;display:inline-block;margin-bottom:2%;margin-top: 0}
+}

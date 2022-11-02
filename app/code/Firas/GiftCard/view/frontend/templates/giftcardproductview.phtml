@@ -1,0 +1,23 @@
+<!--
+/**
+ * @Author      Firas Developers
+ * @package     Firas_GiftCard
+ * @copyright   Copyright (c) 2019 MAGETOP (https://www.firas.com)
+ * @terms       https://www.firas.com/terms
+ * @license     https://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
+ **/
+-->
+<?php $productType = $block->getproductType()?>
+<script type="text/javascript">
+    require([
+        'jquery'
+    ], function($){
+        $(document).ready(function(){
+            if ('<?php echo $productType; ?>' == 'giftcard') {
+                $("span:contains('Email To')").each(function(index){
+                    $(this).parent().next('div').find('input').attr('data-validate',"{required:true, 'validate-email':true}");
+                });
+            }
+        });
+    });
+</script>

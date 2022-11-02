@@ -1,0 +1,7 @@
+<?xml version="1.0"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Backend:etc/menu.xsd">
+    <menu>
+        <add id="Dynamic_Abandonedcartapi::abandonedcartapi_manage" title="Abandoned Cart" translate="title" module="Dynamic_Abandonedcartapi" sortOrder="100" parent="Magento_Backend::system" resource="Dynamic_Abandonedcartapi::abandonedcartapi_manage"/>
+        <add id="Dynamic_Abandonedcartapi::abandonedcartapi_fields" title="Abandoned Cart Manager" module="Dynamic_Abandonedcartapi" sortOrder="10" parent="Dynamic_Abandonedcartapi::abandonedcartapi_manage" action="abandonedcartapi/index/" resource="Dynamic_Abandonedcartapi::abandonedcartapi_fields"/>
+    </menu>
+</config>

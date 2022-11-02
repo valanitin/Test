@@ -1,0 +1,222 @@
+.page-product-donation .product-add-form .qty {
+    display: none !important;
+}
+
+.page-product-donation .box-tocart {
+    margin-top: 10px;
+}
+
+.firas-donation {
+    background-color: #f5f5f5;
+    box-sizing: border-box;
+    margin-bottom: 24px;
+    padding: 20px;
+}
+.firas-donation * {
+    box-sizing: border-box;
+}
+.firas-donation .firas-donation-product-list {
+    display: block;
+    flex-flow: row wrap;
+    justify-content: space-between;
+}
+.firas-donation .firas-donation-product-list header {
+    width: 100%;
+}
+.firas-donation .firas-donation-product {
+    background-color: #FFFFFF;
+    border-radius: 2px;
+    box-shadow: 0 2px 4px 0 rgba(0,0,0,0.1);
+    display: inline-block;
+    margin: 0 1% 10px 0;
+    padding: 20px;
+    width: 48%;
+}
+.firas-donation .firas-donation-image-wrapper {
+    display: block;
+    height: 0;
+    padding-bottom: 100%;
+    position: relative;
+    width: 100%;
+}
+.firas-donation .firas-donation-product-image {
+    left: 50%;
+    max-height: 100%;
+    max-width: 100%;
+    position: absolute;
+    top: 50%;
+    transform: translate(-50%,-50%);
+    width: auto;
+}
+.firas-donation .firas-donation-product-tocart {
+    background-color: #00457F;
+    border-radius: 2px;
+    border: none;
+    color: white;
+    display: none;
+    height: 40px;
+    line-height: 40px;
+    padding: 0 5px;
+    margin-top: 20px;
+    text-align: center;
+    width: 100%;
+}
+
+.firas-donation-modal {
+    display: none;
+    text-align: center;
+}
+
+.firas-donation-modal .charity-description {
+    padding: 10px;
+}
+.firas-donation-modal .charity-form .firas-donation-amounts .firas-donations-fixed-amounts {
+    display: flex;
+    flex-direction:row;
+}
+.firas-donation-modal .charity-form .firas-donation-amounts .firas-donations-fixed-amounts  input[type="radio"] {
+    display: none;
+}
+.firas-donation-modal .charity-form .firas-donation-amounts .firas-donations-fixed-amounts  label.firas-donation-amount-label {
+    background-color: #713213;
+    border-radius: 3px;
+    border: none;
+    box-sizing: border-box;
+    color: white;
+    flex:1 1 auto;
+    height: 40px;
+    line-height: 40px;
+    margin: 10px;
+    padding: 0 5px;
+    text-align: center;
+}
+.firas-donation-modal .charity-form .firas-donation-amounts .firas-donation-custom-amount {
+    margin-bottom: 2rem;
+    padding: 10px;
+}
+
+.firas-donation-modal .charity-form .firas-donation-amounts .firas-donation-amount-notification {
+    margin-bottom: 2rem;
+    font-style: italic;
+}
+.firas-donation-modal .charity-form .firas-donation-amounts .firas-donation-custom-amount .custom-donation-amount-field .custom-amount-currency-symbol{
+    border: 1px solid #c2c2c2;
+    border-radius: 3px 0 0 3px;
+    border-right: 0;
+    box-sizing: border-box;
+    display: block;
+    float: left;
+    font-weight: bold;
+    height: 40px;
+    line-height: 38px;
+    width: 7%;
+}
+.firas-donation-modal .charity-form .firas-donation-amounts .firas-donation-custom-amount .custom-donation-amount-field input{
+    border-radius: 0 3px 3px 0;
+    box-sizing: border-box;
+    display: block;
+    height: 40px;
+    padding: 0 20px;
+    width: 100px;
+	background: transparent;
+}
+.firas-donation  .firas-donation-product:hover,
+.firas-donation-modal .charity-form .firas-donation-amounts label:hover {
+    cursor: pointer;
+    -webkit-touch-callout: none;
+    -webkit-user-select: none;
+    -khtml-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+}
+.firas-donation  .firas-donation-product:hover .firas-donation-product-tocart,
+.firas-donation-modal .charity-form .firas-donation-amounts .firas-donations-fixed-amounts label:hover,
+.firas-donation-modal .charity-form .firas-donation-amounts .firas-donations-fixed-amounts input[type="radio"]:checked+label {
+    background-color: #ff8159;
+    text-decoration: none;
+}
+.firas-donation-modal .charity-form .firas-donation-form-actions {
+    padding: 10px;
+}
+.firas-donation-modal .charity-form .firas-donation-form-actions button.charity-button.action {
+    line-height: 2.2rem;
+    padding: 0px 17px;
+    width: 100%;
+}
+
+/* Magento 1 inside column */
+.col-left .firas-donation {
+    padding: 10px;
+}
+.col-left .firas-donation .firas-donation-product {
+    width: 100%;
+}
+
+.sidebar .firas-donation {
+
+}
+
+#opc-sidebar .firas-donation{
+    padding: 0;
+}
+
+#opc-sidebar .firas-donation .firas-donation-product,
+.cart-summary .firas-donation .firas-donation-product,
+.sidebar .firas-donation .firas-donation-product{
+    width: 31%;
+    padding: 0px;
+}
+
+#opc-sidebar .firas-donation .firas-donation-product-tocart,
+.cart-summary .firas-donation .firas-donation-product-tocart,
+.sidebar .firas-donation .firas-donation-product-tocart {
+    display: none;
+}
+
+@media (max-width: 380px) {
+    .firas-donation-modal .charity-form .firas-donation-amounts .firas-donations-fixed-amounts  label.firas-donation-amount-label {
+        margin: 5px;
+        padding: 0px;
+    }
+}
+
+@media (min-width: 479px) {
+    .firas-donation .firas-donation-mobile-instructions {
+        display: none;
+    }
+    .firas-donation .firas-donation-product-tocart {
+        display: block;
+    }
+}
+@media (min-width: 599px) {
+    .firas-donation .firas-donation-product {
+        width: 31%;
+    }
+}
+@media (min-width: 768px) {
+    .firas-modal-popup .modal-inner-wrap {
+        width: 65%;
+    }
+    .cart-summary .firas-donation{
+        padding: 0px;
+    }
+}
+@media (min-width: 803px) {
+    .firas-modal-popup .modal-inner-wrap {
+        width: 50%;
+    }
+    .checkout-cart-index .firas-donation .firas-donation-product {
+        width: 22.5%;
+    }
+}
+@media (min-width: 1024px) {
+    .firas-donation .firas-donation-product {
+        width: 23.5%;
+    }
+}
+@media (min-width: 1200px) {
+    .firas-modal-popup .modal-inner-wrap {
+        width: 40%;
+    }
+}

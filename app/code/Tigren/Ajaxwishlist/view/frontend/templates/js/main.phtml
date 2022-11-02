@@ -1,0 +1,17 @@
+<?php
+/**
+ * @copyright Copyright (c) 2017 www.tigren.com
+ */
+// @codingStandardsIgnoreFile
+
+/** @var \Tigren\Ajaxwishlist\Block\Js $block */
+?>
+<?php $wishlist = $block->getAjaxWishlistInitOptions();?>
+<script type="text/x-magento-init">
+{
+    "*": {
+        "tigren/ajaxwishlist"    : <?php echo $block->getAjaxWishlistInitOptions(); ?>
+    }
+}
+
+</script>

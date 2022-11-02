@@ -1,0 +1,34 @@
+<?php
+$dynamicHelper = $this->helper('\Dynamic\Customization\Helper\Data');
+$storeManager = $dynamicHelper->getStoreManager();
+$siteBaseUrl = $storeManager->getStore()->getBaseUrl(\Magento\Framework\UrlInterface::URL_TYPE_WEB);
+$siteUrl = $this->getUrl();
+?>
+<!-- START CODE FOR POPUP -->
+<?php
+$currentFullAction = $block->getRequest()->getFullActionName();
+?>
+<!-- (isset($_COOKIE['popupShown']) && $_COOKIE['popupShown'] =="1")?"none":"block" -->
+
+<!-- Start Code for display popup only first time --> 
+<?php
+$clspopupac = "";
+if (@$_COOKIE['popupShow'] === "disable") {
+    $clspopupac = "none";
+} else {
+    $clspopupac = "block";
+}
+?>
+<div class="clsnotification" style="display: <?php echo $clspopupac; ?>">
+    <!-- End Code for display popup only first time -->
+
+    <!-- <div class="clsnotification"> -->
+    <div class="clsnotwrapper">
+        <p><?php echo __('Dont Miss Out Special Deals & New Arrivals<br/>Sign up to notifications') ?></p>
+        <div class="clsbuttonwrapper">
+            <a class="clsbtnyes" href="JavaScript:void(0);"><?php echo __('Yes') ?></a>
+            <a class="clsbtnno" href="JavaScript:void(0);"><?php echo __('No') ?></a>
+        </div>
+    </div>
+</div>
+<!-- END CODE FOR POPUP -->

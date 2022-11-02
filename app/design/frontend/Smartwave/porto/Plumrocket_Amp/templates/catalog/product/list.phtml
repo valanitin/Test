@@ -1,0 +1,108 @@
+<?php
+/**
+ * Plumrocket Inc.
+ *
+ * NOTICE OF LICENSE
+ *
+ * This source file is subject to the End-user License Agreement
+ * that is available through the world-wide-web at this URL:
+ * http://wiki.plumrocket.net/wiki/EULA
+ * If you are unable to obtain it through the world-wide-web, please
+ * send an email to support@plumrocket.com so we can send you a copy immediately.
+ *
+ * @package     Plumrocket_Amp
+ * @copyright   Copyright (c) 2019 Plumrocket Inc. (http://www.plumrocket.com)
+ * @license     http://wiki.plumrocket.net/wiki/EULA  End-user License Agreement
+ */
+
+// @codingStandardsIgnoreFile
+?>
+<?php
+/**
+ * Product list template
+ *
+ * @var $block \Magento\Catalog\Block\Product\ListProduct
+ */
+?>
+<?php
+$_productCollection = $block->getLoadedProductCollection();
+/** @var Magento\Catalog\Helper\Output $_helper */
+$_helper = $this->helper(\Magento\Catalog\Helper\Output::class);
+
+/** @var Plumrocket\Amp\Helper\Data $_helperAmp */
+$_helperAmp = $this->helper(\Plumrocket\Amp\Helper\Data::class);
+?>
+<?php if (! $_productCollection->count()) : ?>
+    <div class="message info empty"><div><?php /* @escapeNotVerified */ echo __('We can\'t find products matching the selection.') ?></div></div>
+<?php else : ?>
+    <?php echo $block->getToolbarHtml() ?>
+    <?php echo $block->getAdditionalHtml() ?>
+
+    <?php
+        /** @var \Plumrocket\Amp\Block\Catalog\Product\ListForm $listForm */
+        $listForm = $block->getLayout()->getBlock('amp.global.ajax.product.list.form');
+    ?>
+
+    <?php
+    if ($block->getMode() === 'grid') {
+        $viewMode = 'grid';
+        $image = 'amp_category_page_grid';
+        $showDescription = false;
+        $templateType = \Magento\Catalog\Block\Product\ReviewRendererInterface::SHORT_VIEW;
+    } else {
+        $viewMode = 'list';
+        $image = 'amp_category_page_list';
+        $showDescription = true;
+        $templateType = \Magento\Catalog\Block\Product\ReviewRendererInterface::FULL_VIEW;
+    }
+    ?>
+    <div class="products wrapper <?php /* @escapeNotVerified */ echo $viewMode; ?> products-<?php /* @escapeNotVerified */ echo $viewMode; ?>">
+        <?php $iterator = 1; ?>
+        <?php $lastIterable = count($_productCollection) + 1; ?>
+
+        <ol class="products list items product-items">
+            <?php foreach ($_productCollection as $_product) : ?>
+                <?php /* @escapeNotVerified */ echo ($iterator++ === 1) ? '<li class="item product product-item">' : '</li><li class="item product product-item">' ?>
+                <div class="product-item-info">
+                    <?php
+                        $productImage = $block->getImage($_product, $image);
+                        $productImage->setCustomAttributes('layout="responsive"');
+                        $productImage->setTemplate('Plumrocket_Amp::catalog/product/image.phtml');
+                    ?>
+                    <?php // Product Image ?>
+                    <a href="<?php /* @escapeNotVerified */ echo $_product->getProductUrl() ?>" class="product photo product-item-photo">
+                        <?= $productImage->toHtml(); ?>
+                    </a>
+
+                    <div class="product details product-item-details">
+                        <?php
+                            $_productNameStripped = $block->stripTags($_product->getName(), null, true);
+                        ?>
+                        <strong class="product name product-item-name">
+                            <a class="product-item-link"
+                               href="<?php /* @escapeNotVerified */ echo $_product->getProductUrl() ?>">
+                                <?php /* @escapeNotVerified */ echo $_helper->productAttribute($_product, $_product->getName(), 'name'); ?>
+                            </a>
+                        </strong>
+                        <?php echo $_helperAmp->getReviewsSummaryHtml($_product, $templateType); ?>
+                        <?php /* @escapeNotVerified */ echo $block->getProductPrice($_product) ?>
+                        <?php echo $block->getProductDetailsHtml($_product); ?>
+
+                        <div class="product-item-inner">
+                            <?php if ($showDescription) : ?>
+                                <div class="product description product-item-description">
+                                    <?php /* @escapeNotVerified */ echo $_helper->productAttribute($_product, $_product->getShortDescription(), 'short_description') ?>
+                                    <a href="<?php /* @escapeNotVerified */ echo $_product->getProductUrl() ?>"
+                                       title="<?php /* @escapeNotVerified */ echo $_productNameStripped ?>"
+                                       class="action more"><?= $block->escapeHtml(__('Learn More')) ?></a>
+                                </div>
+                            <?php endif; ?>
+                        </div>
+                    </div>
+                </div>
+                <?= ($iterator === $lastIterable) ? '</li>' : '' ?>
+            <?php endforeach; ?>
+        </ol>
+    </div>
+    <?php echo $block->getToolbarHtml() ?>
+<?php endif; ?>

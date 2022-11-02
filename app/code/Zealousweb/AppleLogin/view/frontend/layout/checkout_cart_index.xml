@@ -1,0 +1,10 @@
+<?xml version="1.0"?>
+<page xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" layout="1column" xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/page_configuration.xsd">
+	<body>
+	    <referenceContainer name="content">
+	    	<container name="apple.login.wrapper" label="Apple Login Wrapper" htmlTag="div" htmlClass="apple-login-container" before="-">
+	        	<block class="Zealousweb\AppleLogin\Block\Login\Button" name="zealousweb.apple.button" template="Zealousweb_AppleLogin::login/button.phtml" before="-" ifconfig="appleconfig/apple/is_show_button_on_cart"/>
+        	</container>
+	    </referenceContainer>
+	</body>
+</page>

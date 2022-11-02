@@ -1,0 +1,49 @@
+<?php 
+/**
+ * BSS Commerce Co.
+ *
+ * NOTICE OF LICENSE
+ *
+ * This source file is subject to the EULA
+ * that is bundled with this package in the file LICENSE.txt.
+ * It is also available through the world-wide-web at this URL:
+ * http://bsscommerce.com/Bss-Commerce-License.txt
+ *
+ * @category   BSS
+ * @package    Bss_GeoIPAutoSwitchStore
+ * @author     Extension Team
+ * @copyright  Copyright (c) 2016-2017 BSS Commerce Co. ( http://bsscommerce.com )
+ * @license    http://bsscommerce.com/Bss-Commerce-License.txt
+ */
+ 
+// @codingStandardsIgnoreFile
+
+/** @var \Bss\GeoIPAutoSwitchStore\Block\Switcher $block */
+?>
+<?php
+$storeManager = $block->getStoreManager();
+$websites = $storeManager->getWebsites();
+$websiteId = $storeManager->getWebsite()->getId();
+$dataHelper = $block->getDataHelper();
+$isSwitchStore = $dataHelper->isSwitchWebsite();
+
+$dynamicHelper = $this->helper('\Dynamic\Customization\Helper\Data');
+$getBaseUrl = $dynamicHelper->getBaseUrl();
+?>
+<?php if (count($websites) > 1 && $isSwitchStore): ?>
+<div class="switcher website switcher-website cls_switcher" id="switcher-website">
+	<strong class="label switcher-label"><span><?= /* @noEscape */ __('Select Website') ?></span></strong>
+
+	<div class="actions dropdown options switcher-options_old">
+	    <?php foreach ($websites as $website): ?>
+	    <?php if ($websiteId == $website->getId()): ?>
+	    <div class="action toggle switcher-trigger_old" id="switcher-website-trigger_old">
+	        <strong>
+				<span> <a href="<?php echo $getBaseUrl;?>countrylist"><?= /* @noEscape */ $block->escapeHtml($website->getName()) ?></a></span>
+	        </strong>
+	    </div>
+	<?php endif; ?>
+		<?php endforeach; ?>
+	</div>
+</div>
+<?php endif; ?>

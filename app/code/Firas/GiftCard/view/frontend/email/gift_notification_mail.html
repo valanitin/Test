@@ -1,0 +1,30 @@
+<!--@subject Gift Card  @-->
+<!--@vars {
+} @-->
+{{template config_path="design/email/header_template"}} <!-- pathe of template header-->
+<table>
+    <tr class="email-intro">
+        <td>
+            <h3>{{trans "Hi Dear,"}}<h3>
+            <h3>
+                {{trans "A Gift Card is gifted to you by %name(%email)" name=$myvar5 email=$myvar4}}
+            </h3>
+        </td>
+    </tr>
+    <tr class="email-information">
+        <td>
+            <table class="order-details">
+                <tr>
+                    <td class="address-details">
+                        <h4>{{trans "Gift Card Code : %code" code=$myvar3}}</h4>
+                        <h4>{{trans "Description: %description" description=$myvar2}}</h4>
+                        <h4>{{trans "Price: %symbol%price" symbol=$myvar8 price=$myvar1}}</h4>
+                        <h4>{{trans "Message: %message" message=$myvar9}}</h4>
+                        <h4>{{trans "Expiration: %expiration" expiration=$myvar10}}</h4>
+                    </td>
+                </tr>
+            </table>
+        </td>
+    </tr>
+</table>
+{{template config_path="design/email/footer_template"}} <!--footer of template-->

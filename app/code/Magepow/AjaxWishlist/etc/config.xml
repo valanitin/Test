@@ -1,0 +1,14 @@
+<?xml version="1.0" ?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Store:etc/config.xsd">
+    <default>
+        <magepow_ajaxwishlist>
+            <general>
+                <enabled>1</enabled>
+                <show_spinner>1</show_spinner>
+                <show_success_message>1</show_success_message>
+                <message>has been added to your Wish List</message>
+                <popupttl>10</popupttl>
+            </general>
+        </magepow_ajaxwishlist>
+    </default>
+</config>

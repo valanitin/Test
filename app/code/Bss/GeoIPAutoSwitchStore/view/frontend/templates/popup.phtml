@@ -1,0 +1,65 @@
+<?php 
+/**
+ * BSS Commerce Co.
+ *
+ * NOTICE OF LICENSE
+ *
+ * This source file is subject to the EULA
+ * that is bundled with this package in the file LICENSE.txt.
+ * It is also available through the world-wide-web at this URL:
+ * http://bsscommerce.com/Bss-Commerce-License.txt
+ *
+ * @category   BSS
+ * @package    Bss_GeoIPAutoSwitchStore
+ * @author     Extension Team
+ * @copyright  Copyright (c) 2016-2017 BSS Commerce Co. ( http://bsscommerce.com )
+ * @license    http://bsscommerce.com/Bss-Commerce-License.txt
+ */
+// @codingStandardsIgnoreFile
+?>
+<?php
+/** @var \Bss\GeoIPAutoSwitchStore\Block\Popup $block */
+?>
+<?php
+    $enable = $block->getPopupEnable();
+    $ajaxUrl = $block->getAjaxUrl();
+    $currentUrl = $block->getCurrentUrl();
+    $currentPath = $block->getCurrentPath();
+?>
+
+<?php if ($enable): ?>
+    <div class="popup_geoip_content"></div>
+    <script type="text/x-magento-init">
+        {
+            "*": {
+                "Bss_GeoIPAutoSwitchStore/js/popup": {
+                    "ajaxUrl": "<?php echo $ajaxUrl; ?>",
+                    "currentUrl": "<?php echo $currentUrl; ?>",
+                    "currentPath": "<?php echo $currentPath; ?>"
+                }
+            }
+        }
+    </script>
+    <script type="text/x-magento-template" id="popup-content-template">
+        <div class="geoip_popup_content">
+            <div class="geoip_title"><%= message %></div>
+            <div class="geoip_popup-main">
+                <select name="bss-store-selector" class="selector_bss-store-selector"><%= options %></select>
+                <a href="#" class="btn-geoip_button"><button class="geoip_button"><%= buttonLabel %></button></a>
+            </div>
+        </div>
+    </script>
+    <script type="text/x-magento-template" id="select-option-template">
+        <% if (disabled) { %>
+        <option value="<%= value %>" disabled><%= label %></option>
+        <% } %>
+        <% if (!disabled) { %>
+            <% if (!selected) { %>
+            <option value="<%= value %>"><%= label %></option>
+            <% } %>
+            <% if (selected) { %>
+            <option value="<%= value %>" selected="selected"><%= label %></option>
+            <% } %>
+        <% } %>
+    </script>
+<?php endif; ?>

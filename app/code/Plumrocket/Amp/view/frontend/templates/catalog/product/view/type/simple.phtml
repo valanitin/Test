@@ -1,0 +1,48 @@
+<?php
+/**
+ * Plumrocket Inc.
+ *
+ * NOTICE OF LICENSE
+ *
+ * This source file is subject to the End-user License Agreement
+ * that is available through the world-wide-web at this URL:
+ * http://wiki.plumrocket.net/wiki/EULA
+ * If you are unable to obtain it through the world-wide-web, please
+ * send an email to support@plumrocket.com so we can send you a copy immediately.
+ *
+ * @package     Plumrocket_Amp
+ * @copyright   Copyright (c) 2019 Plumrocket Inc. (http://www.plumrocket.com)
+ * @license     http://wiki.plumrocket.net/wiki/EULA  End-user License Agreement
+ */
+?>
+
+<?php /** @var \Plumrocket\Amp\Block\Catalog\Product\Type\Simple $block */?>
+
+<form method="POST"
+      action-xhr="<?= $block->getAmpAddToCartUrl($this->getProduct()->getId()); ?>"
+      target="_top"
+      on="<?= $block->getFormMessageEvents() ?>"
+      id="productAddToCartForm"
+>
+    <?php /** Use ajax param for disable form_key validation */ ?>
+    <input type="hidden" name="ajax" value="1"/>
+    <input type="hidden" name="product" value="<?= $block->escapeHtmlAttr($this->getProduct()->getId()) ?>"/>
+
+    <div class="qty-input-container">
+        <label for="qty"><?= $block->escapeHtml(__('Qty:')) ?></label>
+        <input class="qty-input"
+               type="number"
+               name="qty"
+               min="1"
+               max="255"
+               value="<?= $block->escapeHtmlAttr($block->getProductDefaultQty()) ?>"
+               title="<?= __('Qty') ?>"
+               required>
+    </div>
+    <?php
+        echo $block->getChildBlock('amp.type.add.to.cart')
+                   ->setData('product_id', $block->getProduct()->getId())
+                   ->setData('product_id_state_path', $block->getProductIdStatePath())
+                   ->toHtml();
+    ?>
+</form>

@@ -1,0 +1,14 @@
+<?xml version="1.0"?>
+<!--
+ * @package     Plumrocket_Base
+ * @copyright   Copyright (c) 2020 Plumrocket Inc. (https://plumrocket.com)
+ * @license     https://plumrocket.com/license/  End-user License Agreement
+-->
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Cron:etc/crontab.xsd">
+    <group id="default">
+        <job name="plumrocket_send_usage_statistic" method="execute" instance="Plumrocket\Base\Cron\SendUsageStatistic">
+            <schedule>0 0 * * 0</schedule>
+        </job>
+    </group>
+</config>

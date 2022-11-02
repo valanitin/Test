@@ -1,0 +1,16 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * @author      LuxuryUnlimited
+ * @copyright   Copyright © 2022. All rights reserved.
+ */
+-->
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:noNamespaceSchemaLocation="urn:magento:framework:Module/etc/module.xsd">
+    <module name="LuxuryUnlimited_Coupon">
+        <sequence>
+            <module name="Magento_Checkout"/>
+            <module name="Magento_Quote"/>
+        </sequence>
+    </module>
+</config>

@@ -1,0 +1,10 @@
+<?xml version="1.0"?>
+
+<routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Webapi:etc/webapi.xsd">
+    <route url="/V1/sizeList/:categoryId" method="GET">
+        <service class="Dynamic\SizeApi\Api\Getsize" method="getSizeList"/>
+        <resources>
+            <resource ref="Dynamic_SizeApi::api" />
+        </resources>
+    </route>
+</routes>

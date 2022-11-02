@@ -1,0 +1,108 @@
+<?php
+/**
+ *Author: Firas
+ *Email: firasath90@gmail.com
+ */
+
+namespace Firas\Extension\Model;
+use Firas\Extension\Api\Getruleslist;
+use Magento\Framework\Json\Helper\Data;
+use \Magento\Store\Model\StoreManagerInterface;
+use Magento\SalesRule\Model\ResourceModel\Rule\CollectionFactory as RuleCollection;
+
+class GetsalesruleModel implements Getruleslist
+{
+
+    /**
+     * @var jsonHelper
+     */
+    protected $jsonHelper;
+
+
+    /**
+     * CustomerOrder constructor.
+     * @param Data $jsonHelper
+     */
+
+    public function __construct(
+      \Magento\Store\Model\StoreManagerInterface $storeManager,
+      Data $jsonHelper)
+    {
+
+        $this->jsonHelper = $jsonHelper;
+        $this->storeManager = $storeManager;
+    }
+
+    /**
+     * Returns orders data to user
+     *
+     * @api
+     * @param  string $phoneNumber customer phone number
+     * @param  string $websiteCode Website Code..
+     * @return return order array collection.
+     */
+    public function getList()
+    {
+
+      $objectManager = \Magento\Framework\App\ObjectManager::getInstance();
+
+      $rule_id = 1;
+
+      $rule = $objectManager->create('Magento\SalesRule\Model\Rule')->getCollection();
+      // echo '<pre>';print_r($rule->getData());
+      $ruleCount = count($rule);
+      if ($ruleCount == 0)
+      {
+          $errorMsg[] = array(
+              ['status' => 'No Rules',
+              'message' => __('There are no rules in this website.') ]
+          );
+          return $errorMsg;
+
+      }
+      else
+      {
+          $data = [];
+          $i = 0;
+          foreach ($rule as $orderDetails)
+          {
+              $ruleDataById = $objectManager->create('Magento\SalesRule\Model\Rule')->load($orderDetails->getRuleId());
+              echo '<pre>';print_r($ruleDataById->getData());exit;
+
+                print_r($ruleDataById->getData('customer_group_ids'));
+
+              exit;
+              $data[$i]['rule_id'] = $orderDetails->getRuleId();
+              $data[$i]['name'] = $orderDetails->getName();
+              $data[$i]['description'] = $orderDetails->getDescription();
+              $data[$i]['from_date'] = $orderDetails->getFromDate();
+              $data[$i]['to_date'] = $orderDetails->getToDate();
+              $data[$i]['uses_per_customer'] = $orderDetails->getUsesPerCustomer();
+              $data[$i]['is_active'] = $orderDetails->getIsActive();
+              $data[$i]['conditions_serialized'] = $orderDetails->getConditionsSerialized();
+              $data[$i]['actions_serialized'] = $orderDetails->getActionsSerialized();
+              $data[$i]['stop_rules_processing'] = $orderDetails->getStopRulesProcessing();
+              $data[$i]['is_advanced'] = $orderDetails->getIsAdvanced();
+              $data[$i]['product_ids'] = $orderDetails->getProductIds();
+              $data[$i]['sort_order'] = $orderDetails->getSortOrder();
+              $data[$i]['simple_action'] = $orderDetails->getSimpleAction();
+              $data[$i]['discount_amount'] = $orderDetails->getDiscountAmount();
+              $data[$i]['discount_qty'] = $orderDetails->getDiscountQty();
+              $data[$i]['discount_step'] = $orderDetails->getDiscountStep();
+              $data[$i]['apply_to_shipping'] = $orderDetails->getApplyToShipping();
+              $data[$i]['times_used'] = $orderDetails->getTimesUsed();
+              $data[$i]['is_rss'] = $orderDetails->getIsRss();
+              $data[$i]['coupon_type'] = $orderDetails->getCouponType();
+              $data[$i]['use_auto_generation'] = $orderDetails->getUseAutoGeneration();
+              $data[$i]['uses_per_coupon'] = $orderDetails->getUsesPerCoupon();
+              $data[$i]['simple_free_shipping'] = $orderDetails->getSimpleFreeShipping();
+              $data[$i]['code'] = $orderDetails->getCode();
+
+              $i++;
+          }
+
+          return $data;
+      }
+
+    }
+}

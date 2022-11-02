@@ -1,0 +1,298 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Plumrocket Inc.
+ *
+ * NOTICE OF LICENSE
+ *
+ * This source file is subject to the End-user License Agreement
+ * that is available through the world-wide-web at this URL:
+ * http://wiki.plumrocket.net/wiki/EULA
+ * If you are unable to obtain it through the world-wide-web, please
+ * send an email to support@plumrocket.com so we can send you a copy immediately.
+ *
+ * @package     Plumrocket_Amp
+ * @copyright   Copyright (c) 2016 Plumrocket Inc. (http://www.plumrocket.com)
+ * @license     http://wiki.plumrocket.net/wiki/EULA  End-user License Agreement
+ */
+ -->
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Config:etc/system_file.xsd">
+    <system>
+        <section id="pramp" translate="label" type="text" sortOrder="45602" showInDefault="1" showInWebsite="1" showInStore="1">
+            <label>Accelerated Mobile Pages</label>
+            <tab>plumrocket</tab>
+            <resource>Plumrocket_Amp::config_pramp</resource>
+            <group id="general" translate="label" type="text" sortOrder="40" showInDefault="1" showInWebsite="1" showInStore="1">
+                <label>General</label>
+                <attribute type="expanded">1</attribute>
+
+                <field id="version" translate="label comment" type="text" sortOrder="50" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <frontend_model>Plumrocket\Amp\Block\Adminhtml\System\Config\Form\Version</frontend_model>
+                </field>
+                <field id="enabled" translate="label" type="select" sortOrder="60" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Enable Extension</label>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                </field>
+                <field id="serial" translate="label comment" type="text" sortOrder="70" showInDefault="1" showInWebsite="0" showInStore="0">
+                    <frontend_model>Plumrocket\Base\Block\Adminhtml\System\Config\Form\Serial</frontend_model>
+                    <label>Serial Key</label>
+                    <hint>Amp</hint>
+                </field>
+                <field id="pages" translate="label comment" type="multiselect" sortOrder="80" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>AMP Enabled On</label>
+                    <source_model>Plumrocket\Amp\Model\System\Config\Source\Page</source_model>
+                </field>
+                <field id="disable_on" translate="label comment" type="textarea" sortOrder="85" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>AMP Disabled On</label>
+                    <comment>You can disable AMP on specific pages. Enter each URL in a new line.</comment>
+                </field>
+                <field id="force_mobile" translate="label" type="select" sortOrder="90" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Force AMP On Mobile Devices</label>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                    <comment><![CDATA[Automatically display AMP version of site to all mobile users who opened your store directly. If this option is disabled, the user will see non-amp pages when arriving directly (not from Google Search Results).]]></comment>
+                </field>
+                <field id="force_tablet" translate="label" type="select" sortOrder="100" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Force AMP On Tablet Devices</label>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                    <depends>
+                        <field id="force_mobile">1</field>
+                    </depends>
+                </field>
+                <!--
+                <field id="load_over_cdn" translate="label" type="select" sortOrder="110" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Load All AMP Pages Over CDN</label>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                    <comment><![CDATA[All AMP pages will be loaded directly from AMP project CDN (cdn.ampproject.org), not from your server. Gives faster page load time, but pages might be cached for a long time.]]></comment>
+                </field>
+                <field id="ignore_page_amp_cdn" translate="label" type="textarea" sortOrder="120" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Ignore AMP CDN for Urls</label>
+                    <comment><![CDATA[You can disable AMP CDN on specific pages. Enter each path in new line.]]></comment>
+                    <depends>
+                        <field id="load_over_cdn">1</field>
+                    </depends>
+                </field>
+                -->
+                <field id="amp_option_iframe" translate="label" type="select" sortOrder="130" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Enable AMP Iframe With Product Options</label>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                    <comment><![CDATA[]]></comment>
+                </field>
+                <field id="amp_iframe_path" translate="label" type="text" sortOrder="140" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>AMP Iframe Path</label>
+                    <depends>
+                        <field id="amp_option_iframe">1</field>
+                    </depends>
+                    <frontend_class>required-entry</frontend_class>
+                </field>
+            </group>
+            <group id="social" translate="label" type="text" sortOrder="100" showInDefault="1" showInWebsite="1" showInStore="1">
+                <attribute type="expanded">0</attribute>
+                <label>Social Sharing</label>
+                <field id="sharing_enabled" translate="label" type="select" sortOrder="10" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Enable Social Sharing</label>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                    <comment><![CDATA[]]></comment>
+                </field>
+                <field id="share_button" translate="label comment" type="multiselect" sortOrder="20" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Active Share Buttons</label>
+                    <source_model>Plumrocket\Amp\Model\System\Config\Source\Social\Button</source_model>
+                    <depends>
+                        <field id="sharing_enabled">1</field>
+                    </depends>
+                    <frontend_class>required-entry</frontend_class>
+                </field>
+                <field id="share_button_facebook_app_id" translate="label" type="text" sortOrder="30" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Facebook App ID</label>
+                    <comment><![CDATA[This parameter is required for the Facebook Share dialog.]]></comment>
+                    <depends>
+                        <field id="sharing_enabled">1</field>
+                    </depends>
+                </field>
+            </group>
+            <group id="front_design" translate="label" type="text" sortOrder="200" showInDefault="1" showInWebsite="1" showInStore="1">
+                <attribute type="expanded">0</attribute>
+                <label>Design</label>
+                <field id="navigation_menu_text_color" translate="label" type="text" sortOrder="210" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Navigation Menu Text Color</label>
+                    <validate>color{hash:true, required:true}</validate>
+                    <frontend_model>Plumrocket\Amp\Block\Adminhtml\System\Config\Form\ColorPicker</frontend_model>
+                </field>
+                <field id="link_color" translate="label" type="text" sortOrder="220" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Link Color</label>
+                    <validate>color{hash:true, required:true}</validate>
+                    <frontend_model>Plumrocket\Amp\Block\Adminhtml\System\Config\Form\ColorPicker</frontend_model>
+                </field>
+                <field id="link_color_hover" translate="label" type="text" sortOrder="230" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Link Color (On Hover)</label>
+                    <validate>color{hash:true, required:true}</validate>
+                    <frontend_model>Plumrocket\Amp\Block\Adminhtml\System\Config\Form\ColorPicker</frontend_model>
+                </field>
+                <field id="price_text_color" translate="label" type="text" sortOrder="240" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Price Text Color</label>
+                    <validate>color{hash:true, required:true}</validate>
+                    <frontend_model>Plumrocket\Amp\Block\Adminhtml\System\Config\Form\ColorPicker</frontend_model>
+                </field>
+                <field id="button_bg_color" translate="label" type="text" sortOrder="250" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Button Background Color</label>
+                    <validate>color{hash:true, required:true}</validate>
+                    <frontend_model>Plumrocket\Amp\Block\Adminhtml\System\Config\Form\ColorPicker</frontend_model>
+                </field>
+                <field id="button_bg_color_hover" translate="label" type="text" sortOrder="260" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Button Background Color (On Hover)</label>
+                    <validate>color{hash:true, required:true}</validate>
+                    <frontend_model>Plumrocket\Amp\Block\Adminhtml\System\Config\Form\ColorPicker</frontend_model>
+                </field>
+                <field id="icon_color" translate="label" type="text" sortOrder="265" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Icon Color</label>
+                    <validate>color{hash:true, required:true}</validate>
+                    <frontend_model>Plumrocket\Amp\Block\Adminhtml\System\Config\Form\ColorPicker</frontend_model>
+                </field>
+                <field id="button_text_color" translate="label" type="text" sortOrder="270" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Button Text Color</label>
+                    <validate>color{hash:true, required:true}</validate>
+                    <frontend_model>Plumrocket\Amp\Block\Adminhtml\System\Config\Form\ColorPicker</frontend_model>
+                </field>
+                <field id="button_text_color_hover" translate="label" type="text" sortOrder="280" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Button Text Color (On Hover)</label>
+                    <validate>color{hash:true, required:true}</validate>
+                    <frontend_model>Plumrocket\Amp\Block\Adminhtml\System\Config\Form\ColorPicker</frontend_model>
+                </field>
+            </group>
+
+            <group id="header" translate="label" type="text" sortOrder="220" showInDefault="1" showInWebsite="1" showInStore="1">
+                <attribute type="expanded">0</attribute>
+                <label>Header</label>
+                <field id="search_enabled" translate="label" type="select" sortOrder="100" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Show Search Box In Header</label>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                    <comment><![CDATA[Please note: the search functionality will work only if your AMP site is served via secure (HTTPS) protocol.]]></comment>
+                </field>
+                <field id="tel" translate="label" type="text" sortOrder="200" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Contact Phone</label>
+                </field>
+                <field id="mail" translate="label" type="text" sortOrder="300" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Contact Email</label>
+                </field>
+                <field id="store_switcher" translate="label" type="select" sortOrder="400" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Show Store View Switcher</label>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                    <comment><![CDATA[]]></comment>
+                </field>
+                <field id="currency_switcher" translate="label" type="select" sortOrder="500" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Show Currency Switcher</label>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                    <comment><![CDATA[]]></comment>
+                </field>
+            </group>
+
+            <group id="tag_manager" translate="label" type="text" sortOrder="250" showInDefault="1" showInWebsite="1" showInStore="1">
+                <attribute type="expanded">0</attribute>
+                <label>Google Tag Manager</label>
+                <field id="tag_manager_snippet" translate="label" type="textarea" sortOrder="0" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Google Tag Manager Snippet</label>
+                    <validate>validate-gtmscript</validate>
+                    <comment><![CDATA[Copy the code for the tag from your Google Tag Manager account (https://tagmanager.google.com) > Admin > "Install Google Tag Manager"
+                        section.]]></comment>
+                </field>
+            </group>
+            <group id="logo" translate="label" type="text" sortOrder="300" showInDefault="1" showInWebsite="1" showInStore="1">
+                <label>Logo</label>
+                <attribute type="expanded">0</attribute>
+                <field id="image" translate="label" type="image" sortOrder="310" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Image</label>
+                    <backend_model>Magento\Config\Model\Config\Backend\Image</backend_model>
+                    <upload_dir config="system/filesystem/media" scope_info="1">pramp/logo</upload_dir>
+                    <base_url type="media" scope_info="1">pramp/logo</base_url>
+                    <comment><![CDATA[Allowed file types: jpeg, gif, png. Maximum file size: 2MB]]></comment>
+                </field>
+                <field id="logo_width" translate="label" type="text" sortOrder="320" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Width</label>
+                    <frontend_class>required-entry validate-digits</frontend_class>
+                </field>
+                <field id="logo_height" translate="label" type="text" sortOrder="330" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Height</label>
+                    <frontend_class>required-entry validate-digits</frontend_class>
+                </field>
+            </group>
+            <group id="rtl" translate="label" type="text" sortOrder="500" showInDefault="1" showInWebsite="1" showInStore="1">
+                <label>RTL Template</label>
+                <attribute type="expanded">0</attribute>
+                <field id="enabled" translate="label" type="select" sortOrder="0" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Enable RTL Template</label>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                    <comment><![CDATA[]]></comment>
+                </field>
+            </group>
+            <group id="zopim" translate="label" type="text" sortOrder="600" showInDefault="1" showInWebsite="1" showInStore="1">
+                <attribute type="expanded">0</attribute>
+                <label>Zendesk Chat</label>
+                <field id="zopim_enabled" translate="label" type="select" sortOrder="10" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Enable</label>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                    <comment><![CDATA[Show Zendesk Chat on all AMP pages.]]></comment>
+                </field>
+                <field id="zopim_domain" translate="label" type="text" sortOrder="20" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Domain</label>
+                    <comment><![CDATA[This parameter is required for displaying the Zendesk Button.]]></comment>
+                    <depends>
+                        <field id="zopim_enabled">1</field>
+                    </depends>
+                    <frontend_class>required-entry</frontend_class>
+                </field>
+                <field id="zopim_key" translate="label" type="text" sortOrder="20" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Key</label>
+                    <comment><![CDATA[This parameter is deprecated.]]></comment>
+                    <frontend_model>Plumrocket\Amp\Block\System\Config\Form\Field\Disable</frontend_model>
+                </field>
+                <field id="zopim_button_label" translate="label" type="text" sortOrder="30" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Button Label</label>
+                    <comment><![CDATA[]]></comment>
+                    <depends>
+                        <field id="zopim_enabled">1</field>
+                    </depends>
+                </field>
+                <field id="zopim_button_bg_color" translate="label" type="text" sortOrder="40" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Button Background Color</label>
+                    <validate>color{hash:true, required:true}</validate>
+                    <depends>
+                        <field id="zopim_enabled">1</field>
+                    </depends>
+                </field>
+                <field id="zopim_button_text_color" translate="label" type="text" sortOrder="50" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Button Text Color</label>
+                    <validate>color{hash:true, required:true}</validate>
+                    <depends>
+                        <field id="zopim_enabled">1</field>
+                    </depends>
+                </field>
+            </group>
+            <group id="analytics" translate="label" type="text" sortOrder="700" showInDefault="1" showInWebsite="1" showInStore="1">
+                <label>Google Analytics</label>
+                <field id="active" translate="label" type="select" sortOrder="10" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Enable</label>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                </field>
+                <field id="account" translate="label" type="text" sortOrder="20" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Account Number</label>
+                    <comment><![CDATA[You can setup a separate Google Analytics AMP Account (UA-XXXXX-X) for AMP pages or use existing account. ]]></comment>
+                    <depends>
+                        <field id="*/*/active">1</field>
+                    </depends>
+                </field>
+            </group>
+            <group id="facebook_pixel" translate="label" type="text" sortOrder="800" showInDefault="1" showInWebsite="1" showInStore="1">
+                <label>Facebook Pixel</label>
+                <field id="enabled" translate="label" type="select" sortOrder="10" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Enable</label>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                </field>
+                <field id="pixel_id" translate="label" type="text" sortOrder="20" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Pixel ID</label>
+                    <depends>
+                        <field id="*/*/enabled">1</field>
+                    </depends>
+                </field>
+            </group>
+        </section>
+    </system>
+</config>

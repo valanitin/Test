@@ -1,0 +1,24 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Copyright © Magento, Inc. All rights reserved.
+ * See COPYING.txt for license details.
+ */
+-->
+<page layout="3columns" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/page_configuration.xsd">
+    <update handle="default_head_blocks"/>
+    <body>
+        <referenceBlock name="authorization-link-login">
+            <action method="setTemplate">
+                <argument name="template" xsi:type="string">Zealousweb_AppleLogin::account/link/authorization.phtml</argument>
+            </action>
+        </referenceBlock>
+        <container name="apple.login.popup.container">
+        	<block class="Magento\Customer\Block\Form\Login" name="apple.login.popup" template="Zealousweb_AppleLogin::account/link/loginpopup.phtml" ifconfig="appleconfig/apple/enable" >
+        	</block>
+        </container>
+        <referenceContainer name="footer-container">
+            <block class="Zealousweb\AppleLogin\Block\Login\Button" name="zealousweb.apple.button.style" template="Zealousweb_AppleLogin::login/style.phtml"/>
+        </referenceContainer>
+    </body>
+</page>

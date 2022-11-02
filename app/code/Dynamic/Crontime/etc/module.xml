@@ -1,0 +1,10 @@
+<?xml version="1.0"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:Module/etc/module.xsd">
+    <module name="Dynamic_Crontime" setup_version="1.0.0">
+        <sequence>
+            <module name="Firas_AdminActivity" />
+            <module name="Firas_Cronbrands" />
+            <module name="Mage360_Brands" />
+        </sequence>
+    </module>
+</config>

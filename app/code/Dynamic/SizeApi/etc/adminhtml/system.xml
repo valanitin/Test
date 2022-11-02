@@ -1,0 +1,737 @@
+<?xml version="1.0"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Config:etc/system_file.xsd">
+    <system>
+        <tab id="sizeapi" translate="label" sortOrder="200">
+            <label>Dynmaic</label>
+        </tab>
+        <section id="sizeapi" translate="label" type="text" sortOrder="800" showInDefault="1" showInWebsite="1" showInStore="1">
+            <class>separator-top</class>
+            <label>Size Configuration</label>
+            <tab>sizeapi</tab>
+            <resource>Dynamic_SizeApi::sizeapi_config</resource>
+            <group id="sizevalue" translate="label,comment" type="text" sortOrder="30" showInDefault="1" showInWebsite="1" showInStore="1">
+                <label>Size Value Configuration</label>
+                <field id="444" translate="label" type="text" sortOrder="10" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Size (Belts)</label>
+                    <comment>Please enter size Comma-separated. like (S,M,L,XL,XXL etc...)</comment>
+                </field>
+                <field id="445" translate="label" type="text" sortOrder="10" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Size (Wallets And Cardholders)</label>
+                    <comment>Please enter size Comma-separated. like (S,M,L,XL,XXL etc...)</comment>
+                </field>
+                <field id="446" translate="label" type="text" sortOrder="10" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Size (Cosmetic Pouches)</label>
+                    <comment>Please enter size Comma-separated. like (S,M,L,XL,XXL etc...)</comment>
+                </field>
+                <field id="447" translate="label" type="text" sortOrder="10" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Size (Hair Accessories)</label>
+                    <comment>Please enter size Comma-separated. like (S,M,L,XL,XXL etc...)</comment>
+                </field>
+                <field id="448" translate="label" type="text" sortOrder="10" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Size (Key Rings And Chains)</label>
+                    <comment>Please enter size Comma-separated. like (S,M,L,XL,XXL etc...)</comment>
+                </field>
+                <field id="449" translate="label" type="text" sortOrder="10" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Size (Sunglasses And Frames)</label>
+                    <comment>Please enter size Comma-separated. like (S,M,L,XL,XXL etc...)</comment>
+                </field>
+                <field id="450" translate="label" type="text" sortOrder="10" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Size (Tech Accessories And Cases)</label>
+                    <comment>Please enter size Comma-separated. like (S,M,L,XL,XXL etc...)</comment>
+                </field>
+                <field id="451" translate="label" type="text" sortOrder="10" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Size (Shawls And Scarves)</label>
+                    <comment>Please enter size Comma-separated. like (S,M,L,XL,XXL etc...)</comment>
+                </field>
+                <field id="452" translate="label" type="text" sortOrder="10" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Size (Make-Up Bags)</label>
+                    <comment>Please enter size Comma-separated. like (S,M,L,XL,XXL etc...)</comment>
+                </field>
+                <field id="453" translate="label" type="text" sortOrder="10" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Size (Jewelry)</label>
+                    <comment>Please enter size Comma-separated. like (S,M,L,XL,XXL etc...)</comment>
+                </field>
+                <field id="454" translate="label" type="text" sortOrder="10" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Size (Cufflinks)</label>
+                    <comment>Please enter size Comma-separated. like (S,M,L,XL,XXL etc...)</comment>
+                </field>
+                <field id="455" translate="label" type="text" sortOrder="10" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Size (Gloves)</label>
+                    <comment>Please enter size Comma-separated. like (S,M,L,XL,XXL etc...)</comment>
+                </field>
+                <field id="456" translate="label" type="text" sortOrder="10" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Size (Key Pouches)</label>
+                    <comment>Please enter size Comma-separated. like (S,M,L,XL,XXL etc...)</comment>
+                </field>
+                <field id="457" translate="label" type="text" sortOrder="10" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Size (Document Holder)</label>
+                    <comment>Please enter size Comma-separated. like (S,M,L,XL,XXL etc...)</comment>
+                </field>
+                <field id="458" translate="label" type="text" sortOrder="10" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Size (Coin Case / Purse)</label>
+                    <comment>Please enter size Comma-separated. like (S,M,L,XL,XXL etc...)</comment>
+                </field>
+                <field id="459" translate="label" type="text" sortOrder="10" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Size (Others)</label>
+                    <comment>Please enter size Comma-separated. like (S,M,L,XL,XXL etc...)</comment>
+                </field>
+                <field id="460" translate="label" type="text" sortOrder="10" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Size (Fragrances)</label>
+                    <comment>Please enter size Comma-separated. like (S,M,L,XL,XXL etc...)</comment>
+                </field>
+                <field id="461" translate="label" type="text" sortOrder="10" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Size (Watches)</label>
+                    <comment>Please enter size Comma-separated. like (S,M,L,XL,XXL etc...)</comment>
+                </field>
+                <field id="462" translate="label" type="text" sortOrder="10" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Size (Hats)</label>
+                    <comment>Please enter size Comma-separated. like (S,M,L,XL,XXL etc...)</comment>
+                </field>
+                <field id="464" translate="label" type="text" sortOrder="10" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Size (Backpacks)</label>
+                    <comment>Please enter size Comma-separated. like (S,M,L,XL,XXL etc...)</comment>
+                </field>
+                <field id="465" translate="label" type="text" sortOrder="10" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Size (Clutches And Slings)</label>
+                    <comment>Please enter size Comma-separated. like (S,M,L,XL,XXL etc...)</comment>
+                </field>
+                <field id="466" translate="label" type="text" sortOrder="10" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Size (Crossbody Bags)</label>
+                    <comment>Please enter size Comma-separated. like (S,M,L,XL,XXL etc...)</comment>
+                </field>
+                <field id="467" translate="label" type="text" sortOrder="10" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Size (Handbags)</label>
+                    <comment>Please enter size Comma-separated. like (S,M,L,XL,XXL etc...)</comment>
+                </field>
+                <field id="468" translate="label" type="text" sortOrder="10" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Size (Laptop Bag)</label>
+                    <comment>Please enter size Comma-separated. like (S,M,L,XL,XXL etc...)</comment>
+                </field>
+                <field id="469" translate="label" type="text" sortOrder="10" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Size (Shoulder Bags)</label>
+                    <comment>Please enter size Comma-separated. like (S,M,L,XL,XXL etc...)</comment>
+                </field>
+                <field id="470" translate="label" type="text" sortOrder="10" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Size (Tote Bags)</label>
+                    <comment>Please enter size Comma-separated. like (S,M,L,XL,XXL etc...)</comment>
+                </field>
+                <field id="471" translate="label" type="text" sortOrder="10" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Size (Others)</label>
+                    <comment>Please enter size Comma-separated. like (S,M,L,XL,XXL etc...)</comment>
+                </field>
+                <field id="472" translate="label" type="text" sortOrder="10" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Size (Wallet)</label>
+                    <comment>Please enter size Comma-separated. like (S,M,L,XL,XXL etc...)</comment>
+                </field>
+                <field id="473" translate="label" type="text" sortOrder="10" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Size (Messenger Bag)</label>
+                    <comment>Please enter size Comma-separated. like (S,M,L,XL,XXL etc...)</comment>
+                </field>
+                <field id="474" translate="label" type="text" sortOrder="10" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Size (Bucket Bags)</label>
+                    <comment>Please enter size Comma-separated. like (S,M,L,XL,XXL etc...)</comment>
+                </field>
+                <field id="475" translate="label" type="text" sortOrder="10" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Size (Travel)</label>
+                    <comment>Please enter size Comma-separated. like (S,M,L,XL,XXL etc...)</comment>
+                </field>
+                <field id="476" translate="label" type="text" sortOrder="10" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Size (Belt Bag)</label>
+                    <comment>Please enter size Comma-separated. like (S,M,L,XL,XXL etc...)</comment>
+                </field>
+                <field id="477" translate="label" type="text" sortOrder="10" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Size (Duffle Bags)</label>
+                    <comment>Please enter size Comma-separated. like (S,M,L,XL,XXL etc...)</comment>
+                </field>
+                <field id="607" translate="label" type="text" sortOrder="10" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Size (Satchel)</label>
+                    <comment>Please enter size Comma-separated. like (S,M,L,XL,XXL etc...)</comment>
+                </field>
+                <field id="611" translate="label" type="text" sortOrder="10" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Size (Shoulder Bag)</label>
+                    <comment>Please enter size Comma-separated. like (S,M,L,XL,XXL etc...)</comment>
+                </field>
+                <field id="613" translate="label" type="text" sortOrder="10" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Size (Handbag)</label>
+                    <comment>Please enter size Comma-separated. like (S,M,L,XL,XXL etc...)</comment>
+                </field>
+                <field id="619" translate="label" type="text" sortOrder="10" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Size (Tote Bag)</label>
+                    <comment>Please enter size Comma-separated. like (S,M,L,XL,XXL etc...)</comment>
+                </field>
+                <field id="478" translate="label" type="text" sortOrder="10" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Size (Coats And Jackets)</label>
+                    <comment>Please enter size Comma-separated. like (S,M,L,XL,XXL etc...)</comment>
+                </field>
+                <field id="479" translate="label" type="text" sortOrder="10" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Size (Dresses)</label>
+                    <comment>Please enter size Comma-separated. like (S,M,L,XL,XXL etc...)</comment>
+                </field>
+                <field id="480" translate="label" type="text" sortOrder="10" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Size (T-Shirts)</label>
+                    <comment>Please enter size Comma-separated. like (S,M,L,XL,XXL etc...)</comment>
+                </field>
+                <field id="481" translate="label" type="text" sortOrder="10" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Size (Others)</label>
+                    <comment>Please enter size Comma-separated. like (S,M,L,XL,XXL etc...)</comment>
+                </field>
+                <field id="482" translate="label" type="text" sortOrder="10" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Size (Tops)</label>
+                    <comment>Please enter size Comma-separated. like (S,M,L,XL,XXL etc...)</comment>
+                </field>
+                <field id="483" translate="label" type="text" sortOrder="10" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Size (Sweatshirt And Hoodies)</label>
+                    <comment>Please enter size Comma-separated. like (S,M,L,XL,XXL etc...)</comment>
+                </field>
+                <field id="484" translate="label" type="text" sortOrder="10" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Size (Pants And Shorts)</label>
+                    <comment>Please enter size Comma-separated. like (S,M,L,XL,XXL etc...)</comment>
+                </field>
+                <field id="485" translate="label" type="text" sortOrder="10" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Size (Skirts)</label>
+                    <comment>Please enter size Comma-separated. like (S,M,L,XL,XXL etc...)</comment>
+                </field>
+                <field id="486" translate="label" type="text" sortOrder="10" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Size (Knitwear / Sweater)</label>
+                    <comment>Please enter size Comma-separated. like (S,M,L,XL,XXL etc...)</comment>
+                </field>
+                <field id="487" translate="label" type="text" sortOrder="10" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Size (Denim)</label>
+                    <comment>Please enter size Comma-separated. like (S,M,L,XL,XXL etc...)</comment>
+                </field>
+                <field id="488" translate="label" type="text" sortOrder="10" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Size (Beachwear)</label>
+                    <comment>Please enter size Comma-separated. like (S,M,L,XL,XXL etc...)</comment>
+                </field>
+                <field id="489" translate="label" type="text" sortOrder="10" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Size (Sleepwear)</label>
+                    <comment>Please enter size Comma-separated. like (S,M,L,XL,XXL etc...)</comment>
+                </field>
+                <field id="490" translate="label" type="text" sortOrder="10" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Size (Lingerie)</label>
+                    <comment>Please enter size Comma-separated. like (S,M,L,XL,XXL etc...)</comment>
+                </field>
+                <field id="491" translate="label" type="text" sortOrder="10" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Size (Track Pants)</label>
+                    <comment>Please enter size Comma-separated. like (S,M,L,XL,XXL etc...)</comment>
+                </field>
+                <field id="492" translate="label" type="text" sortOrder="10" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Size (Boots)</label>
+                    <comment>Please enter size Comma-separated. like (S,M,L,XL,XXL etc...)</comment>
+                </field>
+                <field id="493" translate="label" type="text" sortOrder="10" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Size (Brogues And Derbies)</label>
+                    <comment>Please enter size Comma-separated. like (S,M,L,XL,XXL etc...)</comment>
+                </field>
+                <field id="494" translate="label" type="text" sortOrder="10" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Size (Flats)</label>
+                    <comment>Please enter size Comma-separated. like (S,M,L,XL,XXL etc...)</comment>
+                </field>
+                <field id="495" translate="label" type="text" sortOrder="10" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Size (Slides And Flip Flops)</label>
+                    <comment>Please enter size Comma-separated. like (S,M,L,XL,XXL etc...)</comment>
+                </field>
+                <field id="496" translate="label" type="text" sortOrder="10" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Size (Heels)</label>
+                    <comment>Please enter size Comma-separated. like (S,M,L,XL,XXL etc...)</comment>
+                </field>
+                <field id="497" translate="label" type="text" sortOrder="10" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Size (Loafers)</label>
+                    <comment>Please enter size Comma-separated. like (S,M,L,XL,XXL etc...)</comment>
+                </field>
+                <field id="498" translate="label" type="text" sortOrder="10" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Size (Sandals)</label>
+                    <comment>Please enter size Comma-separated. like (S,M,L,XL,XXL etc...)</comment>
+                </field>
+                <field id="499" translate="label" type="text" sortOrder="10" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Size (Slip-Ons)</label>
+                    <comment>Please enter size Comma-separated. like (S,M,L,XL,XXL etc...)</comment>
+                </field>
+                <field id="500" translate="label" type="text" sortOrder="10" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Size (Sneakers)</label>
+                    <comment>Please enter size Comma-separated. like (S,M,L,XL,XXL etc...)</comment>
+                </field>
+                <field id="501" translate="label" type="text" sortOrder="10" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Size (Pumps)</label>
+                    <comment>Please enter size Comma-separated. like (S,M,L,XL,XXL etc...)</comment>
+                </field>
+                <field id="502" translate="label" type="text" sortOrder="10" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Size (Others)</label>
+                    <comment>Please enter size Comma-separated. like (S,M,L,XL,XXL etc...)</comment>
+                </field>
+                <field id="503" translate="label" type="text" sortOrder="10" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Size (Slippers)</label>
+                    <comment>Please enter size Comma-separated. like (S,M,L,XL,XXL etc...)</comment>
+                </field>
+                <field id="504" translate="label" type="text" sortOrder="10" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Size (Ballerina)</label>
+                    <comment>Please enter size Comma-separated. like (S,M,L,XL,XXL etc...)</comment>
+                </field>
+                <field id="505" translate="label" type="text" sortOrder="10" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Size (Slides)</label>
+                    <comment>Please enter size Comma-separated. like (S,M,L,XL,XXL etc...)</comment>
+                </field>
+                <field id="506" translate="label" type="text" sortOrder="10" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Size (Mules)</label>
+                    <comment>Please enter size Comma-separated. like (S,M,L,XL,XXL etc...)</comment>
+                </field>
+                <field id="507" translate="label" type="text" sortOrder="10" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Size (Espadrilles)</label>
+                    <comment>Please enter size Comma-separated. like (S,M,L,XL,XXL etc...)</comment>
+                </field>
+                <field id="508" translate="label" type="text" sortOrder="10" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Size (Wedges)</label>
+                    <comment>Please enter size Comma-separated. like (S,M,L,XL,XXL etc...)</comment>
+                </field>
+                <field id="509" translate="label" type="text" sortOrder="10" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Size (Booties)</label>
+                    <comment>Please enter size Comma-separated. like (S,M,L,XL,XXL etc...)</comment>
+                </field>
+                <field id="397" translate="label" type="text" sortOrder="10" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Size (Sandals)</label>
+                    <comment>Please enter size Comma-separated. like (S,M,L,XL,XXL etc...)</comment>
+                </field>
+                <field id="398" translate="label" type="text" sortOrder="10" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Size (Boots)</label>
+                    <comment>Please enter size Comma-separated. like (S,M,L,XL,XXL etc...)</comment>
+                </field>
+                <field id="399" translate="label" type="text" sortOrder="10" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Size (Loafers)</label>
+                    <comment>Please enter size Comma-separated. like (S,M,L,XL,XXL etc...)</comment>
+                </field>
+                <field id="400" translate="label" type="text" sortOrder="10" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Size (Brogues And Derbies)</label>
+                    <comment>Please enter size Comma-separated. like (S,M,L,XL,XXL etc...)</comment>
+                </field>
+                <field id="401" translate="label" type="text" sortOrder="10" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Size (Slip-Ons)</label>
+                    <comment>Please enter size Comma-separated. like (S,M,L,XL,XXL etc...)</comment>
+                </field>
+                <field id="402" translate="label" type="text" sortOrder="10" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Size (Sneakers)</label>
+                    <comment>Please enter size Comma-separated. like (S,M,L,XL,XXL etc...)</comment>
+                </field>
+                <field id="403" translate="label" type="text" sortOrder="10" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Size (Slippers)</label>
+                    <comment>Please enter size Comma-separated. like (S,M,L,XL,XXL etc...)</comment>
+                </field>
+                <field id="404" translate="label" type="text" sortOrder="10" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Size (Espadrilles)</label>
+                    <comment>Please enter size Comma-separated. like (S,M,L,XL,XXL etc...)</comment>
+                </field>
+                <field id="405" translate="label" type="text" sortOrder="10" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Size (Others)</label>
+                    <comment>Please enter size Comma-separated. like (S,M,L,XL,XXL etc...)</comment>
+                </field>
+                <field id="406" translate="label" type="text" sortOrder="10" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Size (Belts)</label>
+                    <comment>Please enter size Comma-separated. like (S,M,L,XL,XXL etc...)</comment>
+                </field>
+                <field id="407" translate="label" type="text" sortOrder="10" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Size (Scarves And Wraps)</label>
+                    <comment>Please enter size Comma-separated. like (S,M,L,XL,XXL etc...)</comment>
+                </field>
+                <field id="408" translate="label" type="text" sortOrder="10" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Size (Tie And Bow Ties)</label>
+                    <comment>Please enter size Comma-separated. like (S,M,L,XL,XXL etc...)</comment>
+                </field>
+                <field id="409" translate="label" type="text" sortOrder="10" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Size (Wallets And Cardholders)</label>
+                    <comment>Please enter size Comma-separated. like (S,M,L,XL,XXL etc...)</comment>
+                </field>
+                <field id="410" translate="label" type="text" sortOrder="10" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Size (Sunglasses And Frames)</label>
+                    <comment>Please enter size Comma-separated. like (S,M,L,XL,XXL etc...)</comment>
+                </field>
+                <field id="411" translate="label" type="text" sortOrder="10" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Size (Beanies And Caps)</label>
+                    <comment>Please enter size Comma-separated. like (S,M,L,XL,XXL etc...)</comment>
+                </field>
+                <field id="412" translate="label" type="text" sortOrder="10" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Size (Gloves)</label>
+                    <comment>Please enter size Comma-separated. like (S,M,L,XL,XXL etc...)</comment>
+                </field>
+                <field id="413" translate="label" type="text" sortOrder="10" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Size (Document Holder)</label>
+                    <comment>Please enter size Comma-separated. like (S,M,L,XL,XXL etc...)</comment>
+                </field>
+                <field id="414" translate="label" type="text" sortOrder="10" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Size (Wristlets)</label>
+                    <comment>Please enter size Comma-separated. like (S,M,L,XL,XXL etc...)</comment>
+                </field>
+                <field id="415" translate="label" type="text" sortOrder="10" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Size (Others)</label>
+                    <comment>Please enter size Comma-separated. like (S,M,L,XL,XXL etc...)</comment>
+                </field>
+                <field id="416" translate="label" type="text" sortOrder="10" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Size (Watches)</label>
+                    <comment>Please enter size Comma-separated. like (S,M,L,XL,XXL etc...)</comment>
+                </field>
+                <field id="417" translate="label" type="text" sortOrder="10" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Size (Socks)</label>
+                    <comment>Please enter size Comma-separated. like (S,M,L,XL,XXL etc...)</comment>
+                </field>
+                <field id="418" translate="label" type="text" sortOrder="10" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Size (Jewellery)</label>
+                    <comment>Please enter size Comma-separated. like (S,M,L,XL,XXL etc...)</comment>
+                </field>
+                <field id="419" translate="label" type="text" sortOrder="10" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Size (Backpacks)</label>
+                    <comment>Please enter size Comma-separated. like (S,M,L,XL,XXL etc...)</comment>
+                </field>
+                <field id="420" translate="label" type="text" sortOrder="10" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Size (Briefcases)</label>
+                    <comment>Please enter size Comma-separated. like (S,M,L,XL,XXL etc...)</comment>
+                </field>
+                <field id="421" translate="label" type="text" sortOrder="10" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Size (Clutches)</label>
+                    <comment>Please enter size Comma-separated. like (S,M,L,XL,XXL etc...)</comment>
+                </field>
+                <field id="422" translate="label" type="text" sortOrder="10" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Size (Shoulder Bags)</label>
+                    <comment>Please enter size Comma-separated. like (S,M,L,XL,XXL etc...)</comment>
+                </field>
+                <field id="423" translate="label" type="text" sortOrder="10" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Size (Travel Bags)</label>
+                    <comment>Please enter size Comma-separated. like (S,M,L,XL,XXL etc...)</comment>
+                </field>
+                <field id="424" translate="label" type="text" sortOrder="10" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Size (Messenger Bags)</label>
+                    <comment>Please enter size Comma-separated. like (S,M,L,XL,XXL etc...)</comment>
+                </field>
+                <field id="425" translate="label" type="text" sortOrder="10" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Size (Others)</label>
+                    <comment>Please enter size Comma-separated. like (S,M,L,XL,XXL etc...)</comment>
+                </field>
+                <field id="426" translate="label" type="text" sortOrder="10" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Size (Crossbody Bags)</label>
+                    <comment>Please enter size Comma-separated. like (S,M,L,XL,XXL etc...)</comment>
+                </field>
+                <field id="427" translate="label" type="text" sortOrder="10" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Size (Belt Bag)</label>
+                    <comment>Please enter size Comma-separated. like (S,M,L,XL,XXL etc...)</comment>
+                </field>
+                <field id="428" translate="label" type="text" sortOrder="10" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Size (Handbags)</label>
+                    <comment>Please enter size Comma-separated. like (S,M,L,XL,XXL etc...)</comment>
+                </field>
+                <field id="429" translate="label" type="text" sortOrder="10" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Size (Laptop Bags)</label>
+                    <comment>Please enter size Comma-separated. like (S,M,L,XL,XXL etc...)</comment>
+                </field>
+                <field id="430" translate="label" type="text" sortOrder="10" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Size (Duffle Bags)</label>
+                    <comment>Please enter size Comma-separated. like (S,M,L,XL,XXL etc...)</comment>
+                </field>
+                <field id="432" translate="label" type="text" sortOrder="10" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Size (Shirts)</label>
+                    <comment>Please enter size Comma-separated. like (S,M,L,XL,XXL etc...)</comment>
+                </field>
+                <field id="433" translate="label" type="text" sortOrder="10" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Size (Knitwear / Sweater)</label>
+                    <comment>Please enter size Comma-separated. like (S,M,L,XL,XXL etc...)</comment>
+                </field>
+                <field id="434" translate="label" type="text" sortOrder="10" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Size (T-Shirts)</label>
+                    <comment>Please enter size Comma-separated. like (S,M,L,XL,XXL etc...)</comment>
+                </field>
+                <field id="435" translate="label" type="text" sortOrder="10" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Size (Jumper)</label>
+                    <comment>Please enter size Comma-separated. like (S,M,L,XL,XXL etc...)</comment>
+                </field>
+                <field id="436" translate="label" type="text" sortOrder="10" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Size (Sweatshirt And Hoodies)</label>
+                    <comment>Please enter size Comma-separated. like (S,M,L,XL,XXL etc...)</comment>
+                </field>
+                <field id="437" translate="label" type="text" sortOrder="10" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Size (Others)</label>
+                    <comment>Please enter size Comma-separated. like (S,M,L,XL,XXL etc...)</comment>
+                </field>
+                <field id="438" translate="label" type="text" sortOrder="10" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Size (Coats And Jackets And Suits)</label>
+                    <comment>Please enter size Comma-separated. like (S,M,L,XL,XXL etc...)</comment>
+                </field>
+                <field id="439" translate="label" type="text" sortOrder="10" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Size (Denim)</label>
+                    <comment>Please enter size Comma-separated. like (S,M,L,XL,XXL etc...)</comment>
+                </field>
+                <field id="440" translate="label" type="text" sortOrder="10" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Size (Pants And Shorts)</label>
+                    <comment>Please enter size Comma-separated. like (S,M,L,XL,XXL etc...)</comment>
+                </field>
+                <field id="441" translate="label" type="text" sortOrder="10" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Size (Underwear And Nightwear)</label>
+                    <comment>Please enter size Comma-separated. like (S,M,L,XL,XXL etc...)</comment>
+                </field>
+                <field id="442" translate="label" type="text" sortOrder="10" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Size (Track Pants)</label>
+                    <comment>Please enter size Comma-separated. like (S,M,L,XL,XXL etc...)</comment>
+                </field>
+                <field id="443" translate="label" type="text" sortOrder="10" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Size (Beachwear)</label>
+                    <comment>Please enter size Comma-separated. like (S,M,L,XL,XXL etc...)</comment>
+                </field>
+                <field id="597" translate="label" type="text" sortOrder="10" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Size (Tote Bag)</label>
+                    <comment>Please enter size Comma-separated. like (S,M,L,XL,XXL etc...)</comment>
+                </field>
+                <field id="538" translate="label" type="text" sortOrder="10" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Size (Socks)</label>
+                    <comment>Please enter size Comma-separated. like (S,M,L,XL,XXL etc...)</comment>
+                </field>
+                <field id="539" translate="label" type="text" sortOrder="10" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Size (Hats)</label>
+                    <comment>Please enter size Comma-separated. like (S,M,L,XL,XXL etc...)</comment>
+                </field>
+                <field id="540" translate="label" type="text" sortOrder="10" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Size (Belts And Braces)</label>
+                    <comment>Please enter size Comma-separated. like (S,M,L,XL,XXL etc...)</comment>
+                </field>
+                <field id="541" translate="label" type="text" sortOrder="10" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Size (Scarves)</label>
+                    <comment>Please enter size Comma-separated. like (S,M,L,XL,XXL etc...)</comment>
+                </field>
+                <field id="542" translate="label" type="text" sortOrder="10" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Size (Ties And Bow Ties)</label>
+                    <comment>Please enter size Comma-separated. like (S,M,L,XL,XXL etc...)</comment>
+                </field>
+                <field id="543" translate="label" type="text" sortOrder="10" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Size (Glasses And Frames)</label>
+                    <comment>Please enter size Comma-separated. like (S,M,L,XL,XXL etc...)</comment>
+                </field>
+                <field id="544" translate="label" type="text" sortOrder="10" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Size (Gloves And Mittens)</label>
+                    <comment>Please enter size Comma-separated. like (S,M,L,XL,XXL etc...)</comment>
+                </field>
+                <field id="545" translate="label" type="text" sortOrder="10" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Size (Sunglasses)</label>
+                    <comment>Please enter size Comma-separated. like (S,M,L,XL,XXL etc...)</comment>
+                </field>
+                <field id="546" translate="label" type="text" sortOrder="10" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Size (Towels And Robes)</label>
+                    <comment>Please enter size Comma-separated. like (S,M,L,XL,XXL etc...)</comment>
+                </field>
+                <field id="547" translate="label" type="text" sortOrder="10" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Size (Toys)</label>
+                    <comment>Please enter size Comma-separated. like (S,M,L,XL,XXL etc...)</comment>
+                </field>
+                <field id="548" translate="label" type="text" sortOrder="10" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Size (Bags)</label>
+                    <comment>Please enter size Comma-separated. like (S,M,L,XL,XXL etc...)</comment>
+                </field>
+                <field id="549" translate="label" type="text" sortOrder="10" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Size (Boots And Wellies)</label>
+                    <comment>Please enter size Comma-separated. like (S,M,L,XL,XXL etc...)</comment>
+                </field>
+                <field id="550" translate="label" type="text" sortOrder="10" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Size (Crib Shoes)</label>
+                    <comment>Please enter size Comma-separated. like (S,M,L,XL,XXL etc...)</comment>
+                </field>
+                <field id="551" translate="label" type="text" sortOrder="10" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Size (Pre-Walker Shoes)</label>
+                    <comment>Please enter size Comma-separated. like (S,M,L,XL,XXL etc...)</comment>
+                </field>
+                <field id="552" translate="label" type="text" sortOrder="10" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Size (Sandals)</label>
+                    <comment>Please enter size Comma-separated. like (S,M,L,XL,XXL etc...)</comment>
+                </field>
+                <field id="553" translate="label" type="text" sortOrder="10" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Size (Slippers)</label>
+                    <comment>Please enter size Comma-separated. like (S,M,L,XL,XXL etc...)</comment>
+                </field>
+                <field id="554" translate="label" type="text" sortOrder="10" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Size (Trainers)</label>
+                    <comment>Please enter size Comma-separated. like (S,M,L,XL,XXL etc...)</comment>
+                </field>
+                <field id="564" translate="label" type="text" sortOrder="10" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Size (T-Shirts)</label>
+                    <comment>Please enter size Comma-separated. like (S,M,L,XL,XXL etc...)</comment>
+                </field>
+                <field id="565" translate="label" type="text" sortOrder="10" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Size (Coats)</label>
+                    <comment>Please enter size Comma-separated. like (S,M,L,XL,XXL etc...)</comment>
+                </field>
+                <field id="566" translate="label" type="text" sortOrder="10" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Size (Jackets)</label>
+                    <comment>Please enter size Comma-separated. like (S,M,L,XL,XXL etc...)</comment>
+                </field>
+                <field id="567" translate="label" type="text" sortOrder="10" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Size (Pyjamas)</label>
+                    <comment>Please enter size Comma-separated. like (S,M,L,XL,XXL etc...)</comment>
+                </field>
+                <field id="568" translate="label" type="text" sortOrder="10" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Size (Shorts)</label>
+                    <comment>Please enter size Comma-separated. like (S,M,L,XL,XXL etc...)</comment>
+                </field>
+                <field id="569" translate="label" type="text" sortOrder="10" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Size (Swimwear)</label>
+                    <comment>Please enter size Comma-separated. like (S,M,L,XL,XXL etc...)</comment>
+                </field>
+                <field id="570" translate="label" type="text" sortOrder="10" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Size (Tops)</label>
+                    <comment>Please enter size Comma-separated. like (S,M,L,XL,XXL etc...)</comment>
+                </field>
+                <field id="571" translate="label" type="text" sortOrder="10" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Size (Tracksuits)</label>
+                    <comment>Please enter size Comma-separated. like (S,M,L,XL,XXL etc...)</comment>
+                </field>
+                <field id="572" translate="label" type="text" sortOrder="10" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Size (Trousers)</label>
+                    <comment>Please enter size Comma-separated. like (S,M,L,XL,XXL etc...)</comment>
+                </field>
+                <field id="518" translate="label" type="text" sortOrder="10" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Size (Gloves And Mittens)</label>
+                    <comment>Please enter size Comma-separated. like (S,M,L,XL,XXL etc...)</comment>
+                </field>
+                <field id="519" translate="label" type="text" sortOrder="10" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Size (Hair Bands And Head Bands)</label>
+                    <comment>Please enter size Comma-separated. like (S,M,L,XL,XXL etc...)</comment>
+                </field>
+                <field id="520" translate="label" type="text" sortOrder="10" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Size (Hair Clips)</label>
+                    <comment>Please enter size Comma-separated. like (S,M,L,XL,XXL etc...)</comment>
+                </field>
+                <field id="521" translate="label" type="text" sortOrder="10" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Size (Hats)</label>
+                    <comment>Please enter size Comma-separated. like (S,M,L,XL,XXL etc...)</comment>
+                </field>
+                <field id="522" translate="label" type="text" sortOrder="10" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Size (Belts And Braces)</label>
+                    <comment>Please enter size Comma-separated. like (S,M,L,XL,XXL etc...)</comment>
+                </field>
+                <field id="523" translate="label" type="text" sortOrder="10" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Size (Dummy Bags And Clips)</label>
+                    <comment>Please enter size Comma-separated. like (S,M,L,XL,XXL etc...)</comment>
+                </field>
+                <field id="524" translate="label" type="text" sortOrder="10" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Size (Glasses And Frames)</label>
+                    <comment>Please enter size Comma-separated. like (S,M,L,XL,XXL etc...)</comment>
+                </field>
+                <field id="525" translate="label" type="text" sortOrder="10" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Size (Jewellery)</label>
+                    <comment>Please enter size Comma-separated. like (S,M,L,XL,XXL etc...)</comment>
+                </field>
+                <field id="526" translate="label" type="text" sortOrder="10" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Size (Scarves)</label>
+                    <comment>Please enter size Comma-separated. like (S,M,L,XL,XXL etc...)</comment>
+                </field>
+                <field id="527" translate="label" type="text" sortOrder="10" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Size (Sunglasses)</label>
+                    <comment>Please enter size Comma-separated. like (S,M,L,XL,XXL etc...)</comment>
+                </field>
+                <field id="528" translate="label" type="text" sortOrder="10" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Size (Towels And Robes)</label>
+                    <comment>Please enter size Comma-separated. like (S,M,L,XL,XXL etc...)</comment>
+                </field>
+                <field id="529" translate="label" type="text" sortOrder="10" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Size (Toys)</label>
+                    <comment>Please enter size Comma-separated. like (S,M,L,XL,XXL etc...)</comment>
+                </field>
+                <field id="530" translate="label" type="text" sortOrder="10" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Size (Bags)</label>
+                    <comment>Please enter size Comma-separated. like (S,M,L,XL,XXL etc...)</comment>
+                </field>
+                <field id="531" translate="label" type="text" sortOrder="10" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Size (Ballerinas)</label>
+                    <comment>Please enter size Comma-separated. like (S,M,L,XL,XXL etc...)</comment>
+                </field>
+                <field id="532" translate="label" type="text" sortOrder="10" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Size (Boots And Wellies)</label>
+                    <comment>Please enter size Comma-separated. like (S,M,L,XL,XXL etc...)</comment>
+                </field>
+                <field id="533" translate="label" type="text" sortOrder="10" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Size (Crib Shoes)</label>
+                    <comment>Please enter size Comma-separated. like (S,M,L,XL,XXL etc...)</comment>
+                </field>
+                <field id="534" translate="label" type="text" sortOrder="10" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Size (Pre-Walker Shoes)</label>
+                    <comment>Please enter size Comma-separated. like (S,M,L,XL,XXL etc...)</comment>
+                </field>
+                <field id="535" translate="label" type="text" sortOrder="10" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Size (Sandals)</label>
+                    <comment>Please enter size Comma-separated. like (S,M,L,XL,XXL etc...)</comment>
+                </field>
+                <field id="536" translate="label" type="text" sortOrder="10" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Size (Slippers)</label>
+                    <comment>Please enter size Comma-separated. like (S,M,L,XL,XXL etc...)</comment>
+                </field>
+                <field id="537" translate="label" type="text" sortOrder="10" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Size (Trainers)</label>
+                    <comment>Please enter size Comma-separated. like (S,M,L,XL,XXL etc...)</comment>
+                </field>
+                <field id="555" translate="label" type="text" sortOrder="10" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Size (Coats)</label>
+                    <comment>Please enter size Comma-separated. like (S,M,L,XL,XXL etc...)</comment>
+                </field>
+                <field id="556" translate="label" type="text" sortOrder="10" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Size (Dresses)</label>
+                    <comment>Please enter size Comma-separated. like (S,M,L,XL,XXL etc...)</comment>
+                </field>
+                <field id="557" translate="label" type="text" sortOrder="10" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Size (Jackets)</label>
+                    <comment>Please enter size Comma-separated. like (S,M,L,XL,XXL etc...)</comment>
+                </field>
+                <field id="558" translate="label" type="text" sortOrder="10" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Size (Shorts)</label>
+                    <comment>Please enter size Comma-separated. like (S,M,L,XL,XXL etc...)</comment>
+                </field>
+                <field id="559" translate="label" type="text" sortOrder="10" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Size (Skirts)</label>
+                    <comment>Please enter size Comma-separated. like (S,M,L,XL,XXL etc...)</comment>
+                </field>
+                <field id="560" translate="label" type="text" sortOrder="10" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Size (Swimwear)</label>
+                    <comment>Please enter size Comma-separated. like (S,M,L,XL,XXL etc...)</comment>
+                </field>
+                <field id="561" translate="label" type="text" sortOrder="10" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Size (Tops)</label>
+                    <comment>Please enter size Comma-separated. like (S,M,L,XL,XXL etc...)</comment>
+                </field>
+                <field id="562" translate="label" type="text" sortOrder="10" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Size (Tracksuits)</label>
+                    <comment>Please enter size Comma-separated. like (S,M,L,XL,XXL etc...)</comment>
+                </field>
+                <field id="563" translate="label" type="text" sortOrder="10" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Size (Trousers)</label>
+                    <comment>Please enter size Comma-separated. like (S,M,L,XL,XXL etc...)</comment>
+                </field>
+                <field id="592" translate="label" type="text" sortOrder="10" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Size (Tote Bags)</label>
+                    <comment>Please enter size Comma-separated. like (S,M,L,XL,XXL etc...)</comment>
+                </field>
+                <field id="600" translate="label" type="text" sortOrder="10" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Size (Satchel)</label>
+                    <comment>Please enter size Comma-separated. like (S,M,L,XL,XXL etc...)</comment>
+                </field>
+                <field id="609" translate="label" type="text" sortOrder="10" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Size (Travel Bag)</label>
+                    <comment>Please enter size Comma-separated. like (S,M,L,XL,XXL etc...)</comment>
+                </field>
+                <field id="512" translate="label" type="text" sortOrder="10" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Size (Accessories)</label>
+                    <comment>Please enter size Comma-separated. like (S,M,L,XL,XXL etc...)</comment>
+                </field>
+                <field id="513" translate="label" type="text" sortOrder="10" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Size (Shoes)</label>
+                    <comment>Please enter size Comma-separated. like (S,M,L,XL,XXL etc...)</comment>
+                </field>
+                <field id="514" translate="label" type="text" sortOrder="10" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Size (Clothing)</label>
+                    <comment>Please enter size Comma-separated. like (S,M,L,XL,XXL etc...)</comment>
+                </field>
+                <field id="515" translate="label" type="text" sortOrder="10" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Size (Accessories)</label>
+                    <comment>Please enter size Comma-separated. like (S,M,L,XL,XXL etc...)</comment>
+                </field>
+                <field id="516" translate="label" type="text" sortOrder="10" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Size (Shoes)</label>
+                    <comment>Please enter size Comma-separated. like (S,M,L,XL,XXL etc...)</comment>
+                </field>
+                <field id="517" translate="label" type="text" sortOrder="10" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Size (Clothing)</label>
+                    <comment>Please enter size Comma-separated. like (S,M,L,XL,XXL etc...)</comment>
+                </field>
+            </group>
+        </section>
+    </system>
+</config>

@@ -1,0 +1,18 @@
+<?xml version="1.0"?>
+<!--
+  ~ @author    Tigren Solutions <info@tigren.com>
+  ~ @copyright Copyright (c) 2022 Tigren Solutions <https://www.tigren.com>. All rights reserved.
+  ~ @license   Open Software License ("OSL") v. 3.0
+  -->
+<layout xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/layout_generic.xsd">
+    <container name="root">
+        <block class="Magento\Catalog\Block\Product\View" as="ajaxwishlist_remove_success_message"
+               template="Tigren_Ajaxwishlist::remove_success_message.phtml">
+            <block class="Tigren\Ajaxwishlist\Block\Message" name="ajaxwishlist.message"
+                   template="remove_message.phtml"/>
+            <block class="Tigren\Ajaxwishlist\Block\Product\RemoveImage" as="product_image"
+                   template="product/remove_image.phtml"/>
+        </block>
+    </container>
+</layout>

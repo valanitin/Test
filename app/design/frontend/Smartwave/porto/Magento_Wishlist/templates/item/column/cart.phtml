@@ -1,0 +1,99 @@
+<?php
+/**
+ * Copyright © Magento, Inc. All rights reserved.
+ * See COPYING.txt for license details.
+ */
+
+/** @var \Magento\Wishlist\Block\Customer\Wishlist\Item\Column\Cart $block */
+
+/** @var \Magento\Wishlist\Model\Item $item */
+$item = $block->getItem();
+$product = $item->getProduct();
+/** @var \Magento\Wishlist\ViewModel\AllowedQuantity $viewModel */
+$viewModel = $block->getData('allowedQuantityViewModel');
+$allowedQty = $viewModel->setItem($item)->getMinMaxQty();
+?>
+<?php foreach ($block->getChildNames() as $childName) : ?>
+    <?= /* @noEscape */ $block->getLayout()->renderElement($childName, false) ?>
+<?php endforeach;?>
+<div class="box-tocart">
+    <fieldset class="fieldset">
+    <?php if ($product->isSaleable()) : ?>
+        <?php if($product->getTypeId() == 'configurable'){ ?>
+                <div class='products-options-list'>
+                 <?php 
+                    // $objectManager = \Magento\Framework\App\ObjectManager::getInstance();
+                    // $product = $objectManager->create('Magento\Catalog\Model\Product')->load($product->getId());
+                    $dynamicHelper = $this->helper('\Dynamic\Customization\Helper\Data');
+                    $product = $dynamicHelper->getProductManager()->load($product->getId());
+
+                    // $productTypeInstance = $objectManager->get('Magento\ConfigurableProduct\Model\Product\Type\Configurable');
+                    $productTypeInstance  = $dynamicHelper->getProductTypeInstanceManager();
+                    $productAttributeOptions = $productTypeInstance->getConfigurableAttributesAsArray($product);
+                    foreach ($productAttributeOptions as $key => $value) {
+
+                        $tmp_option = $value['values'];
+                        if(count($tmp_option) > 0)
+                        {
+                            echo "<label>".$value['label']."</label>";
+                            echo "<select  class='product-options'  name='super_attribute[".$key."]' id='super_attribute_".$key."'>";
+                            foreach ($tmp_option as $tmp) 
+                            {
+                                echo "<option value='".$tmp['value_index']."'>".$tmp['label']."</option>";
+                            }
+                            echo "</select>";
+                        }
+                    }
+                 
+                ?>
+           </div>
+    <div class="product-item-actions">
+        <div class="actions-primary">
+            <button type="button" data-role="tocart" onclick="addToWishlistConfigrable(<?php echo $key;?>,<?php echo $item->getId();?>,'<?= $block->getBaseUrl();?>');" title="<?= $block->escapeHtmlAttr(__('Add to Cart')) ?>" data-item-id="<?= $block->escapeHtmlAttr($item->getId()) ?>" class="action tocart primary">
+                <span><?= $block->escapeHtml(__('Add to Cart')) ?></span>
+            </button>
+        </div>
+    </div>
+<?php } else{ ?>
+     <div class="product-item-actions">
+        <div class="actions-primary">
+            <button type="button" data-role="tocart" data-post='<?= /* @noEscape */ $block->getItemAddToCartParams($item) ?>' title="<?= $block->escapeHtmlAttr(__('Add to Cart')) ?>" data-item-id="<?= $block->escapeHtmlAttr($item->getId()) ?>" class="action tocart primary">
+                <span><?= $block->escapeHtml(__('Add to Cart')) ?></span>
+            </button>
+        </div>
+    </div>
+<?php } ?>
+    <?php else : ?>
+        <?php if ($product->getIsSalable()) : ?>
+            <p class="available stock" title="<?= $block->escapeHtmlAttr(__('Availability')) ?>">
+                <span><?= $block->escapeHtml(__('In stock')) ?></span>
+            </p>
+        <?php else : ?>
+            <p class="unavailable stock" title="<?= $block->escapeHtmlAttr(__('Availability')) ?>">
+                <span><?= $block->escapeHtml(__('Out of stock')) ?></span>
+            </p>
+        <?php endif; ?>
+    <?php endif; ?>
+    </fieldset>
+</div>
+<script type="text/javascript">
+    
+         function addToWishlistConfigrable(super_attr_id,item_id,base_url){
+            var super_attr = jQuery('#super_attribute_'+super_attr_id+' option:selected').val();
+            jQuery('#wishlist-view-form').attr('action',base_url+'wishlist/index/cart/?item='+item_id+'&key='+super_attr_id+'&qty=1&super_attribute='+super_attr);
+
+             jQuery('#wishlist-view-form').submit();
+          //  window.location='https://dev9.sololuxury.com/gb-en/wishlist/index/cart/?item='+item_id+'&qty=1&super_attribute='+super_attr;
+            
+        }
+</script>
+
+<!-- Product remove from the Wishlist functionality -->
+<script>
+    require(['jquery', 'jquery/ui'], function ($) {
+        $('body').on('click', '[data-role=remove]', $.proxy(function (event) {
+            event.preventDefault();
+            $.mage.dataPost().postData($(event.currentTarget).data('post-remove'));
+        }, this));
+    });
+</script>

@@ -1,0 +1,76 @@
+<?php
+
+namespace Meetanshi\CurrencySwitcher\Plugin;
+
+use Magento\Directory\Model\Currency;
+//use Magento\Store\Model\StoreManagerInterface;
+
+class Store
+{
+    private $dataWrapper;
+    private $currenciesModel;
+    protected $_storeManager;
+    protected $_responseFactory;
+    protected $_url;
+
+    public function __construct(Datawrapper $dataWrapper, Currency $currencyModel,
+    	\Magento\Store\Model\StoreManagerInterface $storeManager,
+    	\Magento\Framework\App\ResponseFactory $responseFactory,
+        \Magento\Framework\UrlInterface $url
+
+    )
+    {
+        $this->currenciesModel = $currencyModel;
+        $this->dataWrapper = $dataWrapper;
+        $this->_storeManager = $storeManager;
+        $this->_responseFactory = $responseFactory;
+        $this->_url = $url;
+    }
+
+    public function afterGetDefaultCurrencyCode()
+    {
+        $defaultCurrency = $this->currenciesModel->getConfigDefaultCurrencies();
+        if ($this->dataWrapper->isActive()) {
+
+        	$baseurl = $this->_storeManager->getStore()->getBaseUrl();
+			$search = 'arabic/' ;
+			
+        	$enStoreUrl = str_replace($search, 'english/', $baseurl);
+        /*	echo $enStoreUrl;
+        	die();
+*/
+            $geoCountry = $this->dataWrapper->getCountryByIp();
+             /* echo $geoCountry;
+            die();*/
+
+             switch ($geoCountry){
+            case 'US':
+            $this->_responseFactory->create()->setRedirect($enStoreUrl)->sendResponse();
+                $store_id = '1';
+                break;
+            case 'GB':
+            	$store_id = '5';
+            	break;
+        	case 'SA':
+        		$store_id = '3';
+        		break;
+        	case 'ES':
+        		$store_id = '8';
+        		break;
+            default :
+                $store_id = '1';
+        }$this->_storeManager->setCurrentStore($store_id);
+
+         
+            $geoCurrencyCode = $this->dataWrapper->getCurrencyByCountry($geoCountry);
+            $allowedCurrencies = $this->currenciesModel->getConfigAllowCurrencies();
+            if (!in_array($geoCurrencyCode, $allowedCurrencies)) {
+                return $defaultCurrency[0];
+            } else {
+                return $geoCurrencyCode;
+            }
+        } else {
+            return $defaultCurrency[0];
+        }
+    }
+}

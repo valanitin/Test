@@ -1,0 +1,25 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * @Author      Firas Developers
+ * @package     Firas_GiftCard
+ * @copyright   Copyright (c) 2019 MAGETOP (https://www.firas.com)
+ * @terms       https://www.firas.com/terms
+ * @license     https://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
+ **/
+-->
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Store:etc/config.xsd">
+    <default>
+        <giftcard>
+            <email>
+                <gift_notification_mail>giftcard_email_gift_notification_mail</gift_notification_mail>
+            </email>
+            <adminEmail>
+                <admin_amt_notification_mail>giftcard_adminEmail_admin_amt_notification_mail</admin_amt_notification_mail>
+            </adminEmail>
+            <activeDuration>
+                <gift_admin_active_days>5</gift_admin_active_days>
+            </activeDuration>
+        </giftcard>
+    </default>
+</config>

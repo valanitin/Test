@@ -1,0 +1,33 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Copyright © Magento, Inc. All rights reserved.
+ * See COPYING.txt for license details.
+ */
+-->
+<page xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/page_configuration.xsd">
+    <update handle="customer_account"/>
+    <head>
+        <title>Order History</title>
+    </head>
+    <body>
+        <referenceContainer name="content">
+            <block class="Dynamic\OrderHistory\Block\Order\History\View" name="orderhistory.view" template="Dynamic_OrderHistory::order/history/view.phtml" cacheable="false">
+				 <!--Start Items , Totals etc-->
+				 <block class="Dynamic\OrderHistory\Block\Order\History\Items" name="historical_order_items" template="Dynamic_OrderHistory::order/history/items.phtml">					
+                    <block class="Magento\Framework\View\Element\RendererList" name="sales.historicalorder.items.renderers" as="historicalrenderer.list"/>
+                    <block class="Magento\Theme\Block\Html\Pager" name="sales_order_item_pager"/>
+                    <!--<block class="Magento\Sales\Block\Order\Totals" name="order_totals" template="Magento_Sales::order/totals.phtml">
+                        <arguments>
+                            <argument name="label_properties" xsi:type="string">colspan="4" class="mark"</argument>
+                            <argument name="value_properties" xsi:type="string">class="amount"</argument>
+                        </arguments>
+                        <block class="Magento\Tax\Block\Sales\Order\Tax" name="tax" template="Magento_Tax::order/tax.phtml"/>
+                    </block>-->
+                
+                </block>
+                <!--End Items , Totals etc-->
+            </block>
+        </referenceContainer>
+    </body>
+</page>

@@ -1,0 +1,89 @@
+<?php
+/**
+ * BSS Commerce Co.
+ *
+ * NOTICE OF LICENSE
+ *
+ * This source file is subject to the EULA
+ * that is bundled with this package in the file LICENSE.txt.
+ * It is also available through the world-wide-web at this URL:
+ * http://bsscommerce.com/Bss-Commerce-License.txt
+ *
+ * @category   BSS
+ * @package    Bss_AjaxSocialLogin
+ * @author     Extension Team
+ * @copyright  Copyright (c) 2017-2018 BSS Commerce Co. ( http://bsscommerce.com )
+ * @license    http://bsscommerce.com/Bss-Commerce-License.txt
+ */
+?>
+<?php
+//  @codingStandardsIgnoreFile
+?>
+<?php
+/**
+ * @var Bss\SocialLogin\Block\SocialLogin\Authentication
+ */
+?>
+<?php $helper = $this->helper('Bss\SocialLogin\Helper\Data'); ?>
+<div class="block-container" id="tab-login">
+    <div class="block-content" aria-labelledby="block-customer-login-heading">
+        <form class="form-customer-login"
+              id="social-form-login"
+              data-mage-init='{"validation":{}}'>
+            <?php echo $block->getBlockHtml('formkey'); ?>
+            <fieldset class="fieldset login" data-hasrequired="<?php /* @escapeNotVerified */
+            echo __('* Required Fields') ?>">
+                <div class="field email required">
+                    <label class="label" for="email"><span><?php /* @escapeNotVerified */
+                            echo __('Email') ?></span></label>
+
+                    <div class="control">
+                        <input name="username"
+                               value="<?php echo $block->escapeHtml($block->getUsername()) ?>" <?php if ($block->isAutocompleteDisabled()) :
+?> autocomplete="off"<?php
+                                      endif; ?>
+                               id="email" type="email" class="input-text" title="<?php /* @escapeNotVerified */
+                                echo __('Email') ?>" data-validate="{required:true, 'validate-email':true}">
+                    </div>
+                </div>
+                <div class="field password required">
+                    <label for="pass" class="label"><span><?php /* @escapeNotVerified */
+                            echo __('Password') ?></span></label>
+
+                    <div class="control">
+                        <input name="password"
+                               type="password" <?php if ($block->isAutocompleteDisabled()) :
+?> autocomplete="off"<?php
+                                               endif; ?>
+                               class="input-text" id="pass" title="<?php /* @escapeNotVerified */
+                                echo __('Password') ?>" data-validate="{required:true, 'validate-password':true}">
+                    </div>
+                </div>
+                <?php echo $block->getChildHtml('form_additional_info'); ?>
+                <!-- recaptcha -->
+                <?php if ($helper->recaptcha('login')) : ?>
+                <div class="recaptcha field required" style="overflow:hidden;position:relative;margin-bottom:10px;">
+                    <div id="tab-login-recaptcha"></div>
+                    <input type="text" id="login-recaptcha" name="login-recaptcha" value="" class="bss-recaptcha" data-validate="{required:true, 'required-entry':true}" readonly style="visibility:hidden; position:absolute; left:-1000000px" />
+                </div>
+                <?php endif; ?>
+                
+                <div class="actions-toolbar">
+                    <div class="primary">
+                        <button type="button" class="action login primary" id="bt-social-login">
+                        <span><?php /* @escapeNotVerified */
+                            echo __('Sign In') ?></span></button>
+                    </div>
+                    <div class="secondary"><a class="social-login fogot-pw" href="#social-login-popup" ><span><?php /* @escapeNotVerified */
+                                echo __('Forgot Your Password?') ?></span></a></div>
+                </div>
+            </fieldset>
+        </form>
+        <?php
+        
+        if ($helper->displayPopup()  == 'login' || $helper->displayPopup()  == 'both') : ?>
+            <div class="social-login-popup login-popup"></div>
+        <?php endif; ?>
+    </div>
+</div>
+

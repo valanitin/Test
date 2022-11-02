@@ -1,0 +1,136 @@
+<?php $brands = $this->getBrands();
+$allReqChars = $this->getAllChars();
+$baseUrl = $block->getBaseUrl();
+?>
+<!-- START CODE TO GET BRANDS -->
+<div class="clsbrand">
+	<div class="container">
+		<div class="row">
+			<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 brandlists">
+				<div class="searchbar">
+					<input type="text" name="" placeholder="Find Brand" class="form-control" id="searchText">
+				</div>
+				<!-- <div class="col-xs-12 aztexts"><b>A-Z</b></div> -->
+				<ul>
+					<?php foreach (range('A', 'Z') as $char): ?>
+					<li><a class="searchChar" href="#" char="<?php echo $char ?>"><?php echo $char; ?></a></li>
+					<?php
+						if($char == 'R'){
+					?>
+				</ul>
+				<ul>
+					<?php
+						}
+					?>
+					<?php endforeach; ?>
+					<?php foreach (range('0', '9') as $char): ?>
+					<li><a class="searchChar" href="#" char="<?php echo $char ?>"><?php echo $char; ?></a></li>
+					<?php endforeach; ?>
+				</ul>
+				<ul>
+					<li><a href="<?php $baseUrl.'brands' ?>" class="viewallbrands">View All</a></li>
+				</ul>
+
+				<!-- <div class="col-xs-12 viewbtn"><a href="#">View All</a></div> -->
+			</div>
+			<div id="no-result" style="display:none;width:100%">
+					<p style="text-align: center"><?= __('No search results found. Please raise a ticket for any queries.') ?></p>
+						<p style="text-align: center">
+							<a id="create-ticket-btn" data-title="<?php echo $block->escapeHtml(__('Brands list Query')); ?>" style="cursor: pointer"><?php echo $block->escapeHtml(__('Create Ticket')); ?></a> | <a href="<?php echo $block->getUrl('brands'); ?>"><?php echo $block->escapeHtml(__('Continue Shopping')); ?></a>
+						</p>
+			</div>
+			<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 branddetails">
+				<div class="row">
+				<?php
+					$count = 1;
+					foreach (range('A', 'Z') as $char){
+						if (isset($brands[$char])){
+					?>
+							<div class="col-md-2 topics-detail <?php echo $char ?>">
+
+								<ul class="<?php echo $char; ?>">
+								<h3 class="title-<?php echo $char ?>"><?php echo $char; ?><span class="close-brand" style="display:none;">X</span></h3>
+								<?php
+								$brand_cnt = 0;
+								foreach ($brands[$char] as $_brand): ?>
+									<?php									  
+										if($brand_cnt > 6)
+										{
+											$className = 'morebrands morebrands'.$char;
+										}
+										else{
+											$className = 'lessbrands lessbrands'.$char;
+										}
+										?>
+										<li class="clsbrandsli <?php echo $className; ?>"><a href="<?php echo $_brand->getUrl(); ?>"><?php echo $_brand->getName(); ?></a></li>
+
+								<?php
+									// if($brandProductCount > 0){
+									// 	$brand_cnt++;
+									// }
+									$brand_cnt++;
+									endforeach; ?>
+								<?php
+									if($brand_cnt > 6)
+									{ ?>
+										<li class="clsbrandslimorebtn "><a href="javascript:;" class="morebrandsbtn <?php echo $char ?>" id="morebrandsbtn" datachar="<?php echo $char; ?>" >& more...</a></li>
+									<?php }
+
+									?>
+
+							</ul>
+							</div>
+					<?php
+						 $count++;
+					 }
+					}
+				?>
+
+				<?php
+					$count2 = 1;
+					foreach (range('0', '9') as $char){
+						$brand_cnt = 0;
+						if (isset($brands[$char])){
+					?>
+							<div class="col-md-2 topics-detail <?php echo $char ?>">
+
+								<ul class="<?php echo $char; ?>">
+									<h3 class="title-<?php echo $char ?>"><?php echo $char; ?><span class="close-brand" style="display:none;">X</span></h3>
+									<?php foreach ($brands[$char] as $_brand): ?>
+										<?php
+										if($brand_cnt > 6)
+										{
+										?>
+											<li class="clsbrandsli morebrands morebrands<?php echo $char; ?>"><a href="<?php echo $_brand->getUrl(); ?>"><?php echo $_brand->getName(); ?></a></li>
+										<?php
+										}
+										else{
+										?>
+											<li class="clsbrandsli lessbrands lessbrands<?php echo $char; ?>"><a href="<?php echo $_brand->getUrl(); ?>"><?php echo $_brand->getName(); ?></a></li>
+										<?php
+										}
+										?>
+										<?php $brand_cnt++; ?>
+									<?php endforeach; ?>
+									<?php
+										if($brand_cnt > 6)
+										{ ?>
+											<li class="clsbrandslimorebtn "><a href="javascript:;" class="morebrandsbtn <?php echo $char ?>" id="morebrandsbtn" datachar="<?php echo $char; ?>" >& more...</a></li>
+										<?php }
+
+										?>
+								</ul>
+							</div>
+					<?php
+						 $count2++;
+					 }
+					}
+				?>
+
+
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+<!-- END CODE TO GET BRANDS -->

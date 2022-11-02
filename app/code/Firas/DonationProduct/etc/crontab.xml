@@ -1,0 +1,16 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Copyright © Swarming Technology, LLC. All rights reserved.
+ */
+-->
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Cron:etc/crontab.xsd">
+    <group id="default">
+        <job name="firas_donation_order_save_after" instance="Firas\DonationProduct\Cron\Sales\OrderSaveAfter" method="execute">
+            <schedule>*/7 */1 * * *</schedule>
+        </job>
+        <job name="firas_donation_order_save_after" instance="Firas\DonationProduct\Cron\Sales\OrderItemSaveAfter" method="execute">
+            <schedule>*/6 */1 * * *</schedule>
+        </job>
+    </group>
+</config>

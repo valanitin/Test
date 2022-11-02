@@ -1,0 +1,21 @@
+<?php
+/**
+ * @package     Plumrocket_SocialLoginFree
+ * @copyright   Copyright (c) 2020 Plumrocket Inc. (https://plumrocket.com)
+ * @license     https://plumrocket.com/license   End-user License Agreement
+ */
+
+/** @var \Plumrocket\SocialLoginFree\Block\Template $block */
+?>
+
+<?php if ($block->isModuleEnabledForRegistration() && $block->getDataHelper()->hasButtons()) : ?>
+<div class="pslogin-spacer pslogin-clearfix">
+    <table>
+        <tr>
+            <td><div class="pslogin-border"></div></td>
+            <td class="pslogin-bordertext w25"><?= __('OR') ?></td>
+            <td><div class="pslogin-border"></div></td>
+        </tr>
+    </table>
+</div>
+<?php endif ?>

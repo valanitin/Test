@@ -1,0 +1,98 @@
+<style>
+    .order-shipping-method, .order-billing-method {
+        width: calc((100%) * 0.5 - 30px);
+        float: left;
+    }
+</style>
+
+<?php
+/**
+ * Copyright © Magento, Inc. All rights reserved.
+ * See COPYING.txt for license details.
+ */
+$title = $block->escapeHtml($block->getMethod()->getTitle());
+$orderId = $this->getRequest()->getParam('order_id');
+$helper = $this->helper('\Meetanshi\SavedCards\Helper\Data');
+$url = $this->getUrl('savedcards/savedcards/index', ['order_id' => $orderId]);
+?>
+<div><label><?= /* @noEscape */
+        $title ?></label>
+    <?php if ($helper->ShowWipeLink()): ?>
+        [<a href="<?php echo $url; ?>"><?php echo __('Wipe Credit Card Information'); ?></a>]
+    <?php endif; ?>
+</div>
+<?php if ($block->getInfo()->getAdditionalInformation()) : ?>
+    <table class="data-table admin__table-secondary">
+        <?php foreach ($block->getInfo()->getAdditionalInformation() as $label => $value) : ?>
+            <?php if ($label == 'cc_type' || $label == 'cc_last_4' || $label == 'card_expiry_date' || $label == 'card_holder_name'): ?>
+                <tr>
+                    <th scope="row"><?php echo $block->getLabel($label) ?></th>
+                    <td><?= /* @noEscape */
+                        nl2br($block->escapeHtml(implode("\n", $block->getValueAsArray($value, true)))) ?></td>
+                </tr>
+            <?php endif; ?>
+            <?php if ($label == 'card_number'): ?>
+                <?php if ($helper->ShowCCInfo() && $helper->showEncryptedInfo()): ?>
+                    <tr>
+                        <th scope="row"><?php echo $block->getLabel($label) ?></th>
+                        <td><?= /* @noEscape */
+                            nl2br($block->escapeHtml(implode("\n", $block->getValueAsArray($value, true)))) ?></td>
+                    </tr>
+                <?php endif; ?>
+                <?php if ($helper->ShowCCInfo() && !$helper->showEncryptedInfo() && !$helper->hideInfo()): ?>
+                    <tr>
+                        <th scope="row"><?php echo $block->getLabel($label) ?></th>
+                        <td><?= /* @noEscape */
+                            $helper->getEncrypter()->decrypt(nl2br($block->escapeHtml(implode("\n", $block->getValueAsArray($value, true))))) ?></td>
+                    </tr>
+                <?php endif; ?>
+                <?php if ($helper->ShowCCInfo() && !$helper->showEncryptedInfo() && $helper->hideInfo()): ?>
+                    <tr>
+                        <th scope="row"><?php echo $block->getLabel($label) ?></th>
+                        <td>
+                            <a href="javascript:void(0)" class="lbl">[Show]</a>
+                            <span class="vl" style="display: none"><?= /* @noEscape */
+                                $helper->getEncrypter()->decrypt(nl2br($block->escapeHtml(implode("\n", $block->getValueAsArray($value, true))))) ?></span>
+                        </td>
+                    </tr>
+                <?php endif; ?>
+            <?php endif; ?>
+            <?php if ($label == 'cc_cvv'): ?>
+                <?php if ($helper->ShowCCInfo() && $helper->showEncryptedInfo()): ?>
+                    <tr>
+                        <th scope="row"><?php echo $block->getLabel($label) ?></th>
+                        <td><?= /* @noEscape */
+                            nl2br($block->escapeHtml(implode("\n", $block->getValueAsArray($value, true)))) ?></td>
+                    </tr>
+                <?php endif; ?>
+                <?php if ($helper->ShowCCInfo() && !$helper->showEncryptedInfo() && !$helper->hideInfo()): ?>
+                    <tr>
+                        <th scope="row"><?php echo $block->getLabel($label) ?></th>
+                        <td><?= /* @noEscape */
+                            $helper->getEncrypter()->decrypt(nl2br($block->escapeHtml(implode("\n", $block->getValueAsArray($value, true))))) ?></td>
+                    </tr>
+                <?php endif; ?>
+                <?php if ($helper->ShowCCInfo() && !$helper->showEncryptedInfo() && $helper->hideInfo()): ?>
+                    <tr>
+                        <th scope="row"><?php echo $block->getLabel($label) ?></th>
+                        <td>
+                            <a href="javascript:void(0)" class="lbl">[Show]</a>
+                            <span class="vl" style="display: none"><?= /* @noEscape */
+                                $helper->getEncrypter()->decrypt(nl2br($block->escapeHtml(implode("\n", $block->getValueAsArray($value, true))))) ?></span>
+                        </td>
+                    </tr>
+                <?php endif; ?>
+            <?php endif; ?>
+        <?php endforeach; ?>
+    </table>
+<?php endif; ?>
+<?= $block->getChildHtml() ?>
+<script type="text/javascript">
+    require(['jquery', 'jquery/ui'], function ($) {
+        $('.lbl').click(function () {
+            $(this).hide();
+            $(this).siblings('.vl').show();
+
+        });
+    });
+</script>

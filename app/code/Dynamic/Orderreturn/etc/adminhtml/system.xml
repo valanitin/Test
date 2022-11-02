@@ -1,0 +1,40 @@
+<?xml version="1.0"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Config:etc/system_file.xsd">
+    <system>
+        <tab id="orderreturn" translate="label" sortOrder="400">
+            <label>Order Return</label>
+        </tab>
+        <section id="orderreturn_reason" translate="label" sortOrder="20" showInDefault="1" showInWebsite="1" showInStore="1">
+            <class>separator-top</class>
+            <label>Item Return Reason Configuration</label>
+            <tab>orderreturn</tab>
+            <resource>Dynamic_Orderreturn::config_orderreturn</resource>
+            <group id="orderreturn_configuration" translate="label" type="text" sortOrder="10" showInDefault="1" showInWebsite="1" showInStore="1">
+                <label>Add Item Return Reasons</label>
+                <field id="reason" translate="label" sortOrder="10" showInDefault="1" showInStore="1" showInWebsite="1">
+                    <label>Reason</label>
+                    <frontend_model>Dynamic\Orderreturn\Block\Adminhtml\Form\Field\Reason</frontend_model>
+                    <backend_model>Magento\Config\Model\Config\Backend\Serialized\ArraySerialized</backend_model>
+                </field>
+            </group>
+        </section>
+        <section id="ordercancel_reason" translate="label" sortOrder="20" showInDefault="1" showInWebsite="1" showInStore="1">
+            <class>separator-top</class>
+            <label>Order Cancel Reason Configuration</label>
+            <tab>orderreturn</tab>
+            <resource>Dynamic_Orderreturn::config_ordercancel</resource>
+            <group id="ordercancel_configuration" translate="label" type="text" sortOrder="10" showInDefault="1" showInWebsite="1" showInStore="1">
+                <label>Add Order Cancel Reasons</label>
+                <field id="reason" translate="label" sortOrder="10" showInDefault="1" showInStore="1" showInWebsite="1">
+                    <label>Reason</label>
+                    <frontend_model>Dynamic\Orderreturn\Block\Adminhtml\Form\Field\Reason</frontend_model>
+                    <backend_model>Magento\Config\Model\Config\Backend\Serialized\ArraySerialized</backend_model>
+                </field>
+            </group>
+        </section>
+    </system>
+</config>
+
+
+
+

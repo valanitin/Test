@@ -1,0 +1,221 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+/**
+ * @author Amasty Team
+ * @copyright Copyright (c) 2021 Amasty (https://www.amasty.com)
+ * @package Amasty_SeoToolKit
+ */
+-->
+
+<form xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Ui:etc/ui_configuration.xsd">
+    <argument name="data" xsi:type="array">
+        <item name="js_config" xsi:type="array">
+            <item name="provider" xsi:type="string">amasty_seotoolkit_redirect_form.amasty_seotoolkit_redirect_form_data_source</item>
+            <item name="deps" xsi:type="string">amasty_seotoolkit_redirect_form.amasty_seotoolkit_redirect_form_data_source</item>
+        </item>
+        <item name="config" xsi:type="array">
+            <item name="dataScope" xsi:type="string">data</item>
+            <item name="namespace" xsi:type="string">amasty_seotoolkit_redirect_form_data_source</item>
+        </item>
+        <item name="label" xsi:type="string" translate="true">Edit Redirect</item>
+        <item name="template" xsi:type="string">templates/form/collapsible</item>
+        <item name="buttons" xsi:type="array">
+            <item name="back" xsi:type="array">
+                <item name="name" xsi:type="string">back</item>
+                <item name="label" xsi:type="string" translate="true">Back</item>
+                <item name="class" xsi:type="string">back</item>
+                <item name="url" xsi:type="string">*/*/</item>
+            </item>
+            <item name="delete" xsi:type="string">Amasty\SeoToolKit\Block\Adminhtml\Edit\DeleteButton</item>
+            <item name="save_and_continue" xsi:type="string">Amasty\SeoToolKit\Block\Adminhtml\Edit\SaveAndContinueButton</item>
+            <item name="save" xsi:type="array">
+                <item name="name" xsi:type="string">save</item>
+                <item name="label" xsi:type="string" translate="true"><![CDATA[Save]]></item>
+                <item name="class" xsi:type="string">save primary</item>
+            </item>
+        </item>
+    </argument>
+    <dataSource name="amasty_seotoolkit_redirect_form.amasty_seotoolkit_redirect_form_data_source">
+        <argument name="dataProvider" xsi:type="configurableObject">
+            <argument name="class" xsi:type="string">Amasty\SeoToolKit\Ui\DataProvider\Redirect\Form\DataProvider</argument>
+            <argument name="name" xsi:type="string">amasty_seotoolkit_redirect_form_data_source</argument>
+            <argument name="primaryFieldName" xsi:type="string">redirect_id</argument>
+            <argument name="requestFieldName" xsi:type="string">redirect_id</argument>
+            <argument name="data" xsi:type="array">
+                <item name="config" xsi:type="array">
+                    <item name="submit_url" xsi:type="url" path="*/*/save"/>
+                </item>
+            </argument>
+        </argument>
+        <argument name="data" xsi:type="array">
+            <item name="js_config" xsi:type="array">
+                <item name="component" xsi:type="string">Magento_Ui/js/form/provider</item>
+            </item>
+        </argument>
+    </dataSource>
+    <fieldset name="general">
+        <argument name="data" xsi:type="array">
+            <item name="config" xsi:type="array">
+                <item name="collapsible" xsi:type="boolean">false</item>
+                <item name="opened" xsi:type="boolean">true</item>
+                <item name="label" xsi:type="string" translate="true">General</item>
+            </item>
+        </argument>
+        <field name="status">
+            <argument name="data" xsi:type="array">
+                <item name="config" xsi:type="array">
+                    <item name="sortOrder" xsi:type="number">10</item>
+                    <item name="dataType" xsi:type="string">boolean</item>
+                    <item name="formElement" xsi:type="string">checkbox</item>
+                    <item name="prefer" xsi:type="string">toggle</item>
+                    <item name="dataScope" xsi:type="string">status</item>
+                    <item name="label" xsi:type="string" translate="true">Status</item>
+                    <item name="valueMap" xsi:type="array">
+                        <item name="true" xsi:type="string">1</item>
+                        <item name="false" xsi:type="string">0</item>
+                    </item>
+                    <item name="toggleLabels" xsi:type="array">
+                        <item name="on" xsi:type="string" translate="true">Enabled</item>
+                        <item name="off" xsi:type="string" translate="true">Disabled</item>
+                    </item>
+                    <item name="validation" xsi:type="array">
+                        <item name="required-entry" xsi:type="boolean">false</item>
+                    </item>
+                    <item name="default" xsi:type="string">0</item>
+                </item>
+            </argument>
+        </field>
+        <field name="request_path">
+            <argument name="data" xsi:type="array">
+                <item name="config" xsi:type="array">
+                    <item name="sortOrder" xsi:type="number">20</item>
+                    <item name="dataType" xsi:type="string">text</item>
+                    <item name="formElement" xsi:type="string">input</item>
+                    <item name="label" xsi:type="string">Request Path</item>
+                    <item name="dataScope" xsi:type="string">request_path</item>
+                    <item name="additionalInfo" translate="true" xsi:type="string">
+                        <![CDATA[
+                               <small>
+                               Note! Insert URL with suffix which is configured under Configuration-Catalog-Search Engine Optimization.<br>
+                               It is possible to use wildcard to indicate ’any path’ option. Use * to activate it.<br>
+                                Example:<br>
+                                use Request Path <em>men/tops-men/*</em> and Target Path <em>men/tops/*</em><br>
+                                to redirect all URLs which start with <em>men/tops-men/</em> to URLs which start with <em>men/tops/</em><br></small>
+                            ]]>
+                    </item>
+                    <item name="validation" xsi:type="array">
+                        <item name="required-entry" xsi:type="boolean">true</item>
+                    </item>
+                </item>
+            </argument>
+        </field>
+        <field name="target_path">
+            <argument name="data" xsi:type="array">
+                <item name="config" xsi:type="array">
+                    <item name="sortOrder" xsi:type="number">30</item>
+                    <item name="dataType" xsi:type="string">text</item>
+                    <item name="formElement" xsi:type="string">input</item>
+                    <item name="label" xsi:type="string">Target Path</item>
+                    <item name="dataScope" xsi:type="string">target_path</item>
+                    <item name="validation" xsi:type="array">
+                        <item name="required-entry" xsi:type="boolean">true</item>
+                    </item>
+                    <item name="additionalInfo" translate="true" xsi:type="string">
+                        <![CDATA[
+                               <small>
+                               Note! Insert URL with suffix which is configured under Configuration-Catalog-Search Engine Optimization.<br>
+                               You can use wildcard here if needed.
+                               </small>
+                            ]]>
+                    </item>
+                </item>
+            </argument>
+        </field>
+        <field name="redirect_type">
+            <argument name="data" xsi:type="array">
+                <item name="options" xsi:type="object">Amasty\SeoToolKit\Model\Source\RedirectType</item>
+                <item name="config" xsi:type="array">
+                    <item name="sortOrder" xsi:type="number">40</item>
+                    <item name="dataType" xsi:type="string">int</item>
+                    <item name="label" xsi:type="string" translate="true">Redirect Type</item>
+                    <item name="formElement" xsi:type="string">select</item>
+                    <item name="dataScope" xsi:type="string">redirect_type</item>
+                    <item name="default" xsi:type="string">1</item>
+                </item>
+            </argument>
+        </field>
+        <field name="undefined_page_only">
+            <argument name="data" xsi:type="array">
+                <item name="config" xsi:type="array">
+                    <item name="sortOrder" xsi:type="number">50</item>
+                    <item name="dataType" xsi:type="string">boolean</item>
+                    <item name="formElement" xsi:type="string">checkbox</item>
+                    <item name="prefer" xsi:type="string">toggle</item>
+                    <item name="dataScope" xsi:type="string">undefined_page_only</item>
+                    <item name="label" xsi:type="string" translate="true">Use for 404 Pages Only</item>
+                    <item name="valueMap" xsi:type="array">
+                        <item name="true" xsi:type="string">1</item>
+                        <item name="false" xsi:type="string">0</item>
+                    </item>
+                    <item name="validation" xsi:type="array">
+                        <item name="required-entry" xsi:type="boolean">false</item>
+                    </item>
+                    <item name="default" xsi:type="string">0</item>
+                    <item name="additionalInfo" translate="true" xsi:type="string">
+                        <![CDATA[
+                                <small>If set to ‘Yes’, the redirect will be performed only if request path is returning Page 404.<br>
+                                Example:<br>
+                                set this setting to ‘Yes’,<br>
+                                use Request Path * and Target Path <em>contact</em><br>
+                                to redirect all 404 Pages to Contact Us page.<br></small>
+                            ]]>
+                    </item>
+                </item>
+            </argument>
+        </field>
+        <field name="description">
+            <argument name="data" xsi:type="array">
+                <item name="config" xsi:type="array">
+                    <item name="sortOrder" xsi:type="number">60</item>
+                    <item name="dataType" xsi:type="string">text</item>
+                    <item name="formElement" xsi:type="string">textarea</item>
+                    <item name="label" xsi:type="string">Description</item>
+                    <item name="dataScope" xsi:type="string">description</item>
+                </item>
+            </argument>
+        </field>
+        <field name="store_ids">
+            <argument name="data" xsi:type="array">
+                <item name="options" xsi:type="object">Magento\Cms\Ui\Component\Listing\Column\Cms\Options</item>
+                <item name="config" xsi:type="array">
+                    <item name="sortOrder" xsi:type="number">70</item>
+                    <item name="dataType" xsi:type="string">int</item>
+                    <item name="label" xsi:type="string" translate="true">Store Views</item>
+                    <item name="formElement" xsi:type="string">multiselect</item>
+                    <item name="dataScope" xsi:type="string">store_ids</item>
+                    <item name="default" xsi:type="string">0</item>
+                    <item name="validation" xsi:type="array">
+                        <item name="required-entry" xsi:type="boolean">true</item>
+                    </item>
+                </item>
+            </argument>
+        </field>
+        <field name="priority">
+            <argument name="data" xsi:type="array">
+                <item name="config" xsi:type="array">
+                    <item name="sortOrder" xsi:type="number">80</item>
+                    <item name="dataType" xsi:type="string">text</item>
+                    <item name="formElement" xsi:type="string">input</item>
+                    <item name="label" xsi:type="string">Priority</item>
+                    <item name="dataScope" xsi:type="string">priority</item>
+                    <item name="validation" xsi:type="array">
+                        <item name="validate-digits" xsi:type="boolean">true</item>
+                        <item name="validate-greater-than-zero" xsi:type="boolean">true</item>
+                    </item>
+                    <item name="default" xsi:type="string">1</item>
+                    <item name="notice" translate="true" xsi:type="string">If there are several redirects with identical Request Path, the redirect with the highest priority will be executed. Here 1 is the highest priority.</item>
+                </item>
+            </argument>
+        </field>
+    </fieldset>
+</form>

@@ -1,0 +1,39 @@
+<?xml version="1.0" ?>
+<routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Webapi:etc/webapi.xsd">
+    <route method="PUT" url="/V1/multistore/storeproducts/:sku">
+        <service class="MultiStoreRestApi\StoreProductsRestApi\Api\StoreProductsApiInterface" method="UpdateStoreProducts"/>
+        <resources>
+            <resource ref="Magento_Catalog::products"/>
+        </resources>
+    </route>
+    <route method="PUT" url="/V1/multistore/productprice/:sku">
+        <service class="MultiStoreRestApi\StoreProductsRestApi\Api\StoreProductsApiInterface" method="UpdateProductprice"/>
+        <resources>
+            <resource ref="Magento_Catalog::products"/> 
+        </resources>
+    </route>
+	<route method="POST" url="/V1/multistore/qtyupdate/">
+        <service class="MultiStoreRestApi\StoreProductsRestApi\Api\StoreProductsApiInterface" method="UpdateProductQty"/>
+        <resources>
+            <resource ref="Magento_Catalog::products"/>
+        </resources>
+    </route>
+	<route method="POST" url="/V1/multistore/adminuser/">
+        <service class="MultiStoreRestApi\StoreProductsRestApi\Api\AdminUserApiInterface" method="createAdminUser"/>
+        <resources>
+            <resource ref="anonymous"/>
+        </resources>
+    </route>
+	<route method="POST" url="/V1/multistore/deleteadminuser/">
+        <service class="MultiStoreRestApi\StoreProductsRestApi\Api\AdminUserApiInterface" method="deleteAdminUser"/>
+        <resources>
+            <resource ref="anonymous"/>
+        </resources>
+    </route>
+	<route method="POST" url="/V1/multistore/editadminuser/">
+        <service class="MultiStoreRestApi\StoreProductsRestApi\Api\AdminUserApiInterface" method="editAdminUser"/>
+        <resources>
+            <resource ref="anonymous"/>
+        </resources>
+    </route>
+</routes>

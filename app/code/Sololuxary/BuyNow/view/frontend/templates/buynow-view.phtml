@@ -1,0 +1,19 @@
+<?php /** @var \Magento\Catalog\Block\Product\View $block */ ?>
+<?php $helper = $this->helper(\Sololuxary\BuyNow\Helper\Data::class); ?>
+<?php $formId = $helper->getAddToCartFormId(); ?>
+<?php $buttonTitle = $helper->getButtonTitle() ?>
+<div class="buynow-button">
+    <button type="submit"
+            title="<?= $block->escapeHtml(__($buttonTitle)) ?>"
+            id="buy-now"
+            class="action primary buy-now-btn"
+            data-mage-init='
+            {
+                "Sololuxary_BuyNow/js/buy-now": {
+                    "form": "#<?= $block->escapeHtml($formId); ?>"
+                }
+            }
+            '>
+        <span><?= $block->escapeHtml(__($buttonTitle)) ?></span>
+    </button>
+</div>

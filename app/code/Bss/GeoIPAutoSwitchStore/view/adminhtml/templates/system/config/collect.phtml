@@ -1,0 +1,95 @@
+<?php
+/**
+ * BSS Commerce Co.
+ *
+ * NOTICE OF LICENSE
+ *
+ * This source file is subject to the EULA
+ * that is bundled with this package in the file LICENSE.txt.
+ * It is also available through the world-wide-web at this URL:
+ * http://bsscommerce.com/Bss-Commerce-License.txt
+ *
+ * @category   BSS
+ * @package    Bss_GeoIPAutoSwitchStore
+ * @author     Extension Team
+ * @copyright  Copyright (c) 2016-2017 BSS Commerce Co. ( http://bsscommerce.com )
+ * @license    http://bsscommerce.com/Bss-Commerce-License.txt
+ */
+// @codingStandardsIgnoreFile
+?>
+<script type="text/x-magento-init">
+    {
+        "*": {
+            "Bss_GeoIPAutoSwitchStore/js/ajax_update": {
+                "ajaxUrlDownload": "<?php echo $block->getAjaxUrlDownload() ?>",
+                "ajaxUrlExtract": "<?php echo $block->getAjaxUrlExtract() ?>"
+            }
+        }
+    }
+</script>
+<?php echo $block->getButtonHtml() ?>
+<p class="last_update">
+
+<?php
+if ($block->getUpdateTimeGeoIp()): ?>
+    <?php if ($block->getStatusGeoIp() == 'pending'): ?>
+        <?php echo __('Waiting for Cron to run!'); ?></p>
+    <?php
+        endif; ?>
+    <?php if ($block->getStatusGeoIp() == 'doing'): ?>
+        <?php echo __('Importing file to Database ').$block->getPercentGeoIp().'%'; ?></p>
+    <?php
+        endif; ?>
+    <?php if ($block->getStatusGeoIp() == 'done'): ?>
+        <?php echo __('Last Update: ').$block->getUpdateTimeGeoIp(); ?></p>
+    <?php
+        endif; ?>
+<?php else: ?>
+    <?php if ($block->getStatusGeoIp() == 'pending'): ?>
+        <?php echo __('Waiting for Cron to run!'); ?></p>
+    <?php
+        endif; ?>
+    <?php if ($block->getStatusGeoIp() == 'doing'): ?>
+        <?php echo __('Importing file to Database ').$block->getPercentGeoIp().'%'; ?></p>
+    <?php
+        endif; ?>
+    
+    <?php if ($block->getStatusGeoIp()): ?>
+    <?php else: ?>
+        <?php echo __('Please update the MaxMind database before enabling the extension.'); ?></p>
+    <?php
+        endif; ?>
+<?php
+    endif; ?>
+<div class="download_geoip" style="display: none">
+    <img
+        class="processing_download"
+        alt="Collecting"
+        style="margin: 5px 5px 0px 0px"
+        src="<?php echo $block->getViewFileUrl('images/process_spinner.gif') ?>"
+    />
+    <img
+        class="collected_download"
+        alt="Collected" style="margin: 5px 5px 0px 0px"
+        src="<?php echo $block->getViewFileUrl('images/rule_component_apply.gif') ?>"
+    />
+    <p class="download_success"><?php echo __("Downloading file from the host..."); ?></p></div>
+<div class="unzipping" style="display: none">
+    <img
+        class="processing_unzip"
+        alt="Collecting"
+        style="margin: 5px 5px 0px 0px"
+        src="<?php echo $block->getViewFileUrl('images/process_spinner.gif') ?>"
+    />
+    <img
+        class="collected_unzip"
+        alt="Collected"
+        style="margin: 5px 5px 0px 0px"
+        src="<?php echo $block->getViewFileUrl('images/rule_component_apply.gif') ?>"
+    />
+    <p class="unzip_success"><?php echo __("Extracting file..."); ?></p></div>
+
+<div class="import_database" style="display: none">
+    <div class="percent"><div class="percent_child"></div></div><p class="percent_string">0%</p>
+</div>
+<div class="done_import" style="display: none"><?php echo __("Success"); ?></div>

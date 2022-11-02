@@ -1,0 +1,47 @@
+<?php
+/**
+ * @package     Plumrocket_Base
+ * @copyright   Copyright (c) 2020 Plumrocket Inc. (https://plumrocket.com)
+ * @license     https://plumrocket.com/license/  End-user License Agreement
+ */
+?>
+<?php /** @var \Plumrocket\Base\Block\Adminhtml\System\Config\Form\Extensions $block */ ?>
+
+<div class="base-exten-info">
+    <?php foreach ($block->getExtensions() as $extension): ?>
+        <?php if ($extension['updates']): ?>
+            <details>
+                <summary>
+                    <?= $block->escapeHtml($block->getLabel($extension)) ?> -
+                    <span class="new-update"><?= $block->escapeHtml($block->getNewUpdateLabel($extension)) ?></span>
+                </summary>
+
+                <div class="details-item details-item-avaible">
+                    <span class="base-exten-available"><?= $block->escapeHtml(__('Available Updates:')) ?></span>
+                    <?php if ($extension['documentation']): ?>
+                        <a href="<?= $block->escapeUrl($extension['documentation']) ?>" target="_blank">
+                            <?= $block->escapeHtml(__('Update Now')) ?>
+                        </a>
+                    <?php endif; ?>
+                </div>
+
+                <?php foreach ($extension['updates'] as $update): ?>
+                    <p class="details-item details-item-ver"><?= $block->escapeHtml(__('Version')) ?> <?= $block->escapeHtml($update['version']) ?></p>
+                    <?php foreach ($update['changes'] as $changeLog): ?>
+                        <p class="details-item <?= $block->escapeHtml($changeLog['type']) ?>"><?= $block->escapeHtml($changeLog['description']) ?></p>
+                    <?php endforeach; ?>
+                <?php endforeach; ?>
+            </details>
+        <?php elseif (! $extension['successFetchUpdates']): ?>
+            <div class="base-exten-warning">
+                <?= $block->escapeHtml($block->getLabel($extension)) ?> -
+                <span class="fail-fetch"><?= $block->escapeHtml(__('Information of latest version is unavailable')) ?></span>
+            </div>
+        <?php else: ?>
+            <div class="base-exten-latest-version">
+                <?= $block->escapeHtml($block->getLabel($extension)) ?> -
+                <span class="last-version"><?= $block->escapeHtml(__('You have the latest version')) ?></span>
+            </div>
+        <?php endif; ?>
+    <?php endforeach; ?>
+</div>

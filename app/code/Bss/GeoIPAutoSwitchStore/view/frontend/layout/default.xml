@@ -1,0 +1,40 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * BSS Commerce Co.
+ *
+ * NOTICE OF LICENSE
+ *
+ * This source file is subject to the EULA
+ * that is bundled with this package in the file LICENSE.txt.
+ * It is also available through the world-wide-web at this URL:
+ * http://bsscommerce.com/Bss-Commerce-License.txt
+ *
+ * @category   BSS
+ * @package    Bss_GeoIPAutoSwitchStore
+ * @author     Extension Team
+ * @copyright  Copyright (c) 2016-2017 BSS Commerce Co. ( http://bsscommerce.com )
+ * @license    http://bsscommerce.com/Bss-Commerce-License.txt
+ */
+-->
+<page xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/page_configuration.xsd">    
+    <head>
+        <css src="Bss_GeoIPAutoSwitchStore::css/magnific-popup.css" />
+    </head>
+    <body>
+		<referenceContainer name="header.panel">
+            <block class="Bss\GeoIPAutoSwitchStore\Block\Switcher" name="switch_website" as="switch_website" template="Bss_GeoIPAutoSwitchStore::switch/sw_website.phtml" before="top.links"/>
+        </referenceContainer>
+        <referenceBlock name="store.settings">
+           <block class="Bss\GeoIPAutoSwitchStore\Block\Switcher" name="bss.store.settings.language" template="Bss_GeoIPAutoSwitchStore::switch/sw_website.phtml">
+                <arguments>
+                    <argument name="id_modifier" xsi:type="string">nav</argument>
+                </arguments>
+            </block>
+        </referenceBlock>
+		
+		<referenceContainer name="before.body.end">
+            <block class="Bss\GeoIPAutoSwitchStore\Block\Popup" name="bss.geoip.popup" template="Bss_GeoIPAutoSwitchStore::popup.phtml"/>
+        </referenceContainer>
+    </body>
+</page>

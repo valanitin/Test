@@ -1,0 +1,94 @@
+<?php
+/** @var $block LuxuryUnlimited\RequestTicket\Block\View*/
+
+$dynamicHelper = $this->helper('\Dynamic\Customization\Helper\Data');
+$storeManager  = $dynamicHelper->getStoreManager();
+$storeCode = $storeManager->getStore()->getCode();
+$storeId = $storeManager->getStore()->getId();
+$siteUrl = $dynamicHelper->getScopeConfig()->getValue("web/secure/base_url");
+
+$fname= '';
+$lname = '';
+$email= '';
+$telephone = '';
+if($block->isLoggedIn()) {
+    $customer = $block->getCustomerById($block->getCustomerId());
+    $fname = $customer->getFirstname();
+    $lname = $customer->getLastname();
+    $email = $customer->getEmail();
+    if ($block->getTelephone($customer->getAddresses())) {
+        $telephone = $block->getTelephone($customer->getAddresses());
+    }
+}
+?>
+<!-- Special Request -->
+<div class="clsspecialreqpop">
+    <div class="clsspecialrequest">
+        <?php /*<img id="myspecialreq" name="myspecialreq" src="<?php echo $mediaUrl."/images/special-request.png"; ?>" alt="Special Request" /> */ ?>
+        <h3 id="myspecialreq" name="myspecialreq" class="clsrotatetext" data-title="<?php echo __('Special Requests') ?>"><?php echo __('Special Requests') ?></h3>
+    </div>
+    <div id="myModalspec" class="modal">
+        <div class="modal-content">
+            <span class="close" onclick="closePopupspecialrequest()">&times;</span>
+            <h3 class="clsspecialpopupheading"><?php echo __('Special Requests') ?></h3>
+            <form class="form contact cls_popupspecialrequest_form"
+                  action="<?php echo $this->getUrl('mytickets/index/post'); ?>"
+                  id="contact-form"
+                  method="post"
+                  data-hasrequired="<?php /* @escapeNotVerified */ echo __('* Required Fields') ?>"
+                  data-mage-init='{"validation":{}}'>
+                <div class="field name required cls_comm_input">
+                    <div class="control">
+                        <input id="name" class="input-text" title="Name" name="name" required="" type="text" value="<?php echo $fname; ?>" placeholder="<?php echo __('Enter Your Name') ?>">
+                    </div>
+                </div>
+                <div class="field name required cls_comm_input">
+                    <div class="control"><input id="last_name" class="input-text" title="Last Name" required="" name="last_name" type="text" value="<?php echo $lname; ?>" placeholder="<?php echo __('Enter Your Last Name')?>"></div>
+                </div>
+                <div class="field name required cls_comm_input">
+                    <div class="control"><input id="email" class="input-text" required="" title="Email" name="email" type="email" <?php if($email != ""){?> readonly="readonly" <?php } ?> value="<?php echo $email; ?>" placeholder="<?php echo __('Enter email')?>"></div>
+                </div>
+                <div class="field name cls_comm_input">
+                    <div class="control"><input id="phone" class="input-text" title="Phone" name="phone" type="text" value="<?php echo $telephone; ?>" placeholder="<?php echo __('Enter Phone Number')?>"></div>
+                </div>
+                <div class="field name cls_comm_input brand-input">
+                    <div class="control"><input id="brand" class="input-text" title="Brand" name="brand" type="text" value="" placeholder="<?php echo __('Enter Brand Name')?>"></div>
+                </div>
+                <div class="field name cls_comm_input style-input">
+                    <div class="control"><input id="style" class="input-text" title="Style"  name="style" type="text" value="" placeholder="<?php echo __('Enter Style')?>"></div>
+                </div>
+                <div class="field name cls_comm_input keword-input">
+                    <div class="control"><input id="keyword" class="input-text" title="Keyword" name="keyword" type="text" value="" placeholder="<?php echo __('Enter Keyword')?>"></div>
+                </div>
+
+                <div class="field remarks cls_comm_input">
+                    <div class="control"><textarea id="remarks" class="input-text" title="Remarks" name="remarks" type="text" value="" placeholder="<?php echo __('Enter Remarks')?>"></textarea></div>
+                </div>
+                <div class="field name required spBtn">
+                    <div class="control">
+                        <input type="hidden" name="lang_code" id="lang_code" value="<?php echo $storeCode; ?>" />
+                        <input type="hidden" name="hdn_subject" id="hdn_subject" value="" />
+                        <input type="hidden" name="hdn_message" id="hdn_message" value="" />
+                        <div class="mm-action">
+                            <button id="btn_submit" class="btn btn-custom" name="btn_ticket" type="submit"><?php echo __('Submit') ?></button>
+                        </div>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+<div class='clsmsgsuccessbox' >
+    <div id="myModalPriceSuccess" class="modal">
+        <div class="modal-content">
+            <span id="pricesucessClose" class="close">&times;</span>
+            <p id="loader-message"><?php echo __('loading')?></p>
+            <p id="result-message"></p>
+        </div>
+    </div>
+</div>
+<style type="text/css">
+    .cls_popupspecialrequest_form .spBtn .mm-action #btn_submit {
+        padding: 0 35px;
+    }
+</style>

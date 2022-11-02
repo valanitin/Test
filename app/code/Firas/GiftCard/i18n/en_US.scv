@@ -1,0 +1,43 @@
+"Gift Card","Gift Card"
+"Gift Card Discount Removed","Gift Card Discount Removed"
+"Code is expired.","Code is expired."
+"Gift Card Discount Applied Successfully","Gift Card Discount Applied Successfully"
+"code is incorrect","code is incorrect"
+"code is required","code is required"
+"Please enter a valid amount","Please enter a valid amount"
+"Cannot refund the items of type giftcard","Cannot refund the items of type giftcard"
+"Hi %customer_name,","Hi %customer_name,"
+"Your Gift Card Usage Details:","Your Gift Card Usage Details:"
+"Name <a href=""%account_url"">logging into your account</a>.","Name <a href=""%account_url"">logging into your account</a>."
+"Name <span class=""no-link"">#%name</span>","Name <span class=""no-link"">#%name</span>"
+"Email <span class=""no-link"">#%email</span>","Email <span class=""no-link"">#%email</span>"
+"Gift Card Code:","Gift Card Code:"
+"Previous Amount:","Previous Amount:"
+"Reduced Amount:","Reduced Amount:"
+"Remaining Amount:","Remaining Amount:"
+Item,Item
+Sku,Sku
+"%customer_name,","%customer_name,"
+"A Gift Card gifted to you by","A Gift Card gifted to you by"
+Description:,Description:
+Price:,Price:
+"%symbol %price","%symbol %price"
+Firas,Firas
+GiftCard,GiftCard
+"GiftCard Email Setting","GiftCard Email Setting"
+"Name of Admin in Mail","Name of Admin in Mail"
+"Email of Admin in Mail","Email of Admin in Mail"
+"Gift Notification Template","Gift Notification Template"
+"GiftCard Left Amount Email Setting","GiftCard Left Amount Email Setting"
+"Admin Left Amount Notification Template","Admin Left Amount Notification Template"
+20,20
+30,30
+50,50
+100,100
+200,200
+From,From
+To,To
+"Gift Code","Gift Code"
+Price,Price
+"Left Amount","Left Amount"
+"Order Time","Order Time"

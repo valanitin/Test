@@ -1,0 +1,9 @@
+/**
+ * @package     Plumrocket_Base
+ * @copyright   Copyright (c) 2020 Plumrocket Inc. (https://plumrocket.com)
+ * @license     https://plumrocket.com/license/  End-user License Agreement
+ */
+
+.plum-promotion {
+  display: none !important;
+}

@@ -1,0 +1,16 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * @package     Plumrocket_SocialLoginFree
+ * @copyright   Copyright (c) 2015 Plumrocket Inc. (https://plumrocket.com)
+ * @license     https://plumrocket.com/license   End-user License Agreement
+ */
+-->
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:Event/etc/events.xsd">
+    <event name="customer_login">
+        <observer name="pslogin_observer" instance="Plumrocket\SocialLoginFree\Observer\LoginObserver" />
+    </event>
+    <event name="customer_register_success">
+        <observer name="pslogin_observer" instance="Plumrocket\SocialLoginFree\Observer\RegistrationSuccessObserver" />
+    </event>
+</config>

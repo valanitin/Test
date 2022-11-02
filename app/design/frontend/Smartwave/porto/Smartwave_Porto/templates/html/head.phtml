@@ -1,0 +1,213 @@
+<?php
+    $_helper = $this->helper('Smartwave\Porto\Helper\Cssconfig');
+    $porto_helper = $this->helper('Smartwave\Porto\Helper\Data');
+?>
+<?php //Include Google fonts character subsets (such as extended latin, cyrillic)
+    $d = $this->getConfig('porto_design');
+    $charSubset = "";
+    if (isset($d['font']['char_latin_ext']) && $d['font']['char_latin_ext']==1 )
+        $charSubset .= ',latin-ext';
+    if (isset($d['font']['char_subset']) && $d['font']['char_subset'])
+        $charSubset .= ','.$d['font']['char_subset'];
+    $font_sizes = "%3A300%2C300italic%2C400%2C400italic%2C600%2C600italic%2C700%2C700italic%2C800%2C800italic";
+?>
+<?php if (isset($d['font']['custom']) && $d['font']['custom'] && $d['font']['font_family'] == 'google'): ?>
+<link rel="stylesheet" href='//fonts.googleapis.com/css?family=<?php echo str_replace(' ', '+', $d['font']['google_font_family']).$font_sizes; echo $charSubset; ?>' type='text/css' />
+<?php else: ?>
+<!-- <link rel="stylesheet" href="//fonts.googleapis.com/css?family=Open+Sans%3A300%2C300italic%2C400%2C400italic%2C600%2C600italic%2C700%2C700italic%2C800%2C800italic&amp;v1&amp;subset=latin%2Clatin-ext" type="text/css" media="screen"/> -->
+<?php endif;?>
+<!-- <link href="//fonts.googleapis.com/css?family=Oswald:300,400,700" rel="stylesheet"> -->
+<!-- <link href="//fonts.googleapis.com/css?family=Poppins:300,400,500,600,700" rel="stylesheet"> -->
+<?php if ($this->getConfig('porto_settings/optimization/bootstrap')): ?>
+    <link rel="stylesheet" type="text/css" media="all" href="<?php echo $_helper->getPortoWebDir().'bootstrap/css/bootstrap.min.css'; ?>">
+<?php else: ?>
+    <link rel="stylesheet" type="text/css" media="all" href="<?php echo $_helper->getPortoWebDir().'bootstrap/css/bootstrap.optimized.min.css'; ?>">
+<?php endif; ?>
+<?php if ($this->getConfig('porto_settings/optimization/animate')): ?>
+    <!-- <link rel="stylesheet" type="text/css" media="all" href="<?php //echo $_helper->getPortoWebDir().'css/animate.css'; ?>"> -->
+<?php else: ?>
+    <link rel="stylesheet" type="text/css" media="all" href="<?php echo $_helper->getPortoWebDir().'css/animate.optimized.css'; ?>">
+<?php endif; ?>
+<?php
+    $header_type = $this->getConfig('porto_settings/header/header_type');
+?>
+<link rel="preload" type="text/css" onload="this.rel='stylesheet'" as="style" media="all" href="<?php echo $_helper->getPortoWebDir().'css/header/type'.$header_type.'.css'; ?>">
+<link rel="preload" type="text/css" onload="this.rel='stylesheet'" as="style" media="all" href="<?php echo $_helper->getDesignFile()?>">
+<link rel="preload" type="text/css" onload="this.rel='stylesheet'" as="style" media="all" href="<?php echo $_helper->getSettingsFile()?>">
+<!-- <link rel="preconnect" href="https://fonts.gstatic.com"> -->
+<!-- <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@300&display=swap" rel="stylesheet"> -->
+<script type="text/javascript">
+var porto_config = {
+    paths: {
+        'parallax': 'js/jquery.parallax.min',
+        'owlcarousel': 'owl.carousel/owl.carousel',
+        'owlcarousel_thumbs': 'owl.carousel/owl.carousel2.thumbs',
+        'imagesloaded': 'Smartwave_Porto/js/imagesloaded',
+        'packery': 'Smartwave_Porto/js/packery.pkgd',
+        'floatelement': 'js/jquery.floatelement'
+    },
+    shim: {
+        'parallax': {
+          deps: ['jquery']
+        },
+        'owlcarousel': {
+          deps: ['jquery']
+        },
+        'owlcarousel_thumbs': {
+          deps: ['jquery','owlcarousel']
+        },
+        'packery': {
+          deps: ['jquery','imagesloaded']
+        },
+        'floatelement': {
+          deps: ['jquery']
+        }
+    }
+};
+
+require.config(porto_config);
+</script>
+<script type="text/javascript">
+require([
+    'jquery'
+], function ($) {
+   
+<?php if ($this->getConfig('porto_settings/header/sticky_header')): ?>
+    var scrolled = false;
+    $(window).scroll(function(){
+        if(!$('.page-header').hasClass('type10')) {
+            if($(window).width()>=768){
+                if(160<$(window).scrollTop() && !scrolled){
+                    $('.page-header:not(.sticky-header)').css("height",$('.page-header:not(.sticky-header)').height()+'px');
+                    $('.page-header').addClass("sticky-header");
+                    scrolled = true;
+                    if((!$(".page-header").hasClass("type12")) && (!$(".page-header").hasClass("type23")) && (!$(".page-header").hasClass("type25")) && (!$(".page-header").hasClass("type26"))) {
+                        $('.page-header .minicart-wrapper').after('<div class="minicart-place hide"></div>');
+
+                        if($(".page-header").hasClass("type2"))
+                            $('.page-header .navigation').append($('header.page-header.type2 a.action.my-wishlist').detach());
+
+                        var minicart = $('.page-header .minicart-wrapper').detach();
+                        if($(".page-header").hasClass("type8"))
+                            $('.page-header .menu-wrapper').append(minicart);
+                        else
+                            $('.page-header .navigation').append(minicart);
+
+                        <?php if ($this->getConfig('porto_settings/header/sticky_header_logo')): ?>
+                        var logo_image = $('<div>').append($('.page-header .header > .logo').clone()).html();
+                        if($(".page-header").hasClass("type27"))
+                            logo_image = $('<div>').append($('.page-header .header .header-main-left > .logo').clone()).html();
+                        if($(".page-header").hasClass("type8"))
+                            $('.page-header .menu-wrapper').prepend('<div class="sticky-logo">'+logo_image+'</div>');
+                        else
+                            $('.page-header .navigation').prepend('<div class="sticky-logo">'+logo_image+'</div>');
+                        <?php endif; ?>
+                    } else {
+                        <?php if ($this->getConfig('porto_settings/header/sticky_header_logo')): ?>
+                        $('.page-header.type12 .logo').append('<span class="sticky-logo"><img src="" alt=""/></span>');
+                        $('.page-header .logo > img').addClass("hide");
+                        <?php endif; ?>
+                    }
+                    <?php if ($this->getConfig('porto_settings/header/sticky_header_logo')): ?>
+                    <?php
+                    if($logo_src = $this->getConfig('porto_settings/header/sticky_header_logo_src')){
+                        $folderName = \Smartwave\Porto\Model\Config\Backend\Image\Stickylogo::UPLOAD_DIR;
+                        $path = $folderName . '/' . $logo_src;
+                        $imageUrl = $porto_helper->getBaseUrl() . $path;
+                    ?>
+                    $(".sticky-logo img").attr("src","<?php echo $imageUrl; ?>");
+                    <?php
+                    }
+                    ?>
+                    <?php endif; ?>
+                }
+                if(160>=$(window).scrollTop() && scrolled){
+                    $('.page-header.sticky-header').css("height",'auto');
+                    $('.page-header').removeClass("sticky-header");
+                    scrolled = false;
+                    if((!$(".page-header").hasClass("type12")) && (!$(".page-header").hasClass("type23")) && (!$(".page-header").hasClass("type25")) && (!$(".page-header").hasClass("type26"))) {
+                        var minicart;
+                        if($(".page-header").hasClass("type8"))
+                            minicart = $('.page-header .menu-wrapper .minicart-wrapper').detach();
+                        else
+                            minicart = $('.page-header .navigation .minicart-wrapper').detach();
+                        $('.minicart-place').after(minicart);
+                        $('.minicart-place').remove();
+                        if($(".page-header").hasClass("type2"))
+                            $('.page-header .block.block-search').before($('.page-header .navigation a.action.my-wishlist').detach());
+                        $('.page-header .minicart-wrapper-moved').addClass("minicart-wrapper").removeClass("minicart-wrapper-moved").removeClass("hide");
+                    }
+                    <?php if ($this->getConfig('porto_settings/header/sticky_header_logo')): ?>
+                    if($(".page-header").hasClass("type8"))
+                        $('.page-header .menu-wrapper > .sticky-logo').remove();
+                    else if($(".page-header").hasClass("type12")) {
+                        $('.page-header .sticky-logo').remove();
+                        $('.page-header .logo > img').removeClass("hide");;
+                    } else
+                        $('.page-header .navigation > .sticky-logo').remove();
+                    <?php endif; ?>
+                }
+            }
+        }
+    });
+<?php endif; ?>
+});
+</script>
+<?php if($this->getConfig('porto_settings/general/smartlayers') &&
+         $this->getRequest()->getFullActionName() != 'cms_index_index' &&
+         $this->getRequest()->getFullActionName() != 'catalog_product_view'): ?>
+<script type="text/javascript" src="//s7.addthis.com/js/300/addthis_widget.js#pubid=ra-58378513496862c5"></script>
+<?php endif; ?>
+
+<!-- schema for organisation -->
+<script type="application/ld+json">
+ {
+  "@context":"http://schema.org",
+  "@type":"Organization",
+  "url":"https://sololuxury.com/",
+  "name":"Solo Luxury",
+  "logo":"https://sololuxury.com/media/logo/default/logo.png",
+  "contactPoint":[
+   {"@type":"ContactPoint",
+   "telephone":"+91-123-786-000",
+   "contactType":"customer service"}
+  ],
+  "address":{
+   "addressCountry":"United Arab Emirates",
+   "postalCode":"145678",
+   "addressRegion":"Dubai",
+   "addressLocality":"Dubai"}
+ }
+</script>
+<!-- schema end -->
+
+<!-- schema for website with search -->
+<script type="application/ld+json">
+{
+  "@context": "http://schema.org",
+  "@type": "WebSite",
+  "url":"https://sololuxury.com/",
+  "potentialAction":
+   {
+   "@type": "SearchAction",
+   "target": "https://sololuxury.com/catalogsearch/result/?q={search_term_string}",
+   "query": "required",
+   "query-input":"required name=search_term_string"
+   }
+ }
+</script>
+<!-- end -->
+
+<!-- Global site tag (gtag.js) - Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=UA-195899879-1"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'UA-195899879-1');
+</script>
+
+<!-- Start of LiveChat (www.livechatinc.com) code -->
+<noscript><a href="https://www.livechatinc.com/chat-with/11434003/" rel="nofollow">Chat with us</a>, powered by <a href="https://www.livechatinc.com/?welcome" rel="noopener nofollow" target="_blank">LiveChat</a></noscript>
+<!-- End of LiveChat code -->

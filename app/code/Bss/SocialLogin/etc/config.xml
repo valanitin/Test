@@ -1,0 +1,69 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * BSS Commerce Co.
+ *
+ * NOTICE OF LICENSE
+ *
+ * This source file is subject to the EULA
+ * that is bundled with this package in the file LICENSE.txt.
+ * It is also available through the world-wide-web at this URL:
+ * http://bsscommerce.com/Bss-Commerce-License.txt
+ *
+ * @category   BSS
+ * @package    Bss_AjaxSocialLogin
+ * @author     Extension Team
+ * @copyright  Copyright (c) 2017-2018 BSS Commerce Co. ( http://bsscommerce.com )
+ * @license    http://bsscommerce.com/Bss-Commerce-License.txt
+ */
+-->
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Store:etc/config.xsd">
+    <default>
+        <bss_sociallogin>
+            <general>
+                <enable>1</enable>
+                <send_password>1</send_password>
+                <enable_photo>1</enable_photo>
+            </general>
+            <button_social>
+                <display_at_popup>both</display_at_popup>
+            </button_social>
+            <facebook>
+                <login_btn_text>Login with Facebook</login_btn_text>
+                <register_btn_text>Register with Facebook</register_btn_text>
+            </facebook>
+            <twitter>
+                <login_btn_text>Login with Twitter</login_btn_text>
+                <register_btn_text>Register with Twitter</register_btn_text>
+            </twitter>
+             <googleplus>
+                <login_btn_text>Login with Google</login_btn_text>
+                <register_btn_text>Register with Google</register_btn_text>
+            </googleplus>
+             <linkedin>
+                <login_btn_text>Login with Linkedin</login_btn_text>
+                <register_btn_text>Register with Linkedin</register_btn_text>
+            </linkedin>
+            <yahoo>
+                <login_btn_text>Login with Yahoo!</login_btn_text>
+                <register_btn_text>Register with Yahoo!</register_btn_text>
+            </yahoo>
+            <live>
+                <login_btn_text>Login with Window </login_btn_text>
+                <register_btn_text>Register with Window </register_btn_text>
+            </live>
+            <instagram>
+                <login_btn_text>Login with Instagram</login_btn_text>
+                <register_btn_text>Login with Instagram</register_btn_text>
+            </instagram>
+            <vkontakte>
+                <login_btn_text>Login with Vkontakte</login_btn_text>
+                <register_btn_text>Register with Vkontakte</register_btn_text>
+            </vkontakte>
+            <pinterest>
+                <login_btn_text>Login with Pinterest</login_btn_text>
+                <register_btn_text>Register with Pinterest</register_btn_text>
+            </pinterest>
+        </bss_sociallogin>
+    </default>
+</config>

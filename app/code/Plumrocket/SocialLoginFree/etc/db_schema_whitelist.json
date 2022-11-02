@@ -1,0 +1,20 @@
+{
+  "plumrocket_sociallogin_account": {
+    "column": {
+      "id": true,
+      "type": true,
+      "user_id": true,
+      "customer_id": true
+    },
+    "index": {
+      "PLUMROCKET_SOCIALLOGIN_ACCOUNT_ID": true,
+      "PLUMROCKET_SOCIALLOGIN_ACCOUNT_TYPE": true,
+      "PLUMROCKET_SOCIALLOGIN_ACCOUNT_USER_ID": true,
+      "PLUMROCKET_SOCIALLOGIN_ACCOUNT_CUSTOMER_ID": true
+    },
+    "constraint": {
+      "PRIMARY": true,
+      "PLUMROCKET_SOCIALLOGIN_ACCOUNT_FOREIGN_CUSTOMER_ID": true
+    }
+  }
+}

@@ -1,0 +1,13 @@
+<?xml version="1.0"?>
+<page layout="1column" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+      xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/page_configuration.xsd">
+    <head>
+        <title>Submit Contac-Us</title>
+    </head>
+    <body>
+        <referenceContainer name="content">
+            <block class="Sololuxary\PriceMatch\Block\View" name="tickets-for-pricematch"
+                   template="Sololuxary_PriceMatch::price-match.phtml"/>
+        </referenceContainer>
+    </body>
+</page>

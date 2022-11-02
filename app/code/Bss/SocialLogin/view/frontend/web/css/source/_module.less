@@ -1,0 +1,519 @@
+@color_1: #3c763d;
+@color_2: #a94442;
+@color_3: #555;
+@color_4: #868383;
+@color_5: #fff;
+@background_color_1: #39c;
+@background_color_2: #fff;
+@background_color_3: rgba(255, 255, 255, .2);
+@background_color_4: #1e4389;
+@background_color_5: #28a9e2;
+@background_color_6: #11669c;
+@background_color_7: #85228f;
+@background_color_8: #3f658c;
+@background_color_9: #df4b38;
+@background_color_10: #f67d20;
+@background_color_11: #0cb3ee;
+@background_color_12: #cb2028;
+@background_color_13: #9a6e51;
+@border_bottom_color_1: transparent;
+
+/**
+* BSS Commerce Co.
+*
+* @copyright  Copyright (c) 2017-2018 BSS Commerce Co. ( http://bsscommerce.com )
+*/
+
+#social-login-popup {
+    .block-container {
+        padding: 0 5% 10px;
+        max-width: 100%;
+        display: none;
+        .block {
+            padding: 20px 25px;
+            margin: 0;
+        }
+    }
+    .block-container.active {
+        display: block !important;
+    }
+    .social-login-title {
+        padding: 10px;
+        background-color: @background_color_1;
+    }
+    .fieldset {
+        margin: 0 0 10px;
+        min-width: -webkit-min-content;
+    }
+}
+.ajax-loading-sc {
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    opacity: .6;
+    background: url(../images/ajax-loader.gif) center center no-repeat #fbfaf6;
+}
+.popup-mess-social {
+    width: 90%;
+    padding: 10px 5%;
+    .mesg-success {
+        color: @color_1;
+        background: #dff0d8;
+        border: 1px solid;
+        padding: 10px;
+        border-radius: 4px;
+        display: none;
+    }
+    .mesg-error {
+        color: @color_2;
+        background: #f2dede;
+        border: 1px solid;
+        padding: 10px;
+        border-radius: 4px;
+        display: none;
+    }
+}
+.social-btn {
+    button {
+        height: 33px;
+        border: none;
+    }
+}
+.tab-social {
+    .nav-tabs {
+        border-bottom: 1px solid #ddd;
+        >li {
+            float: left;
+            margin-bottom: -1px;
+            >a {
+                margin-right: 2px;
+                line-height: 1.428571429;
+                border: 1px solid transparent;
+                border-radius: 4px 4px 0 0;
+            }
+        }
+        >li.active {
+            >a {
+                color: @color_3;
+                background-color: @background_color_2;
+                border: 1px solid #ddd;
+                border-bottom-color: @border_bottom_color_1;
+                cursor: default;
+                &:focus {
+                    color: @color_3;
+                    background-color: @background_color_2;
+                    border: 1px solid #ddd;
+                    border-bottom-color: @border_bottom_color_1;
+                    cursor: default;
+                }
+                &:hover {
+                    color: @color_3;
+                    background-color: @background_color_2;
+                    border: 1px solid #ddd;
+                    border-bottom-color: @border_bottom_color_1;
+                    cursor: default;
+                }
+            }
+        }
+    }
+    .nav {
+        >li {
+            position: relative;
+            display: block;
+            >a {
+                position: relative;
+                display: block;
+                padding: 10px 15px;
+            }
+        }
+        margin-bottom: 0;
+        padding-left: 0;
+        list-style: none;
+        &:after {
+            content: '';
+            display: block;
+            clear: both;
+        }
+    }
+}
+a.social-login.fogot-pw {
+    line-height: 32px;
+}
+.social-login-popup {
+    .sociallogin-login {
+        margin: auto;
+    }
+    .sociallogin-border {
+        height: 1px;
+        width: 100%;
+        background: #e5e2e2;
+        padding: 0;
+        position: relative;
+        margin: 0 0 10px 0;
+    }
+    #social-form-create {
+        ul {
+            li {
+                .sociallogin-button-text {
+                    text-transform: capitalize;
+                }
+            }
+        }
+    }
+}
+form#social-form-login {
+    padding-bottom: 20px;
+}
+.sociallogin-welcome-msg {
+    height: 22px;
+    line-height: 22px;
+    float: none;
+    display: inline-block;
+    margin: 0 0 5px;
+    &:after {
+        clear: both;
+        content: "";
+    }
+    img {
+        height: 25px;
+        display: inline-block;
+        padding: 0 5px 0 0;
+        float: left;
+    }
+}
+.page-header {
+    .sociallogin-block {
+        padding: 30px 20px;
+        max-width: 1280px;
+        margin: auto;
+        width: auto;
+        box-sizing: border-box;
+        clear: both;
+    }
+}
+.sociallogin-block {
+    .sociallogin-buttons {
+        ul {
+            li {
+                .sociallogin-button-icon {
+                    background-size: 236px 340px;
+                    -webkit-background-size: 236px 340px;
+                    -moz-background-size: 236px 340px;
+                    background: url(../images/social.png);
+                    display: block;
+                    float: left;
+                    width: 35px;
+                    height: 35px;
+                    margin: 0;
+                    padding: 0;
+                    box-sizing: border-box;
+                    img {
+                        width: 100%;
+                    }
+                }
+                display: block;
+                line-height: normal;
+                list-style: none !important;
+                padding: 0 !important;
+                background: 0 0 !important;
+                height: 35px;
+                margin: 0 3px 7px 0;
+                position: relative;
+                a {
+                    width: 100% !important;
+                }
+                &:hover {
+                    opacity: .9;
+                    filter: alpha(opacity=90);
+                }
+                span.sociallogin-button-auto {
+                    background-color: @background_color_1;
+                    display: inline-block;
+                }
+            }
+            li.facebook {
+                span.sociallogin-button-auto {
+                    background-color: @background_color_4;
+                }
+                .sociallogin-button-icon {
+                    background-position: 0 0;
+                }
+            }
+            li.twitter {
+                span.sociallogin-button-auto {
+                    background-color: @background_color_5;
+                }
+                .sociallogin-button-icon {
+                    background-position: -34px 0;
+                }
+            }
+            li.linkedin {
+                span.sociallogin-button-auto {
+                    background-color: @background_color_6;
+                }
+                .sociallogin-button-icon {
+                    background-position: -168px 0;
+                }
+            }
+            li.yahoo {
+                span.sociallogin-button-auto {
+                    background-color: @background_color_7;
+                }
+                .sociallogin-button-icon {
+                    background-position: -204px 0;
+                }
+            }
+            li.vkontakte {
+                span.sociallogin-button-auto {
+                    background-color: @background_color_8;
+                }
+                .sociallogin-button-icon {
+                    background-position: -68px 0;
+                }
+            }
+            li.googleplus {
+                span.sociallogin-button-auto {
+                    background-color: @background_color_9;
+                }
+                .sociallogin-button-icon {
+                    background-position: -135px 0;
+                }
+            }
+            li.hotmail {
+                span.sociallogin-button-auto {
+                    background-color: @background_color_10;
+                }
+                .sociallogin-button-icon {
+                    background-position: 0 -34px;
+                }
+            }
+            li.live {
+                span.sociallogin-button-auto {
+                    background-color: @background_color_11;
+                }
+                .sociallogin-button-icon {
+                    background-position: -35px -205px;
+                }
+            }
+            li.pinterest {
+                span.sociallogin-button-auto {
+                    background-color: @background_color_12;
+                }
+                .sociallogin-button-icon {
+                    background-position: -34px -34px;
+                }
+            }
+            li.instagram {
+                span.sociallogin-button-auto {
+                    background-color: @background_color_13;
+                }
+                .sociallogin-button-icon {
+                    background-position: -168px -34px;
+                }
+            }
+        }
+        .sociallogin-button-auto {
+            .sociallogin-button-icon-image {
+                display: inline-block;
+                width: 35px;
+                height: 35px;
+            }
+        }
+    }
+    width: 100%;
+    margin: 0 0 20px;
+    .sociallogin-button-image {
+        display: block;
+    }
+    .sociallogin-clearfix {
+        padding: 0;
+        margin-bottom: 15px;
+        max-width: 620px;
+        &:after {
+            visibility: hidden;
+            display: block;
+            font-size: 0;
+            content: " ";
+            clear: both;
+            height: 0;
+        }
+    }
+}
+.showmore-button {
+    color: @color_4;
+    text-align: center;
+    font-size: 14px;
+    height: 25px;
+    line-height: 27px;
+    padding: 0 0 0 25px;
+    max-width: 100px;
+    cursor: pointer;
+    background-image: url(../images/plus-more-icon.png);
+    background-size: 25px;
+    background-repeat: no-repeat;
+}
+ul {
+    li {
+        .sociallogin-button-text {
+            height: 35px;
+            line-height: 35px;
+            vertical-align: top;
+            text-align: left;
+            box-sizing: border-box;
+            font-size: 13px;
+            color: @color_5;
+            background-color: @background_color_3;
+            min-width: 165px;
+            display: inline-block;
+            padding: 0 10px 0px 10px;
+            text-transform: capitalize;
+        }
+        .sociallogin-button-full-text {
+            display: inline-block;
+        }
+    }
+}
+#social-form-create {
+    ul {
+        li {
+            .sociallogin-button-text {
+                display: inline-block;
+            }
+        }
+    }
+}
+body.page-products {
+    .columns {
+        z-index: initial;
+    }
+}
+.sociallogin-block.sociallogin-login {
+    margin: 15px 0;
+}
+div#social-login-popup {
+    min-width: 350px;
+}
+.rc-imageselect-payload {
+    overflow: scroll !important;
+    max-height: 200px !important;
+}
+@media only screen and (max-width:767px) {
+    div#social-login-popup {
+        min-width: 250px !important;
+    }
+    #tab-login-recaptcha {
+        div {
+            width: 215px !important;
+        }
+    }
+    #tab-create-recaptcha {
+        div {
+            width: 215px !important;
+        }
+    }
+    #tab-fogot-recaptcha {
+        div {
+            width: 215px !important;
+        }
+    }
+}
+@media only screen and (max-width:360px) {
+    #tab-create-recaptcha {
+        transform: scale(.9);
+        -webkit-transform: scale(.9);
+        transform-origin: 0 0;
+        -webkit-transform-origin: 0 0;
+    }
+    #tab-fogot-recaptcha {
+        transform: scale(.9);
+        -webkit-transform: scale(.9);
+        transform-origin: 0 0;
+        -webkit-transform-origin: 0 0;
+    }
+    #tab-login-recaptcha {
+        transform: scale(.9);
+        -webkit-transform: scale(.9);
+        transform-origin: 0 0;
+        -webkit-transform-origin: 0 0;
+    }
+}
+@media screen and (-ms-high-contrast: active) {
+    div#social-login-popup {
+        .fieldset {
+            width: 103%;
+        }
+    }
+    div.social-login-popup {
+        .actions-toolbar {
+            width: 103%;
+        }
+    }
+}
+@media (-ms-high-contrast: none) {
+    div#social-login-popup {
+        .fieldset {
+            width: 103%;
+        }
+    }
+    div.social-login-popup {
+        .actions-toolbar {
+            width: 103%;
+        }
+    }
+}
+
+@media only screen and (min-width:768px) {
+    .social-login-popup {
+        .block-container {
+            .login-popup {
+                float: right;
+                margin-right: 40px;
+                border-left: 1px solid #ccc;
+                padding-left: 13px;
+                padding-top: 24%;
+                padding-bottom: 29%;
+                margin-top: -22%;
+            }
+        }
+    }
+
+    .tab-social {
+        .nav-tabs {
+            width: 50%;
+        }
+    }
+    .fancybox-wrap {
+        width: 625px !important;
+        top: 125px !important;
+        .block-content {
+            width: 580px;
+        }
+    }
+    .fancybox-inner {
+        overflow: hidden;
+        width: 625px !important;
+    }
+
+    .form-customer-login {
+        float: left;
+    }
+
+    .form-customer-create {
+        width: 50%;
+        float: left;
+    }
+
+    .social-login-popup {
+        .block-container {
+            .register-popup {
+                float: right;
+                margin-right: 40px;
+                border-left: 1px solid #ccc;
+                padding-left: 13px;
+                padding-top: 33%;
+                padding-bottom: 65%;
+                margin-top: -22%;
+            }
+        }
+    }
+}

@@ -1,0 +1,24 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Copyright © Magento, Inc. All rights reserved.
+ * See COPYING.txt for license details.
+ */
+-->
+<routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Webapi:etc/webapi.xsd">
+    <!-- Customer Group -->
+    <route url="/V1/brands/list" method="GET">
+        <service class="Mage360\Brands\Api\BrandsRepositoryInterface" method="getBrandsList"/>
+        <resources>
+            <resource ref="anonymous"/>
+        </resources>
+    </route>
+
+    <route url="/V1/brands/delete/:attrId" method="POST">
+        <service class="Mage360\Brands\Api\BrandsRepositoryInterface" method="deleteById"/>
+        <resources>
+            <resource ref="anonymous"></resource>
+        </resources>
+    </route>
+</routes>

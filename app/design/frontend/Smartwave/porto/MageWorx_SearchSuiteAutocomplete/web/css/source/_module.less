@@ -1,0 +1,249 @@
+/* Chrome, Safari, Opera */
+@-webkit-keyframes "search-loading" {
+	0% {
+		box-shadow: none;
+	}
+	25% {
+		box-shadow: 0 0 3px 1px #68a8e0;
+	}
+	50% {
+		box-shadow: 0 0 3px 1px #ffffff;
+	}
+	75% {
+		box-shadow: 0 0 3px 1px #68a8e0;
+	}
+	100% {
+		box-shadow: none;
+	}
+}
+/* Standard syntax */
+@keyframes "search-loading" {
+	0% {
+		box-shadow: none;
+	}
+	25% {
+		box-shadow: 0 0 3px 1px #68a8e0;
+	}
+	50% {
+		box-shadow: 0 0 3px 1px #ffffff;
+	}
+	75% {
+		box-shadow: 0 0 3px 1px #68a8e0;
+	}
+	100% {
+		box-shadow: none;
+	}
+}
+form.minisearch.loading {
+	.control {
+		input[type="text"] {
+			box-shadow: none;
+			-webkit-animation-name: search-loading;
+			-webkit-animation-duration: 3s;
+			-webkit-animation-iteration-count: infinite;
+			animation-name: search-loading;
+			animation-duration: 3s;
+			animation-iteration-count: infinite;
+		}
+	}
+}
+.searchsuite-autocomplete {
+	background-color: #fff;
+	border: 1px solid #c2c2c2;
+	box-shadow: 0 3px 3px rgba(0, 0, 0, 0.15);
+	left: -85px;
+	margin-top: 4px;
+	margin-left: 90px;
+	z-index: 9999999;
+	.suggest {
+		margin: 0;
+		color: #3C3C3C;
+		ul {
+			li {
+				color: #3C3C3C;
+			}
+		}
+	}
+	.product {
+		margin: 0;
+		ul {
+			li {
+				border-bottom: 1px solid #D4D2D2;
+				&:last-child {
+					border-bottom: none;
+				}
+			}
+		}
+	}
+	.suggest.active {
+		display: block;
+	}
+	.product.active {
+		display: block;
+	}
+	.title {
+		padding: 10px;
+		margin-bottom: 5px;
+		background: #f0f0f0;
+		color: #575757;
+		.see-all {
+			display: inline-block;
+			float: right;
+			color: #909090;
+			cursor: pointer;
+		}
+	}
+	.no-result {
+		padding: 10px;
+		background: #f0f0f0;
+		color: #575757;
+		text-align: center;
+	}
+	ul {
+		padding: 0 10px;
+		margin-bottom: 0;
+		list-style-type: none;
+		li {
+			color: #000;
+			cursor: unset;
+			padding: 0;
+			&:hover {
+				background-color: #fff;
+			}
+			&:after {
+				clear: both;
+				content: '';
+				display: block;
+			}
+			a {
+				cursor: pointer;
+			}
+			.qs-option-image {
+				float: left;
+				max-width: 82px;
+				width: 25%;
+			}
+			.qs-option-info {
+				color: #000;
+				display: inline-block;
+				float: left;
+				padding-left: 5%;
+				text-align: left;
+				width: 70%;
+				margin-bottom: 10px;
+				.qs-option-title {
+					display: inline-block;
+					margin: 0;
+					width: 100%;
+				}
+				.qs-option-reviews {
+					display: inline-block;
+					text-transform: lowercase;
+					width: 100%;
+					.product-reviews-summary {
+						margin-bottom: 4px;
+					}
+					.reviews-actions {
+						font-size: 12px;
+					}
+				}
+				.qs-option-sku {
+					display: block;
+					width: 100%;
+					color: #004875;
+					font-size: 12px;
+				}
+				.qs-option-shortdescription {
+					color: #3C3C3C;
+					font-size: 13px;
+				}
+				.qs-option-description {
+					color: #3C3C3C;
+					font-size: 13px;
+				}
+				.qs-option-price {
+					display: inline-block;
+					font-weight: bold;
+					margin-top: 15px;
+				}
+				.qs-option-addtocart {
+					display: inline-block;
+					float: right;
+					margin-top: 10px;
+				}
+			}
+			.qs-option-info.noimage {
+				padding-left: 0;
+				width: 100%;
+			}
+			&:last-child {
+				.qs-option-info {
+					margin-bottom: 0;
+				}
+			}
+		}
+		li.selected {
+			background-color: #fff;
+		}
+		li.action {
+			padding: 0;
+			.action.close {
+				background: rgba(0, 0, 0, 0) none repeat scroll 0 0;
+				border: 0 none;
+				box-shadow: none;
+				box-sizing: content-box;
+				cursor: pointer;
+				display: inline-block;
+				float: right;
+				font-weight: 400;
+				height: 30px;
+				line-height: inherit;
+				margin: 0;
+				padding: 0;
+				right: 0;
+				text-decoration: none;
+				text-shadow: none;
+				top: 0;
+				width: 40px;
+				&:before {
+					color: #8f8f8f;
+					content: '\e616';
+					display: inline-block;
+					font-family: 'luma-icons';
+					font-size: 16px;
+					font-weight: normal;
+					margin: 0;
+					overflow: hidden;
+					text-align: center;
+					vertical-align: top;
+				}
+			}
+		}
+		li.gray-row {
+			text-align: center;
+			background-color: #e8e8e8;
+			&:hover {
+				background-color: #e8e8e8;
+			}
+			a {
+				color: #7B7B7B;
+				text-decoration: blink;
+			}
+		}
+		li.gray-row.selected {
+			background-color: #e8e8e8;
+		}
+	}
+}
+.searchsuite-autocomplete.active {
+	display: block;
+}
+@media only screen and (max-width: 767px) {
+	.searchsuite-autocomplete {
+		border-top: 0;
+		left: 15px;
+		margin-top: 0;
+		right: 15px;
+		width: auto;
+	}
+}

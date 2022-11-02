@@ -1,0 +1,19 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * @author Amasty Team
+ * @copyright Copyright (c) 2020 Amasty (https://www.amasty.com)
+ * @package Amasty_Sorting
+ */
+-->
+
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Cron:etc/crontab.xsd">
+    <group id="default">
+        <job name="amsorting" instance="Amasty\Sorting\Model\Indexer\Summary" method="reindexAll">
+            <schedule>3 3 * * *</schedule>
+        </job>
+        <job name="amsorting_bestseller_indexing" instance="Amasty\Sorting\Cron\BestsellerIndexInvalidator" method="execute">
+            <schedule>*/5 */1 * * *</schedule>
+        </job>
+    </group>
+</config>

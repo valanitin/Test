@@ -1,0 +1,48 @@
+<?php
+/**
+ * Copyright © Magento, Inc. All rights reserved.
+ * See COPYING.txt for license details.
+ */
+
+/** @var $block Magento\Catalog\Block\Product\View */
+?>
+<?php
+$required = '';
+if ($block->hasRequiredOptions()) {
+    $required = ' data-hasrequired="' . $block->escapeHtmlAttr(__('* Required Fields')) . '"';
+}
+?>
+<div class="select-option">
+<div class="product-options-wrapper" id="product-options-wrapper"<?= /* @noEscape */ $required ?>>
+    <div class="fieldset" tabindex="0">
+        <?= $block->getChildHtml('', true) ?>
+    </div>
+</div>
+
+
+<?php 
+    $dynamicHelper = $this->helper('\Dynamic\Customization\Helper\Data');
+    $product1 = $dynamicHelper->getRegistry()->registry('current_product');
+    $sizeLabel = $product1->getResource()->getAttribute('size_chart_url')->getStoreLabel();
+    $sizeValue = $product1->getResource()->getAttribute('size_chart_url')->getFrontend()->getValue($product1);
+?>
+<?php if(!empty($sizeValue)){ ?>
+    <div class="sizechart">
+        <span class="cls_attributesname"><div id="openSizeModal2"><?php echo __('Size Chart') ?></div></span>
+    </div>
+    <script type="text/javascript">
+    require([ 'jquery', 'jquery/ui'], function($){
+     $(document).ready(function($) {
+       $('#openSizeModal2').click(function(){
+         $('#sizeModal').css({"display":"block"});
+       });
+       $('#close-size-modal').click(function(){
+         $('#sizeModal').css({"display":"none"});
+       });
+
+     });
+    });
+    </script>
+  
+<?php } ?>
+</div>

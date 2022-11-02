@@ -1,0 +1,97 @@
+<?php
+/**
+ * Plumrocket Inc.
+ *
+ * NOTICE OF LICENSE
+ *
+ * This source file is subject to the End-user License Agreement
+ * that is available through the world-wide-web at this URL:
+ * http://wiki.plumrocket.net/wiki/EULA
+ * If you are unable to obtain it through the world-wide-web, please
+ * send an email to support@plumrocket.com so we can send you a copy immediately.
+ *
+ * @package     Plumrocket_Amp
+ * @copyright   Copyright (c) 2019 Plumrocket Inc. (http://www.plumrocket.com)
+ * @license     http://wiki.plumrocket.net/wiki/EULA  End-user License Agreement
+ */
+?>
+<?php
+use Plumrocket\Amp\Block\Page\Form\Message;
+
+/** @var Message $block */
+?>
+
+<?php if ($block->canShowSuccessMessage()) : ?>
+    <div class="<?php echo $block->getSuccessMessageClass() ?> snackbar-msg">
+        <div submit-success>
+            <template type="amp-mustache">
+                <p class="msg success">{{success}}</p>
+            </template>
+        </div>
+    </div>
+    <amp-animation id="<?= Message::SUCCESS_ANIMATION_ID_PREFIX . $block->getUniqueFormKey() ?>" layout="nodisplay">
+        <script type="application/json">
+            [{
+                "duration": "8s",
+                "fill": "both",
+                "easing": "ease-out",
+                "iterations": "1",
+                "selector": ".<?= $block->getSuccessMessageClass() ?>",
+                "keyframes": [{
+                    "transform": "translateY(100%)"
+                }, {
+                    "transform": "translateY(0)",
+                    "offset": 0.07
+                }, {
+                    "transform": "translateY(0)",
+                    "offset": 0.93
+                }, {
+                    "transform": "translateY(100%)"
+                }]
+            }]
+        </script>
+    </amp-animation>
+<?php endif; ?>
+
+<?php if ($block->canShowFailMessage()) : ?>
+    <div class="<?= $block->getFailMessageClass() ?> snackbar-msg">
+        <div submit-error>
+            <template type="amp-mustache">
+                <p class="msg error">{{error}}</p>
+                <p class="msg notice">{{notice}}</p>
+            </template>
+        </div>
+    </div>
+    <amp-animation id="<?= Message::FAIL_ANIMATION_ID_PREFIX . $block->getUniqueFormKey() ?>" layout="nodisplay">
+        <script type="application/json">
+            [{
+                "duration": "8s",
+                "fill": "both",
+                "easing": "ease-out",
+                "iterations": "1",
+                "selector": ".<?= $block->getFailMessageClass() ?>",
+                "keyframes": [{
+                    "transform": "translateY(100%)"
+                }, {
+                    "transform": "translateY(0)",
+                    "offset": 0.07
+                }, {
+                    "transform": "translateY(0)",
+                    "offset": 0.93
+                }, {
+                    "transform": "translateY(100%)"
+                }]
+            }]
+        </script>
+    </amp-animation>
+<?php endif; ?>
+
+<?php if ($block->canShowWaitingMessage()) : ?>
+    <div submitting>
+        <template type="amp-mustache">
+            <p class="msg submit">
+                <?= __('Form submitting... Thank you for waiting.') ?>
+            </p>
+        </template>
+    </div>
+<?php endif; ?>

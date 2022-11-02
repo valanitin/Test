@@ -1,0 +1,58 @@
+<?php
+/**
+ * Plumrocket Inc.
+ *
+ * NOTICE OF LICENSE
+ *
+ * This source file is subject to the End-user License Agreement
+ * that is available through the world-wide-web at this URL:
+ * http://wiki.plumrocket.net/wiki/EULA
+ * If you are unable to obtain it through the world-wide-web, please
+ * send an email to support@plumrocket.com so we can send you a copy immediately.
+ *
+ * @package     Plumrocket_Amp
+ * @copyright   Copyright (c) 2016 Plumrocket Inc. (http://www.plumrocket.com)
+ * @license     http://wiki.plumrocket.net/wiki/EULA  End-user License Agreement
+ */
+
+/**
+ * Category left navigation
+ *
+ * @var $block \Magento\Catalog\Block\Navigation
+ */
+?>
+<?php if (!$block->getCategory()) {
+    return;
+} ?>
+<?php $_categories = $block->getCurrentChildCategories() ?>
+<?php $_count = is_array($_categories) ? count($_categories) : $_categories->count() ?>
+<?php if ($_count) : ?>
+    <div class="block filter">
+        <div class="block-title filter-title">
+            <strong><?php /* @escapeNotVerified */ echo __('Shopping Options') ?></strong>
+        </div>
+        <div class="block-content filter-content">
+            <input type="checkbox" id="filter-items"/>
+            <label for="filter-items" class="block-subtitle filter-subtitle"><?php /* @escapeNotVerified */ echo __('Shop By') ?></label>
+
+            <ul class="filter-options" id="narrow-by-list">
+                <li>
+                    <input type="checkbox" id="filter-item-category"/>
+                    <label for="filter-item-category" class="filter-options-title"><?php /* @escapeNotVerified */ echo __('Category') ?></label>
+                    <ul class="items">
+                        <?php foreach ($_categories as $_category) : ?>
+                            <?php if ($_category->getIsActive()) : ?>
+                                <li class="item">
+                                    <a href="<?php /* @escapeNotVerified */ echo $block->getCategoryUrl($_category) ?>"<?php if ($block->isCategoryActive($_category)): ?> class="current"<?php endif; ?>><?php echo $block->escapeHtml($_category->getName()) ?></a>
+                                    <?php if ($_category->getProductCount()) : ?>
+                                        <span class="count"><?php /* @escapeNotVerified */ echo $_category->getProductCount() ?></span>
+                                    <?php endif ?>
+                                </li>
+                            <?php endif ?>
+                        <?php endforeach ?>
+                    </ul>
+                </li>
+            </ul>
+        </div>
+    </div>
+<?php endif ?>

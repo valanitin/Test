@@ -1,0 +1,23 @@
+<script type="text/javascript">
+    require(['jquery'],function($){
+        $(window).load(function() {
+            var customurl = "<?php echo $this->getUrl().'geoip/index/index'?>";
+            $.ajax({
+                url: customurl,
+                type: 'GET',
+                dataType: 'json',
+				complete: function(response) { 
+					console.log(response.responseJSON); 
+					var status = response.responseJSON.status;
+					if(status) {
+						console.log(response.responseJSON.url);
+						window.location.href = response.responseJSON.url;
+					}					
+				},
+				error: function (xhr, status, errorThrown) {
+					console.log('Geoip Error happens. Try again.');
+				}
+			});
+        });
+    });
+</script>

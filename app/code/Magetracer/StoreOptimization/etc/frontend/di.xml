@@ -1,0 +1,27 @@
+<?xml version="1.0"?>
+<!-- /**
+ * Mage Tracer.
+ *
+ * @category  Magetracer
+ * @package   Magetracer_StoreOptimization
+ * @author    Magetracer
+ * @copyright Copyright (c) Mage Tracer (https://www.magetracer.com)
+ * @license   https://www.magetracer.com/license.html
+ */ -->
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:noNamespaceSchemaLocation="urn:magento:framework:ObjectManager/etc/config.xsd">
+        
+    <preference for="\Magento\Catalog\Block\Product\ImageFactory" type="Magetracer\StoreOptimization\Block\Rewrite\Product\ImageFactory" />
+
+    <preference for="\Magento\Catalog\Model\Product\Image" type="Magetracer\StoreOptimization\Model\Product\Image" />
+
+    <preference for="\Magento\Catalog\Model\View\Asset\Image" type="Magetracer\StoreOptimization\Model\View\Asset\Image" />
+
+    <preference for="Magento\Catalog\Block\Product\View\Gallery" type="Magetracer\StoreOptimization\Block\Rewrite\Product\View\Gallery" />
+
+    <type name="Magento\Catalog\Block\Product\Image">
+        <plugin name="magetracer_responsive_pixel_ratio" type="Magetracer\StoreOptimization\Plugin\Catalog\Block\Product\ImageResponsiveRatio"/>
+        <!-- <plugin name="product-image-lazy-loading" type="Magetracer\StoreOptimization\Plugin\Catalog\Block\Product\Image" sortOrder="1"/> -->
+    </type>
+
+</config>

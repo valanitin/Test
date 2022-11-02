@@ -1,0 +1,139 @@
+<!--xtraDIV -->
+</div>
+<div class="custtabs">
+	<ul>
+        <li class="active" rel="tab1"><?php echo __('Recommendation') ?></li>
+        <li rel="tab2"><?php echo __('Recently Viewed') ?></li>
+    </ul>
+    <div class="all_tab">
+    	<div id="tab1" class="tab_content">
+    		<!-- ##################### START CODE FOR RECOMMENDATION ##################### -->
+    		<?php
+				$dynamicHelper = $block->getViewModel()->getDynamicHelper();
+		        $categoryFactory = $dynamicHelper->getCategoryManager();
+		        $helperImport = $dynamicHelper->getImageHelperManager();
+				$priceHelper = $dynamicHelper->getPriceHelperManager();
+
+		        $_product = $dynamicHelper->getRegistry()->registry('current_product');
+		        $currentNameID =  $_product->getId();
+
+		      	$percentage = $_product->getFinalPrice() * 70 / 100;
+		        $min_price = $_product->getFinalPrice() - $percentage;
+		        $max_price = $_product->getFinalPrice() + $percentage;
+
+			    $categories = $_product->getCategoryIds();
+				
+				$category = $categoryFactory->create()->load(end($categories));
+			    $categoryProducts = $category->getProductCollection()->addAttributeToSelect('*')->setPageSize(25);
+				?>
+				<div class="productcount" style="display: none;">	<?php	echo "Found Count : ".count($categoryProducts); echo "<br/>"; ?></div>
+				<?php
+				$categoryProducts->addAttributeToFilter('price', array('gteq' => $min_price));
+			
+				$categoryProducts->addAttributeToFilter('price', array('lteq' => $max_price));
+				
+				$categoryProducts->addAttributeToFilter('entity_id', array('nin' => array($currentNameID)));
+				
+				if(count($categoryProducts) < 1)
+				{
+					$cat = $dynamicHelper->getCategoryManager()->load($categories[0]);
+					$categoryId = $cat->getId();
+					$category = $categoryFactory->create()->load($categoryId);
+					$categoryProducts = $category->getProductCollection()->addAttributeToSelect('*')->setPageSize(25);
+					?>
+					<div class="productcount" style="display: none;">	<?php	echo "Found Count : ".count($categoryProducts); echo "<br/>"; ?></div>
+					<?php
+					$categoryProducts->addAttributeToFilter('price', array('gteq' => $min_price));
+					$categoryProducts->addAttributeToFilter('price', array('lteq' => $max_price));
+					$categoryProducts->addAttributeToFilter('entity_id', array('nin' => array($currentNameID)));
+				
+				}
+    		?>
+    		<div class="productcount" style="display: none;">
+    			<?php
+    				echo "c p id :" . $_product->getId(); echo "<br/>";
+			        echo "c name :" . $_product->getName(); echo "<br/>";
+			        echo "c color :" . $_product->getColor(); echo "<br/>";
+			        echo "c brand :" . $_product->getBrands(); echo "<br/>";
+			        echo "c finalprice :" . $_product->getFinalPrice(); echo "<br/>";
+			        echo "c percentage :" . $percentage = $_product->getFinalPrice() * 20 / 100; echo "<br/>";
+			        echo "<br/>";
+			    	echo "Category ID :" .end($categories);
+			    	echo "Found Count : ".count($categoryProducts); echo "<br/>";
+    			?>
+    		</div>
+    		<?php 
+			
+			if(count($categoryProducts)>0){ ?>
+    		<div class="product info detailed cls_recommendation">
+				<div class="product data items">
+					<div class="block upsells">
+						<div class="block-content content">
+							<div class="products wrapper grid products-grid products-recommandation">
+								<div class="products list items product-items owl-carousel">
+									<!-- START CODE FOR FIRST BLOCK -->
+									<?php foreach ($categoryProducts as $product) {
+										$imageUrl = $helperImport->init($product, 'product_page_image_small')
+						                ->setImageFile($product->getThumbnail()) // image,small_image,thumbnail
+						                ->resize(234)
+						                ->getUrl();
+									?>
+									<div class="item product product-item">
+										<div class="product-item-info type1" data-container="product-grid">
+										 	<div class="product photo product-item-photo">
+										 		<a href="<?php echo $product->getProductUrl(); ?>">
+										 			<img class="product-image-photo default_image" src="<?php echo $imageUrl; ?>" alt="<?php echo $product->getName(); ?>">
+										 		</a>
+                                                <div class="product-addto-links" style="display: block;" data-role="add-to-links">
+       												 <a href="#" data-post='<?php  echo $this->helper('Magento\Wishlist\Helper\Data')->getAddParams($product) ?>' class="action towishlist" data-action="add-to-wishlist"><span>' .__('Add to Wish List') . '</span></a>
+												</div>
+											 </div>
+										 	<div class="product details product-item-details">
+										 		<strong class="product name product-item-name clsbrandname">
+			                            			<a class="product-item-link" href="<?php echo $product->getProductUrl(); ?>"><?php echo $product->getResource()->getAttribute('brands')->getFrontend()->getValue($product);; ?></a>
+			                        			</strong>
+			                        			<strong class="product name product-item-name">
+			                            			<a class="product-item-link" href="<?php echo $product->getProductUrl(); ?>"><?php echo $product->getName(); ?></a>
+			                        			</strong>
+			                        			<div class="price-box price-final_price">
+			                        				<span class="normal-price">
+														<span class="price-container price-final_price tax weee">
+														    <span class="price-wrapper"><span class="price"><?php echo $priceHelper->currency($product->getFinalPrice(), true, false); ?></span></span>
+														</span>
+													</span>
+			                                    </div>
+										 	</div>
+										 </div>
+									 </div>
+									<?php } //end foreach ?>
+									<!-- END CODE FOR FIRST BLOCK -->
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+			<?php } else { ?>
+			<div class="product info detailed cls_recommendation noproductrecome">
+				<p class="clsnoprod"><?php echo __('No Products Found') ?></p>
+			</div>
+			<?php } ?>
+			<div class="product info detailed cls_recommendation noproductrecome">
+				<?php
+				$storeManager = $dynamicHelper->getStoreManager();
+				$currentStore = $storeManager->getStore();
+				$mediaUrl = $currentStore->getBaseUrl(\Magento\Framework\UrlInterface::URL_TYPE_MEDIA);
+				?>
+
+
+			</div>
+    		<!-- ##################### END CODE FOR RECOMMENDATION ##################### -->
+    	</div>
+    	<div id="tab2" class="tab_content clsrecentlyviewed">
+    		<!-- START CODE FOR Recently viewed -->
+    		<?php echo $this->getLayout()->createBlock('Magento\Cms\Block\Block')->setBlockId('recently_view_product')->toHtml();?>
+    		<!-- END CODE FOR Recently viewed -->
+    	</div>
+    </div>
+</div>
+

@@ -1,0 +1,23 @@
+<?xml version="1.0"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Config:etc/system_file.xsd">
+    <system>
+        <tab id="ordertracking" translate="label" sortOrder="400">
+            <label>Order Status</label>
+        </tab>
+        <section id="ordertracking_reason" translate="label" sortOrder="20" showInDefault="1" showInWebsite="1" showInStore="1">
+            <class>separator-top</class>
+            <label>Order Status Configuration</label>
+            <tab>ordertracking</tab>
+            <resource>Dynamic_OrderTracking::config_ordertracking</resource>
+            <group id="ordertracking_configuration" translate="label" type="text" sortOrder="10" showInDefault="1" showInWebsite="1" showInStore="1">
+                <label>Add Order Status</label>
+                <field id="status" translate="label" sortOrder="10" showInDefault="1" showInStore="1" showInWebsite="1">
+                    <label>Status</label>
+                    <frontend_model>Dynamic\OrderTracking\Block\Adminhtml\Form\Field\Status</frontend_model>
+                    <backend_model>Magento\Config\Model\Config\Backend\Serialized\ArraySerialized</backend_model>
+                </field>
+            </group>
+        </section>
+    </system>
+</config>
+

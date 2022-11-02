@@ -1,0 +1,16 @@
+<?xml version="1.0"?>
+<!--
+/** Grid menu xml
+ * @category  Firas
+ * @package   Firas_Grid
+ * @author    Firas
+ * @copyright Copyright (c) 2010-2017 Firas Software Private Limited (https://firas.com)
+ * @license   https://store.firas.com/license.html
+ */
+-->
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Backend:etc/menu.xsd">
+    <menu>
+        <add id="Firas_Grid::manager" title="ERP Shipping Manager" module="Firas_Grid" sortOrder="10" resource="Firas_Grid::manager" />
+        <add id="Firas_Grid::add_row" title="ERP Shipping Price" module="Firas_Grid" sortOrder="20" parent="Firas_Grid::manager" action="grid/grid" resource="Firas_Grid::add_row"/>
+    </menu>
+</config>

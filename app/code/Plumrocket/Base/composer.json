@@ -1,0 +1,18 @@
+{
+    "name": "plumrocket/module-plumbase",
+    "description": "Base module for other Plumrocket modules. Provides utility classes and manages licenses",
+    "require": {
+        "php": ">=7.1",
+        "magento/framework": ">=101.0.0"
+    },
+    "type": "magento2-module",
+    "version": "2.8.4",
+    "autoload": {
+        "files": [
+            "registration.php"
+        ],
+        "psr-4": {
+            "Plumrocket\\Base\\": ""
+        }
+    }
+}

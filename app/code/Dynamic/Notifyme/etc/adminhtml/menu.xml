@@ -1,0 +1,8 @@
+<?xml version="1.0"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Backend:etc/menu.xsd">
+    <menu>
+        <add id="Dynamic_Notifyme::notifyme_manage" title="Dynamic" translate="title" module="Dynamic_Notifyme" sortOrder="100" parent="Magento_Backend::system" resource="Dynamic_Notifyme::notifyme_manage"/>
+
+        <add id="Dynamic_Notifyme::notifyme_fields" title="Notify Me Manager" module="Dynamic_Notifyme" sortOrder="10" parent="Dynamic_Notifyme::notifyme_manage" action="notifyme/index/" resource="Dynamic_Notifyme::notifyme_fields"/>
+    </menu>
+</config>

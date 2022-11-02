@@ -1,0 +1,53 @@
+<?xml version="1.0"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Config:etc/system_file.xsd">
+    <system>
+        <tab id="localBrowserPushNotification" translate="label" sortOrder="300">
+            <label>Firebase</label>
+        </tab>
+        <section id="browserpush" translate="label" sortOrder="20" showInDefault="1" showInWebsite="1" showInStore="1">
+            <class>separator-top</class>
+            <label>Firebase Configuration</label>
+            <tab>localBrowserPushNotification</tab>
+            <resource>Local_BrowserPushNotification::config_browserpushnotification</resource>
+            <group id="notification" translate="label" type="text" sortOrder="2" showInDefault="1" showInWebsite="1" showInStore="1">
+                <label>Please Choose Your Email Template</label>
+                <field id="apiKey" translate="label comment" type="text" sortOrder="1" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>API Key</label>
+                    <validate>required-entry</validate>
+                </field>
+                <field id="authDomain" translate="label comment" type="text" sortOrder="2" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Auto Domain</label>
+                    <validate>required-entry</validate>
+                </field>
+                <field id="projectId" translate="label comment" type="text" sortOrder="3" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Project Id</label>
+                    <validate>required-entry</validate>
+                </field>
+                <field id="storageBucket" translate="label comment" type="text" sortOrder="4" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Storage Bucket</label>
+                    <validate>required-entry</validate>
+                </field>
+                <field id="messagingSenderId" translate="label comment" type="text" sortOrder="5" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Messaging Sender Id</label>
+                    <validate>required-entry</validate>
+                </field>
+                <field id="appId" translate="label comment" type="text" sortOrder="5" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>App Id</label>
+                    <validate>required-entry</validate>
+                </field>
+                <field id="measurementId" translate="label comment" type="text" sortOrder="6" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Measurement Id</label>
+                    <validate>required-entry</validate>
+                </field>
+                <field id="publicVapidKey" translate="label comment" type="text" sortOrder="7" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Public Api Key</label>
+                    <validate>required-entry</validate>
+                </field>
+                <field id="tokenWebsite" translate="label comment" type="text" sortOrder="6" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Token Website</label>
+                    <validate>required-entry</validate>
+                </field>
+            </group>
+        </section>
+    </system>
+</config>

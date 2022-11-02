@@ -1,0 +1,19 @@
+<?php
+$objectManager = \Magento\Framework\App\ObjectManager::getInstance();
+$customerSession = $objectManager->get('Magento\Customer\Model\Session');
+$route = $block->getRequest()->getRouteName();
+
+if(!$customerSession->isLoggedIn() && $route == 'gwishlist') {
+    /**
+    * @var \AureateLabs\Demo\Block\Sidebar $block
+    */
+    //echo $block->getstaticBlockContent('sidebar-static-block');
+    ?>
+	<div class="wishlistsidebar_login">
+	<h1 class="title"><?php echo __('Wishlist') ?></h1>
+	<p><?php echo __('Keep Track of your favorite prices no matter the browser or device all in one place') ?></p>
+    <button onclick="javascript:location.href='<?php echo $block->getUrl('customer/account/login') ?>'" title="<?php echo __('Sign in') ?>"><strong><?php echo __('Sign in') ?></strong></button>
+	</div>
+    <?php 
+}
+?>

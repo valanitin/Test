@@ -1,0 +1,16 @@
+<?xml version="1.0" ?>
+<!--
+/**
+ * Copyright © Firas. All rights reserved.
+ * See LICENSE.txt for license details.
+ */
+-->
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:Event/etc/events.xsd">
+
+    <event name="sales_quote_item_save_before">
+        <observer instance="Firas\DonationProduct\Observer\Sales\QuoteItemSaveBefore" name="firas_donationproduct_observer_sales_quoteitemsavebefore_sales_quote_item_save_before"/>
+    </event>
+    <event name="catalog_product_save_after">
+        <observer instance="Firas\DonationProduct\Observer\Catalog\ProductSaveAfter" name="firas_donationproduct_observer_catalog_productsaveafter_catalog_product_save_after"/>
+    </event>
+</config>

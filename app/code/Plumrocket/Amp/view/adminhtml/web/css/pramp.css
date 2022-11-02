@@ -1,0 +1,45 @@
+/*
+ * Plumrocket Inc.
+ *
+ * NOTICE OF LICENSE
+ *
+ * This source file is subject to the End-user License Agreement
+ * that is available through the world-wide-web at this URL:
+ * http://wiki.plumrocket.net/wiki/EULA
+ * If you are unable to obtain it through the world-wide-web, please
+ * send an email to support@plumrocket.com so we can send you a copy immediately.
+ *
+ * @package     Plumrocket Amp
+ * @copyright   Copyright (c) 2018 Plumrocket Inc. (http://www.plumrocket.com)
+ * @license     http://wiki.plumrocket.net/wiki/EULA  End-user License Agreement
+ */
+
+.admin__field img.amp-banner {
+  display: block;
+  margin: 10px 0;
+}
+
+.admin__fieldset > .admin__field[class*="_image1"],
+.admin__fieldset > .admin__field[class*="_image2"],
+.admin__fieldset > .admin__field[class*="_image3"],
+.admin__fieldset > .admin__field[class*="_image4"],
+.admin__fieldset > .admin__field[class*="_image5"]{
+  border-bottom: 1px solid #ccc;
+  padding-bottom: 20px;
+}
+
+#container div[data-index='pramp_html'] .admin__field-control {
+  width: calc( (100%) - 30px );
+}
+
+#container div[data-index='pramp_html'] .admin__field-control textarea {
+  height: 500px;
+}
+
+#container div[data-index='pramp_html'] {
+  margin-bottom: 0;
+}
+
+#container div[data-index='pramp_html'] .admin__field-label {
+  display: none;
+}

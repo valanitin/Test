@@ -1,0 +1,121 @@
+<?php
+/**
+ * Plumrocket Inc.
+ *
+ * NOTICE OF LICENSE
+ *
+ * This source file is subject to the End-user License Agreement
+ * that is available through the world-wide-web at this URL:
+ * http://wiki.plumrocket.net/wiki/EULA
+ * If you are unable to obtain it through the world-wide-web, please
+ * send an email to support@plumrocket.com so we can send you a copy immediately.
+ *
+ * @package     Plumrocket_Amp
+ * @copyright   Copyright (c) 2020 Plumrocket Inc. (http://www.plumrocket.com)
+ * @license     http://wiki.plumrocket.net/wiki/EULA  End-user License Agreement
+ */
+?>
+<?php
+/**
+ * Product media data template
+ *
+ * @var \Plumrocket\Amp\Block\Product\View\Gallery $block
+ */
+
+$_helperAmpVideo = $this->helper(\Plumrocket\Amp\Helper\Video::class);
+$imageWidth = $block->getImageAttribute('product_page_image_medium', 'width');
+$imageHeight = $block->getImageAttribute('product_page_image_medium', 'height');
+$previewIndex = 0;
+
+/** @var \Plumrocket\Amp\Model\Image\Compressor $imageCompressor */
+$imageCompressor = $block->getData('imageCompressor');
+
+$gallery = $block->getGalleryImages();
+?>
+<div class="amp-product-gallery">
+    <?php if ($gallery && $gallery->getSize() > 1) : ?>
+        <amp-carousel
+            id="carousel-with-preview"
+            width="<?php echo $imageWidth; ?>"
+            height="<?php echo $imageHeight; ?>"
+            layout="responsive"
+            type="slides"
+            delay="5000"
+        >
+            <?php foreach ($gallery as $image) : ?>
+                <?php if (!$image->getData('disabled')) : ?>
+                    <?php $videoData = $_helperAmpVideo->getVideoData($image->getData('video_url')) ?>
+                    <?php if ($videoData) : ?>
+                        <amp-<?php echo $videoData['type'] ?>
+                            data-videoid="<?php echo $videoData['id'] ?>"
+                            width="<?php echo $imageWidth ?>"
+                            height="<?php echo $imageHeight ?>"
+                            layout="responsive"
+                            <?php echo $videoData['autoplay'] ? 'autoplay' : '' ?>
+                        >
+                        </amp-<?php echo $videoData['type'] ?>>
+                    <?php else : ?>
+                        <amp-img
+                            src="<?php echo $image->getData('medium_image_url') ?>"
+                            width="<?php echo $imageWidth ?>"
+                            height="<?php echo $imageHeight ?>"
+                            layout="responsive"
+                            alt="<?= $block->escapeHtmlAttr($block->getProduct()->getName()) ?>"
+                        ></amp-img>
+                    <?php endif; ?>
+                <?php endif; ?>
+            <?php endforeach; ?>
+        </amp-carousel>
+        <div class="carousel-preview">
+            <?php foreach ($gallery as $image) : ?>
+                    <?php if (! $image->getData('disabled')) : ?>
+                        <?php $previewImageInfo = $imageCompressor->getProductGalleryPreviewImage($image->getData('file')); ?>
+                        <button on="tap:carousel-with-preview.goToSlide(index=<?php echo $previewIndex; ?>)" aria-label="<?= __('Go to slide %1', $previewIndex) ?>">
+                            <amp-img
+                                src="<?php echo $previewImageInfo['url'] ?? ''; ?>"
+                                width="<?php echo $previewImageInfo['width'] ?? 120; ?>"
+                                height="<?php echo $previewImageInfo['height'] ?? 120; ?>"
+                                layout="responsive"
+                                alt="<?= __('Go to slide %1', $previewIndex) ?>"
+                            ></amp-img>
+                        </button>
+                        <?php $previewIndex++; ?>
+                    <?php endif; ?>
+            <?php endforeach; ?>
+        </div>
+    <?php elseif ($gallery && $gallery->getSize() == 1) : ?>
+        <?php
+            $image = $gallery->getFirstItem();
+            $videoData = $_helperAmpVideo->getVideoData($image->getData('video_url'));
+        ?>
+        <?php if ($videoData) : ?>
+            <amp-<?php echo $videoData['type'] ?>
+                data-videoid="<?php echo $videoData['id'] ?>"
+                width="<?php echo $imageWidth ?>"
+                height="<?php echo $imageHeight ?>"
+                layout="responsive"
+                <?php echo $videoData['autoplay'] ? 'autoplay' : '' ?>
+            >
+            </amp-<?php echo $videoData['type'] ?>>
+        <?php else : ?>
+            <?php
+                $other = $this->getImage($this->getProduct(), 'product_page_image_medium');
+            ?>
+            <amp-img
+                width="<?php echo $imageWidth ?>"
+                height="<?php echo $imageHeight ?>"
+                layout="responsive"
+                alt="<?= $block->escapeHtmlAttr($other->getLabel()) ?>"
+                src="<?php echo $other->getData('image_url') ?>" >
+            </amp-img>
+        <?php endif; ?>
+    <?php else: ?>
+        <amp-img
+            width="<?= $block->escapeHtmlAttr($imageWidth) ?>"
+            height="<?= $block->escapeHtmlAttr($imageHeight) ?>"
+            layout="responsive"
+            alt="<?= $block->escapeHtmlAttr(__('No product image')) ?>"
+            src="<?= $block->escapeUrl($block->getDefaultPlaceholder()) ?>">
+        </amp-img>
+    <?php endif; ?>
+</div>

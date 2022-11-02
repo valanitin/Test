@@ -1,0 +1,49 @@
+<?xml version="1.0"?>
+<!--
+ * Revered Technologies Pvt. Ltd.
+ *
+ * NOTICE OF LICENSE
+ *
+ * This source file is subject to the EULA
+ * that is bundled with this package in the file LICENSE.txt.
+ * It is also available through the world-wide-web at this URL:
+ * http://store.reveredtech.com/Revered-LICENSE-COMMUNITY.txt
+ *
+ ********************************************************************
+ * @category   Revered
+ * @package    Revered_GuestWishlist
+ * @copyright  Copyright (c) Revered Technologies Pvt. Ltd. (http://www.reveredtech.com)
+ * @license    http://store.reveredtech.com/Revered-LICENSE-COMMUNITY.txt
+ -->
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Store:etc/config.xsd">
+    <default>
+        <customer>
+            <forms>user_forgotpassword,user_login,guest_wishlist_form</forms>
+            <captcha>
+                <shown_to_logged_in_user>
+                    <guest_wishlist_form>1</guest_wishlist_form>
+                </shown_to_logged_in_user>
+                <always_for>
+                    <guest_wishlist_form>1</guest_wishlist_form>
+                </always_for>
+            </captcha>
+        </customer>
+        <captcha translate="label">
+            <frontend>
+                <areas>
+                    <guest_wishlist_form>
+                        <label>Guest Wish List Sharing Form</label>
+                    </guest_wishlist_form>
+                </areas>
+            </frontend>
+        </captcha>
+        <guestwishlist>
+            <settings>
+                <enabled>1</enabled>
+                <cookie_lifetime>30</cookie_lifetime>
+                <merge>1</merge>
+                <sharing>1</sharing>
+            </settings>
+        </guestwishlist>
+    </default>
+</config>

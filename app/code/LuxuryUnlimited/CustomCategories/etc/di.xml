@@ -1,0 +1,9 @@
+<?xml version="1.0"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:noNamespaceSchemaLocation="urn:magento:framework:ObjectManager/etc/config.xsd">
+    <!--    Adding the View All categories for the level 2 cateogories-->
+    <type name="Magento\Catalog\Model\CategoryManagement">
+        <plugin name="modifying_the_cateogories_in_api" sortOrder="1"
+                type="LuxuryUnlimited\CustomCategories\Plugin\CategoryManagement"/>
+    </type>
+</config>

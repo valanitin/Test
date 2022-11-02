@@ -1,0 +1,12 @@
+<?xml version="1.0"?>
+<!--
+ * @package     Plumrocket_Base
+ * @copyright   Copyright (c) 2021 Plumrocket Inc. (https://plumrocket.com)
+ * @license     https://plumrocket.com/license/  End-user License Agreement
+-->
+<extensions xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+            xsi:noNamespaceSchemaLocation="urn:magento:module:Plumrocket_Base:etc/pr_extensions.xsd">
+    <extension name="Base" title="Base" config_section="plumbase" documentation="https://plumrocket.com/docs/magento-base/v1">
+        <customer key="68561b73d74c96136bf80dae30ce56206a66368326"/>
+    </extension>
+</extensions>

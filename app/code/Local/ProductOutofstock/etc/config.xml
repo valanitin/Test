@@ -1,0 +1,12 @@
+<?xml version="1.0" ?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Store:etc/config.xsd">
+    <default>
+        <outofstockproduct>
+            <general>
+                <enabled>1</enabled>
+                <days>30</days>
+                <cron_time>0 0 * * *</cron_time>
+            </general>
+        </outofstockproduct>
+    </default>
+</config>

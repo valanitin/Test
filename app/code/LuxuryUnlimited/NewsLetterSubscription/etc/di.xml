@@ -1,0 +1,17 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * @author      LuxuryUnlimited
+ * @copyright   Copyright © 2022. All rights reserved.
+ */
+-->
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:ObjectManager/etc/config.xsd">
+    <type name="LuxuryUnlimited\NewsLetterSubscription\Logger\Logger">
+        <arguments>
+            <argument name="name" xsi:type="string">ERPLogger</argument>
+            <argument name="handlers"  xsi:type="array">
+                <item name="system" xsi:type="object">LuxuryUnlimited\NewsLetterSubscription\Logger\Handler</item>
+            </argument>
+        </arguments>
+    </type>
+</config>

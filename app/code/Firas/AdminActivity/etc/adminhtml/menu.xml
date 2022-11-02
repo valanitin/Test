@@ -1,0 +1,23 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Firas
+ *
+ * Do not edit or add to this file if you wish to upgrade to newer versions in the future.
+ * If you wish to customize this module for your needs.
+ * Please contact us https://firas.co.uk/contacts.
+ *
+ * @category   Firas
+ * @package    Firas_AdminActivity
+ * @copyright  Copyright (C) 2018 Kiwi Commerce Ltd (https://firas.co.uk/)
+ * @license    https://firas.co.uk/magento2-extension-license/
+ */
+-->
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Backend:etc/menu.xsd">
+    <menu>
+        <add id="Firas_AdminActivity::activity_head" title="Admin Activity by Firas" module="Firas_AdminActivity" sortOrder="100" parent="Magento_Backend::system" resource="Firas_AdminActivity::activity_head" />
+        <add id="Firas_AdminActivity::activity" title="Admin Activity" module="Firas_AdminActivity" sortOrder="10" parent="Firas_AdminActivity::activity_head" action="adminactivity/activity" resource="Firas_AdminActivity::activity" />
+        <add id="Firas_AdminActivity::login_activity" title="Login Activity" module="Firas_AdminActivity" sortOrder="20" parent="Firas_AdminActivity::activity_head" action="adminactivity/login" resource="Firas_AdminActivity::login_activity" />
+        <add id="Firas_AdminActivity::configuration" title="Configuration" module="Firas_AdminActivity" sortOrder="40" parent="Firas_AdminActivity::activity_head" action="adminhtml/system_config/edit/section/admin_activity" resource="Firas_AdminActivity::configuration"/>
+    </menu>
+</config>

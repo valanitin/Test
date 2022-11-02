@@ -1,0 +1,40 @@
+<?php
+$baseUrl = $block->getBaseUrl();
+$_helper = $this->helper('Smartwave\Porto\Helper\Data');
+$imageUrl = $_helper->getBaseUrl();
+?>
+<div class="need-help-container">
+  <div class="help-acc-content">
+    <ul>
+      <li>
+        <img src="<?php echo $imageUrl.'porto/web/images/img-1.png' ?>"/><a href="<?php echo $baseUrl.'faqs?q=#shopPlaceOrder' ?>"><?php echo __('How to shop & place an order?') ?></a>
+      </li>
+      <li>
+        <img src="<?php echo $imageUrl.'porto/web/images/img-2.png' ?>"/><a href="<?php echo $baseUrl.'faqs?q=#pricing' ?>"><?php echo __('Avoirchic pricing & payment') ?></a>
+      </li>
+      <li>
+        <img src="<?php echo $imageUrl.'porto/web/images/img-3.png' ?>"/><a href="<?php echo $baseUrl.'faqs?q=#availabilityAuthenticity' ?>"><?php echo __('Product availability & authenticity') ?></a>
+      </li>
+    </ul>
+    <ul>
+      <li>
+        <img src="<?php echo $imageUrl.'porto/web/images/img-4.png' ?>"/><a href="<?php echo $baseUrl.'faqs?q=#shippingTaxes' ?>"><?php echo __('Shipping, taxes & duties') ?></a>
+      </li>
+      <li>
+        <img src="<?php echo $imageUrl.'porto/web/images/img-5.png' ?>"/><a href="<?php echo $baseUrl.'faqs?q=#returnsRefunds' ?>"><?php echo __('Returns & refunds') ?></a>
+      </li>
+      <li>
+        <img src="<?php echo $imageUrl.'porto/web/images/img-6.png' ?>"/><a href="<?php echo $baseUrl.'faqs?q' ?>"><?php echo __('International') ?></a>
+      </li>
+    </ul>
+  </div>
+  <div class="top-banner"><img src="https://dummyimage.com/1600x300/ebe6e3/000.jpg"/></div>
+  <div class="help-text-content">
+    <h3><?php echo __('NEED MORE INFORMATION?') ?></h3>
+    <p><?php echo __('Whatever your query, use the contact form below to click') ?></p>
+    <a href="<?php echo $baseUrl.'contact-us' ?>" class="cont-btn"><?php echo __('GET IN TOUCH') ?></a>
+    <p class="help-or"><?php echo __('OR') ?></p>
+    <p><?php echo __('Send us a Email at') ?></p>
+    <a href="" class="email-btn"><?php echo __('customercare@brands-labels.com') ?></a>
+  </div>
+</div>

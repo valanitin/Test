@@ -1,0 +1,46 @@
+<?php
+$dynamicHelper = $this->helper('\Dynamic\Customization\Helper\Data');
+$eavConfig = $dynamicHelper->getEavConfigManager();
+$attribute = $eavConfig->getAttribute('catalog_product', 'brands');
+$options = $attribute->getSource()->getAllOptions();
+$_helper = $this->helper('Smartwave\Porto\Helper\Data');
+$baseUrl = $_helper->getBaseLinkUrl();
+$productCollection = $dynamicHelper->getProductCollectionManager();
+// echo '<pre>';
+// print_r($options);
+?>
+<div class="home-brands-list">
+    <?php
+      $counter = 1;
+      $brandsMainUrl = 'brands';
+      foreach ($options as $option) {
+
+        $brandId = $option['value'];
+        $brandName = $option['label'];
+        $brandNameLength = strlen($brandName);
+        $collection = $productCollection->create()
+                     ->addAttributeToSelect('*')
+                     ->addAttributeToFilter('brands', $brandId)
+                     ->load();
+        $brandProductCount = count($collection);
+        //echo $brandName.'='.$brandProductCount.'<br/>';
+        if($brandNameLength > 1){
+          $brandLink = preg_replace('/\s+/', '-', $brandName);
+          $brandLink = strtolower($brandLink);
+          $brandLink = 'brand/'.$brandLink.'.html';
+          // echo $brandName.'<br/>';
+      ?>
+        <a class="home-brands-item" title="<?php echo $brandName ?>" href="<?php echo $baseUrl.$brandLink ?>"><?php echo $brandName ?></a>
+      <?php
+      		if($counter > 22){
+      			?>
+              <a class="home-brands-item" title="Show All" href="<?php echo $baseUrl.$brandsMainUrl ?>">Show All</a>
+      			<?php
+      			break;
+
+      		}
+      		$counter++;
+        }
+      }
+    ?>
+</div>

@@ -1,0 +1,38 @@
+<?php
+/**
+ * Copyright © Magento, Inc. All rights reserved.
+ * See COPYING.txt for license details.
+ */
+
+
+/** @var \Magento\Framework\View\Element\Template $block */
+?>
+
+<?php
+$baseURL = $block->getBaseUrl();
+?>
+
+<div class="success-div">
+    <p class="content-message">
+        <?php $params = $this->getRequest()->getParams('type'); ?>
+        <?php if (isset($params['type'])) : ?>
+
+            <?php if (substr($params['type'], 0, -1) == 'user'): ?>
+                <p>The user does not exist - please try again </p>
+                <p><a href="<?= $baseURL . 'customer/account/create/'; ?>">Create a New Account</a> <a
+                href="<?= $baseURL . 'customer/account/'; ?>">Back</a></p>
+
+            <?php elseif (substr($params['type'], 0, -1) == 'exist'): ?>
+                <p>There Is Already A Account With This Email Address, You can Reset Your Password For ( email address ) or
+                Create An Account With A New Email Address</p>
+                <p><a href="<?= $baseURL . 'customer/account/create/'; ?>">Create a New Account</a> <a
+                    href="<?= $baseURL . 'customer/account/forgotpassword/'; ?>">Reset Password</a></p>
+            <?php else: ?>
+                <p>Password is incorrect - please try again </p>
+                <p><a href="<?= $baseURL . 'customer/account/forgotpassword/'; ?>">Reset Password</a> <a
+                    href="<?= $baseURL . 'customer/account/'; ?>">Back</a></p>
+
+            <?php endif; ?>
+        <?php endif; ?>
+    </p>
+</div>

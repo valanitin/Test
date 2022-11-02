@@ -1,0 +1,7 @@
+<?xml version="1.0"?>
+
+<schema xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:Setup/Declaration/Schema/etc/schema.xsd">
+    <table name="orderreturn">
+        <column xsi:type="varchar" name="erp_return_status" nullable="false" length="255" comment="ERP Return Status" />
+    </table>
+</schema>

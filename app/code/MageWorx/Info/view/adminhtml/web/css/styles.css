@@ -1,0 +1,73 @@
+#mageworx-installed-extenstions .mw-ext__heading, #mageworx-purchased-extenstions .mw-ext__heading { font-size: 14px; font-weight: bold; color: #303030; line-height: 1; }
+
+#mageworx-installed-extenstions .mw-ext__desc, #mageworx-purchased-extenstions .mw-ext__desc { margin-bottom: 35px; display: inline-block; width: calc(100% - 150px); }
+
+#mageworx-installed-extenstions .mw-ext__refresh, #mageworx-purchased-extenstions .mw-ext__refresh { width: 100px; display: inline-block; vertical-align: text-top; padding-left: 22px; background: url(../images/refresh-icon.svg) left center/20px no-repeat; -webkit-box-sizing: border-box; box-sizing: border-box; color: #41362f; }
+
+#mageworx-installed-extenstions .mw-ext__rate, #mageworx-purchased-extenstions .mw-ext__rate { min-width: 150px; }
+
+#mageworx-installed-extenstions .mw-ext__rate__input, #mageworx-purchased-extenstions .mw-ext__rate__input { display: none; }
+
+#mageworx-installed-extenstions .mw-ext__rate__input:checked ~ .mw-ext__rate__star path, #mageworx-purchased-extenstions .mw-ext__rate__input:checked ~ .mw-ext__rate__star path { fill: #fdcc25; stroke: #d5a400; }
+
+#mageworx-installed-extenstions .mw-ext__rate__star, #mageworx-purchased-extenstions .mw-ext__rate__star { cursor: pointer; float: right; padding-right: 5px; }
+
+#mageworx-installed-extenstions .mw-ext__rate__star:first-child, #mageworx-purchased-extenstions .mw-ext__rate__star:first-child { margin-right: 0; }
+
+#mageworx-installed-extenstions .mw-ext__rate__star:hover ~ .mw-ext__rate__star path, #mageworx-installed-extenstions .mw-ext__rate__star:hover path, #mageworx-purchased-extenstions .mw-ext__rate__star:hover ~ .mw-ext__rate__star path, #mageworx-purchased-extenstions .mw-ext__rate__star:hover path { fill: #fdcc25; stroke: #d5a400; }
+
+#mageworx-installed-extenstions .mw-ext__grid, #mageworx-purchased-extenstions .mw-ext__grid { display: -webkit-box; display: -ms-flexbox; display: flex; -webkit-box-flex: 0; -ms-flex: 0 1 auto; flex: 0 1 auto; -webkit-box-orient: vertical; -webkit-box-direction: normal; -ms-flex-direction: auto; flex-direction: auto; -ms-flex-wrap: wrap; flex-wrap: wrap; -webkit-box-pack: justify; -ms-flex-pack: justify; justify-content: space-between; }
+
+#mageworx-installed-extenstions .mw-ext__grid__item, #mageworx-purchased-extenstions .mw-ext__grid__item { display: -webkit-box; display: -ms-flexbox; display: flex; -webkit-box-flex: 0; -ms-flex: 0 0 auto; flex: 0 0 auto; max-width: 33%; -ms-flex-preferred-size: 33%; flex-basis: 33%; -webkit-box-orient: horizontal; -webkit-box-direction: normal; -ms-flex-direction: row; flex-direction: row; margin-bottom: 35px; position: relative; min-width: 200px; }
+
+#mageworx-installed-extenstions .mw-ext__grid__item--purchased, #mageworx-purchased-extenstions .mw-ext__grid__item--purchased { max-width: 100%; -webkit-box-flex: 1; -ms-flex: 1 1 auto; flex: 1 1 auto; }
+
+#mageworx-installed-extenstions .mw-ext__grid__item--purchased .mw-ext__grid__item__text, #mageworx-purchased-extenstions .mw-ext__grid__item--purchased .mw-ext__grid__item__text { color: #1e803a; }
+
+#mageworx-installed-extenstions .mw-ext__grid__item--purchased .mw-ext__grid__item__content, #mageworx-purchased-extenstions .mw-ext__grid__item--purchased .mw-ext__grid__item__content { -webkit-box-flex: 1; -ms-flex: 1; flex: 1; -webkit-box-orient: horizontal; -webkit-box-direction: normal; -ms-flex-direction: row; flex-direction: row; -webkit-box-pack: justify; -ms-flex-pack: justify; justify-content: space-between; -webkit-box-align: center; -ms-flex-align: center; align-items: center; display: -webkit-box; display: -ms-flexbox; display: flex; padding-left: 20px; }
+
+#mageworx-installed-extenstions .mw-ext__grid__item--purchased .mw-ext__grid__item__content-right, #mageworx-purchased-extenstions .mw-ext__grid__item--purchased .mw-ext__grid__item__content-right { display: -webkit-box; display: -ms-flexbox; display: flex; -webkit-box-align: center; -ms-flex-align: center; align-items: center; }
+
+#mageworx-installed-extenstions .mw-ext__grid__item__discount, #mageworx-purchased-extenstions .mw-ext__grid__item__discount { position: absolute; display: block; width: 49px; height: 43px; background: url(../images/discount-tag.png) center center no-repeat; z-index: 1; right: 0; top: -6px; }
+
+#mageworx-installed-extenstions .mw-ext__grid__item__discount span, #mageworx-purchased-extenstions .mw-ext__grid__item__discount span { position: absolute; top: 16px; left: 16px; color: #fff; -webkit-transform: rotate(24deg); transform: rotate(24deg); font-size: 12px; }
+
+#mageworx-installed-extenstions .mw-ext__grid__item__image, #mageworx-purchased-extenstions .mw-ext__grid__item__image { display: block; position: relative; width: 70px; min-height: 70px; padding-bottom: 70px; -ms-flex-negative: 0; flex-shrink: 0; -webkit-box-flex: 0; -ms-flex-positive: 0; flex-grow: 0; padding: 0; }
+
+#mageworx-installed-extenstions .mw-ext__grid__item__image img, #mageworx-purchased-extenstions .mw-ext__grid__item__image img { max-width: 100%; max-height: 100%; position: absolute; top: 0; right: 0; bottom: 0; left: 0; border-radius: 50%; -webkit-box-sizing: border-box; box-sizing: border-box; }
+
+#mageworx-installed-extenstions .mw-ext__grid__item__content, #mageworx-purchased-extenstions .mw-ext__grid__item__content { display: -webkit-box; display: -ms-flexbox; display: flex; -webkit-box-orient: vertical; -webkit-box-direction: normal; -ms-flex-direction: column; flex-direction: column; -webkit-box-align: start; -ms-flex-align: start; align-items: start; padding-left: 10px; }
+
+#mageworx-installed-extenstions .mw-ext__grid__item__name, #mageworx-purchased-extenstions .mw-ext__grid__item__name { color: #373330; font-size: 16px; letter-spacing: 1px; font-weight: bold; line-height: 1; margin-bottom: 12px; }
+
+#mageworx-installed-extenstions .mw-ext__grid__item__rating, #mageworx-purchased-extenstions .mw-ext__grid__item__rating { display: -webkit-box; display: -ms-flexbox; display: flex; -webkit-box-align: center; -ms-flex-align: center; align-items: center; margin-bottom: 10px; }
+
+#mageworx-installed-extenstions .mw-ext__grid__item__rating-text, #mageworx-purchased-extenstions .mw-ext__grid__item__rating-text { font-size: 14px; line-height: 1; }
+
+#mageworx-installed-extenstions .mw-ext__grid__item__rating-icon, #mageworx-purchased-extenstions .mw-ext__grid__item__rating-icon { width: 15px; height: 15px; margin-right: 5px; }
+
+#mageworx-installed-extenstions .mw-ext__grid__item__price, #mageworx-purchased-extenstions .mw-ext__grid__item__price { font-size: 15px; font-weight: bold; color: #303030; margin-bottom: 15px; }
+
+#mageworx-installed-extenstions .mw-ext__grid__item__button, #mageworx-purchased-extenstions .mw-ext__grid__item__button { display: inline-block; background-color: #fff; font-size: 12px; color: #303030; text-transform: uppercase; min-height: 32px; line-height: 32px; padding: 0 20px; text-align: center; -webkit-transition: border-color 0.3s ease-in; transition: border-color 0.3s ease-in; border: 1px solid #e3e3e3; }
+
+#mageworx-installed-extenstions .mw-ext__grid__item__button:hover, #mageworx-purchased-extenstions .mw-ext__grid__item__button:hover { text-decoration: none; border-color: #e9531d; }
+
+.join-partners { display: -webkit-box; display: -ms-flexbox; display: flex; background: url(../images/partners.png) right bottom/contain no-repeat; background-color: #f6f7f7; padding: 40px; margin-bottom: 50px; }
+
+@media (max-width: 640px) { .join-partners { -webkit-box-orient: vertical; -webkit-box-direction: normal; -ms-flex-direction: column; flex-direction: column; } }
+
+.join-partners__heading { color: #303030; font-weight: bold; font-size: 24px; }
+
+.join-partners__text { color: #303030; font-weight: 400; font-size: 16px; }
+
+.join-partners__right { -webkit-box-flex: 1; -ms-flex: 1; flex: 1; display: -webkit-box; display: -ms-flexbox; display: flex; -webkit-box-align: center; -ms-flex-align: center; align-items: center; -webkit-box-pack: end; -ms-flex-pack: end; justify-content: flex-end; }
+
+.join-partners__button { display: inline-block; font-size: 16px; color: #fff; font-weight: 400; height: 50px; border-radius: 50px; line-height: 50px; padding: 0 30px; background-color: #303030; }
+
+.join-partners__button:hover { text-decoration: none; color: #fff; background-color: #414141; }
+
+.mw-ext__refresh {
+    width: 130px;
+    margin-top: -20px;
+    margin-left: 10px;
+}

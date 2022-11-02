@@ -1,0 +1,27 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Plumrocket Inc.
+ *
+ * NOTICE OF LICENSE
+ *
+ * This source file is subject to the End-user License Agreement
+ * that is available through the world-wide-web at this URL:
+ * http://wiki.plumrocket.net/wiki/EULA
+ * If you are unable to obtain it through the world-wide-web, please
+ * send an email to support@plumrocket.com so we can send you a copy immediately.
+ *
+ * @package     Plumrocket_Amp
+ * @copyright   Copyright (c) 2016 Plumrocket Inc. (http://www.plumrocket.com)
+ * @license     http://wiki.plumrocket.net/wiki/EULA  End-user License Agreement
+ */
+
+ -->
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Backend:etc/menu.xsd">
+    <menu>
+
+        <add id="Plumrocket_Amp::pramp" title="Accelerated Mobile Pages" module="Plumrocket_Amp" parent="Plumrocket_Base::elements" sortOrder="45602" resource="Plumrocket_Amp::pramp"/>
+
+        <add id="Plumrocket_Amp::pramp_configuration" title="Configuration" module="Plumrocket_Amp" parent="Plumrocket_Amp::pramp" sortOrder="40" action="adminhtml/system_config/edit/section/pramp" resource="Plumrocket_Amp::config_pramp"/>
+    </menu>
+</config>

@@ -1,0 +1,603 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+/**
+ * @author Amasty Team
+ * @copyright Copyright (c) 2021 Amasty (https://www.amasty.com)
+ * @package Amasty_Meta
+ */
+-->
+
+<form xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+      xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Ui:etc/ui_configuration.xsd">
+    <argument name="data" xsi:type="array">
+        <item name="js_config" xsi:type="array">
+            <item name="provider" xsi:type="string">config_edit_form.config_edit_form_data_source</item>
+            <item name="deps" xsi:type="string">config_edit_form.config_edit_form_data_source</item>
+        </item>
+        <item name="config" xsi:type="array">
+            <item name="dataScope" xsi:type="string">data</item>
+            <item name="namespace" xsi:type="string">config_edit_form</item>
+        </item>
+        <item name="template" xsi:type="string">templates/form/collapsible</item>
+        <item name="buttons" xsi:type="array">
+            <item name="back" xsi:type="array">
+                <item name="name" xsi:type="string">back</item>
+                <item name="label" xsi:type="string" translate="true">Back</item>
+                <item name="class" xsi:type="string">back</item>
+                <item name="url" xsi:type="string">*/*/</item>
+            </item>
+            <item name="delete" xsi:type="string">Amasty\Meta\Block\Adminhtml\Edit\DeleteButton</item>
+            <item name="save_and_continue" xsi:type="string">Amasty\Meta\Block\Adminhtml\Edit\SaveAndContinueButton</item>
+            <item name="save" xsi:type="array">
+                <item name="name" xsi:type="string">save</item>
+                <item name="label" xsi:type="string" translate="true"><![CDATA[Save]]></item>
+                <item name="class" xsi:type="string">save primary</item>
+            </item>
+        </item>
+    </argument>
+    <dataSource name="config_edit_form_data_source">
+        <argument name="dataProvider" xsi:type="configurableObject">
+            <argument name="class" xsi:type="string">Amasty\Meta\Ui\DataProvider\Config\Form\DataProvider</argument>
+            <argument name="name" xsi:type="string">config_edit_form_data_source</argument>
+            <argument name="primaryFieldName" xsi:type="string">config_id</argument>
+            <argument name="requestFieldName" xsi:type="string">config_id</argument>
+            <argument name="data" xsi:type="array">
+                <item name="config" xsi:type="array">
+                    <item name="submit_url" xsi:type="url" path="*/*/save"/>
+                </item>
+            </argument>
+        </argument>
+        <argument name="data" xsi:type="array">
+            <item name="js_config" xsi:type="array">
+                <item name="component" xsi:type="string">Magento_Ui/js/form/provider</item>
+            </item>
+        </argument>
+    </dataSource>
+    <fieldset name="main_category">
+        <argument name="data" xsi:type="array">
+            <item name="config" xsi:type="array">
+                <item name="label" xsi:type="string" translate="true">Main Category</item>
+                <item name="collapsible" xsi:type="boolean">true</item>
+                <item name="opened" xsi:type="boolean">true</item>
+            </item>
+        </argument>
+        <field name="category_id">
+            <argument name="data" xsi:type="array">
+                <item name="options" xsi:type="object">Amasty\Meta\Model\Source\CategoryTree</item>
+                <item name="config" xsi:type="array">
+                    <item name="sortOrder" xsi:type="number">10</item>
+                    <item name="dataType" xsi:type="string">int</item>
+                    <item name="label" xsi:type="string" translate="true">Category is</item>
+                    <item name="formElement" xsi:type="string">select</item>
+                    <item name="dataScope" xsi:type="string">category_id</item>
+                    <item name="default" xsi:type="string">1</item>
+                </item>
+            </argument>
+        </field>
+        <field name="store_id">
+            <argument name="data" xsi:type="array">
+                <item name="options" xsi:type="object">Magento\Cms\Ui\Component\Listing\Column\Cms\Options</item>
+                <item name="config" xsi:type="array">
+                    <item name="sortOrder" xsi:type="number">20</item>
+                    <item name="dataType" xsi:type="string">int</item>
+                    <item name="label" xsi:type="string" translate="true">Apply For</item>
+                    <item name="formElement" xsi:type="string">select</item>
+                    <item name="dataScope" xsi:type="string">store_id</item>
+                    <item name="default" xsi:type="string">1</item>
+                </item>
+            </argument>
+        </field>
+        <field name="priority">
+            <argument name="data" xsi:type="array">
+                <item name="config" xsi:type="array">
+                    <item name="sortOrder" xsi:type="number">30</item>
+                    <item name="dataType" xsi:type="string">text</item>
+                    <item name="formElement" xsi:type="string">input</item>
+                    <item name="label" xsi:type="string">Priority</item>
+                    <item name="dataScope" xsi:type="string">priority</item>
+                    <item name="default" xsi:type="string">0</item>
+                    <item name="validation" xsi:type="array">
+                        <item name="validate-digits" xsi:type="boolean">true</item>
+                    </item>
+                    <item name="notice" translate="true" xsi:type="string">
+                        If a product is assigned to a few categories, the meta data template with the highest priority will be applied. Here 0 is the lowest priority. The categories with the same priority values are compared by the category depth.
+                    </item>
+                </item>
+            </argument>
+        </field>
+    </fieldset>
+    <fieldset name="products_main_category">
+        <argument name="data" xsi:type="array">
+            <item name="config" xsi:type="array">
+                <item name="label" xsi:type="string" translate="true">Products in Main Category</item>
+                <item name="collapsible" xsi:type="boolean">true</item>
+            </item>
+        </argument>
+        <field name="product_meta_title">
+            <argument name="data" xsi:type="array">
+                <item name="config" xsi:type="array">
+                    <item name="sortOrder" xsi:type="number">10</item>
+                    <item name="dataType" xsi:type="string">text</item>
+                    <item name="formElement" xsi:type="string">input</item>
+                    <item name="label" xsi:type="string">Title</item>
+                    <item name="dataScope" xsi:type="string">product_meta_title</item>
+                    <item name="additionalInfo" translate="true" xsi:type="string">
+                        <![CDATA[
+                                <p>Example: Buy {name} [by {manufacturer|brand}] [of {color} color] [for only {price}] [in {categories}] at [{store},] {website}.</p>
+                                <p>Available variables:</p>
+                                <ul>
+                                    <li>Category - {category}</li>
+                                    <li>All Categories - {categories}</li>
+                                    <li>Store View - {store_view}</li>
+                                    <li>Store - {store}</li>
+                                    <li>Website - {website}</li>
+                                    <li>Price - {price}</li>
+                                    <li>Special Price - {special_price}</li>
+                                    <li>Final Price - {final_price}</li>
+                                    <li>Final Price with Tax - {final_price_incl_tax}</li>
+                                    <li>Price From (bundle) - {startingfrom_price}</li>
+                                    <li>Price To (bundle) - {startingto_price}</li>
+                                    <li>Brand - {brand}</li>
+                                    <li>Color - {color}</li>
+                                    <li>And other product attributes ...</li>
+                                </ul>
+                            ]]>
+                    </item>
+                </item>
+            </argument>
+        </field>
+        <field name="product_meta_description">
+            <argument name="data" xsi:type="array">
+                <item name="config" xsi:type="array">
+                    <item name="sortOrder" xsi:type="number">20</item>
+                    <item name="dataType" xsi:type="string">text</item>
+                    <item name="formElement" xsi:type="string">textarea</item>
+                    <item name="label" xsi:type="string">Meta Description</item>
+                    <item name="dataScope" xsi:type="string">product_meta_description</item>
+                </item>
+            </argument>
+        </field>
+        <field name="product_meta_keywords">
+            <argument name="data" xsi:type="array">
+                <item name="config" xsi:type="array">
+                    <item name="sortOrder" xsi:type="number">30</item>
+                    <item name="dataType" xsi:type="string">text</item>
+                    <item name="formElement" xsi:type="string">textarea</item>
+                    <item name="label" xsi:type="string">Keywords</item>
+                    <item name="dataScope" xsi:type="string">product_meta_keywords</item>
+                </item>
+            </argument>
+        </field>
+        <field name="product_h1_tag">
+            <argument name="data" xsi:type="array">
+                <item name="config" xsi:type="array">
+                    <item name="sortOrder" xsi:type="number">40</item>
+                    <item name="dataType" xsi:type="string">text</item>
+                    <item name="formElement" xsi:type="string">input</item>
+                    <item name="label" xsi:type="string">H1 Tag</item>
+                    <item name="dataScope" xsi:type="string">product_h1_tag</item>
+                </item>
+            </argument>
+        </field>
+        <field name="product_short_description">
+            <argument name="data" xsi:type="array">
+                <item name="config" xsi:type="array">
+                    <item name="sortOrder" xsi:type="number">50</item>
+                    <item name="dataType" xsi:type="string">text</item>
+                    <item name="formElement" xsi:type="string">textarea</item>
+                    <item name="label" xsi:type="string">Short Description</item>
+                    <item name="dataScope" xsi:type="string">product_short_description</item>
+                </item>
+            </argument>
+        </field>
+        <field name="product_description">
+            <argument name="data" xsi:type="array">
+                <item name="config" xsi:type="array">
+                    <item name="sortOrder" xsi:type="number">60</item>
+                    <item name="dataType" xsi:type="string">text</item>
+                    <item name="formElement" xsi:type="string">textarea</item>
+                    <item name="label" xsi:type="string">Description</item>
+                    <item name="dataScope" xsi:type="string">product_description</item>
+                </item>
+            </argument>
+        </field>
+    </fieldset>
+     <fieldset name="sub_categories">
+        <argument name="data" xsi:type="array">
+            <item name="config" xsi:type="array">
+                <item name="label" xsi:type="string" translate="true">Sub Categories</item>
+                <item name="collapsible" xsi:type="boolean">true</item>
+            </item>
+        </argument>
+         <field name="cat_meta_title">
+             <argument name="data" xsi:type="array">
+                 <item name="config" xsi:type="array">
+                     <item name="sortOrder" xsi:type="number">10</item>
+                     <item name="dataType" xsi:type="string">text</item>
+                     <item name="formElement" xsi:type="string">input</item>
+                     <item name="label" xsi:type="string">Title</item>
+                     <item name="dataScope" xsi:type="string">cat_meta_title</item>
+                     <item name="additionalInfo" translate="true" xsi:type="string">
+                         <![CDATA[
+                                <p>Available variables:</p>
+                                <ul>
+                                    <li>Parent Category - {meta_parent_category}</li>
+                                    <li>Category Name - {name}</li>
+                                    <li>Store View - {store_view}</li>
+                                    <li>Store - {store}</li>
+                                    <li>Website - {website}</li>
+                                </ul>
+                            ]]>
+                     </item>
+                 </item>
+             </argument>
+         </field>
+         <field name="cat_meta_description">
+             <argument name="data" xsi:type="array">
+                 <item name="config" xsi:type="array">
+                     <item name="sortOrder" xsi:type="number">20</item>
+                     <item name="dataType" xsi:type="string">text</item>
+                     <item name="formElement" xsi:type="string">textarea</item>
+                     <item name="label" xsi:type="string">Meta Description</item>
+                     <item name="dataScope" xsi:type="string">cat_meta_description</item>
+                 </item>
+             </argument>
+         </field>
+         <field name="cat_meta_keywords">
+             <argument name="data" xsi:type="array">
+                 <item name="config" xsi:type="array">
+                     <item name="sortOrder" xsi:type="number">30</item>
+                     <item name="dataType" xsi:type="string">text</item>
+                     <item name="formElement" xsi:type="string">textarea</item>
+                     <item name="label" xsi:type="string">Keywords</item>
+                     <item name="dataScope" xsi:type="string">cat_meta_keywords</item>
+                 </item>
+             </argument>
+         </field>
+         <field name="cat_h1_tag">
+             <argument name="data" xsi:type="array">
+                 <item name="config" xsi:type="array">
+                     <item name="sortOrder" xsi:type="number">40</item>
+                     <item name="dataType" xsi:type="string">text</item>
+                     <item name="formElement" xsi:type="string">input</item>
+                     <item name="label" xsi:type="string">H1 Tag</item>
+                     <item name="dataScope" xsi:type="string">cat_h1_tag</item>
+                 </item>
+             </argument>
+         </field>
+         <field name="cat_description">
+             <argument name="data" xsi:type="array">
+                 <item name="config" xsi:type="array">
+                     <item name="sortOrder" xsi:type="number">50</item>
+                     <item name="dataType" xsi:type="string">text</item>
+                     <item name="formElement" xsi:type="string">textarea</item>
+                     <item name="label" xsi:type="string">Description</item>
+                     <item name="dataScope" xsi:type="string">cat_description</item>
+                 </item>
+             </argument>
+         </field>
+         <field name="cat_image_alt">
+             <argument name="data" xsi:type="array">
+                 <item name="config" xsi:type="array">
+                     <item name="sortOrder" xsi:type="number">60</item>
+                     <item name="dataType" xsi:type="string">text</item>
+                     <item name="formElement" xsi:type="string">input</item>
+                     <item name="label" xsi:type="string">Image Alt</item>
+                     <item name="dataScope" xsi:type="string">cat_image_alt</item>
+                     <item name="notice" xsi:type="string" translate="true">
+                         Please, make sure that category image is wrapped into tag with class 'category-image' and image has alt attribute.
+                     </item>
+                 </item>
+             </argument>
+         </field>
+         <field name="cat_after_product_text">
+             <argument name="data" xsi:type="array">
+                 <item name="config" xsi:type="array">
+                     <item name="sortOrder" xsi:type="number">70</item>
+                     <item name="dataType" xsi:type="string">text</item>
+                     <item name="formElement" xsi:type="string">textarea</item>
+                     <item name="label" xsi:type="string">Text after Product List</item>
+                     <item name="dataScope" xsi:type="string">cat_after_product_text</item>
+                 </item>
+             </argument>
+         </field>
+     </fieldset>
+     <fieldset name="products_sub_categories">
+        <argument name="data" xsi:type="array">
+            <item name="config" xsi:type="array">
+                <item name="label" xsi:type="string" translate="true">Products in Sub Categories</item>
+                <item name="collapsible" xsi:type="boolean">true</item>
+            </item>
+        </argument>
+         <field name="sub_product_meta_title">
+             <argument name="data" xsi:type="array">
+                 <item name="config" xsi:type="array">
+                     <item name="sortOrder" xsi:type="number">10</item>
+                     <item name="dataType" xsi:type="string">text</item>
+                     <item name="formElement" xsi:type="string">input</item>
+                     <item name="label" xsi:type="string">Title</item>
+                     <item name="dataScope" xsi:type="string">sub_product_meta_title</item>
+                     <item name="additionalInfo" translate="true" xsi:type="string">
+                         <![CDATA[
+                                <p>Example: Buy {name} [by {manufacturer|brand}] [of {color} color] [for only {price}] [in {categories}] at [{store},] {website}.</p>
+                                <p>Available variables:</p>
+                                <ul>
+                                    <li>Category - {category}</li>
+                                    <li>All Categories - {categories}</li>
+                                    <li>Store View - {store_view}</li>
+                                    <li>Store - {store}</li>
+                                    <li>Website - {website}</li>
+                                    <li>Price - {price}</li>
+                                    <li>Special Price - {special_price}</li>
+                                    <li>Final Price - {final_price}</li>
+                                    <li>Final Price with Tax - {final_price_incl_tax}</li>
+                                    <li>Price From (bundle) - {startingfrom_price}</li>
+                                    <li>Price To (bundle) - {startingto_price}</li>
+                                    <li>Brand - {brand}</li>
+                                    <li>Color - {color}</li>
+                                    <li>And other product attributes ...</li>
+                                </ul>
+                            ]]>
+                     </item>
+                 </item>
+             </argument>
+         </field>
+         <field name="sub_product_meta_description">
+             <argument name="data" xsi:type="array">
+                 <item name="config" xsi:type="array">
+                     <item name="sortOrder" xsi:type="number">20</item>
+                     <item name="dataType" xsi:type="string">text</item>
+                     <item name="formElement" xsi:type="string">textarea</item>
+                     <item name="label" xsi:type="string">Meta Description</item>
+                     <item name="dataScope" xsi:type="string">sub_product_meta_description</item>
+                 </item>
+             </argument>
+         </field>
+         <field name="sub_product_meta_keywords">
+             <argument name="data" xsi:type="array">
+                 <item name="config" xsi:type="array">
+                     <item name="sortOrder" xsi:type="number">30</item>
+                     <item name="dataType" xsi:type="string">text</item>
+                     <item name="formElement" xsi:type="string">textarea</item>
+                     <item name="label" xsi:type="string">Keywords</item>
+                     <item name="dataScope" xsi:type="string">sub_product_meta_keywords</item>
+                 </item>
+             </argument>
+         </field>
+         <field name="sub_product_h1_tag">
+             <argument name="data" xsi:type="array">
+                 <item name="config" xsi:type="array">
+                     <item name="sortOrder" xsi:type="number">40</item>
+                     <item name="dataType" xsi:type="string">text</item>
+                     <item name="formElement" xsi:type="string">input</item>
+                     <item name="label" xsi:type="string">H1 Tag</item>
+                     <item name="dataScope" xsi:type="string">sub_product_h1_tag</item>
+                 </item>
+             </argument>
+         </field>
+         <field name="sub_product_short_description">
+             <argument name="data" xsi:type="array">
+                 <item name="config" xsi:type="array">
+                     <item name="sortOrder" xsi:type="number">50</item>
+                     <item name="dataType" xsi:type="string">text</item>
+                     <item name="formElement" xsi:type="string">textarea</item>
+                     <item name="label" xsi:type="string">Short Description</item>
+                     <item name="dataScope" xsi:type="string">sub_product_short_description</item>
+                 </item>
+             </argument>
+         </field>
+         <field name="sub_product_description">
+             <argument name="data" xsi:type="array">
+                 <item name="config" xsi:type="array">
+                     <item name="sortOrder" xsi:type="number">60</item>
+                     <item name="dataType" xsi:type="string">text</item>
+                     <item name="formElement" xsi:type="string">textarea</item>
+                     <item name="label" xsi:type="string">Description</item>
+                     <item name="dataScope" xsi:type="string">sub_product_description</item>
+                 </item>
+             </argument>
+         </field>
+     </fieldset>
+    <fieldset name="brand"
+              component="Amasty_Meta/js/form/element/brandFieldset"
+              class="Amasty\Meta\Ui\Component\Config\Form\BrandFieldset">
+        <argument name="data" xsi:type="array">
+            <item name="config" xsi:type="array">
+                <item name="label" xsi:type="string" translate="true">Brands</item>
+                <item name="collapsible" xsi:type="boolean">true</item>
+                <item name="listens" xsi:type="array">
+                    <item name="config_edit_form.config_edit_form_data_source:data.category_id" xsi:type="string">categoryChanged</item>
+                </item>
+            </item>
+        </argument>
+        <field name="is_brand_config">
+            <argument name="data" xsi:type="array">
+                <item name="options" xsi:type="object">Magento\Config\Model\Config\Source\Yesno</item>
+                <item name="config" xsi:type="array">
+                    <item name="sortOrder" xsi:type="number">10</item>
+                    <item name="filter" xsi:type="string">select</item>
+                    <item name="dataType" xsi:type="string">text</item>
+                    <item name="formElement" xsi:type="string">select</item>
+                    <item name="dataScope" xsi:type="string">is_brand_config</item>
+                    <item name="label" xsi:type="string" translate="true">Configure Template for Brand Pages</item>
+                    <item name="notice" xsi:type="string" translate="true">
+                        If set to ‘Yes’, you will be able to configure a uniform meta template for all Brand Pages.
+                    </item>
+                    <item name="switcherConfig" xsi:type="array">
+                        <item name="enabled" xsi:type="boolean">true</item>
+                        <item name="rules" xsi:type="array">
+                            <item name="0" xsi:type="array">
+                                <item name="value" xsi:type="string">0</item>
+                                <item name="actions" xsi:type="array">
+                                    <item name="0" xsi:type="array">
+                                        <item name="target" xsi:type="string">
+                                            config_edit_form.config_edit_form.brand.brand_meta_title
+                                        </item>
+                                        <item name="callback" xsi:type="string">hide</item>
+                                    </item>
+                                    <item name="1" xsi:type="array">
+                                        <item name="target" xsi:type="string">
+                                            config_edit_form.config_edit_form.brand.brand_meta_description
+                                        </item>
+                                        <item name="callback" xsi:type="string">hide</item>
+                                    </item>
+                                    <item name="2" xsi:type="array">
+                                        <item name="target" xsi:type="string">
+                                            config_edit_form.config_edit_form.brand.brand_meta_keywords
+                                        </item>
+                                        <item name="callback" xsi:type="string">hide</item>
+                                    </item>
+                                    <item name="3" xsi:type="array">
+                                        <item name="target" xsi:type="string">
+                                            config_edit_form.config_edit_form.brand.brand_h1_tag
+                                        </item>
+                                        <item name="callback" xsi:type="string">hide</item>
+                                    </item>
+                                    <item name="4" xsi:type="array">
+                                        <item name="target" xsi:type="string">
+                                            config_edit_form.config_edit_form.brand.brand_description
+                                        </item>
+                                        <item name="callback" xsi:type="string">hide</item>
+                                    </item>
+                                    <item name="5" xsi:type="array">
+                                        <item name="target" xsi:type="string">
+                                            config_edit_form.config_edit_form.brand.brand_after_product_text
+                                        </item>
+                                        <item name="callback" xsi:type="string">hide</item>
+                                    </item>
+                                </item>
+                            </item>
+                            <item name="1" xsi:type="array">
+                                <item name="value" xsi:type="string">1</item>
+                                <item name="actions" xsi:type="array">
+                                    <item name="0" xsi:type="array">
+                                        <item name="target" xsi:type="string">
+                                            config_edit_form.config_edit_form.brand.brand_meta_title
+                                        </item>
+                                        <item name="callback" xsi:type="string">show</item>
+                                    </item>
+                                    <item name="1" xsi:type="array">
+                                        <item name="target" xsi:type="string">
+                                            config_edit_form.config_edit_form.brand.brand_meta_description
+                                        </item>
+                                        <item name="callback" xsi:type="string">show</item>
+                                    </item>
+                                    <item name="2" xsi:type="array">
+                                        <item name="target" xsi:type="string">
+                                            config_edit_form.config_edit_form.brand.brand_meta_keywords
+                                        </item>
+                                        <item name="callback" xsi:type="string">show</item>
+                                    </item>
+                                    <item name="3" xsi:type="array">
+                                        <item name="target" xsi:type="string">
+                                            config_edit_form.config_edit_form.brand.brand_h1_tag
+                                        </item>
+                                        <item name="callback" xsi:type="string">show</item>
+                                    </item>
+                                    <item name="4" xsi:type="array">
+                                        <item name="target" xsi:type="string">
+                                            config_edit_form.config_edit_form.brand.brand_description
+                                        </item>
+                                        <item name="callback" xsi:type="string">show</item>
+                                    </item>
+                                    <item name="5" xsi:type="array">
+                                        <item name="target" xsi:type="string">
+                                            config_edit_form.config_edit_form.brand.brand_after_product_text
+                                        </item>
+                                        <item name="callback" xsi:type="string">show</item>
+                                    </item>
+                                </item>
+                            </item>
+                        </item>
+                    </item>
+                </item>
+            </argument>
+        </field>
+        <field name="brand_meta_title">
+            <argument name="data" xsi:type="array">
+                <item name="config" xsi:type="array">
+                    <item name="sortOrder" xsi:type="number">20</item>
+                    <item name="dataType" xsi:type="string">text</item>
+                    <item name="formElement" xsi:type="string">input</item>
+                    <item name="label" xsi:type="string">Title</item>
+                    <item name="dataScope" xsi:type="string">brand_meta_title</item>
+                    <item name="visible" xsi:type="boolean">false</item>
+                    <item name="additionalInfo" translate="true" xsi:type="string">
+                        <![CDATA[
+                                <p>Available variables:</p>
+                                <ul>
+                                    <li>Brand Name - {brand_name}</li>
+                                    <li>Store View - {store_view}</li>
+                                    <li>Store - {store}</li>
+                                    <li>Website - {website}</li>
+                                </ul>
+                            ]]>
+                    </item>
+                </item>
+            </argument>
+        </field>
+        <field name="brand_meta_description">
+            <argument name="data" xsi:type="array">
+                <item name="config" xsi:type="array">
+                    <item name="sortOrder" xsi:type="number">30</item>
+                    <item name="dataType" xsi:type="string">text</item>
+                    <item name="formElement" xsi:type="string">textarea</item>
+                    <item name="label" xsi:type="string">Meta Description</item>
+                    <item name="dataScope" xsi:type="string">brand_meta_description</item>
+                    <item name="visible" xsi:type="boolean">false</item>
+                </item>
+            </argument>
+        </field>
+        <field name="brand_meta_keywords">
+            <argument name="data" xsi:type="array">
+                <item name="config" xsi:type="array">
+                    <item name="sortOrder" xsi:type="number">40</item>
+                    <item name="dataType" xsi:type="string">text</item>
+                    <item name="formElement" xsi:type="string">textarea</item>
+                    <item name="label" xsi:type="string">Keywords</item>
+                    <item name="dataScope" xsi:type="string">brand_meta_keywords</item>
+                    <item name="visible" xsi:type="boolean">false</item>
+                </item>
+            </argument>
+        </field>
+        <field name="brand_h1_tag">
+            <argument name="data" xsi:type="array">
+                <item name="config" xsi:type="array">
+                    <item name="sortOrder" xsi:type="number">50</item>
+                    <item name="dataType" xsi:type="string">text</item>
+                    <item name="formElement" xsi:type="string">input</item>
+                    <item name="label" xsi:type="string">H1 Tag</item>
+                    <item name="dataScope" xsi:type="string">brand_h1_tag</item>
+                    <item name="visible" xsi:type="boolean">false</item>
+                </item>
+            </argument>
+        </field>
+        <field name="brand_description">
+            <argument name="data" xsi:type="array">
+                <item name="config" xsi:type="array">
+                    <item name="sortOrder" xsi:type="number">60</item>
+                    <item name="dataType" xsi:type="string">text</item>
+                    <item name="formElement" xsi:type="string">textarea</item>
+                    <item name="label" xsi:type="string">Description</item>
+                    <item name="dataScope" xsi:type="string">brand_description</item>
+                    <item name="visible" xsi:type="boolean">false</item>
+                </item>
+            </argument>
+        </field>
+        <field name="brand_after_product_text">
+            <argument name="data" xsi:type="array">
+                <item name="config" xsi:type="array">
+                    <item name="sortOrder" xsi:type="number">70</item>
+                    <item name="dataType" xsi:type="string">text</item>
+                    <item name="formElement" xsi:type="string">textarea</item>
+                    <item name="label" xsi:type="string">Text after Product List</item>
+                    <item name="dataScope" xsi:type="string">brand_after_product_text</item>
+                    <item name="visible" xsi:type="boolean">false</item>
+                    <item name="notice" xsi:type="string" translate="true">
+                        Current text always appears after products block.
+                    </item>
+                </item>
+            </argument>
+        </field>
+    </fieldset>
+</form>

@@ -1,0 +1,6 @@
+<?xml version="1.0"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:Acl/etc/acl.xsd">
+        <preference for="Magento\Customer\Controller\Account\LoginPost" type="Dynamic\Customization\Controller\Account\LoginPost" />
+        <preference for="Magento\Wishlist\Controller\Index\Cart" type="Dynamic\Customization\Controller\Index\Cart" />
+		<preference for="Magento\CheckoutAgreements\Model\Checkout\Plugin\Validation" type="Dynamic\Customization\Model\Checkout\Plugin\Validation" />
+</config>

@@ -1,0 +1,7 @@
+<?xml version="1.0"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Backend:etc/menu.xsd">
+    <menu>
+        <add id="Dynamic_Cmspagemanager::cmspagemanager" title="CMS Manager" translate="title" module="Dynamic_Cmspagemanager" sortOrder="100" parent="Magento_Backend::content" resource="Dynamic_Cmspagemanager::cmspagemanager"/>
+        <add id="Dynamic_Cmspagemanager::cmspagemanager_manage" title="Cms Page Manager" module="Dynamic_Cmspagemanager" sortOrder="10" parent="Dynamic_Cmspagemanager::cmspagemanager" action="cmspagemanager/index/" resource="Dynamic_Cmspagemanager::manage"/>
+    </menu>
+</config>

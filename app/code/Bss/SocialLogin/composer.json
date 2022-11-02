@@ -1,0 +1,24 @@
+{
+  "name": "bsscommerce/module-sociallogin",
+  "description": "Bss Ajax Social Login Module",
+  "type": "magento2-module",
+  "version": "1.0.6",
+  "license": [
+    "OSL-3.0",
+    "AFL-3.0"
+  ],
+  "require": {
+    "magento/module-store": "100.1.*",
+    "magento/module-backend": "100.1.*",
+    "magento/framework": "100.1.*",
+    "magento/module-config": "100.1.*",
+    "magento/module-ui": "100.1.*",
+    "magento/module-customer": "100.1.*"
+  },
+  "autoload": {
+    "files": [ "registration.php" ],
+    "psr-4": {
+      "Bss\\SocialLogin\\": ""
+    }
+  }
+}

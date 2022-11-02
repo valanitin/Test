@@ -1,0 +1,42 @@
+<?php
+/**
+ * @package     Plumrocket_SocialLoginFree
+ * @copyright   Copyright (c) 2015 Plumrocket Inc. (https://plumrocket.com)
+ * @license     https://plumrocket.com/license   End-user License Agreement
+ */
+
+/** @var Plumrocket\SocialLoginFree\Block\General $block */
+?>
+
+<script>
+    requirejs(['jquery', 'mage/cookies', 'domReady!'], function($) {
+        'use strict';
+
+        window.psloginLoginPath = "<?= $block->escapeJsQuote($block->getUrl('pslogin/account/login')) ?>";
+        window.customerLogoutPath = "<?= $block->escapeJsQuote($block->getUrl('customer/account/logout')) ?>";
+
+        var url = document.URL.toLowerCase();
+        if (url) {
+            var skip = false;
+            $.each(<?= /* @noEscape */ $block->getSkipModules() ?>, function(i, path) {
+                if (url.indexOf(path) !== -1) {
+                    skip = true;
+                    return false;
+                }
+            });
+
+            if (!skip) {
+                $.mage.cookies.set('<?= /* @noEscape */ \Plumrocket\SocialLoginFree\Model\Customer\LastViewedPageProvider::REFERER_QUERY_PARAM_NAME ?>', document.URL);
+            }
+        }
+    });
+</script>
+<form style="display:none;"
+      class="form"
+      action="<?= $block->escapeUrl($block->getUrl('pslogin/account/loginPost', ['_secure' => true])) ?>"
+      method="post"
+      id="pslogin-login-form">
+    <input id="pslogin-login-referer" name="<?= \Magento\Customer\Model\Url::REFERER_QUERY_PARAM_NAME ?>" type="hidden" value="" />
+    <input id="pslogin-login-action" name="auth_action" type="hidden" value="" />
+    <input id="pslogin-login-submit" type="submit" value="" />
+</form>

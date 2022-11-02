@@ -1,0 +1,35 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * @author      LuxuryUnlimited
+ * @copyright   Copyright © 2022. All rights reserved.
+ */
+-->
+
+<routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Webapi:etc/webapi.xsd">
+    <route url="/V1/tickets/" method="GET">
+        <service class="LuxuryUnlimited\Mytickets\Api\TicketInterface" method="getTicket"/>
+        <resources>
+			<resource ref="LuxuryUnlimited_Mytickets::tickets_get" />
+        </resources>
+    </route>
+    <route url="/V1/tickets/" method="POST">
+        <service class="LuxuryUnlimited\Mytickets\Api\TicketInterface" method="updateTicket"/>
+        <resources>
+			<resource ref="LuxuryUnlimited_Mytickets::tickets_update" />
+        </resources>
+    </route>
+    <route url="/V1/mytickets/:customerId" method="GET">
+        <service class="LuxuryUnlimited\Mytickets\Api\TicketInterface" method="getMyTicket"/>
+        <resources>
+            <resource ref="self"/>
+        </resources>
+    </route>
+    <route url="/V1/mytickets/byEmail/:customerEmail" method="GET">
+        <service class="LuxuryUnlimited\Mytickets\Api\TicketInterface" method="getMyTicketByEmail"/>
+        <resources>
+            <resource ref="anonymous"/>
+        </resources>
+    </route>
+</routes>

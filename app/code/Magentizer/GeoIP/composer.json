@@ -1,0 +1,27 @@
+{
+  "name": "magentizer/module-geoip",
+  "description": "Magento 2 GEO IP Extension",
+  "require": {
+    "magentizer/module-core": "^1.4.5",
+    "geoip2/geoip2": "~2.0"
+  },
+  "type": "magento2-module",
+  "version": "1.0.6",
+  "license": "proprietary",
+  "authors": [
+    {
+      "name": "Magentizer",
+      "email": "support@magentizer.com",
+      "homepage": "https://www.magentizer.com",
+      "role": "Technical Support"
+    }
+  ],
+  "autoload": {
+    "files": [
+      "registration.php"
+    ],
+    "psr-4": {
+      "Magentizer\\GeoIP\\": ""
+    }
+  }
+}

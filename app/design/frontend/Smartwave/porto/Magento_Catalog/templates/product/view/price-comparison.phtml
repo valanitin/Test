@@ -1,0 +1,124 @@
+<?php  $_product = $block->getProduct(); ?>
+
+<div class="price-comparison-main">
+    <div class="price-comparison-model" style="display:none">
+	<h3><?php echo __("These are approximate price comparisons available for your region") ?></h3>
+        <div class="comparison-content">
+        </div>
+        <div class="clsspecialreqpop">
+            <div id="myModal-price-comparition">
+                <div class="modal-content">
+					
+                    <form class="form"
+                        action="<?php echo $this->getUrl('pricecomparison/index/createticket'); ?>"
+                        id="comparition-popup-form"
+                        method="post"
+                        data-hasrequired="<?php /* @escapeNotVerified */ echo __('* Required Fields') ?>"
+                        data-mage-init='{"validation":{}}'>
+                    <div class="case-line"></div>
+                    <div class="control">
+						<div class="comp-input-wraper">
+							<input id="email" class="input-text notifyme-email" required="" title="Email" name="email" type="email" placeholder="<?php echo __('Enter email')?>" >
+							<input id="phone" class="input-text notifyme-phone" required="" title="Phone-Number" name="phone" type="tel" placeholder="<?php echo __('123-45-678')?>" >
+						</div>
+                        <textarea id="orddercancel_remarks" class="input-text" title="Remarks" required="" name="remarks" type="text" value="" placeholder="<?php echo __('Enter Remarks')?>" style="width: 100%;" ></textarea>
+                    </div>
+
+                    <input type="hidden" name="product_sku" class="product-sku" value="<?php echo $_product->getSku(); ?>">
+                    <input type="hidden" name="casetype" class="casetype" value="<?php echo $_product->getSku(); ?>">
+                    <div class="mm-action">
+                    
+                     <button id="pricecomparition-btn" class="btn btn-custom" name="orddercancel_btn_submit" type="submit"><?php echo __('Submit') ?></button>
+                    </div>
+                    
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="price-comparison-btn-content">
+        <a href="javascript:void(0);" class="price-comparison-btn" data-product-sku="<?php echo $_product->getSku(); ?>"><?php echo __("Price comparison"); ?></a>
+    </div>
+</div>
+
+<script type="text/javascript">
+    require(['jquery', 'Magento_Ui/js/modal/modal'], function ($, modal) {
+
+        $(document).ready(function(){
+
+            var options = {
+                type: 'popup',
+                responsive: true,
+                innerScroll: true,
+                modalClass: "price-comparison-popup",
+                buttons: []
+            };
+
+            var popup = modal(options, $('.price-comparison-model'));
+
+            $('.price-comparison-btn').click(function(){
+
+                var productSku = $(this).attr("data-product-sku");
+                var actionUrl = "<?php echo $this->getUrl("pricecomparison/index/post"); ?>";
+				
+                if(productSku) {
+                    $.ajax({
+                        url: actionUrl,
+                        type: "POST",
+                        data: {product_sku: productSku},
+                        dataType: 'json',
+                        async: true,
+                        beforeSend: function() {
+                            $('body').trigger('processStart');
+							$(".loading-mask .loader").addClass('price-comparison-modal');
+							$(".loading-mask .loader").css({"background": "#fbece5","position": "fixed","box-shadow": "0 0 12px 2px #ccc"});
+							$('.loading-mask .loader p').html('<?php echo __('Hold On Fetching Price Comparison')?>...');
+							$('.loading-mask .loader p').show();
+							$('.loading-mask .loader img').hide();
+                        },
+                        complete: function(){
+                            $('body').trigger('processStop');
+							$(".loading-mask .loader").css({"background": "transparent","position": "relative","box-shadow": "none"});
+							$('.loading-mask .loader p').html('Please Wait...');
+							$('.loading-mask .loader p').hide();
+ 							$('.loading-mask .loader img').show();
+                       },
+                        success: function (response) {
+
+                            if(response.errors == false) {
+                                $('.price-comparison-model .comparison-content').html(response.html);
+                                $('.price-comparison-model .case-line').html(response.casemessage);
+                                $('.price-comparison-model .casetype').val(response.casetype);
+                                $('.price-comparison-model').modal('openModal');
+                            } else {
+                                $('.price-comparison-model .comparison-content').html('<p>'+response.message+'</p>');
+                                $('.price-comparison-model .case-line').html(response.casemessage);
+                                $('.price-comparison-model .casetype').val(response.casetype);
+
+                                $('.price-comparison-model').modal('openModal');
+                            }
+                        },
+                        error: function (response) {
+                            console.log(JSON.parse(response));
+                        },
+                    });
+                }
+            });
+        });
+    });
+</script>
+<style>
+    .price-comparison-modal.loader:before {
+        display: none;
+    }
+    .price-comparison-modal.loader {
+        width: 320px;
+        height: 55px;
+        text-align: center;
+    }
+    .price-comparison-modal.loader p {
+        padding: 15px;
+        position: static;
+        display: block;
+    }
+</style>

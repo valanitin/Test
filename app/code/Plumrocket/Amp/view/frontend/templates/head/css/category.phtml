@@ -1,0 +1,144 @@
+<?php
+/**
+ * Plumrocket Inc.
+ *
+ * NOTICE OF LICENSE
+ *
+ * This source file is subject to the End-user License Agreement
+ * that is available through the world-wide-web at this URL:
+ * http://wiki.plumrocket.net/wiki/EULA
+ * If you are unable to obtain it through the world-wide-web, please
+ * send an email to support@plumrocket.com so we can send you a copy immediately.
+ *
+ * @package     Plumrocket_Amp
+ * @copyright   Copyright (c) 2019 Plumrocket Inc. (http://www.plumrocket.com)
+ * @license     http://wiki.plumrocket.net/wiki/EULA  End-user License Agreement
+ */
+?>
+<?php /** @var \Plumrocket\Amp\Block\Page\Head\Style $block */ ?>
+<?php
+$dataHelper = $block->getAmpDataHelper();
+
+$priceTextColor = $dataHelper->getPriceTextColor();
+$buttonBgColor = $dataHelper->getButtonBgColor();
+$buttonBgColorHover = $dataHelper->getButtonBgColorHover();
+$buttonTextColor = $dataHelper->getButtonTextColor();
+$buttonTextColorHover = $dataHelper->getButtonTextColorHover();
+$linkColor = $dataHelper->getLinkColor();
+$linkColorHover = $dataHelper->getLinkColorHover();
+$categoryImageSize = $this->getCategoryImageSize();
+?>
+
+.category-image {margin: 0 auto; max-width: <?php echo $categoryImageSize['max-width'] ?>px;max-height: <?php echo $categoryImageSize['max-height'] ?>px;}
+
+.wrapper ul, .wrapper ol {font-size: 0}
+.wrapper li {display: inline-block;width: 33.33%;margin-bottom: 25px;vertical-align: top;text-align: center;}
+
+.sidebar-main{width:23%;padding-right:2%;display:inline-block;vertical-align:top;float:left;}
+.dir-rtl .sidebar-main{padding-right: 0;padding-left: 2%;}
+
+.filter-subtitle{display:none;background-color:#f0f0f0;box-shadow:inset 0 1px 0 0 #fff,inset 0 -1px 0 0 rgba(204,204,204,0.3);border:1px solid #ccc;border-radius:3px;font-weight:400;padding:8px 10px;text-transform:capitalize;position:relative}
+.filter-subtitle:before{content:"";width:0;height:0;border-style:solid;border-width:7px 7px 0;border-color:#333 transparent transparent;display:inline-block;vertical-align:middle;position:absolute;right:11px;top:17px}
+.filter-subtitle:after{content:"";width:0;height:0;border-style:solid;border-width:7px 7px 0;border-color:#f0f0f0 transparent transparent;display:inline-block;vertical-align:middle;position:absolute;right:11px;top:15px}
+.dir-rtl .filter-subtitle:before,.dir-rtl  .filter-subtitle:after{left:11px;right:auto;}
+.dir-rtl .filter-subtitle{text-align: right;}
+
+.filter .filter-title{padding: 0 10px 15px 10px;border-bottom: 1px solid #ccc}
+.filter-actions{margin:0 0 15px}
+.filter-content label{user-select:none}
+.filter-options input[type="checkbox"]{display:none}
+.filter-options > li > label{padding:10px 10px 8px 10px;display:block;border-bottom:1px solid #ccc;position:relative;text-transform:uppercase;font-weight:700;font-family:'Open Sans','Helvetica Neue',Helvetica,Arial,sans-serif}
+.filter-options input[type="checkbox"]:checked + label + .items{display:block}
+.filter-options .items,.filter-options .swatch-attribute{border-bottom:1px solid #ccc;padding:0 10px 10px 10px;margin:0;}
+.filter-options .swatch-attribute{padding-top:10px}
+.filter-options .swatch-attribute li{display:inline-block;margin: 0 10px 5px 0;padding:0;line-height:normal}
+.filter-options .items .item{margin: 10px 0}
+.filter-options table.swatch-option{display:inline-block;width:30px;height:20px;margin:0;border: 1px solid #dadada;border-collapse:collapse}
+.filter-options table.swatch-option td{width:30px;height:18px}
+.filter-options .item a,.filter-options .item a:hover,.filter-options .swatch-option-link-layered,.filter-options .swatch-option-link-layered:hover{color:#494949}
+#filter-items:checked + .filter-subtitle:before{border-width:0 7px 7px;border-color:transparent transparent #333;top:15px}
+#filter-items:checked + .filter-subtitle:after{border-width:0 7px 7px;border-color:transparent transparent #f0f0f0;top:17px}
+.filter-options > li > label:before{content:"";width:0;height:0;border-style:solid;border-width:7px 7px 0;border-color:#333 transparent transparent;display:inline-block;vertical-align:middle;position:absolute;right:11px;top:17px}
+.filter-options > li > label:after{content:"";width:0;height:0;border-style:solid;border-width:7px 7px 0;border-color:#fff transparent transparent;display:inline-block;vertical-align:middle;position:absolute;right:11px;top:15px}
+.dir-rtl .filter-options > li > label:before,.dir-rtl .filter-options > li > label:after{left: 11px;right: auto;}
+.filter-options input[type="checkbox"]:checked + label{border-bottom:0}
+.filter-options input[type="checkbox"]:checked + label:before{border-width:0 7px 7px;border-color:transparent transparent #333;top:15px}
+.filter-options input[type="checkbox"]:checked + label:after{border-width:0 7px 7px;border-color:transparent transparent #fff;top:17px}
+.filter-options input[type="checkbox"]:checked ~ .items,.sidebar-main .filter-options input[type="checkbox"]:checked ~ .swatch-attribute{display:block}
+.filter-options .item .count {color: #a0a0a0;}
+.filter-options .item .count:before {content: "(";}
+.filter-options .item .count:after {content: ")";}
+.filter-options .item .count span{display: none}
+.filter-content .block-subtitle{display:none}
+.filter-content #filter-items{display:none}
+.filter-content #filter-items:checked ~ #narrow-by-list{display:block}
+.filter-content .filter-current .block-subtitle{display:block}
+.filter-current li{margin:3px 0 3px 10px;position:relative;padding-right:25px}
+.filter-current li:before,.filter-current li:after{content:"";display:block;clear:both}
+.filter-current .filter-label:after{content:":"}
+.filter-current .item .remove{margin-left:6px;display:inline-block;width:20px;height:20px;border:1px solid #ededed;text-align:center;font:0/0 a;text-shadow:none;color:transparent;position:absolute;background:#fff;right:0;top:0}
+.filter-current .item .remove:before{content:"";display:inline-block;width:12px;height:13px;position:absolute;border-top:1px solid <?php echo $buttonBgColor ?>;transform:rotate(45deg);transform-origin:center;top:50%;left:50%;margin-top:-2px;margin-left:-11px}
+.filter-current .item .remove:after{content:"";display:inline-block;width:12px;height:12px;position:absolute;border-top:1px solid <?php echo $buttonBgColor ?>;transform:rotate(-47deg);transform-origin:center;top:50%;left:50%;margin-top:-2px;margin-left:-2px}
+
+.limiter span,.limiter label,.limiter .control{display:inline-block;vertical-align:middle}
+.limiter .limiter-options{margin:0 4px}
+.limiter .limiter-options a{background-color:#f0f0f0;box-shadow:inset 0 1px 0 0 #fff,inset 0 -1px 0 0 rgba(204,204,204,0.3);border-radius:3px;display:inline-block;border:1px solid #ccc;color:#333;padding:5px;margin:0 1px}
+
+/* column main */
+.column.main{width:75%;display:inline-block;vertical-align:top}
+.toolbar-sorter{margin:7px 0;border-bottom:1px solid #ccc;border-top:1px solid #ccc;background:#f4f4f4;padding:7px 10px 0 10px;font-size:0}
+.sorter a{display:inline-block;margin-right:5px;margin-bottom:7px;line-height:30px;border:1px solid #ccc;padding:0 5px;background:#fff;font-size:13px}
+.sorter a:hover{text-decoration:none}
+.sorter-label{font-size:13px;display:inline-block;margin-right:7px}
+.sorter a.sorter-active{background-color:<?php echo $buttonBgColor; ?>; color: <?php echo $buttonTextColor; ?>}
+.sort-by-switcher{display:inline-block;width:25px;height:30px;overflow:hidden;text-indent:-999px;vertical-align:middle;text-align:center;vertical-align:top}
+.sort-by-switcher:before{font-family:font-icon;font-size:13px;display:block;text-indent:0}
+.sort-by-switcher.sort-desc:before{content:"\e905"}
+.sort-by-switcher.sort-asc:before{content:"\e904"}
+
+.pages {margin-bottom: 25px; text-align: center;}
+.pages .items { font-size: 0; letter-spacing: -1px; line-height: 0; white-space: nowrap; list-style: none none; display: inline-block; font-weight: 400; text-align: center; position: relative; z-index: 1; }
+.pages .item { font-size: 12px; letter-spacing: normal; line-height: 30px; margin: 0 12px; display: inline-block; }
+.pages .action { background: #f0f0f0; border: 1px solid #ccc; color: #7d7d7d; box-shadow: inset 0 1px 0 0 #fff, inset 0 -1px 0 0 rgba(204, 204, 204, 0.3); border-radius: 3px; padding: 0 8px; color: #7d7d7d; display: inline-block; text-decoration: none; }
+.pages .action.next:before, .pages .action.previous:before{ font-family:font-icon; font-size: 20px; display: inline-block; position: relative; top: 2px; }
+.pages .action.next:before{content: "\e909"; }
+.pages .action.previous:before{content: "\e908"; }
+.pages .action>span,.pages > .label,.pages .item .label,.special-price .price-label,.old-price .price-label {display: none;}
+
+.product-item-details {font-size: 14px;}
+.special-price, .old-price {display: block;}
+.old-price .price {text-decoration: line-through; color: #b3b3b3;}
+span[data-price-type="finalPrice"] {color:<?php echo $priceTextColor ?>;}
+
+.stock.unavailable {color:red;}
+
+@media (max-width: 780px) {
+.sidebar-main{width:100%;box-sizing:border-box;padding:0;float:none;}
+.columns{display:flex;flex-direction:column-reverse;}
+.dir-rtl .sidebar-main{padding: 0;}
+.sidebar-main .filter-options{margin:0;display:none}
+.column.main{width:100%;display:block;box-sizing:border-box}
+.filter .filter-title{display:none}
+.sidebar-main .filter-subtitle{display:block}
+}
+
+@media (max-width: 490px) {
+.wrapper li {width: 50%}
+.pages-item-next {position: absolute;right: 0;top: 0;z-index: 1;}
+.pages-item-previous {left: 0;position: absolute;top: 0;z-index: 1;}
+.pages .items {display:block; padding: 2px 54px 0;}
+.pages .item.pages-item-next {margin-right: 0;}
+.pages .item.pages-item-previous {margin-left: 0;}
+}
+
+@media (max-width: 340px) {.wrapper li {width: 100%}}
+
+ol.products.list.items.product-items {display: flex;flex-wrap: wrap;}
+.product-item-info {display: flex;flex-direction: column;height: 100%;}
+.product.details.product-item-details {display: flex;flex-direction: column;}
+.product-item-inner {margin-top: auto;}
+
+<?php if ($dataHelper->getRtlEnabled()) : ?>
+  .pages .action.next:before{content:"\e908";}
+  .pages .action.previous:before{content:"\e909";}
+<?php endif; ?>

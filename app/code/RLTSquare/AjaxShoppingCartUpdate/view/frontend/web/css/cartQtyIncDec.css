@@ -1,0 +1,29 @@
+.ajax-cart-qty-minus:before {
+    font-size: 12px;
+    line-height: 28px;
+    color: #757575;
+    font-family: 'luma-icons';
+    margin: 0;
+    vertical-align: top;
+    display: inline-block;
+    font-weight: normal;
+    overflow: hidden;
+    speak: none;
+    text-align: center;
+    content: '\e60f';
+}
+
+.ajax-cart-qty-plus:before {
+    font-size: 12px;
+    line-height: 28px;
+    color: #757575;
+    font-family: 'luma-icons';
+    margin: 0;
+    vertical-align: top;
+    display: inline-block;
+    font-weight: normal;
+    overflow: hidden;
+    speak: none;
+    text-align: center;
+    content: '\e61c';
+}

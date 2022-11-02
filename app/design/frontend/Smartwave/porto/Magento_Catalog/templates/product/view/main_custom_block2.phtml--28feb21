@@ -1,0 +1,75 @@
+
+<?php
+    $product_view = $this->getConfig('porto_settings/product');
+    $block = $this->getLayout()->createBlock('Magento\Cms\Block\Block');
+    if($block) {
+        $block->setBlockId($product_view['main_custom_block2']);
+    }
+    if($block && isset($product_view['main_custom_block2']) && $product_view['main_custom_block2'] !=''){
+        echo '<div class="custom-block">'.$block->toHtml().'</div>';
+    }
+?>
+<?php
+    $objectManager = \Magento\Framework\App\ObjectManager::getInstance();
+    $product = $objectManager->get('Magento\Framework\Registry')->registry('current_product');//get current product
+    $prodDescription = $product->getDescription();
+    $compositionLabel = $product->getResource()->getAttribute('composition')->getStoreLabel();
+    $compositionValue = $product->getResource()->getAttribute('composition')->getFrontend()->getValue($product);
+    //$materialLabel = $product->getResource()->getAttribute('material')->getStoreLabel();
+    //$materialValue = $product->getResource()->getAttribute('material')->getFrontend()->getValue($product);
+    // $sizeLabel = $product->getResource()->getAttribute('dimensions')->getStoreLabel();
+    // $sizeValue = $product->getResource()->getAttribute('size_chart')->getFrontend()->getValue($product);
+    $sizeLabel = $product->getResource()->getAttribute('size_chart_url')->getStoreLabel();
+    $sizeValue = $product->getResource()->getAttribute('size_chart_url')->getFrontend()->getValue($product);
+    $colorLabel = $product->getResource()->getAttribute('color_v2')->getStoreLabel();
+    $colorValue = $product->getResource()->getAttribute('color_v2')->getFrontend()->getValue($product);
+
+?>
+<script type="text/javascript">
+require(['jquery', 'jquery/ui'], function($){
+jQuery(document).ready(function(){
+			jQuery('.details-accordion div span').click(function(){
+				jQuery(this).parent().next().slideToggle();
+				jQuery('.details-accordion .content').not(jQuery(this).parent().next()).slideUp();
+				jQuery(this).removeClass('arrow-up').addClass('arrow-down');
+				jQuery('div span').not(jQuery(this)).removeClass('arrow-down').addClass('arrow-up');
+        jQuery('.accordion-title .arrow-up em').text('+');
+        jQuery('.accordion-title .arrow-down em').text('-');
+			});
+		});
+});
+</script>
+<div class="details-accordion">
+		<div class="accordion-title"><span class="arrow-down"><?php echo __('Description') ?> <em>-</em></span></div>
+		<div class="content prod-description" style="display:block">
+      <?php echo $prodDescription; ?>
+    </div>
+		<div class="accordion-title head-back"><span class="arrow-up"><?php echo __('Details') ?> <em>+</em></span></div>
+		<div class="content">
+      <div class="custom-prod-attributes-block">
+        <?php if(!empty($sizeValue)){ ?>
+        <div class="custom-prod-attributes">
+          <span class="label"><a href="<?php echo $sizeValue ?>" target="_blank"><?php echo __('View the size chart') ?></a></span>
+        </div>
+        <?php } ?>
+        <?php if(!empty($compositionValue)){ ?>
+        <div class="custom-prod-attributes">
+          <span class="label"><?php echo __($compositionLabel).":" ?></span>
+          <span><?php echo $compositionValue ?></span>
+        </div>
+        <?php } ?>
+        <?php if(!empty($materialValue)){ ?>
+        <div class="custom-prod-attributes">
+          <span class="label"><?php echo __($materialLabel).':' ?></span>
+          <span><?php echo $materialValue ?></span>
+        </div>
+        <?php } ?>
+        <?php if(!empty($colorValue)){ ?>
+        <div class="custom-prod-attributes">
+          <span class="label"><?php echo __($colorLabel).':' ?></span>
+          <span><?php echo $colorValue ?></span>
+        </div>
+        <?php } ?>
+      </div>
+    </div>
+	</div>

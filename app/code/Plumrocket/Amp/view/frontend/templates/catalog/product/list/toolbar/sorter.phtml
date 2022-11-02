@@ -1,0 +1,57 @@
+<?php
+/**
+ * Plumrocket Inc.
+ *
+ * NOTICE OF LICENSE
+ *
+ * This source file is subject to the End-user License Agreement
+ * that is available through the world-wide-web at this URL:
+ * http://wiki.plumrocket.net/wiki/EULA
+ * If you are unable to obtain it through the world-wide-web, please
+ * send an email to support@plumrocket.com so we can send you a copy immediately.
+ *
+ * @package     Plumrocket_Amp
+ * @copyright   Copyright (c) 2016 Plumrocket Inc. (http://www.plumrocket.com)
+ * @license     http://wiki.plumrocket.net/wiki/EULA  End-user License Agreement
+ */
+?>
+<?php
+/**
+ * Product list toolbar
+ *
+ * @var $block \Magento\Catalog\Block\Product\ProductList\Toolbar
+ */
+use Magento\Catalog\Model\Product\ProductList\Toolbar as ToolbarModel;
+?>
+<div class="toolbar-sorter sorter">
+    <label class="sorter-label" for="sorter"><?php /* @escapeNotVerified */ echo __('Sort By') ?></label>
+    <?php foreach ($block->getAvailableOrders() as $_key => $_order): ?>
+		<?php
+			$direction = strtolower($block->getCurrentDirection());
+			if ($block->isOrderCurrent($_key)) {
+				$direction = $direction == 'asc' ? 'desc' : 'asc';
+			}
+
+			$params = array(
+				ToolbarModel::ORDER_PARAM_NAME => $_key,
+				ToolbarModel::DIRECTION_PARAM_NAME => $direction,
+			);
+
+			if ($block->getDefaultPerPageValue() !== $block->getLimit()) {
+				$params[ToolbarModel::LIMIT_PARAM_NAME] = $block->getLimit();
+			}
+
+		?>
+		<a class="sort-product <?php if($block->isOrderCurrent($_key)): ?> sorter-active<?php endif; ?>" href="<?php echo $block->getPagerUrl($params) ?>">
+		<?php echo $block->escapeHtml(__($_order)) ?></a>
+    <?php endforeach; ?>
+    <?php if ($block->getCurrentDirection() == 'desc'): ?>
+        <a class="sort-by-switcher sort-desc" title="<?php /* @escapeNotVerified */ echo __('Set Ascending Direction') ?>" href="<?php echo $block->getPagerUrl(array(ToolbarModel::DIRECTION_PARAM_NAME => 'asc')) ?>">
+            <span><?php /* @escapeNotVerified */ echo __('↑ (asc)') ?></span>
+        </a>
+    <?php else: ?>
+        <a class="sort-by-switcher sort-asc" title="<?php /* @escapeNotVerified */ echo __('Set Descending Direction') ?>" href="<?php echo $block->getPagerUrl(array(ToolbarModel::DIRECTION_PARAM_NAME => 'desc')) ?>">
+            <span><?php /* @escapeNotVerified */ echo __('↓ (desc)') ?></span>
+        </a>
+    <?php endif; ?>
+</div>

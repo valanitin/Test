@@ -1,0 +1,56 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Magentizer
+ *
+ * NOTICE OF LICENSE
+ *
+ * This source file is subject to the Magentizer.com license that is
+ * available through the world-wide-web at this URL:
+ * https://www.Magentizer.com/LICENSE.txt
+ *
+ * DISCLAIMER
+ *
+ * Do not edit or add to this file if you wish to upgrade this extension to newer
+ * version in the future.
+ *
+ * @category    Magentizer
+ * @package     Magentizer_GeoIP
+ * @copyright   Copyright (c) Magentizer (https://www.Magentizer.com/)
+ * @license     https://www.Magentizer.com/LICENSE.txt
+ */
+-->
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Config:etc/system_file.xsd">
+    <system>
+        <tab id="magentizer" translate="label" sortOrder="600">
+            <label>Magentizer</label>
+        </tab>
+        <section id="geoip" translate="label comment" sortOrder="10" type="text" showInDefault="1" showInWebsite="1" showInStore="1">
+            <label>GeoIP</label>
+            <tab>magentizer</tab>
+            <resource>Magentizer_GeoIP::configuration</resource>
+            <group id="general" translate="label comment" sortOrder="10" type="text" showInDefault="1" showInWebsite="1" showInStore="1">
+                <label>GeoIP Configuration</label>
+                <field id="enabled" translate="label comment" sortOrder="1" type="select" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Enable GeoIP</label>
+                    <comment>Please download library before enabling GeoIP</comment>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                </field>
+                <field id="token" translate="label comment" type="text" sortOrder="20" showInDefault="1">
+                    <label>License Key</label>
+                    <validate>required-entry</validate>
+                    <comment><![CDATA[Please create <a href="https://www.maxmind.com/en/geolite2/signup" target="_blank">account</a> and get license key <a href="https://www.maxmind.com/en/accounts/current/license-key" target="_blank">here</a> This module used GEOIP2 Library which is added by default <br/>Module Developerd by M Bilal Aslam]]></comment>
+                </field>
+                <field id="country_groups" translate="label" sortOrder="30" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Countries</label>
+                    <frontend_model>Magentizer\GeoIP\Block\Adminhtml\Form\Field\CountryGroups</frontend_model>
+                    <backend_model>Magento\Config\Model\Config\Backend\Serialized\ArraySerialized</backend_model>
+                </field>
+                <field id="pricing_website" translate="label comment" type="text" sortOrder="30" showInDefault="1">
+                    <label>Webite Domain TO Fetch ERP Prices</label>
+                    <validate>required-entry</validate>
+                    </field>
+            </group>
+        </section>
+    </system>
+</config>

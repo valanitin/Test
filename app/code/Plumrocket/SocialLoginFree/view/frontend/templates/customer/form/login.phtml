@@ -1,0 +1,66 @@
+<?php
+/**
+ * @package     Plumrocket_SocialLoginFree
+ * @copyright   Copyright (c) 2020 Plumrocket Inc. (https://plumrocket.com)
+ * @license     https://plumrocket.com/license   End-user License Agreement
+ */
+
+use Plumrocket\SocialLoginFree\Helper\Config;
+use Plumrocket\SocialLoginFree\Helper\Data;
+use Plumrocket\SocialLoginFree\Model\Config\Source\Position;
+
+?>
+
+<div class="block block-customer-login">
+    <div class="block-title">
+        <strong id="block-customer-login-heading" role="heading" aria-level="2"><?= $block->escapeHtml(__('Registered Customers')) ?></strong>
+    </div>
+    <div class="block-content" aria-labelledby="block-customer-login-heading">
+        <form class="form form-login"
+              action="<?= $block->escapeUrl($block->getPostActionUrl()) ?>"
+              method="post"
+              id="login-form"
+              data-mage-init='{"validation":{}}'>
+            <?= $block->getBlockHtml('formkey') ?>
+            <fieldset class="fieldset login" data-hasrequired="<?= $block->escapeHtml(__('* Required Fields')) ?>">
+                <div class="field note"><?php echo $block->escapeHtml(__('If you have an account, sign in with your email address.')) ?></div>
+                <div class="field email required">
+                    <label class="label" for="email"><span><?= $block->escapeHtml(__('Email')) ?></span></label>
+                    <div class="control">
+                        <input name="login[username]" value="<?= $block->escapeHtml($block->getUsername()) ?>" <?php if ($block->isAutocompleteDisabled()): ?> autocomplete="off"<?php endif; ?> id="email" type="email" class="input-text" title="<?= $block->escapeHtml(__('Email')) ?>" data-validate="{required:true, 'validate-email':true}">
+                    </div>
+                </div>
+                <div class="field password required">
+                    <label for="pass" class="label"><span><?= $block->escapeHtml(__('Password')) ?></span></label>
+                    <div class="control">
+                        <input name="login[password]" type="password" <?php if ($block->isAutocompleteDisabled()): ?> autocomplete="off"<?php endif; ?> class="input-text" id="pass" title="<?= $block->escapeHtml(__('Password')) ?>" data-validate="{required:true}">
+                    </div>
+                </div>
+                <?php echo $block->getChildHtml('form_additional_info') ?>
+                <div class="actions-toolbar">
+                    <div class="primary"><button type="submit" class="action login primary" name="send" id="send2"><span><?= $block->escapeHtml(__('Sign In')) ?></span></button></div>
+                    <div class="secondary"><a class="action remind" href="<?= $block->escapeUrl($block->getForgotPasswordUrl()) ?>"><span><?= $block->escapeHtml(__('Forgot Your Password?')) ?></span></a></div>
+                </div>
+
+                <?php
+                /** @var \Plumrocket\SocialLoginFree\Helper\Data $helper */
+                /** @var \Plumrocket\SocialLoginFree\Helper\Config $config */
+                $helper = $this->helper(Data::class);
+                $config = $this->helper(Config::class);
+                if ($config->isModulePositionEnabled(Position::BUTTONS_POSITION_LOGIN) && $helper->hasButtons()) : ?>
+                    <div class="pslogin-spacer pslogin-clearfix">
+                        <table>
+                            <tr>
+                                <td><div class="pslogin-border"></div></td>
+                                <td class="pslogin-bordertext w25"><?= $block->escapeHtml(__('OR')) ?></td>
+                                <td><div class="pslogin-border"></div></td>
+                            </tr>
+                        </table>
+                    </div>
+                    <?= $this->getChildHtml('pslogin_buttons') ?>
+                <?php endif; ?>
+            </fieldset>
+        </form>
+    </div>
+</div>
+

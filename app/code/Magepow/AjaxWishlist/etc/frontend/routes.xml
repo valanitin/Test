@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- 
+/**
+ * 
+ * @category: Magepow
+ * @Copyright (c) 2014 Magepow  (<https://www.magepow.com>)
+ * @authors: Magepow (<magepow<support@magepow.com>>)
+ * @date:    2021-03-10 13:26:29
+ * @license: <http://www.magepow.com/license-agreement>
+ * @github: <https://github.com/magepow> 
+ */
+-->
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:App/etc/routes.xsd">
+    <router id="standard">
+        <route id="ajaxwishlist" frontName="ajaxwishlist">
+            <module name="Magepow_AjaxWishlist" />
+        </route>
+    </router>
+</config>

@@ -1,0 +1,20 @@
+<?xml version="1.0"?>
+<!--
+ * @package     Plumrocket_Base
+ * @copyright   Copyright (c) 2020 Plumrocket Inc. (https://plumrocket.com)
+ * @license     https://plumrocket.com/license/  End-user License Agreement
+-->
+<csp_whitelist xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Csp:etc/csp_whitelist.xsd">
+    <policies>
+        <policy id="frame-src">
+            <values>
+                <value id="plumrocket_store" type="host">https://plumrocket.com</value>
+            </values>
+        </policy>
+        <policy id="form-action">
+            <values>
+                <value id="plumrocket_store" type="host">https://plumrocket.com</value>
+            </values>
+        </policy>
+    </policies>
+</csp_whitelist>

@@ -1,0 +1,12 @@
+<?xml version="1.0"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:noNamespaceSchemaLocation="urn:magento:framework:ObjectManager/etc/config.xsd">
+    <type name="Magento\Quote\Api\CartManagementInterface">
+        <plugin name="update_quote_items_price_by_store_currency"
+                type="LuxuryUnlimited\QuoteApi\Plugin\Model\QuoteManagementPlugin" sortOrder="20"/>
+    </type>
+    <type name="Magento\Quote\Api\GuestCartRepositoryInterface">
+        <plugin name="update_guest_quote_items_price_by_store_currency"
+                type="LuxuryUnlimited\QuoteApi\Plugin\Model\GuestCartRepositoryPlugin" sortOrder="20"/>
+    </type>
+</config>

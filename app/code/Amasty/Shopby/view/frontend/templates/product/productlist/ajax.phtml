@@ -1,0 +1,41 @@
+<?php
+/**
+ * @author Amasty Team
+ * @copyright Copyright (c) 2019 Amasty (https://www.amasty.com)
+ * @package Amasty_Shopby
+ */
+?>
+<?php
+/**
+ * @var $block \Amasty\Shopby\Block\Product\ProductList\Ajax
+ */
+if (!$block->canShowBlock()) {
+    return;
+}
+?>
+<script type="text/x-magento-init">
+{
+    "body.page-with-filter, body.catalogsearch-result-index": {
+        "amShopbyAjax": {
+                "submitByClick": <?= (int) $block->submitByClick();?>,
+                "scrollUp": <?= /* @escapeNotVerified */ ($block->scrollUp() ? '1' : '0');?>,
+                "clearUrl": "<?= /* @escapeNotVerified */ $block->getClearUrl();?>",
+                "currentCategoryId": "<?= /* @escapeNotVerified */ $block->getCurrentCategoryId();?>",
+                "isCategorySingleSelect": "<?= /* @escapeNotVerified */ $block->isCategorySingleSelect();?>"
+            }
+        }
+}
+</script>
+<?php if ($block->isGoogleTagManager()) : ?>
+    <script type="text/x-magento-init">
+            {
+                "*": {
+                    "Amasty_Shopby/js/googleTag": {
+                        "gtmAccountId": "<?= /* @escapeNotVerified */
+                        $block->getConfig(\Magento\GoogleTagManager\Helper\Data::XML_PATH_CONTAINER_ID); ?>"
+                    }
+                }
+            }
+
+    </script>
+<?php endif; ?>

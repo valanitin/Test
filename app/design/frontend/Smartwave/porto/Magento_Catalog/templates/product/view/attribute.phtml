@@ -1,0 +1,85 @@
+<?php
+/**
+ * Copyright © Magento, Inc. All rights reserved.
+ * See COPYING.txt for license details.
+ */
+
+// phpcs:disable Magento2.Templates.ThisInTemplate.FoundThis
+
+/**
+ * Product view template
+ *
+ * @var $block \Magento\Catalog\Block\Product\View\Description
+ */
+?>
+<?php
+$_helper = $this->helper(Magento\Catalog\Helper\Output::class);
+$_product = $block->getProduct();
+
+if (!$_product instanceof \Magento\Catalog\Model\Product) {
+    return;
+}
+
+$_call = $block->getAtCall();
+$_code = $block->getAtCode();
+$_className = $block->getCssClass();
+$_attributeLabel = $block->getAtLabel();
+$_attributeType = $block->getAtType();
+$_attributeAddAttribute = $block->getAddAttribute();
+
+$renderLabel = true;
+// if defined as 'none' in layout, do not render
+if ($_attributeLabel == 'none') {
+    $renderLabel = false;
+}
+
+if ($_attributeLabel && $_attributeLabel == 'default') {
+    $_attributeLabel = $_product->getResource()->getAttribute($_code)->getStoreLabel();
+}
+if ($_attributeType && $_attributeType == 'text') {
+    $_attributeValue = ($_helper->productAttribute($_product, $_product->$_call(), $_code))
+        ? $_product->getAttributeText($_code)
+        : '';
+} else {
+    $_attributeValue = $_helper->productAttribute($_product, $_product->$_call(), $_code);
+}
+?>
+<script type="text/javascript">
+    require(['jquery', 'jquery/ui'], function($){
+		$(document).ready(function() {
+			var priceHtml = $('.product-info-main .price-box.price-final_price');
+			$('.product-info-main .price-box.price-final_price').remove();
+			$('.secondCustomDiv').prepend(priceHtml);
+		});
+	});
+</script>
+<div class="secondCustomDiv">
+<div class="tax-text"><?php /* @escapeNotVerified */ echo __('Tax and Duties Included.') ?></div>
+<?php
+$dynamicHelper = $this->helper('\Dynamic\Customization\Helper\Data');
+$scopeConfig = $dynamicHelper->getScopeConfig();
+$active =  $scopeConfig->getValue("productdeliverydate/delivery_date/active", \Magento\Store\Model\ScopeInterface::SCOPE_STORE);
+$deliverymaxday =  $scopeConfig->getValue("productdeliverydate/delivery_date/deliverymaxday", \Magento\Store\Model\ScopeInterface::SCOPE_STORE);
+$deliveryminday =  $scopeConfig->getValue("productdeliverydate/delivery_date/deliveryminday", \Magento\Store\Model\ScopeInterface::SCOPE_STORE);
+$objDate = $dynamicHelper->getDate();
+if($active){ 
+$date = $objDate->date('Y-m-d');
+$minday = $objDate->date('M j', strtotime($date." +".$deliveryminday." days"));
+$maxday = $objDate->date('M j', strtotime($date." +".$deliverymaxday." days"));
+if ($_product->isSaleable()){ ?>
+<div class="delivery">
+    <span class="leftd"><?php /* @escapeNotVerified */ echo __('Estimated Delivery') ?></span>
+    <span class="rightd"><?php echo $minday." - ".$maxday; ?></span>
+</div>
+<?php }
+}
+ ?>
+
+<?php if ($_attributeValue) :?>
+<div class="product attribute <?= $block->escapeHtmlAttr($_className) ?>">
+    <?php if ($renderLabel) :?>
+        <strong class="type"><?= $block->escapeHtml($_attributeLabel) ?></strong>
+    <?php endif; ?>
+    <div class="value" <?= /* @noEscape */ $_attributeAddAttribute ?>><?= /* @noEscape */ $_attributeValue ?></div>
+</div>
+<?php endif; ?>

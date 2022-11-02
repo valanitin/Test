@@ -1,0 +1,76 @@
+<?php
+/**
+ * 
+ * @category: Magepow
+ * @Copyright (c) 2014 Magepow  (<https://www.magepow.com>)
+ * @authors: Magepow (<magepow<support@magepow.com>>)
+ * @date:    2021-04-27 16:26:18
+ * @license: <http://www.magepow.com/license-agreement>
+ * @github: <https://github.com/magepow> 
+ */
+ /** @var \Magepow\AjaxWishlist\Block\Form\Login $block */
+?>
+<?php 
+    $helper = $this->helper('Magepow\AjaxWishlist\Helper\Data');
+    $imgWishlist = $helper->getConfigModule('general/image');
+    $urlMedia = $helper->getBaseUrlMedia();
+?>
+<?php if (!$block->customerIsAlreadyLoggedIn()): ?>
+
+    <div id="customer-popup-login" class="customer-popup-login _disabled">
+        <?php if ($imgWishlist): ?>
+            <div class="image-system-wishlist"><img src="<?php echo $urlMedia.'magepow/backendimage/'. $imgWishlist?>" ></div>
+        <?php else: ?>
+            <div class="image-system-wishlist"><img src="<?php echo $block->getLogoSrc() ?>" ></div>
+        <?php endif; ?>
+        
+        <div class="block block-customer-login">
+            <div class="block-content" aria-labelledby="block-customer-popup-login-heading">
+                <form class="form form-login"
+                      action="<?php /* @escapeNotVerified */ echo $block->getPostActionUrl() ?>"
+                      method="post"
+                      id="customer-popup-login-form"
+                      data-mage-init='{"validation":{}}'>
+                    <?php echo $block->getBlockHtml('formkey'); ?>
+                    <input type="hidden" name="redirect_url" value="<?php echo $this->getUrl('*/*/*', ['_current' => true, '_use_rewrite' => true]); ?>" />
+                    <fieldset class="fieldset login" data-hasrequired="<?php /* @escapeNotVerified */ echo __('* Required Fields') ?>">
+                        <div class="field note"><?php /* @escapeNotVerified */ echo __('Sign in to continue') ?></div>
+                        <div class="messages"></div>
+                        <div class="field email required">
+                            <label class="label" for="email"><span><?php /* @escapeNotVerified */ echo __('Email') ?></span></label>
+                            <div class="control">
+                                <input name="username" value="" <?php if ($block->isAutocompleteDisabled()) :?> autocomplete="off"<?php endif; ?> id="email-login" type="email" class="input-text" title="<?php /* @escapeNotVerified */ echo __('Email') ?>" data-validate="{required:true, 'validate-email':true}">
+                            </div>
+                        </div>
+                        <div class="field password required">
+                            <label for="pass" class="label"><span><?php /* @escapeNotVerified */ echo __('Password') ?></span></label>
+                            <div class="control">
+                                <input name="password" type="password" <?php if ($block->isAutocompleteDisabled()) :?> autocomplete="off"<?php endif; ?> class="input-text" id="pass-login" title="<?php /* @escapeNotVerified */ echo __('Password') ?>" data-validate="{required:true}" >
+                            </div>
+                            <div class="secondary"><a href="<?php echo $this->getUrl('customer/account/forgotpassword/') ?>"><?= __("Forgot Your Password")?>?</a></div>
+                        </div>
+                         
+                        <div class="actions-toolbar">
+                            <div class="primary"><button type="submit" class="action login primary" name="send" id="send2-login"><span><?php /* @escapeNotVerified */ echo __('Sign In') ?></span></button></div>
+                           
+                           
+                            <?php if ($block->getRegistration()->isAllowed()): ?>
+                                
+                                <div class="secondary"><a class="action remind" href="<?php /* @escapeNotVerified */ echo $block->getCustomerRegistrationUrl() ?>" id="customer-popup-registration"><span><?php /* @escapeNotVerified */ echo __('Create an Account?') ?></span></a></div>
+                            <?php endif; ?>
+                        </div>
+                    </fieldset>
+                </form>
+            </div>
+        </div>
+        <script type="text/x-magento-init">
+            {
+                "#customer-popup-login": {
+                    "Magepow_AjaxWishlist/js/action/customer-authentication-popup": {
+                        "innerWidth": "400"
+                    }
+                }
+            }
+        </script>
+    </div>
+<?php endif; ?>

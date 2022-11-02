@@ -1,0 +1,36 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Magentizer_GeoIP extension
+ *
+ * NOTICE OF LICENSE
+ *
+ * This source file is subject to the MIT License
+ * that is bundled with this package in the file LICENSE
+ * It is also available through the world-wide-web at this URL:
+ * http://opensource.org/licenses/mit-license.php
+ *
+ * @category  Magentizer
+ * @package   Magentizer_GeoIP
+ * @copyright 2018 Magentizer
+ * @license   http://opensource.org/licenses/mit-license.php MIT License
+ * @author    Qaiser Bashir
+ */
+-->
+<page xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/page_configuration.xsd">
+    <body>
+        <!-- <referenceContainer name="page.wrapper">
+        <block class="Magentizer\GeoIP\Block\CountrySwitcher" name="geoip.switcher" template="Magentizer_GeoIP::switcher.phtml"/>
+        <block class="Magentizer\GeoIP\Block\Store\Switcher" name="footer.mb_country_switcher" template="Magentizer_GeoIP::switch/stores.phtml"/>
+        </referenceContainer> -->
+        <!-- <referenceContainer name="header.container">
+         <block class="Magentizer\GeoIP\Block\Store\Switcher" before="-" name="footer.mb_country_switcher" template="Magentizer_GeoIP::switch/stores.phtml"/>
+        </referenceContainer> -->
+		<!-- <referenceContainer name="after.body.start">
+			<block class="Magentizer\GeoIP\Block\Store\Switcher" 
+				   before="-" 
+				   template="Magentizer_GeoIP::georedirect.phtml"
+			/>
+		</referenceContainer> -->
+    </body>
+</page>

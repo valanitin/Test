@@ -1,0 +1,285 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * BSS Commerce Co.
+ *
+ * NOTICE OF LICENSE
+ *
+ * This source file is subject to the EULA
+ * that is bundled with this package in the file LICENSE.txt.
+ * It is also available through the world-wide-web at this URL:
+ * http://bsscommerce.com/Bss-Commerce-License.txt
+ *
+ * @category   BSS
+ * @package    Bss_GeoIPAutoSwitchStore
+ * @author     Extension Team
+ * @copyright  Copyright (c) 2016-2017 BSS Commerce Co. ( http://bsscommerce.com )
+ * @license    http://bsscommerce.com/Bss-Commerce-License.txt
+ */
+-->
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Config:etc/system_file.xsd">
+    <system>
+        <tab id="bss" translate="label" sortOrder="300">
+            <label><![CDATA[Bss Commerce]]></label>
+        </tab>
+        <section id="bss_geoip" translate="label" type="text" sortOrder="100" showInDefault="1" showInWebsite="1"
+                 showInStore="1">
+            <label>GEOIP Switch Store</label>
+            <tab>bss</tab>
+            <resource>Bss_GeoIPAutoSwitchStore::config</resource>
+            <group id="general" translate="label" type="text" sortOrder="10" showInDefault="1" showInWebsite="1"
+                   showInStore="1">
+                <label>General</label>
+                <field id="enable" translate="label" type="select" sortOrder="0" showInDefault="1" showInWebsite="0"
+                       showInStore="0">
+                    <label>Enable</label>
+                    <comment><![CDATA[Version 1.3.8]]></comment>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                </field>
+
+                <field id="popup" translate="label" type="select" sortOrder="0" showInDefault="1" showInWebsite="0"
+                       showInStore="0">
+                    <label>Enable Popup</label>
+                    <comment>
+                        <![CDATA[If you choose Yes, customers are <b>not auto redirected</b> to store view.<br/>Popup are displayed in the default store view and customers can decide whether switch store or not.]]></comment>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                </field>
+
+                <field id="allow_switch" translate="label" type="select" sortOrder="2" showInDefault="1"
+                       showInWebsite="0" showInStore="0">
+                    <label>Allow Manual Switch after Redirect</label>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                </field>
+
+                <field id="redirect_scope" translate="label" type="select" sortOrder="3" showInDefault="1"
+                       showInWebsite="0" showInStore="0">
+                    <label>Redirect Scope</label>
+                    <source_model>Bss\GeoIPAutoSwitchStore\Model\Config\Source\RedirectScope</source_model>
+                    <depends>
+                        <field id="*/*/enable">1</field>
+                    </depends>
+                </field>
+
+                <field id="restriction_ip" translate="label comment" type="textarea" sortOrder="4" showInDefault="1"
+                       showInWebsite="0" showInStore="0">
+                    <label>Skip Redirect with IP</label>
+                    <comment><![CDATA[Enter one IP per line]]></comment>
+                    <depends>
+                        <field id="*/*/enable">1</field>
+                    </depends>
+                </field>
+
+                <field id="restriction_url" translate="label comment" type="textarea" sortOrder="5" showInDefault="1"
+                       showInWebsite="0" showInStore="0">
+                    <label>Skip Redirect with URL</label>
+                    <comment>
+                        <![CDATA[Enter URLs path (without domain name).<br/>For example: your product page URL is http://yourdomain.com/teton-pullover-hoodie.html.<br/>Then URL path is  <b>teton-pullover-hoodie.html</b><br/>To skip redirect homepage please enter <b>/</b>]]></comment>
+                    <depends>
+                        <field id="*/*/enable">1</field>
+                    </depends>
+                </field>
+
+                <field id="default_redirect" translate="label comment" type="textarea" sortOrder="6" showInDefault="1"
+                       showInWebsite="0" showInStore="0">
+                    <label>Default Redirect URLs</label>
+                    <comment>
+                        <![CDATA[Enter the exact URL.<br/>When accessing this URL, customers are redirected to the setup store view (in Apply Redirect Country field) even they switch to other stores/store views.]]></comment>
+                    <depends>
+                        <field id="*/*/allow_switch">1</field>
+                    </depends>
+                </field>
+
+                <field id="restriction_user_agent" translate="label comment" type="multiselect" sortOrder="7"
+                       showInDefault="1" showInWebsite="0" showInStore="0">
+                    <label>Skip Redirect User Agent</label>
+                    <source_model>Bss\GeoIPAutoSwitchStore\Model\Config\Source\BotSearch</source_model>
+                    <can_be_empty>1</can_be_empty>
+                    <depends>
+                        <field id="*/*/enable">1</field>
+                    </depends>
+                </field>
+
+
+                <field id="enable_cookie" translate="label" type="select" sortOrder="8" showInDefault="1"
+                       showInWebsite="0" showInStore="0">
+                    <label>Enable Cookie</label>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                </field>
+
+                <field id="time_cookie" translate="label comment" type="text" sortOrder="9" showInDefault="1"
+                       showInWebsite="0" showInStore="0">
+                    <label>Time save Cookie</label>
+                    <depends>
+                        <field id="*/*/enable_cookie">1</field>
+                    </depends>
+                    <validate>validate-digits required-entry validate-greater-than-zero</validate>
+                    <comment><![CDATA[Please enter the number of the days that the cookies will expire]]></comment>
+                </field>
+
+                <field id="enable_switch_website" translate="label" type="select" sortOrder="9" showInDefault="1"
+                       showInWebsite="0" showInStore="0">
+                    <label>Enable Switch Website</label>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                </field>
+
+                <field id="tester_url" translate="label comment" type="text" sortOrder="10" showInDefault="1"
+                       showInWebsite="0" showInStore="0">
+                    <label>URL for Tester</label>
+                </field>
+
+                <field id="test_now" translate="label comment" type="button" sortOrder="11" showInDefault="1"
+                       showInWebsite="0" showInStore="0">
+                    <frontend_model>Bss\GeoIPAutoSwitchStore\Block\System\Config\TestButton</frontend_model>
+                </field>
+
+
+                <field id="tester_ip" translate="label comment" type="text" sortOrder="12" showInDefault="1"
+                       showInWebsite="0" showInStore="0">
+                    <label>IP for Tester</label>
+                    <comment>
+                        <![CDATA[To use IP for Tester, please follow these steps:<br/>- Enter the URL and IP address you want to test with.<br/>- Click on "Get URL" and copy the URL.]]></comment>
+                </field>
+
+
+                <field id="country" translate="label" type="multiselect" sortOrder="13" showInDefault="0"
+                       showInWebsite="1" showInStore="1">
+                    <label>Apply Redirect for Country</label>
+                    <source_model>Magento\Directory\Model\Config\Source\Country</source_model>
+                    <can_be_empty>1</can_be_empty>
+                    <comment>Hold Ctrl when choosing multiple options</comment>
+                    <depends>
+                        <field id="*/*/enable">1</field>
+                    </depends>
+                </field>
+
+                <field id="popup_message" translate="label comment" type="text" sortOrder="14" showInDefault="0"
+                       showInWebsite="1" showInStore="1">
+                    <label>Notification message for customers on Popup</label>
+                    <comment><![CDATA[Example: We think you are in [country], do you want to switch store?]]></comment>
+                </field>
+
+                <field id="popup_button" translate="label comment" type="text" sortOrder="14" showInDefault="0"
+                       showInWebsite="1" showInStore="1">
+                    <label>Label of "Switch Store" Button</label>
+                </field>
+
+                <field id="for_show" translate="label" type="label" sortOrder="14" showInDefault="1" showInWebsite="0"
+                       showInStore="0">
+                    <label>Apply Redirect for Country</label>
+                    <frontend_model>Bss\GeoIPAutoSwitchStore\Block\System\Config\Country</frontend_model>
+                </field>
+
+            </group>
+
+            <group id="black_list" translate="label" type="text" sortOrder="14" showInDefault="1" showInWebsite="0"
+                   showInStore="0">
+
+                <label>GeoIP Block</label>
+
+                <field id="enable" translate="label" type="select" sortOrder="0" showInDefault="1" showInWebsite="0"
+                       showInStore="0">
+                    <label>Enable</label>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                </field>
+
+                <field id="country" translate="label" type="multiselect" sortOrder="4" showInDefault="1"
+                       showInWebsite="0" showInStore="0">
+                    <label>Countries Blacklist</label>
+                    <source_model>Magento\Directory\Model\Config\Source\Country</source_model>
+                    <can_be_empty>1</can_be_empty>
+                    <comment>Hold Ctrl when choosing multiple options</comment>
+                    <depends>
+                        <field id="*/*/enable">1</field>
+                    </depends>
+                </field>
+
+                <field id="ip" translate="label comment" type="textarea" sortOrder="1" showInDefault="1"
+                       showInWebsite="0" showInStore="0">
+                    <label>IP Blacklist</label>
+                    <comment><![CDATA[Enter one IP per line]]></comment>
+                    <depends>
+                        <field id="*/*/enable">1</field>
+                    </depends>
+                </field>
+
+                <field id="url" translate="label comment" type="text" sortOrder="5" showInDefault="1" showInWebsite="0"
+                       showInStore="0">
+                    <label>Redirect Visitor To Url (*)</label>
+                    <comment><![CDATA[Enter Page key or Url (with http or https)]]></comment>
+                    <depends>
+                        <field id="*/*/enable">1</field>
+                    </depends>
+                </field>
+            </group>
+
+            <group id="varnish" translate="label" showInDefault="1" showInWebsite="0" showInStore="0" sortOrder="605">
+                <label>Varnish Configuration</label>
+                <field id="access_list" type="label" translate="label comment" sortOrder="15" showInDefault="1"
+                       showInWebsite="0" showInStore="0">
+                    <frontend_model>Bss\GeoIPAutoSwitchStore\Block\System\Config\Form\UserGuide</frontend_model>
+                </field>
+            </group>
+
+        </section>
+
+        <section id="bss_geoip_currency" translate="label" type="text" sortOrder="100" showInDefault="1"
+                 showInWebsite="1" showInStore="1">
+            <label>GEOIP Switch Currency</label>
+            <tab>bss</tab>
+            <resource>Bss_GeoIPAutoSwitchStore::currency</resource>
+
+            <group id="currency" translate="label" type="text" sortOrder="20" showInDefault="1" showInWebsite="1"
+                   showInStore="1">
+                <label><![CDATA[Country Code & Currency Code ]]></label>
+
+                <field id="enable" translate="label" type="select" sortOrder="0" showInDefault="1" showInWebsite="0"
+                       showInStore="0">
+                    <label>Enable</label>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                </field>
+
+                <field id="codes" translate="label" type="select" sortOrder="0" showInDefault="1" showInWebsite="0"
+                       showInStore="0" canRestore="1">
+                    <label>Setting list</label>
+                    <frontend_model>Bss\GeoIPAutoSwitchStore\Block\System\Config\Form\CountryAndCurrencyCode</frontend_model>
+                    <backend_model>Magento\Config\Model\Config\Backend\Serialized\ArraySerialized</backend_model>
+                    <comment>
+                        <![CDATA[Data get from here. <a href="https://gist.github.com/HarishChaudhari/4680482#file-country-code-to-currency-code-mapping-csv" target="_blank" title="Country, Country Code, Currency code mapping in CSV" class="comment-user">Country, Country Code, Currency code mapping in CSV</a>]]></comment>
+                    <tooltip><![CDATA[Country Code and Currency Code]]></tooltip>
+                </field>
+            </group>
+
+        </section>
+
+        <section id="bss_geoip_update" translate="label" type="text" sortOrder="99" showInDefault="1" showInWebsite="1"
+                 showInStore="1">
+            <label>Update Database GEOIP Switch Store</label>
+            <tab>bss</tab>
+            <resource>Bss_GeoIPAutoSwitchStore::update</resource>
+            <group id="update" translate="label" type="text" sortOrder="10" showInDefault="1" showInWebsite="1"
+                   showInStore="1">
+                <label>Update Database GEOIP Country CSV file</label>
+                <field id="file_upload" translate="label" type="Magento\Config\Block\System\Config\Form\Field\File"
+                       sortOrder="0" showInDefault="1" showInWebsite="1">
+                    <label>Upload Custom File</label>
+                    <backend_model>Bss\GeoIPAutoSwitchStore\Model\Config\Backend\File</backend_model>
+                    <upload_dir config="system" scope_info="1">bss</upload_dir>
+                </field>
+                <field id="file_url" translate="label comment" type="text" sortOrder="2" showInDefault="1"
+                       showInWebsite="0" showInStore="0">
+                    <label>Upload Custom Url</label>
+                    <comment>
+                        <![CDATA[Please Save Config before choosing Upgrade Data<br/>Please make sure that you upload a file in .zip format and be compressed by .csv files]]></comment>
+                </field>
+
+                <field id="update" translate="label comment" type="button" sortOrder="3" showInDefault="1"
+                       showInWebsite="0" showInStore="0">
+                    <frontend_model>Bss\GeoIPAutoSwitchStore\Block\System\Config\Collect</frontend_model>
+                    <label>Update Database from MaxMind</label>
+                </field>
+            </group>
+
+        </section>
+    </system>
+</config>

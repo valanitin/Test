@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+ * @package     Plumrocket_Base
+ * @copyright   Copyright (c) 2020 Plumrocket Inc. (https://plumrocket.com)
+ * @license     https://plumrocket.com/license   End-user License Agreement
+-->
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema">
+    <xs:element name="extensions">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="extension" type="extensionDeclaration" maxOccurs="unbounded" />
+            </xs:sequence>
+        </xs:complexType>
+        <xs:unique name="uniqueExtensionName">
+            <xs:annotation>
+                <xs:documentation>
+                    Extension name must be unique.
+                </xs:documentation>
+            </xs:annotation>
+            <xs:selector xpath="extension" />
+            <xs:field xpath="@name" />
+        </xs:unique>
+    </xs:element>
+
+    <xs:complexType name="extensionDeclaration">
+        <xs:annotation>
+            <xs:documentation>
+                Extension declaration.
+            </xs:documentation>
+        </xs:annotation>
+        <xs:sequence>
+            <xs:element name="customer" type="customerDeclaration" minOccurs="0" />
+            <xs:element name="metapackage" type="metapackageDeclaration" minOccurs="0" />
+        </xs:sequence>
+        <xs:attribute name="name" type="moduleNameDeclaration" use="required" />
+        <xs:attribute name="title" type="xs:string" use="required" />
+        <xs:attribute name="config_section" type="xs:string" default="" />
+        <xs:attribute name="is_enabled_path" type="xs:string" default="" />
+        <xs:attribute name="documentation" type="xs:string" default="" />
+        <!-- deprecated --><xs:attribute name="wiki" type="xs:string" default="" />
+        <xs:attribute name="is_service" type="xs:boolean" default="false" />
+        <xs:attribute name="url" type="xs:string" default="" />
+        <xs:attribute name="marketplace_url" type="xs:string" default="" />
+    </xs:complexType>
+
+    <xs:complexType name="customerDeclaration">
+        <xs:annotation>
+            <xs:documentation>
+                Extension declaration.
+            </xs:documentation>
+        </xs:annotation>
+        <xs:attribute name="key" type="xs:string" use="required" />
+    </xs:complexType>
+
+    <xs:complexType name="metapackageDeclaration">
+        <xs:annotation>
+            <xs:documentation>
+                If module is divided into small modules, it should have link to metapackage.
+            </xs:documentation>
+        </xs:annotation>
+        <xs:attribute name="composer_name" type="xs:string" use="required" />
+        <xs:attribute name="directory" type="xs:string" use="required" />
+    </xs:complexType>
+
+    <xs:simpleType name="moduleNameDeclaration">
+        <xs:annotation>
+            <xs:documentation>
+                Extension name attribute can contain only [A-Z]+[A-Za-z0-9].
+            </xs:documentation>
+        </xs:annotation>
+        <xs:restriction base="xs:string">
+            <xs:pattern value="[A-Z]+[A-Za-z0-9]+" />
+        </xs:restriction>
+    </xs:simpleType>
+</xs:schema>

@@ -1,0 +1,61 @@
+<?php
+$show_submit = false;
+if($this->getConfig('customers_submit')){
+	if($this->getConfig('allowGuest'))
+		$urlsubmit = $this->getUrl('testimonial/index/post');
+	else {
+		if($this->checklogin())
+			$urlsubmit = $this->getUrl('testimonial/index/post');
+		else
+			$urlsubmit = $this->getUrl('customer/account/login');
+	}
+	$show_submit = true;
+}
+?>
+<div class="testimonial-container reviewsBtns">
+	<?php if($show_submit): ?>
+		<a class="button-o action submit primary proReview" data-toggle="modal" href="<?php echo $urlsubmit; ?>">
+			<span><?php echo __('Add New Testimonial') ?></span>
+		</a>
+	<?php endif;?>
+	<?php  
+	$testimonials = $this->getCollection(); 
+	if($testimonials && count($testimonials)) :
+		$mediaUrl = $this->getMediabaseUrl();
+	?>
+	<div class="reviewWrap">
+		<?php foreach ($testimonials as $testimonial): ?>
+
+			<div class="reviewSec">
+				<div class="reviewSecInner">
+					<div class="reviewProImg"><img src="<?php echo $mediaUrl . $testimonial->getData('image');?>" alt="<?php echo __($testimonial->getData('name')); ?>"></div>
+					<div class="reviewRightSec">
+						<div class="reviewRating magiccart-testimonial-rating">
+							<div class="rating-result">
+								<div class="field-summary_rating">
+									<span class="rating-box" style="display:block;">
+										<span style="display:block; width:<?php echo $testimonial->getData('rating_summary')*20; ?>%;" class="rating"></span>
+									</span>
+								</div>
+							</div>
+						</div>
+						<div class="reviewComment"><?php echo __($testimonial->getData('text')); ?></div>
+						<div class="reviewClientName"><?php echo __($testimonial->getData('name'));?></div>
+						
+					</div>
+				</div>
+			</div>
+
+			
+		<?php endforeach; ?>
+
+	</div>
+	<?php else : ?>
+		<p class="note-msg"><?php echo __('There is no testimonial submitted.'); ?></p>
+	<?php endif ?>
+	<?php if ($block->getPagerHtml()): ?>
+			<div class="order-products-toolbar toolbar bottom">
+				<?php echo $block->getPagerHtml(); ?>
+			</div>
+	<?php endif; ?>
+</div>

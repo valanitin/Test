@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!--
+ * @package     Plumrocket_SocialLoginFree
+ * @copyright   Copyright (c) 2021 Plumrocket Inc. (https://plumrocket.com)
+ * @license     https://plumrocket.com/license/ End-user License Agreement
+-->
+<schema xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:noNamespaceSchemaLocation="urn:magento:framework:Setup/Declaration/Schema/etc/schema.xsd">
+    <table name="plumrocket_sociallogin_account" resource="default" engine="innodb" comment="Social Login Customer">
+        <column xsi:type="int" name="id" unsigned="true" nullable="false" identity="true" comment="Id"/>
+        <column xsi:type="varchar" name="type" nullable="false" length="30" comment="Login type"/>
+        <column xsi:type="varchar" name="user_id" nullable="false" comment="User id"/>
+        <column xsi:type="int" name="customer_id" padding="10" unsigned="true" nullable="false" default="0" comment="Customer Id"/>
+        <constraint xsi:type="primary" referenceId="PRIMARY">
+            <column name="id"/>
+        </constraint>
+        <index referenceId="PLUMROCKET_SOCIALLOGIN_ACCOUNT_TYPE" indexType="btree">
+            <column name="type"/>
+        </index>
+        <index referenceId="PLUMROCKET_SOCIALLOGIN_ACCOUNT_USER_ID" indexType="btree">
+            <column name="user_id"/>
+        </index>
+        <index referenceId="PLUMROCKET_SOCIALLOGIN_ACCOUNT_CUSTOMER_ID" indexType="btree">
+            <column name="customer_id"/>
+        </index>
+        <constraint xsi:type="foreign" referenceId="PLUMROCKET_SOCIALLOGIN_ACCOUNT_CSTR_ID_CSTR_ENTT_ENTT_ID" table="plumrocket_sociallogin_account"
+                    column="customer_id" referenceTable="customer_entity" referenceColumn="entity_id" onDelete="CASCADE"/>
+    </table>
+    <table name="plumrocket_sociallogin_deletion" resource="default" engine="innodb"
+           comment="Social Login Facebook Deletion Request">
+        <column xsi:type="int" name="id" padding="11" unsigned="true" nullable="false" identity="true" comment="ID" />
+        <column xsi:type="varchar" name="status" nullable="true" length="255" comment="Status" />
+        <column xsi:type="varchar" name="user_id" nullable="false" length="255" comment="User Id" />
+        <column xsi:type="varchar" name="confirmation_code" nullable="false" length="23" comment="Confirmation Code" />
+        <constraint xsi:type="primary" referenceId="PRIMARY">
+            <column name="id"/>
+        </constraint>
+        <index referenceId="INDEX_CONFIRMATION_CODE" indexType="btree">
+            <column name="confirmation_code"/>
+        </index>
+    </table>
+</schema>

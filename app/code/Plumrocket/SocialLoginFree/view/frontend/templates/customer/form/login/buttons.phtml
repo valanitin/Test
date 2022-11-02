@@ -1,0 +1,61 @@
+<?php
+/**
+ * @package     Plumrocket_SocialLoginFree
+ * @copyright   Copyright (c) 2015 Plumrocket Inc. (https://plumrocket.com)
+ * @license     https://plumrocket.com/license   End-user License Agreement
+ */
+?>
+<?php /** @var \Plumrocket\SocialLoginFree\Block\Buttons $block */ ?>
+<?php if ($block->hasButtons()) : ?>
+    <div class="pslogin-block pslogin-login" data-mage-init='{"pslogin":{}}'>
+
+        <div class="pslogin-spacer pslogin-clearfix">
+            <span class="pslogin-title" style="<?= $block->showShortButtons() ? '' : 'display: none;' ?>"><?= __('Login with your social account') ?></span>
+        </div>
+
+        <div class="pslogin-buttons <?= $block->showShortButtons() ? '' : 'pslogin-buttons-showfull' ?>">
+            <ul class="pslogin-clearfix">
+            <?php foreach ($block->getPreparedButtons() as $button) : ?>
+                <li class="pslogin-button <?= $block->escapeHtmlAttr($button['type']) ?>" title="<?= $this->escapeHtmlAttr($button['login_text']) ?>">
+                    <a class="pslogin-button-link pslogin-button-click"
+                       rel="nofollow"
+                       href="javascript:void(0);"
+                       data-href="<?= $block->escapeHtmlAttr($button['href']) ?>"
+                       data-width="<?= $block->escapeHtmlAttr($button['popup_width']) ?>"
+                       data-height="<?= $block->escapeHtmlAttr($button['popup_height']) ?>" >
+
+                        <?php if (! $block->showShortButtons() && ! empty($button['image']['login'])) : ?>
+                            <img class="pslogin-button-image" src="<?= $this->escapeUrl($button['image']['login']) ?>" />
+                        <?php endif; ?>
+
+                        <?php if ($block->showShortButtons() && ! empty($button['image']['icon'])) : ?>
+                            <img class="pslogin-button-icon-image" src="<?= $this->escapeUrl($button['image']['icon']) ?>" />
+                        <?php endif; ?>
+
+                        <?php if (empty($button['image']['login']) || empty($button['image']['icon'])) : ?>
+                            <span class="pslogin-button-auto <?= ! empty($button['image']['login']) ? 'pslogin-has-button-image' : '' ?> <?= !empty($button['image']['icon']) ? 'pslogin-has-button-icon-image' : '' ?>">
+                                <span class="pslogin-button-icon">
+                                    <?php if(! empty($button['image']['icon'])) : ?>
+                                        <img class="pslogin-button-icon-image" src="<?= $this->escapeUrl($button['image']['icon']) ?>" />
+                                    <?php endif; ?>
+                                </span>
+                                <span class="pslogin-button-text"><?= $this->escapeHtml($button['login_text']) ?></span>
+                            </span>
+                        <?php endif; ?>
+                    </a>
+                </li>
+            <?php endforeach; ?>
+            </ul>
+
+        </div>
+
+    </div>
+    <div style="clear: both;"></div>
+
+    <script type="text/javascript">
+        var showFullButtonsAfterViewMore = <?= $block->showFullButtons() ? 'true' : 'false' ?>;
+        if (window.psloginButtons) {
+            requirejs(['pslogin']);
+        }
+    </script>
+<?php endif; ?>

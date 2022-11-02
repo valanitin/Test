@@ -1,0 +1,20 @@
+{
+    "name": "LuxuryUnlimited/Coupon",
+    "description": "Coupon Validation and Error Messages",
+    "require": {
+        "magento/module-newsletter": "*"
+    },
+    "type": "magento2-module",
+    "version": "1.0.0",
+    "license": [
+        "proprietary"
+    ],
+    "autoload": {
+        "files": [
+            "registration.php"
+        ],
+        "psr-4": {
+            "LuxuryUnlimited\\Coupon\\": ""
+        }
+    }
+}

@@ -1,0 +1,138 @@
+<?php
+/**
+ * Copyright © Magento, Inc. All rights reserved.
+ * See COPYING.txt for license details.
+ */
+
+// phpcs:disable Magento2.Templates.ThisInTemplate
+?>
+<?php /** @var  $block \Magento\Sales\Block\Order\View*/?>
+
+<div class="order-details-items ordered">
+    <?php $_order = $block->getOrder();?>
+
+    <div class="order-title">
+        <strong><?= $block->escapeHtml(__('Items Ordered')) ?></strong>
+        <?php if (!empty($_order->getTracksCollection()->getItems())) : ?>
+            <?= $block->getChildHtml('tracking-info-link') ?>
+        <?php endif; ?>
+    </div>
+    <?php 
+        $isorderHistoryExist = $this->helper('\Dynamic\OrderHistory\Helper\Data')->isorderHistoryExist($_order->getEntityId());
+    ?>
+    <?php if($isorderHistoryExist):?>
+    <div>
+		<a target="_blank" href="<?php echo $this->getURL('orderhistory/view/index',array('orderoriginal_id'=>$_order->getEntityId())); ?>">
+		<?php echo __('View Actual Items Ordered For Order # %1 ',$_order->getIncrementId());?>
+		</a>
+    </div>
+    <?php endif;?> 
+    <?php
+     $orderCancelComment =  $_order->getCancelComment();
+    ?>
+    <?php if($orderCancelComment!=''){?>
+		<div class="alert alert-secondary al-custo" role="alert">
+			<?php echo $orderCancelComment;?>
+		</div>
+	<?php }?>	
+
+    <?= $block->getChildHtml('order_items') ?>
+
+    <?php if ($this->helper(\Magento\GiftMessage\Helper\Message::class)->isMessagesAllowed('order', $_order)
+        && $_order->getGiftMessageId()
+    ) : ?>
+    <div class="block block-order-details-gift-message">
+        <div class="block-title"><strong><?= $block->escapeHtml(__('Gift Message for This Order')) ?></strong></div>
+        <?php
+        $_giftMessage = $this->helper(\Magento\GiftMessage\Helper\Message::class)->getGiftMessageForEntity($_order);
+        ?>
+        <div class="block-content">
+            <dl class="item-options">
+                <dt class="item-sender"><strong class="label"><?= $block->escapeHtml(__('From')) ?></strong><?= $block->escapeHtml($_giftMessage->getSender()) ?></dt>
+                <dt class="item-recipient"><strong class="label"><?= $block->escapeHtml(__('To')) ?></strong><?= $block->escapeHtml($_giftMessage->getRecipient()) ?></dt>
+                <dd class="item-message">
+                    <?= /* @noEscape */
+                    $this->helper(\Magento\GiftMessage\Helper\Message::class)->getEscapedGiftMessage($_order) ?>
+                </dd>
+            </dl>
+        </div>
+    </div>
+    <?php endif; ?>
+
+    <div class="actions-toolbar">
+        <div class="secondary">
+            <a class="action back" href="<?= $block->escapeUrl($block->getBackUrl()) ?>">
+                <span><?= $block->escapeHtml($block->getBackTitle()) ?></span>
+            </a>
+        </div>
+    </div>
+</div>
+
+
+<!--Start Request Ticket Creation form for Not eligible Item return and Order cancel-->
+<?php 
+$_orders = $block->getOrders();
+$dynamicHelper = $this->helper('\Dynamic\Customization\Helper\Data');
+$storeManager  = $dynamicHelper->getStoreManager();
+$storeCode = $storeManager->getStore()->getCode();
+$customerSession = $dynamicHelper->getCustomerSessionManager();
+$fname= ""; $lname = ""; $email="";
+    if($customerSession->isLoggedIn()) {
+    $fname = $customerSession->getCustomer()->getFirstname();
+    $lname = $customerSession->getCustomer()->getLastname();
+    $email = $customerSession->getCustomer()->getEmail();
+    }
+?>
+<div id="order-return-ticket-modal" style="display:none;">	
+    <div id="order-refund-details">
+        <span id="order-refund-amount"></span>
+    </div>
+	<form class="form"
+                action="<?php echo $this->getUrl('ordercancelreturnticket/ajax/create'); ?>"
+                id="ordercancel-popup-form"
+                method="post"
+                data-hasrequired="<?php /* @escapeNotVerified */ echo __('* Required Fields') ?>"
+                data-mage-init='{"validation":{}}'>
+                <div id="ordercancelreturn_reason"  class="alert alert-danger" role="alert"> </div>                              
+                <div class="field name required cls_comm_input">
+                    <div class="control">
+                        <input id="orddercancel_name" class="input-text" title="Name" name="orddercancel_name" required="" type="text" value="<?php echo $fname; ?>" placeholder="<?php echo __('Enter Your Name') ?>"><input id="orddercancel_last_name" class="input-text" title="Last Name" required="" name="orddercancel_last_name" type="text" value="<?php echo $lname; ?>" placeholder="<?php echo __('Enter Your Last Name')?>">
+                    </div>
+                </div>
+                
+                <div class="field name required cls_comm_input">
+                    <div class="control"><input id="orddercancel_email" class="input-text" required="" title="Email" name="orddercancel_email" type="email" <?php if($email != ""){?> readonly="readonly" <?php } ?> value="<?php echo $email; ?>" placeholder="<?php echo __('Enter email')?>"><input id="orddercancel_phone" class="input-text" title="Phone" required="" name="orddercancel_phone" type="text" value="" placeholder="<?php echo __('Enter Phone Number')?>"></div>
+                </div>
+                <div class="field name required cls_comm_input">
+                    <div class="control"><input id="orddercancel_brand" readonly="true" class="input-text" title="Brand" required="" name="orddercancel_brand" type="text" value="" placeholder="<?php echo __('Enter Brand Name')?>"><input id="orddercancel_style" readonly="true" class="input-text" title="Style" required="" name="orddercancel_style" type="text" value="" placeholder="<?php echo __('Enter Style')?>"></div>
+                </div>
+                <div class="field name required cls_comm_input">
+                    <div class="control"><input id="orddercancel_keyword" readonly="true" class="input-text" title="Keyword" required="" name="orddercancel_keyword" type="text" value="<?php echo __('Order Cancel request')?>" placeholder="<?php echo __('Enter Keyword')?>"></div>
+                </div>
+                
+                <div class="field remarks required cls_comm_input">
+                    <div class="control"><textarea id="orddercancel_remarks" class="input-text" title="Remarks" required="" name="orddercancel_remarks" type="text" value="" placeholder="<?php echo __('Enter Remarks')?>"></textarea></div>
+                </div>
+                <div class="field name required spBtn">
+                    <div class="control">						
+						<input type="hidden" name="orddercancel_tickettype" id="orddercancel_tickettype" value="0" />
+						<input type="hidden" name="orddercancel_itemskus" id="orddercancel_itemskus" value="" />
+						<input type="hidden" name="orddercancel_order_id" id="orddercancel_order_id" value="" />
+                        <input type="hidden" name="orddercancel_lang_code" id="orddercancel_lang_code" value="<?php echo $storeCode; ?>" />
+                        <input type="hidden" name="orddercancel_hdn_subject" id="orddercancel_hdn_subject" value="" />
+                        <input type="hidden" name="orddercancel_hdn_message" id="orddercancel_hdn_message" value="" />
+                        <input type="hidden" name="orddercancelreturn_requesttype" id="orddercancelreturn_requesttype" value="" />
+                        <div class="mm-action">
+                            <button id="orddercancel_btn_submit" class="btn btn-custom" name="orddercancel_btn_submit" type="submit"><?php echo __('Submit') ?></button>
+                        </div>
+                    </div>
+                </div>
+            </form>
+</div>
+<!--END Request Ticket Creation form for Not eligible Item return and Order cancel-->	
+
+<div id="order-return-ticket-modal-exist" style="display:none;">
+    <span class="already-exist">
+        <strong>A request for this has already been made , Please check under My returns</strong>
+    </span>
+</div>

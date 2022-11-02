@@ -1,0 +1,39 @@
+<?xml version="1.0"?>
+<routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Webapi:etc/webapi.xsd">
+
+    <route url="/V1/order/cancellation/reasons" method="GET">
+        <service class="LuxuryUnlimited\MyReturnsApi\Api\OrderCancelReasonsInterface" method="getReasons"/>
+        <resources>
+            <resource ref="anonymous"/>
+        </resources>
+    </route>
+
+    <route url="/V1/order/cancellation" method="POST">
+        <service class="LuxuryUnlimited\MyReturnsApi\Api\OrderCancelInterface" method="cancelOrder"/>
+        <resources>
+            <resource ref="self"/>
+        </resources>
+    </route>
+
+    <route url="/V1/order/return" method="POST">
+        <service class="LuxuryUnlimited\MyReturnsApi\Api\OrderReturnInterface" method="returnOrder"/>
+        <resources>
+            <resource ref="self"/>
+        </resources>
+    </route>
+
+    <route url="/V1/orderItem/return" method="POST">
+        <service class="LuxuryUnlimited\MyReturnsApi\Api\OrderReturnInterface" method="returnOrderItem"/>
+        <resources>
+            <resource ref="self"/>
+        </resources>
+    </route>
+
+    <route url="/V1/orderItem/cancellation" method="POST">
+        <service class="LuxuryUnlimited\MyReturnsApi\Api\OrderCancelInterface" method="cancelOrderItem"/>
+        <resources>
+            <resource ref="self"/>
+        </resources>
+    </route>
+</routes>

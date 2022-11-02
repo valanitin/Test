@@ -1,0 +1,141 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Plumrocket Inc.
+ *
+ * NOTICE OF LICENSE
+ *
+ * This source file is subject to the End-user License Agreement
+ * that is available through the world-wide-web at this URL:
+ * http://wiki.plumrocket.net/wiki/EULA
+ * If you are unable to obtain it through the world-wide-web, please
+ * send an email to support@plumrocket.com so we can send you a copy immediately.
+ *
+ * @package     Plumrocket_Amp
+ * @copyright   Copyright (c) 2019 Plumrocket Inc. (http://www.plumrocket.com)
+ * @license     http://wiki.plumrocket.net/wiki/EULA  End-user License Agreement
+ */
+-->
+<page layout="pramp" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/page_configuration.xsd">
+    <update handle="amp_default_head_blocks"/>
+    <body>
+        <move element="breadcrumbs" destination="amp.page.top" after="ampTopContainer"/>
+        <!-- BEGIN amp.after.body.start -->
+        <referenceContainer name="amp.after.body.start">
+            <block class="Plumrocket\Amp\Block\Page\Ga" name="amp_google_analytics" as="amp_google_analytics" template="Plumrocket_Amp::googleanalytics/ga.phtml"/>
+            <block class="Plumrocket\Amp\Block\Page\Head\Googletagcode" name="amp.google.tag" />
+            <block class="Plumrocket\Amp\Block\Page\Facebook\Pixel" name="amp_facebook_pixel" template="Plumrocket_Amp::pixel/facebook/default.phtml" />
+        </referenceContainer>
+        <!-- END amp.after.body.start -->
+
+        <!-- BEGIN amp.page.wrapper -->
+        <referenceContainer name="amp.page.wrapper">
+            <!-- BEGIN amp.header.container -->
+            <referenceContainer name="amp.header.container">
+                <container name="amp.header.panel.wrapper" htmlClass="panel wrapper" htmlTag="div" before="-">
+                    <container name="amp.header.panel" label="AMP Page Header Panel" htmlTag="div" htmlClass="panel header">
+                    </container>
+                </container>
+
+                <referenceContainer name="amp.header.top.default.items">
+                    <block class="Magento\Framework\View\Element\Template" name="amp.top.contacts" template="Plumrocket_Amp::html/header/top/contacts.phtml">
+                        <arguments>
+                            <argument name="viewModel" xsi:type="object">Plumrocket\Amp\Helper\Config</argument>
+                        </arguments>
+                    </block>
+                </referenceContainer>
+
+                <container name="amp-header-wrapper" label="AMP Page Header" as="amp-header-wrapper" htmlTag="div" htmlClass="header content">
+                    <block class="Magento\Framework\View\Element\Template" name="amp-header-menu-left" template="Plumrocket_Amp::html/header/header_menu_left.phtml" before="amp.logo"/>
+                    <block class="Plumrocket\Amp\Block\Page\Html\Logo" name="amp.logo" after="amp-header-menu-left">
+                        <arguments>
+                            <argument name="template" xsi:type="string">Plumrocket_Amp::html/header/logo.phtml</argument>
+                            <argument name="logo_img_width" xsi:type="number">148</argument>
+                            <argument name="logo_img_height" xsi:type="number">43</argument>
+                        </arguments>
+                    </block>
+                    <block class="Magento\Framework\View\Element\Template" name="amp.top.switchers" template="Plumrocket_Amp::html/header/top/switchers.phtml">
+                        <arguments>
+                            <argument name="viewModel" xsi:type="object">Plumrocket\Amp\Helper\Config</argument>
+                        </arguments>
+                        <block class="Plumrocket\Amp\Block\Page\Switcher\Store" name="amp.switcher.store" template="Plumrocket_Amp::page/switch/store.phtml">
+                            <block class="Plumrocket\Amp\Block\Page\Flag" name="flag_renderer" template="Plumrocket_Amp::page/flag.phtml"/>
+                        </block>
+                        <block class="Plumrocket\Amp\Block\Page\Switcher\Currency" name="amp.switcher.currency" template="Plumrocket_Amp::page/switch/currency.phtml" />
+                    </block>
+                    <block class="Plumrocket\Amp\Block\Page\Html\Header\Menu\Right" name="amp-header-menu-right" template="Plumrocket_Amp::html/header/header_menu_right.phtml">
+                        <block class="Plumrocket\Amp\Block\Catalogsearch\Form" name="amp_catalogsearch_form" template="Plumrocket_Amp::catalogsearch/form_mini.phtml"/>
+                        <block class="Plumrocket\Amp\Block\Customer\Account\AuthorizationLink" name="amp-authorization-link-login" template="Plumrocket_Amp::account/link/authorization.phtml"/>
+                    </block>
+
+                </container>
+            </referenceContainer>
+            <!-- END amp.header.container -->
+
+            <!-- BEGIN page top and top menu-->
+            <referenceContainer name="amp.page.top">
+                <block class="Magento\Framework\View\Element\Template" name="amp.navigation.sections" before="-" template="Plumrocket_Amp::html/sections.phtml">
+                    <arguments>
+                        <argument name="group_name" xsi:type="string">amp-navigation-sections</argument>
+                        <argument name="group_css" xsi:type="string">amp-nav-sections</argument>
+                    </arguments>
+
+                    <block class="Magento\Framework\View\Element\Template" name="amp.store.menu" group="amp-navigation-sections" template="Magento_Theme::html/container.phtml">
+                        <block class="Plumrocket\Amp\Block\Page\Html\Topmenu" name="amp.catalog.topnav" template="Plumrocket_Amp::html/header/topmenu.phtml" before="-"/>
+                    </block>
+                </block>
+                <container name="amp.top.container" as="ampTopContainer" label="After Page Header Top" htmlTag="div" htmlClass="top-container"/>
+            </referenceContainer>
+            <!-- END page top and top menu-->
+
+            <!-- BEGIN amp.global.notices -->
+            <referenceContainer name="amp.global.notices">
+                <!-- INSERT NOTICES BLOCK -->
+            </referenceContainer>
+            <!-- END amp.global.notices -->
+
+            <!-- BEGIN MAIN CONTENT -->
+            <referenceContainer name="amp.main.content">
+                <referenceContainer name="amp.columns.top">
+                    <block class="Magento\Theme\Block\Html\Title" name="page.main.title" template="Plumrocket_Amp::html/title.phtml" before="-"/>
+                    <container name="amp.page.messages" htmlTag="div" htmlClass="amp-page-messages">
+                        <block class="Plumrocket\Amp\Block\Page\Html\Messages" name="amp.messages" as="amp.messages" template="Plumrocket_Amp::html/messages.phtml"/>
+                    </container>
+                    <container name="amp.global" label="AMP Global Container">
+                        <container name="amp.global.ajax.forms" label="AMP Global Ajax Forms Container"/>
+                    </container>
+                </referenceContainer>
+            </referenceContainer>
+            <!-- END MAIN CONTENT -->
+
+            <!-- BEGIN amp.page.bottom.container -->
+            <referenceContainer name="amp.page.bottom.container">
+                <container name="amp.footer.container">
+                    <block class="Plumrocket\Amp\Block\Page\Footer" name="amp.footer" as="amp.footer" template="Plumrocket_Amp::footer.phtml">
+                        <block class="Magento\Cms\Block\Block" name="amp.footer.links">
+                            <arguments>
+                                <argument name="block_id" xsi:type="string">amp_footer_links</argument>
+                            </arguments>
+                        </block>
+                    </block>
+                </container>
+            </referenceContainer>
+            <!-- END amp.page.bottom.container -->
+
+            <!-- BEGIN amp.before.body.end -->
+            <referenceContainer name="amp.before.body.end">
+                <block class="Magento\Cookie\Block\Html\Notices" name="amp_cookie_notices" template="Plumrocket_Amp::html/notices.phtml" after="-" />
+                <block class="Plumrocket\Amp\Block\Page\Zopim" name="amp.zopim.live.chat" template="Plumrocket_Amp::html/zopim.phtml" after="-" />
+                <block class="Magento\Framework\View\Element\Template" name="amp.global.state" template="Plumrocket_Amp::page/global/state.phtml">
+                    <arguments>
+                        <argument name="viewModel" xsi:type="object">Plumrocket\Amp\ViewModel\GlobalState</argument>
+                    </arguments>
+                </block>
+            </referenceContainer>
+            <!-- END amp.before.body.end -->
+
+        </referenceContainer>
+        <!-- END amp.page.wrapper -->
+    </body>
+    <update handle="amp_global_ajax_forms"/>
+</page>

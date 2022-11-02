@@ -1,0 +1,12 @@
+<?php
+
+    $dynamicHelper = $this->helper("Dynamic\Customization\Helper\Data");    
+    $coreSession = $dynamicHelper->getSessionManager();
+    $coreSession->start();
+    
+?>
+<div class="fpass">	
+<h3><?= $block->escapeHtml(__('Forgot Your Password?')) ?></h3>
+<p><?= $block->escapeHtml(__('If there is a account associated with')) ?> ( <?php echo $coreSession->getData('femail'); ?> ) <?= $block->escapeHtml(__('we will send you a email with the instructions to reset your password. If you need any further assistance pls')) ?></p> 
+<p><a href="<?php echo $block->getBaseUrl(); ?>"><?= $block->escapeHtml(__('Continue Shopping')) ?></a></p>
+ <p><a href="<?php echo $block->getUrl('customer/account/login'); ?>"><?= $block->escapeHtml(__('Back to sign in screen')) ?></a></p>

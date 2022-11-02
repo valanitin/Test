@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+/**
+ * @author Amasty Team
+ * @copyright Copyright (c) 2021 Amasty (https://www.amasty.com)
+ * @package SortingMFTF3
+ */
+-->
+<entities xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+          xsi:noNamespaceSchemaLocation="urn:magento:mftf:DataGenerator/etc/dataProfileSchema.xsd">
+
+    <entity name="ISTestCategoryA1" type="ISTestCategory">
+        <data key="parent_id">2</data>
+        <data key="name">Test Category</data>
+        <data key="is_active">true</data>
+        <data key="include_in_menu">true</data>
+        <requiredEntity type="attribute_code">CategoryUrl</requiredEntity>
+    </entity>
+
+    <entity name="CategoryUrl" type="attribute_code">
+        <data key="attribute_code">url_key</data>
+        <data key="value">am-test-category</data>
+    </entity>
+
+</entities>

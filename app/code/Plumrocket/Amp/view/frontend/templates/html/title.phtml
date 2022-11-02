@@ -1,0 +1,32 @@
+<?php
+/**
+ * Plumrocket Inc.
+ *
+ * NOTICE OF LICENSE
+ *
+ * This source file is subject to the End-user License Agreement
+ * that is available through the world-wide-web at this URL:
+ * http://wiki.plumrocket.net/wiki/EULA
+ * If you are unable to obtain it through the world-wide-web, please
+ * send an email to support@plumrocket.com so we can send you a copy immediately.
+ *
+ * @package     Plumrocket_Amp
+ * @copyright   Copyright (c) 2016 Plumrocket Inc. (http://www.plumrocket.com)
+ * @license     http://wiki.plumrocket.net/wiki/EULA  End-user License Agreement
+ */
+?>
+<?php
+$cssClass = $block->getCssClass() ? ' ' . $block->getCssClass() : '';
+$title = '';
+if (trim($block->getPageHeading())) {
+    $title = '<span class="base">' . $block->escapeHtml($block->getPageHeading()) . '</span>';
+}
+?>
+<?php if ($title): ?>
+<div class="page-title-wrapper<?php /* @escapeNotVerified */ echo $cssClass; ?>">
+    <h1 class="page-title" <?php if ($block->getId()): ?> id="<?php /* @escapeNotVerified */ echo $block->getId();?>" <?php endif; ?>>
+        <?php /* @escapeNotVerified */ echo $title ?>
+    </h1>
+    <?php echo $block->getChildHtml(); ?>
+</div>
+<?php endif; ?>

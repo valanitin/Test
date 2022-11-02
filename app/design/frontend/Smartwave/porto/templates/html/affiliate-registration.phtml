@@ -1,0 +1,286 @@
+<?php
+$dynamicHelper = $this->helper("Dynamic\Customization\Helper\Data");
+$storeManager = $dynamicHelper->getStoreManager();
+$storeCode = $storeManager->getStore()->getCode();
+$countryHelper = $dynamicHelper->getCountry();
+$siteUrl = $dynamicHelper->getBaseUrl();
+
+$countryCollection = $countryHelper->toOptionArray();
+if (!empty($_POST)) {
+    $firstname = $_POST['firstname'];
+    $lastname = $_POST['lastname'];
+    $websitename = $_POST['website2'];
+    $websiteurl = $_POST['url'];
+    $email = $_POST['email'];
+    $phone = $_POST['phone'];
+    $visitors = $_POST['visitors'];
+    $views = $_POST['views'];
+    $street = $_POST['street'];
+    $street2 = $_POST['street2'];
+    $city = $_POST['city'];
+    $postcode = $_POST['postcode'];
+    $country = $_POST['country'];
+    $storewebsite = $siteUrl;
+
+    $company = $_POST['company'];
+    $dateestablished = $_POST['dateestablished'];
+    $businesmodel = $_POST['businesmodel'];
+    $comment = $_POST['comment'];
+    $category = $_POST['category'];
+    $gender = $_POST['gender'];
+
+    $age18 = $_POST['age18'];
+    $age18_25 = $_POST['age18_25'];
+    $age26_35 = $_POST['age26_35'];
+    $age36_50 = $_POST['age36_50'];
+    $age51_65 = $_POST['age51_65'];
+    $age65 = $_POST['age65'];
+    // echo $firstname.'=='.$lastname.'=='.$websitename.'='.$websiteurl.'='.$email.'='.$phone.'='.$visitors.'='.$views.'='.$street.'='.$city.'='.$postcode.'='.$country.'='.$storewebsite.'<br/>';
+
+    $url = 'https://erp.theluxuryunlimited.com/api/affiliate/add';
+
+    //Initiate cURL.
+    $ch = curl_init($url);
+
+    //The JSON data.
+    $newjsonData = array(
+        "website" => $storewebsite,
+        "first_name" => $firstname,
+        "last_name" => $lastname,
+        "phone" => $phone,
+        "emailaddress" => $email,
+        "website_name" => $websitename,
+        "url" => $websiteurl,
+        "unique_visitors_per_month" => $visitors,
+        "page_views_per_month" => $views,
+        "street_address" => $street,
+        "street_address2" => $street2,
+        "city" => $city,
+        "postcode" => $postcode,
+        "country" => $country,
+        "lang_code" => $storeCode,
+
+        "company" => $company,
+        "dateestablished" => $dateestablished,
+        "businesmodel" => $businesmodel,
+        "comment" => $comment,
+        "category" => $category,
+
+        "age18" => $age18,
+        "age18_25" => $age18_25,
+        "age26_35" => $age26_35,
+        "age36_50" => $age36_50,
+        "age51_65" => $age51_65,
+        "age65" => $age65,
+    );
+
+    //Encode the array into JSON.
+    $jsonDataEncoded = json_encode($newjsonData);
+
+    //Tell cURL that we want to send a POST request.
+    curl_setopt($ch, CURLOPT_POST, 1);
+
+    //Attach our encoded JSON string to the POST fields.
+    curl_setopt($ch, CURLOPT_POSTFIELDS, $jsonDataEncoded);
+
+    //Set the content type to application/json
+    curl_setopt($ch, CURLOPT_HTTPHEADER, array('Content-Type: application/json'));
+    curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
+    // Return response instead of outputting
+    // curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+
+    //Execute the request
+    try {
+        $result = curl_exec($ch);
+        $result = json_decode($result, true);
+        // print_r($result);
+        $status = $result['status'];
+        $message = $result['message'];
+        if ($status == 'success') {
+            echo '<div class="message-container"><div class="aff-success">' . $message . '<span id="close-message">X</span></div></div>';
+        } else {
+            echo '<div class="message-container"><div class="aff-failed">' . $message . '<span id="close-message">X</span></div></div>';
+        }
+        $err = curl_error($ch);
+
+        curl_close($ch);
+
+        // $logger->log(Zend\Log\Logger::INFO, $result.date('Y-m-d H:i:s'));
+    } catch (Exception $e) {
+        // $logger->log(Zend\Log\Logger::INFO, $e.'=='.date('Y-m-d H:i:s'));
+    }
+
+}
+
+?>
+
+<div class="returns-container affiliate-container cls_shipping_panelmain">
+    <div class="returns-left">
+        <div class="returns-content-left">
+            <!-- <div class="contentBlock">
+              <h3>Track your order</h3>
+              <span class="req-fields">* required fields</span>
+              <p style="text-align:center;">Enter your order reference and email address below to see your order details. From there you can check its shipping status, cancel items or make a return.</p>
+            </div> -->
+            <div class="formBlock">
+                <form method="post">
+                    <div class="personal-info mar-bot">
+                        <h3><i class="porto-icon-user"></i><?php echo __('Profile') ?></h3>
+                        <div class="form-control field_fname">
+                            <!-- <label>First Name:</label> -->
+                            <div class="main">
+                                <select name="name_with_initials" id="initial" class="name_initial">
+                                    <option selected="selected" value="mr."><?php echo __('Mr.'); ?></option>
+                                    <option value="mrs."><?php echo __('Mrs.'); ?></option>
+                                    <option value="miss."><?php echo __('Miss.'); ?></option>
+                                </select>
+                                <input type="text" class="form-control" id="firstname" name="firstname"
+                                       placeholder="<?php echo __('First Name'); ?>" required>
+                            </div>
+                        </div>
+                        <div class="form-control field_lname">
+                            <!-- <label>Last Name:</label> -->
+                            <input type="text" class="form-control" placeholder="<?php echo __('Last Name') ?>"
+                                   id="lastname" name="lastname" required>
+                        </div>
+                        <div class="form-control field_email">
+                            <!-- <label>Email:</label> -->
+                            <input type="email" class="form-control" placeholder="<?php echo __('Email') ?>" required
+                                   id="email" name="email">
+                        </div>
+                        <div class="form-control field_contact">
+                            <!-- <label>Contact No:</label> -->
+                            <input type="text" class="form-control" placeholder="<?php echo __('Contact No') ?>"
+                                   required id="phone" name="phone">
+                        </div>
+                        <div class="form-control field_company">
+                            <!-- <label>URL:</label> -->
+                            <input type="text" class="form-control" id="company" name="company"
+                                   placeholder="<?php echo __('Company name') ?>" required>
+                        </div>
+                        <div class="form-control field_street1">
+                            <!-- <label>Street Address:</label> -->
+                            <input type="text" class="form-control" id="street1" name="street"
+                                   placeholder="<?php echo __('Street Address 1') ?>">
+                        </div>
+                        <div class="form-control field_street2">
+                            <!-- <label>Street Address:</label> -->
+                            <input type="text" class="form-control" id="street2" name="street2"
+                                   placeholder="<?php echo __('Street Address 2') ?>">
+                        </div>
+                        <div class="form-control field_city">
+                            <!-- <label>City:</label> -->
+                            <input type="text" class="form-control" placeholder="<?php echo __('City') ?>" id="city"
+                                   name="city" required>
+                        </div>
+                        <div class="form-control field_country">
+                            <!-- <label>Country:</label> -->
+                            <select name="country" required id="country">
+                                <option><?php echo __('Select Country') ?></option>
+                                <?php foreach ($countryCollection as $key => $country) {
+                                    if ($key > 0) {
+                                        ?>
+                                        <option value="<?php echo $country['label']; ?>"><?php echo __($country['label']) ?></option>
+                                    <?php }
+                                } ?>
+                            </select>
+                        </div>
+                        <div class="form-control field_post">
+                            <!-- <label>Post Code:</label> -->
+                            <input type="text" class="form-control" id="postcode" name="postcode"
+                                   placeholder="<?php echo __('Post Code') ?>">
+                        </div>
+                    </div>
+                    <div class="company-info mar-bot">
+                        <h3>
+                            <!-- <i class="porto-icon-info-circled-alt"></i> --><?php echo __('Website Information') ?></h3>
+                        <div class="form-control field_website">
+                            <!--                           <label>Website Name:</label>-->
+                            <input type="text" class="form-control" id="website2" name="website2"
+                                   placeholder="Website Name:" required>
+                        </div>
+                        <div class="form-control field_url">
+                            <!-- <label>URL:</label> -->
+                            <input type="url" class="form-control" id="url" name="url"
+                                   placeholder="<?php echo __('Website URL') ?>" required>
+                        </div>
+                        <div class="form-control field_date">
+                            <!-- <label>URL:</label> -->
+                            <div><?php echo __('Date Established') ?><input type="date" class="form-control"
+                                                                            id="dateestablished"
+                                                                            name="dateestablished"/>
+                            </div>
+                        </div>
+                        <div class="form-control field_viitor">
+                            <!-- <label>Unique Visitors/Month:</label> -->
+                            <select name="visitors" required id="visitors">
+                                <option><?php echo __('Select Unique Visitors/Month:') ?></option>
+                                <option><?php echo __('Less than 500') ?></option>
+                                <option><?php echo __('500 to 1000') ?></option>
+                                <option><?php echo __('Over 1000') ?></option>
+                            </select>
+                        </div>
+                        <div class="form-control field_view">
+                            <!-- <label>Page Views/Month:</label> -->
+                            <select name="views" required id="views">
+                                <option><?php echo __('Select Page Views/Month:') ?></option>
+                                <option><?php echo __('Less than 500') ?></option>
+                                <option><?php echo __('500 to 1000') ?></option>
+                                <option><?php echo __('Over 1000') ?></option>
+                            </select>
+                        </div>
+                        <div class="form-control field_model">
+                            <select name="businesmodel" required id="businesmodel">
+                                <option><?php echo __('Primary Business Model') ?></option>
+                            </select>
+                        </div>
+                        <div class="form-control field_desc">
+                            <textarea name="comment" id="comment"  class="form-control" title="Short Descriptions"
+                                      placeholder="Short Descriptions" cols="5" rows="5"></textarea>
+                        </div>
+                        <div class="form-control field_category">
+                            <select name="category" required id="category">
+                                <option><?php echo __('Primary Category') ?></option>
+                            </select>
+                        </div>
+                        <div class="form-control field_adddcat">
+                            <a href="#">Add aditional category</a>
+                        </div>
+                        <div class="form-control field_gender">
+                            <label>Gender</label>
+                            <div>
+                                <div><input type="radio" name="gender" value="Mostly Male"/> Mostly Male</div>
+                                <div><input type="radio" name="gender" value="Mostly Female"/> Mostly Female</div>
+                                <div><input type="radio" name="gender" value="Both"/> Both</div>
+                            </div>
+                        </div>
+                        <div class="form-control field_age">
+                            <label>Age</label>
+                            <div>
+                                <div><input type="checkbox" name="age18" value="true"/> Under 18</div>
+                                <input type="hidden" name="age18" value="false"/>
+                                <div><input type="checkbox" name="age18_25" value="true"/> 18-25</div>
+                                <input type="hidden" name="age18_25" value="false"/>
+                                <div><input type="checkbox" name="age26_35" value="true"/> 26-35</div>
+                                <input type="hidden" name="age26_35" value="false"/>
+                                <div><input type="checkbox" name="age36_50" value="true"/> 36-50</div>
+                                <input type="hidden" name="age36_50" value="false"/>
+                                <div><input type="checkbox" name="age51_65" value="true"/> 51-65</div>
+                                <input type="hidden" name="age51_65" value="false"/>
+                                <div><input type="checkbox" name="age65" value="true"/> Over 65</div>
+                                <input type="hidden" name="age65" value="false"/>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="sendinfo" style="text-align: center;">
+                        <input type="submit" class="send-request btn btn-primary return-submit"
+                               value="<?php echo __('Submit') ?>" id="aff-submit" name="aff-submit">
+                    </div>
+                </form>
+            </div>
+
+        </div>
+    </div>
+
+</div>

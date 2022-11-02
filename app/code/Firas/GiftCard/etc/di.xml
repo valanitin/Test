@@ -1,0 +1,66 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * @Author      Firas Developers
+ * @package     Firas_GiftCard
+ * @copyright   Copyright (c) 2019 MAGETOP (https://www.firas.com)
+ * @terms       https://www.firas.com/terms
+ * @license     https://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
+ **/
+-->
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:ObjectManager/etc/config.xsd">
+    <preference for="Magento\Catalog\Block\Adminhtml\Product" type="Firas\GiftCard\Block\Adminhtml\ProductType\Product"/>
+    <!--<preference for="Magento\Sales\Model\Service\CreditmemoService" type="Firas\GiftCard\Model\Service\CreditmemoService"/>-->
+    <preference for="Magento\Sales\Model\Order\CreditmemoFactory" type="Firas\GiftCard\Model\Order\CreditmemoFactory"/>
+    <!--<type name="Magento\Sales\Model\Order\CreditmemoFactory">
+        <plugin name="Firas_GiftCard_CreditmemoFactory" type="Firas\GiftCard\Plugin\CreditmemoFactory" sortOrder="1" disabled="false"/>
+    </type>-->
+    <type name="Magento\Sales\Model\Service\CreditmemoService">
+        <plugin name="Firas_GiftCard_CreditmemoService" type="Firas\GiftCard\Plugin\CreditmemoService" sortOrder="1" disabled="false"/>
+    </type>
+    <type name="Magento\Catalog\Ui\DataProvider\Product\Form\ProductDataProvider">
+        <plugin name="Firas_GiftCard_ProductDataProvider" type="Firas\GiftCard\Plugin\ProductDataProvider" sortOrder="1" disabled="false"/>
+    </type>
+    <type name="Magento\Framework\View\Element\UiComponent\DataProvider\CollectionFactory">
+        <arguments>
+            <argument name="collections" xsi:type="array">
+                <item name="giftcard_giftcard_listing_data_source" xsi:type="string">Firas\GiftCard\Model\ResourceModel\GiftDetail\Grid\Collection</item>
+            </argument>
+        </arguments>
+    </type>
+    <type name="Firas\GiftCard\Model\ResourceModel\GiftDetail\Grid\Collection">
+        <arguments>
+            <argument name="mainTable" xsi:type="string">firas_gift</argument>
+            <argument name="eventPrefix" xsi:type="string">giftcard_giftcard_listing_collection</argument>
+            <argument name="eventObject" xsi:type="string">giftcard_giftcard_listing_collection</argument>
+            <argument name="resourceModel" xsi:type="string">Firas\GiftCard\Model\ResourceModel\GiftDetail</argument>
+        </arguments>
+    </type>
+    <virtualType name="GiftDetailGridDataProvider" type="Magento\Framework\View\Element\UiComponent\DataProvider\DataProvider">
+        <arguments>
+            <argument name="collection" xsi:type="object" shared="false">Firas\GiftCard\Model\ResourceModel\GiftDetail\Grid\Collection</argument>
+            <argument name="filterPool" xsi:type="object" shared="false">GiftDetailGridDataProvider</argument>
+        </arguments>
+    </virtualType>	
+    <type name="Magento\Framework\View\Element\UiComponent\DataProvider\CollectionFactory">
+        <arguments>
+            <argument name="collections" xsi:type="array">
+                <item name="giftcard_giftuser_listing_data_source" xsi:type="string">Firas\GiftCard\Model\ResourceModel\GiftUser\Grid\Collection</item>
+            </argument>
+        </arguments>
+    </type>
+    <type name="Firas\GiftCard\Model\ResourceModel\GiftUser\Grid\Collection">
+        <arguments>
+            <argument name="mainTable" xsi:type="string">firas_giftuser</argument>
+            <argument name="eventPrefix" xsi:type="string">giftcard_giftuser_listing_collection</argument>
+            <argument name="eventObject" xsi:type="string">giftcard_giftuser_listing_collection</argument>
+            <argument name="resourceModel" xsi:type="string">Firas\GiftCard\Model\ResourceModel\GiftUser</argument>
+        </arguments>
+    </type>
+    <virtualType name="GiftUserDetailGridDataProvider" type="Magento\Framework\View\Element\UiComponent\DataProvider\DataProvider">
+        <arguments>
+            <argument name="collection" xsi:type="object" shared="false">Firas\GiftCard\Model\ResourceModel\GiftUser\Grid\Collection</argument>
+            <argument name="filterPool" xsi:type="object" shared="false">GiftUserDetailGridDataProvider</argument>
+        </arguments>
+    </virtualType>
+</config>

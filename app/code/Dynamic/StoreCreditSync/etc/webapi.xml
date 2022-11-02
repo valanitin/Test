@@ -1,0 +1,15 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Copyright © Swarming Technology, LLC. All rights reserved.
+ */
+-->
+<routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Webapi:etc/webapi.xsd">
+    
+    <route url="/V1/store/credits/balance/:customerId" method="GET">
+        <service class="Dynamic\StoreCreditSync\Api\CreditManagerInterface" method="getBalance"/>
+        <resources>
+            <resource ref="Dynamic_StoreCreditSync::api" />
+        </resources>
+    </route>
+</routes>

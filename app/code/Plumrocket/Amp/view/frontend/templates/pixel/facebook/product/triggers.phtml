@@ -1,0 +1,59 @@
+<?php
+/**
+ * Plumrocket Inc.
+ *
+ * NOTICE OF LICENSE
+ *
+ * This source file is subject to the End-user License Agreement
+ * that is available through the world-wide-web at this URL:
+ * http://wiki.plumrocket.net/wiki/EULA
+ * If you are unable to obtain it through the world-wide-web, please
+ * send an email to support@plumrocket.com so we can send you a copy immediately.
+ *
+ * @package     Plumrocket_Amp v2.x.x
+ * @copyright   Copyright (c) 2018 Plumrocket Inc. (http://www.plumrocket.com)
+ * @license     http://wiki.plumrocket.net/wiki/EULA  End-user License Agreement
+ */
+
+/**
+ * @var $block \Plumrocket\Amp\Block\Page\Facebook\Pixel
+ */
+
+$product = $block->getProduct();
+?>
+
+,"trackViewContent": {
+    "on": "visible",
+    "request": "eventViewContent",
+    "vars": {
+        "value": "<?php echo $block->escapeHtml($product->getData('price')); ?>",
+        "currency": "<?php echo $block->escapeHtml($block->getCurrencyCode()); ?>",
+        "content_name": "<?php echo $block->escapeHtml($product->getName()); ?>",
+        "content_type": "product",
+        "content_ids": "<?php echo $block->escapeHtml($product->getId()); ?>"
+    }
+},
+"trackAddToCart": {
+    "on": "click",
+    "selector": ".btn-cart",
+    "request": "eventAddToCart",
+    "vars": {
+        "value": "<?php echo $block->escapeHtml($product->getData('price')); ?>",
+        "currency": "<?php echo $block->escapeHtml($block->getCurrencyCode()); ?>",
+        "content_name": "<?php echo $block->escapeHtml($product->getName()); ?>",
+        "content_type": "product",
+        "content_ids": "<?php echo $block->escapeHtml($product->getId()); ?>"
+    }
+},
+"trackAddToWishlist": {
+    "on": "click",
+    "selector": ".wish-list",
+    "request": "eventAddToWishlist",
+    "vars": {
+        "value": "<?php echo $block->escapeHtml($product->getData('price')); ?>",
+        "currency": "<?php echo $block->escapeHtml($block->getCurrencyCode()); ?>",
+        "content_name": "<?php echo $block->escapeHtml($product->getTitle()); ?>",
+        "content_type": "product",
+        "content_ids": "<?php echo $block->escapeHtml($product->getId()); ?>"
+     }
+}

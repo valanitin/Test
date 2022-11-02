@@ -1,0 +1,67 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Plumrocket Inc.
+ *
+ * NOTICE OF LICENSE
+ *
+ * This source file is subject to the End-user License Agreement
+ * that is available through the world-wide-web at this URL:
+ * http://wiki.plumrocket.net/wiki/EULA
+ * If you are unable to obtain it through the world-wide-web, please
+ * send an email to support@plumrocket.com so we can send you a copy immediately.
+ *
+ * @package     Plumrocket_Amp
+ * @copyright   Copyright (c) 2017 Plumrocket Inc. (http://www.plumrocket.com)
+ * @license     http://wiki.plumrocket.net/wiki/EULA  End-user License Agreement
+ */
+ -->
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Store:etc/config.xsd">
+    <default>
+        <pramp>
+            <general>
+                <pages>catalog_category_view,catalog_product_view,cms_index_index,cms_page_view,catalogsearch_result_index</pages>
+                <force_mobile>false</force_mobile>
+                <force_tablet>false</force_tablet>
+                <amp_option_iframe>1</amp_option_iframe>
+                <amp_iframe_path>/ampiframe.php</amp_iframe_path>
+                <serial></serial>
+                <load_over_cdn>false</load_over_cdn>
+                <ignore_page_amp_cdn>/customer/
+/checkout/</ignore_page_amp_cdn>
+            </general>
+            <social>
+                <sharing_enabled>1</sharing_enabled>
+                <share_button>email,facebook,linkedin,pinterest,tumblr,twitter,whatsapp</share_button>
+            </social>
+            <front_design>
+                <navigation_menu_text_color>#636363</navigation_menu_text_color>
+                <link_color>#39C</link_color>
+                <link_color_hover>#39C</link_color_hover>
+                <button_bg_color>#39C</button_bg_color>
+                <button_bg_color_hover>#1287c1</button_bg_color_hover>
+                <button_text_color>#fff</button_text_color>
+                <icon_color>#39C</icon_color>
+                <button_text_color_hover>#fff</button_text_color_hover>
+                <price_text_color>#3399CC</price_text_color>
+            </front_design>
+            <header>
+                <search_enabled>1</search_enabled>
+                <tel>+18001234567</tel>
+                <mail>support@example.com</mail>
+                <store_switcher>1</store_switcher>
+                <currency_switcher>1</currency_switcher>
+            </header>
+            <logo>
+                <logo_width>272</logo_width>
+                <logo_height>90</logo_height>
+            </logo>
+            <zopim>
+                <zopim_enabled>0</zopim_enabled>
+                <zopim_button_label>Live Chat</zopim_button_label>
+                <zopim_button_bg_color>#25b90a</zopim_button_bg_color>
+                <zopim_button_text_color>#fff</zopim_button_text_color>
+            </zopim>
+        </pramp>
+    </default>
+</config>

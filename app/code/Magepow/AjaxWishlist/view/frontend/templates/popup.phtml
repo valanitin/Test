@@ -1,0 +1,29 @@
+<?php
+/**
+ * @copyright Copyright © 2021 Magepow. All rights reserved.
+ * @author    Magepow
+ * @category Magepow
+ * @copyright Copyright (c) 2014 Magepow (<https://www.magepow.com>)
+ * @license <https://www.magepow.com/license-agreement.html>
+ * @Author: magepow<support@magepow.com>
+ * @github: <https://github.com/magepow>
+ */
+/**
+ * @var \Magento\Catalog\Block\Product\AbstractProduct $block
+ */
+?>
+
+<?php 
+$helper = $this->helper('Magepow\AjaxWishlist\Helper\Data');
+if(!$helper->getConfigModule('general/enabled')) return;
+$_product = $block->getProduct();
+$imageDisplayArea = 'category_page_grid';
+?>
+<div class="mgp-wishlist-popup-border ajaxwishlist-success-box">
+    <div class="ajax-wishlist-image">
+        <h2 class="product-name"><?php echo $_product->getName() ?></h2>
+    </div>
+    <div class="ajaxwishlist-buttons">
+        <button class="action action-dismiss" type="button" data-role="action"><span>Close</span></button>
+    </div>
+</div>

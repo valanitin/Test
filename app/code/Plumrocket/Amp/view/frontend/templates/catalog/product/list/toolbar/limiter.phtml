@@ -1,0 +1,42 @@
+<?php
+/**
+ * Plumrocket Inc.
+ *
+ * NOTICE OF LICENSE
+ *
+ * This source file is subject to the End-user License Agreement
+ * that is available through the world-wide-web at this URL:
+ * http://wiki.plumrocket.net/wiki/EULA
+ * If you are unable to obtain it through the world-wide-web, please
+ * send an email to support@plumrocket.com so we can send you a copy immediately.
+ *
+ * @package     Plumrocket_Amp
+ * @copyright   Copyright (c) 2016 Plumrocket Inc. (http://www.plumrocket.com)
+ * @license     http://wiki.plumrocket.net/wiki/EULA  End-user License Agreement
+ */
+?>
+<?php
+/**
+ * Product list toolbar
+ *
+ * @var $block \Magento\Catalog\Block\Product\ProductList\Toolbar
+ */
+use Magento\Catalog\Model\Product\ProductList\Toolbar as ToolbarModel;
+?>
+<div class="field limiter">
+    <label class="label" for="limiter">
+        <span><?php /* @escapeNotVerified */ echo __('Show') ?></span>
+    </label>
+    <div class="control">
+        <div class="limiter-options">
+            <?php foreach ($block->getAvailableLimit() as $_key => $_limit) : ?>
+                <?php if ($this->isLimitCurrent((string)$_limit)) : ?>
+                    <?php /* @escapeNotVerified */ echo $_limit ?>
+                <?php else : ?>
+                    <a href="<?php echo $block->getPagerUrl(array(ToolbarModel::LIMIT_PARAM_NAME => $_key)) ?>"><?php /* @escapeNotVerified */ echo $_limit ?></a>
+                <?php endif; ?>
+            <?php endforeach; ?>
+        </div>
+    </div>
+    <span class="limiter-text"><?php /* @escapeNotVerified */ echo __('per page') ?></span>
+</div>

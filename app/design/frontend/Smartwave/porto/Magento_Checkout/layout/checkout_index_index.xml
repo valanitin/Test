@@ -1,0 +1,18 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Copyright © 2015 Magento. All rights reserved.
+ * See COPYING.txt for license details.
+ */
+-->
+<page xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" layout="1column" xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/page_configuration.xsd">
+    <head>
+       <!--  <remove src="js/firebase.js"/> -->
+    </head>
+    <body>
+        <move element="logo" destination="porto_header"/>
+        <referenceContainer name="content">
+            <block class="Firas\DonationProduct\Block\Donation\ListProduct" name="checkout.donation.list" before="-" template="donation.phtml" ifconfig="firas_donation_product/layout/cart_enabled"/>
+        </referenceContainer>
+    </body>
+</page>

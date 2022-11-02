@@ -1,0 +1,43 @@
+<?php
+/**
+ * Copyright © Magento, Inc. All rights reserved.
+ * See COPYING.txt for license details.
+ */
+
+/** @var \Magento\Customer\Block\Newsletter $block */
+?>
+<?= $block->getChildHtml('form_before') ?>
+<form class="form form-newsletter-manage" action="<?= $block->escapeUrl($block->getAction()) ?>" method="post"
+    id="form-validate">
+    <fieldset class="fieldset">
+        <?= $block->getBlockHtml('formkey') ?>
+        <legend class="legend"><span><?= $block->escapeHtml(__('Communication Preferences')) ?></span></legend><br>
+        <p class="subscript">
+            <?= $block->escapeHtml(__('Subscribe to be the first with our new arrivals, exclusive collections, offers and more.')) ?>
+        </p>
+        <p class="ounass">
+            <?= $block->escapeHtml(__('Subscibe to ounass newsletters.')) ?>
+        </p>  
+        <div class="field choice subscription-choice">
+            <input type="checkbox" name="is_subscribed" id="subscription_email" value="1"
+                title="<?= $block->escapeHtmlAttr(__('General Subscription')) ?>"
+                <?php if ($block->getIsSubscribed()) : ?> checked="checked" <?php endif; ?> class="checkbox">
+            <label for="subscription_email" class="label"><span><?= $block->escapeHtml(__('Email')) ?></span></label>
+            <input type="checkbox" name="is_subscribed" id="subscription_sms" value="1"
+                title="<?= $block->escapeHtmlAttr(__('General Subscription')) ?>"
+                <?php if ($block->getIsSubscribed()) : ?> checked="checked" <?php endif; ?> class="checkbox sec_check">
+            <label for="subscription_sms" class="label"><span><?= $block->escapeHtml(__('Sms')) ?></span></label>
+        </div>
+        <?php /* Extensions placeholder */ ?>
+        <?= $block->getChildHtml('customer.form.newsletter.extra') ?>
+    </fieldset>
+    <div class="actions-toolbar">
+        <div class="primary"><button type="submit" title="<?= $block->escapeHtmlAttr(__('Save')) ?>"
+                class="action save primary"><span><?= $block->escapeHtml(__('Save')) ?></span></button></div>
+        <div class="secondary"><a class="action back"
+                href="<?= $block->escapeUrl($block->getBackUrl()) ?>"><span><?= $block->escapeHtml(__('Back')) ?></span></a>
+        </div>
+    </div>
+</form>
+<?php /* Extensions placeholder */ ?>
+<?= $block->getChildHtml('customer.form.newsletter.extra2') ?>

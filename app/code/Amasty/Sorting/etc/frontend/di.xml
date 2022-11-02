@@ -1,0 +1,30 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * @author Amasty Team
+ * @copyright Copyright (c) 2020 Amasty (https://www.amasty.com)
+ * @package Amasty_Sorting
+ */
+-->
+
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:ObjectManager/etc/config.xsd">
+    <type name="Magento\Catalog\Block\Product\ProductList\Toolbar">
+        <plugin name="Amasty_Sorting::catalogToolbar" type="Amasty\Sorting\Plugin\Catalog\Product\ProductList\Toolbar"/>
+    </type>
+    <type name="Magento\Catalog\Model\ResourceModel\Product\Collection">
+        <plugin name="Amasty_Sorting::SortingMethodsProcessor" type="Amasty\Sorting\Plugin\Catalog\Product\Collection"/>
+    </type>
+    <type name="Magento\CatalogSearch\Block\Result">
+        <plugin name="Amasty_Sorting::SetDefaultSortBy" type="Amasty\Sorting\Plugin\Block\Result"/>
+    </type>
+    <type name="Magento\Catalog\Helper\Product\ProductList">
+        <plugin name="Amasty_Sorting::GetDefaultSortField" type="Amasty\Sorting\Plugin\Catalog\Helper\Product\ProductList"/>
+    </type>
+    <type name="Magento\Catalog\Block\Product\ListProduct">
+        <plugin name="Amasty_Sorting::AddIdentities" type="Amasty\Sorting\Plugin\Catalog\Product\ListProduct"/>
+    </type>
+    <!-- fix magento quantity_and_stock_status bug with sorting by -->
+    <type name="Magento\CatalogInventory\Model\Source\Stock">
+        <plugin name="Amasty_Sorting::quantity_and_stock_status" type="Amasty\Sorting\Plugin\CatalogInventory\Model\Source\Stock"/>
+    </type>
+</config>

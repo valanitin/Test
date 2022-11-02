@@ -1,0 +1,133 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Plumrocket Inc.
+ *
+ * NOTICE OF LICENSE
+ *
+ * This source file is subject to the End-user License Agreement
+ * that is available through the world-wide-web at this URL:
+ * http://wiki.plumrocket.net/wiki/EULA
+ * If you are unable to obtain it through the world-wide-web, please
+ * send an email to support@plumrocket.com so we can send you a copy immediately.
+ *
+ * @package     Plumrocket_Amp
+ * @copyright   Copyright (c) 2020 Plumrocket Inc. (http://www.plumrocket.com)
+ * @license     http://wiki.plumrocket.net/wiki/EULA  End-user License Agreement
+ */
+-->
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:ObjectManager/etc/config.xsd">
+    <preference for="Amasty\Shopby\Plugin\ProductListWrapper" type="Plumrocket\Amp\Model\Plugin\Amasty\Shopby\Plugin\ProductListWrapper" />
+    <preference for="Magento\Wishlist\Controller\Index\Plugin" type="Plumrocket\Amp\Model\Plugin\Magento\Wishlist\Controller\Index\Plugin" />
+   <!-- <preference for="Amasty\Shopby\Block\Navigation\FilterRenderer" type="Plumrocket\Amp\Block\Amasty\Shopby\FilterRenderer" /> -->
+    <type name="Magento\Framework\View\Page\Config">
+        <plugin name="page-config-plumrocket-amp" type="Plumrocket\Amp\Model\Plugin\Framework\View\Page\ConfigPlugin"/>
+    </type>
+    <type name="Magento\Framework\UrlInterface">
+        <plugin name="url-plumrocket-amp" type="Plumrocket\Amp\Model\Plugin\Framework\Url"/>
+    </type>
+    <type name="Magento\Framework\Controller\ResultInterface">
+        <plugin name="controller-result-interface-plumrocket-amp" type="Plumrocket\Amp\Model\Plugin\Framework\Controller\ResultInterfacePlugin" sortOrder="-10"/>
+    </type>
+    <type name="Magento\Framework\App\Response\HttpInterface">
+        <plugin name="response-http-interface-plumrocket-amp" type="Plumrocket\Amp\Model\Plugin\Framework\App\Response\HttpInterfacePlugin" sortOrder="10"/>
+    </type>
+    <type name="Magento\Framework\App\FrontControllerInterface">
+        <plugin name="front-controller-cache-amp" type="Plumrocket\Amp\Model\Plugin\Framework\App\FrontControllerInterfacePlugin" sortOrder="-10" />
+    </type>
+    <type name="Magento\Framework\App\Config\ScopeConfigInterface">
+        <plugin name="config-scope-config-interface-plumrocket-amp" type="Plumrocket\Amp\Model\Plugin\Framework\App\Config\ScopeConfigInterfacePlugin" sortOrder="10"/>
+    </type>
+    <type name="Magento\Framework\Event\ConfigInterface">
+        <plugin name="event-config-interface-plumrocket-amp" type="Plumrocket\Amp\Model\Plugin\Framework\Event\ConfigInterfacePlugin" sortOrder="10"/>
+    </type>
+    <type name="Magento\Catalog\Block\Product\View">
+        <plugin name="catalog-block-product-view-plumrocket-amp" type="Plumrocket\Amp\Model\Plugin\Magento\Catalog\Block\Product\ViewPlugin" sortOrder="10"/>
+    </type>
+    <virtualType name="Plumrocket\Amp\Block\Catalog\Layer\Navigation\Category" type="Plumrocket\Amp\Block\Catalog\Layer\Navigation">
+        <arguments>
+            <argument name="filterList" xsi:type="object">categoryFilterList</argument>
+        </arguments>
+    </virtualType>
+    <virtualType name="Plumrocket\Amp\Block\Catalog\Layer\Navigation\Search" type="Plumrocket\Amp\Block\Catalog\Layer\Navigation">
+        <arguments>
+            <argument name="filterList" xsi:type="object">searchFilterList</argument>
+        </arguments>
+    </virtualType>
+    <type name="Magento\Swatches\Block\LayeredNavigation\RenderLayered">
+        <plugin name="swatches-render-layered-plumrocket-amp" type="Plumrocket\Amp\Model\Plugin\Magento\Swatches\LayeredNavigation\RenderLayeredPlugin" sortOrder="10"/>
+    </type>
+    <type name="Magento\Theme\Block\Html\Breadcrumbs">
+        <plugin name="breadcrumb-plumrocket-amp" type="Plumrocket\Amp\Model\Plugin\Magento\Theme\Block\Html\BreadcrumbsPlugin" sortOrder="10"/>
+    </type>
+    <type name="Magento\Cms\Helper\Page">
+        <plugin name="plumrocket_amp_prepare_result_page"
+            type="Plumrocket\Amp\Model\Plugin\Cms\Helper\PagePlugin"
+            sortOrder="0"
+            disabled="false"/>
+    </type>
+    <type name="Magestore\OneStepCheckout\Helper\Config">
+        <plugin name="plumrocket_amp_fix_magestore_onestepcheckout"
+            type="Plumrocket\Amp\Model\Plugin\Magestore\OneStepCheckout\Helper\Config"
+            sortOrder="0"
+            disabled="false"/>
+    </type>
+    <type name="Magento\Review\Block\Product\Review">
+        <plugin name="amp-fix-title-for-rtl-mode" type="Plumrocket\Amp\Model\Plugin\Magento\Review\Block\Product\ReviewPlugin" sortOrder="10"/>
+    </type>
+    <type name="Magento\PageCache\Model\App\FrontController\BuiltinPlugin">
+        <plugin name="remove-cookie-messages" type="Plumrocket\Amp\Model\Plugin\Magento\PageCache\Model\App\FrontController\BuiltinPluginPlugin"/>
+    </type>
+    <type name="Magento\Cms\Model\Page">
+        <plugin name="pr-amp-cms-content" type="Plumrocket\Amp\Model\Plugin\Cms\Model\PagePlugin"/>
+    </type>
+    <type name="WeltPixel\Quickview\Plugin\BlockProductList">
+        <plugin name="pr-amp-remove-wp-quickview" type="Plumrocket\Amp\Model\Plugin\WeltPixel\Quickview\Plugin\BlockProductListPlugin"/>
+    </type>
+
+    <type name="Magento\Framework\Url\Helper\Data">
+        <plugin name="pr-add-amp-param-after-is-deleted" type="Plumrocket\Amp\Model\Plugin\Framework\Url\Helper\DataPlugin" sortOrder="10"/>
+    </type>
+    <type name="Celebros\ConversionPro\Helper\Data">
+        <plugin name="pr-amp-disable-celebros-conversionpro" type="Plumrocket\Amp\Model\Plugin\Celebros\ConversionPro\Helper\DataPlugin" sortOrder="10"/>
+    </type>
+    <type name="Magento\Framework\App\Request\CsrfValidator">
+        <plugin name="pramp_csrf_validation" type="Plumrocket\Amp\Model\Plugin\MagentoTwoTwo\CsrfValidatorPlugin" />
+    </type>
+    <type name="Amasty\PageSpeedOptimizer\Model\ConfigProvider">
+        <plugin name="pramp_disable_amasty_optimizer" type="Plumrocket\Amp\Model\Plugin\Amasty\PageSpeedOptimizer\Model\ConfigProviderPlugin" />
+    </type>
+    <type name="Amasty\Shopby\Helper\Config">
+        <plugin name="pramp_disable_category_filter" type="Plumrocket\Amp\Model\Plugin\Amasty\Shopby\Helper\ConfigPlugin" />
+    </type>
+    <type name="Magento\NewRelicReporting\Model\Config">
+        <plugin name="pramp_disable_new_relic" type="Plumrocket\Amp\Model\Plugin\Magento\NewRelicReporting\Model\ConfigPlugin" />
+    </type>
+    <type name="MagePal\CatalogLazyLoad\Helper\Data">
+        <plugin name="pramp_disable_magepal_lazy_load" type="Plumrocket\Amp\Model\Plugin\MagePal\CatalogLazyLoad\Helper\Data" />
+    </type>
+    <type name="Magefan\WebP\Model\WebP">
+        <plugin name="pramp_disable_magefan_webp" type="Plumrocket\Amp\Model\Plugin\Magefan\WebP\Model\WebP\WebpPlugin" />
+    </type>
+    <type name="Magento\Csp\Model\Collector\CspWhitelistXml\Data">
+        <plugin name="pramp_csp_iframe" type="Plumrocket\Amp\Model\Plugin\Magento\Csp\Model\Collector\CspWhitelistXml\DataPlugin"/>
+    </type>
+
+    <type name="Amasty\SeoToolKit\Plugin\Pager">
+        <plugin name="pramp_seo_tool_kit" type="Plumrocket\Amp\Model\Plugin\Amasty\SeoToolKit\Plugin\Pager" />
+    </type>
+    <type name="Magepow\SpeedOptimizer\Helper\Data">
+        <plugin name="pramp_magepow_speedoptimizer" type="Plumrocket\Amp\Model\Plugin\Magepow\SpeedOptimizer\Helper\Data" />
+    </type>
+    <virtualType name="Plumrocket\Amp\Model\View\Asset\Placeholder" type="Magento\Catalog\Model\View\Asset\Placeholder">
+        <arguments>
+            <argument name="type" xsi:type="string">small_image</argument>
+        </arguments>
+    </virtualType>
+    <type name="Plumrocket\Amp\Model\Image\Compressor">
+        <arguments>
+            <argument name="placeholderAsset" xsi:type="object">Plumrocket\Amp\Model\View\Asset\Placeholder</argument>
+            <argument name="fileDriver" xsi:type="object">\Magento\Framework\Filesystem\Driver\File</argument>
+        </arguments>
+    </type>
+</config>

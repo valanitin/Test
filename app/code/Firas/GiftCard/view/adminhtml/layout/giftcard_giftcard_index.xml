@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+/**
+ * @Author      Firas Developers
+ * @package     Firas_GiftCard
+ * @copyright   Copyright (c) 2019 MAGETOP (https://www.firas.com)
+ * @terms       https://www.firas.com/terms
+ * @license     https://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
+ **/
+-->
+<page xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/page_configuration.xsd">
+	<update handle="styles"/>
+	<body>
+	    <referenceContainer name="content">
+	        <uiComponent name="giftcard_giftcard_listing"/>
+	    </referenceContainer>
+        <!--<referenceContainer name="content">
+            <block class="Magento\Backend\Block\Template" name="newsticker.addnewsgroup.grid.js" template="Firas_GiftCard::categoryjs.phtml"/>
+        </referenceContainer>-->
+	</body>
+</page>

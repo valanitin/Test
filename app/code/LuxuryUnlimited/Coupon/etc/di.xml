@@ -1,0 +1,19 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * @author      LuxuryUnlimited
+ * @copyright   Copyright © 2022. All rights reserved.
+ */
+-->
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:ObjectManager/etc/config.xsd">
+    <preference for="Magento\Checkout\Controller\Cart\CouponPost" type="LuxuryUnlimited\Coupon\Controller\Cart\CouponPost" />
+    <type name="Magento\Quote\Model\CouponManagement">
+        <plugin name="coupon_apply" type="LuxuryUnlimited\Coupon\Plugin\CouponManagement"/>
+    </type>
+    <preference for="LuxuryUnlimited\Coupon\Api\CouponLogsInterface" 
+        type="LuxuryUnlimited\Coupon\Model\Services\CouponLogs" />
+    <preference for="LuxuryUnlimited\Coupon\Api\GuestCouponListInterface" 
+        type="LuxuryUnlimited\Coupon\Model\GuestCart\GuestCouponList" />
+	<preference for="LuxuryUnlimited\Coupon\Api\CouponListInterface" 
+        type="LuxuryUnlimited\Coupon\Model\CouponList" />
+</config>

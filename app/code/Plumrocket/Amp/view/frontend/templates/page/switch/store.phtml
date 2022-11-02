@@ -1,0 +1,61 @@
+<?php
+/**
+ * Plumrocket Inc.
+ *
+ * NOTICE OF LICENSE
+ *
+ * This source file is subject to the End-user License Agreement
+ * that is available through the world-wide-web at this URL:
+ * http://wiki.plumrocket.net/wiki/EULA
+ * If you are unable to obtain it through the world-wide-web, please
+ * send an email to support@plumrocket.com so we can send you a copy immediately.
+ *
+ * @package     Plumrocket_Amp
+ * @copyright   Copyright (c) 2019 Plumrocket Inc. (http://www.plumrocket.com)
+ * @license     http://wiki.plumrocket.net/wiki/EULA  End-user License Agreement
+ */
+?>
+
+<?php
+/** @var \Plumrocket\Amp\Block\Page\Switcher\Store $block */
+?>
+<?php if (count($block->getStores()) > 1) : ?>
+    <div class="top__lang lang ddwn">
+        <form method="post"
+              target="_top"
+              id="top_store_switcher"
+              action-xhr="<?= $block->getActionUrl() ?>"
+        >
+            <input type="hidden" name="___from_store" value="<?= $block->getCurrentStoreCode() ?>">
+            <input type="hidden"
+                   name="___store"
+                   value=""
+                   [value]="<?= $block->getTargetGetterJs() ?>">
+            <input type="hidden" name="ajax" value="1">
+        </form>
+
+        <button class="ddwn_btn lang_btn flex align-items-center"
+                tabindex="1"
+                on="tap:AMP.setState({langToggle: !langToggle, currencyToggle: 0})"
+        ><?= $this->getFlagImageHtml($block->getCurrentStoreLocaleCode()) ?><span class="lang lang_name"><?= $block->escapeHtml($block->getStoreName()) ?></span>
+            <i class="fas fa-angle-down fa-pull-right"></i>
+        </button>
+        <ul class="ddwn_list ddwn_list--close"
+            [class]="langToggle ? 'ddwn_list ddwn_list--open' : 'ddwn_list ddwn_list--close'">
+            <i></i>
+            <?php foreach ($block->getStores() as $lang) : ?>
+                <?php if ($lang->getId() != $block->getCurrentStoreId()) : ?>
+                    <li class="ddwn_item">
+                        <span role="button"
+                              tabindex="0"
+                              class="ddwn_link lang_link"
+                              on="tap:AMP.setState(<?= $block->getTargetSetJs($lang->getCode()) ?>),top_store_switcher.submit">
+                            <?= $this->getFlagImageHtml($lang->getLocaleCode()) ?>
+                            <span class="lang_name"><?= $block->escapeHtml($lang->getName()) ?></span>
+                        </span>
+                    </li>
+                <?php endif; ?>
+            <?php endforeach; ?>
+        </ul>
+    </div>
+<?php endif; ?>

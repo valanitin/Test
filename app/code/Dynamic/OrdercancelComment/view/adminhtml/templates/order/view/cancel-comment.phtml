@@ -1,0 +1,12 @@
+<?php
+$order = $block->getOrder();
+
+?>
+<?php
+ $orderCancelComment =  $order->getCancelComment();
+?>
+<?php if($orderCancelComment!=''){?>
+	<div class="" style="border-style:solid, border-color:#d8dee9;color:#ff3300;">
+		<strong><?php echo $orderCancelComment;?></strong>
+	</div>
+<?php }?>	

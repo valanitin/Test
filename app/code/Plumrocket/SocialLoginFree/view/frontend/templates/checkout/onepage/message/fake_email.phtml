@@ -1,0 +1,21 @@
+<?php
+/**
+ * @package     Plumrocket_SocialLoginFree
+ * @copyright   Copyright (c) 2015 Plumrocket Inc. (https://plumrocket.com)
+ * @license     https://plumrocket.com/license   End-user License Agreement
+ */
+?>
+
+<?php
+/** @var \Plumrocket\SocialLoginFree\Helper\Data $helper */
+$helper = $this->helper('Plumrocket\SocialLoginFree\Helper\Data');
+if ($helper->moduleEnabled() && $helper->isFakeMail()) : ?>
+	<div class="pslogin-fake-email-message" data-mage-init='{"pslogin":{}}'>
+		<div class="content">
+			<div class="close-message">&#10005;</div>
+			<p>
+				<?= __('Your account needs to be updated. The email address in your profile is invalid. Please indicate your valid email address by going to the <a href="%1">Account edit page</a>', $block->getUrl('customer/account/edit')) ?>
+			</p>
+		</div>
+	</div>
+<?php endif; ?>

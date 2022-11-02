@@ -1,0 +1,36 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * @author Amasty Team
+ * @copyright Copyright (c) 2021 Amasty (https://www.amasty.com)
+ * @package Amasty_SeoToolKit
+ */
+-->
+<schema xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:Setup/Declaration/Schema/etc/schema.xsd">
+  <table name="amasty_seotoolkit_redirect" resource="default" engine="innodb" comment="amasty_seotoolkit_redirect">
+    <column xsi:type="smallint" name="redirect_id" padding="6" unsigned="false" nullable="false" identity="true" comment="Redirect Id"/>
+    <column xsi:type="boolean" name="status" nullable="false" comment="Redirect Status"/>
+    <column xsi:type="varchar" name="request_path" nullable="true" comment="Request Path"/>
+    <column xsi:type="varchar" name="target_path" nullable="true" comment="Target Path"/>
+    <column xsi:type="smallint" name="redirect_type" padding="5" unsigned="true" nullable="false" identity="false" default="302" comment="Redirect Type"/>
+    <column xsi:type="boolean" name="undefined_page_only" nullable="false" comment="Used for 404 Pages"/>
+    <column xsi:type="varchar" name="description" nullable="true" comment="Description"/>
+    <column xsi:type="int" name="priority" padding="11" unsigned="false" nullable="false" identity="false" default="1" comment="Priority"/>
+    <constraint xsi:type="primary" referenceId="PRIMARY">
+      <column name="redirect_id"/>
+    </constraint>
+    <constraint xsi:type="unique" referenceId="AMASTY_SEOTOOLKIT_REDIRECT_REDIRECT_ID">
+      <column name="redirect_id"/>
+    </constraint>
+  </table>
+  <table name="amasty_seotoolkit_redirect_store" resource="default" engine="innodb" comment="amasty_seotoolkit_redirect_store">
+    <column xsi:type="smallint" name="redirect_id" padding="6" unsigned="false" nullable="false" identity="false" comment="Redirect Id"/>
+    <column xsi:type="smallint" name="store_id" padding="5" unsigned="true" nullable="false" identity="false" comment="Store Id"/>
+    <constraint xsi:type="foreign" referenceId="FK_B82506DAF6CC9427834AE49C95C9B628" table="amasty_seotoolkit_redirect_store" column="redirect_id" referenceTable="amasty_seotoolkit_redirect" referenceColumn="redirect_id" onDelete="CASCADE"/>
+    <constraint xsi:type="foreign" referenceId="AMASTY_SEOTOOLKIT_REDIRECT_STORE_STORE_ID_STORE_STORE_ID" table="amasty_seotoolkit_redirect_store" column="store_id" referenceTable="store" referenceColumn="store_id" onDelete="CASCADE"/>
+  </table>
+  <table name="cms_page" resource="default">
+    <column xsi:type="varchar" name="robots" nullable="true" comment="Configure CMS Page Robots"/>
+    <column xsi:type="varchar" name="canonical" nullable="true" comment="Configure CMS Page Canonical"/>
+  </table>
+</schema>

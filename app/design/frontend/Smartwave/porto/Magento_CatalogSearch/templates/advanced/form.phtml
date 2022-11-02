@@ -1,0 +1,102 @@
+<?php
+/**
+ * Copyright © Magento, Inc. All rights reserved.
+ * See COPYING.txt for license details.
+ */
+
+// phpcs:disable Magento2.Templates.ThisInTemplate.FoundThis
+?>
+<?php
+/**
+ * Catalog advanced search form
+ *
+ * @var $block \Magento\CatalogSearch\Block\Advanced\Form
+ */
+ 
+$dynamicHelper = $this->helper('\Dynamic\Customization\Helper\Data');
+$currencysymbol = $dynamicHelper->getStoreManager();
+$currency = $currencysymbol->getStore()->getCurrentCurrency();
+$currencySymbol = $currency->getCurrencySymbol()
+?>
+<?php $maxQueryLength = $this->helper(\Magento\CatalogSearch\Helper\Data::class)->getMaxQueryLength();?>
+<form class="form search advanced" action="<?= $block->escapeUrl($block->getSearchPostUrl()) ?>" method="get" id="form-validate">
+	<fieldset class="fieldset">
+		<legend class="legend"><span><?= $block->escapeHtml(__('Search Settings')) ?></span></legend><br>
+			<div class="field name">
+				<label class="label" for="name"><span><?= $block->escapeHtml(__('Product Name')) ?></span></label>
+				<div class="control"> <input type="text" name="name" id="name" value="" title="<?= $block->escapeHtml(__('Product Name')) ?>" class="input-text validate-length maximum-length-255" maxlength="128"></div>
+			</div>
+			<div class="field description">
+				<label class="label" for="description"><span><?= $block->escapeHtml(__('Description')) ?></span></label>
+				<div class="control"> 
+					<input type="text" name="description" id="description" value="" title="<?= $block->escapeHtml(__('Description')) ?>" class="input-text " maxlength="128">
+				</div>
+			</div> 
+			<div class="field short_description">
+				<label class="label" for="short_description"><span><?= $block->escapeHtml(__('Short Description')) ?></span></label>
+				<div class="control"> 
+					<input type="text" name="short_description" id="short_description" value="" title="<?= $block->escapeHtml(__('Short Description')) ?>" class="input-text " maxlength="128">
+				</div>
+			</div>
+			<div class="field sku">
+				<label class="label" for="sku"><span><?= $block->escapeHtml(__('SKU')) ?></span></label>
+				<div class="control"> 
+					<input type="text" name="sku" id="sku" value="" title="<?= $block->escapeHtml(__('SKU')) ?>" class="input-text validate-length maximum-length-64" maxlength="128">
+				</div>
+			</div>
+			
+			<div class="field price">
+				<label class="label" for="price"><span><?= $block->escapeHtml(__('Price')) ?></span></label> 
+				<div class="control"> 
+					<div class="range price fields group group-2">
+						<div class="field no-label">
+							<div class="control">
+								<input name="price[from]" value="" id="price" title="<?= $block->escapeHtml(__('Price')) ?>" class="input-text" type="text" maxlength="128" data-validate="{number:true, 'less-than-equals-to':'#price_to'}">
+							</div>
+						</div>
+						<div class="field with-addon no-label">
+							<div class="control">
+								<div class="addon">
+									<input name="price[to]" value="" id="price_to" title="<?= $block->escapeHtml(__('Price')) ?>" class="input-text" type="text" maxlength="128" data-validate="{number:true, 'greater-than-equals-to':'#price'}">
+									<label class="addafter" for="price_to"><?php echo $currencySymbol; ?></label>
+									
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+	</fieldset>
+	<div class="actions-toolbar">
+  <div class="primary">
+    <button type="submit"
+            class="action search primary"
+            title="<?= $block->escapeHtml(__('Search')) ?>">
+        <span><?= $block->escapeHtml(__('Search')) ?></span>
+    </button>
+  </div>
+</div>
+</form>
+
+<script>
+require([
+    "jquery",
+    "mage/mage",
+    "mage/validation"
+], function($){
+    $('#form-validate').mage('validation', {
+            errorPlacement: function (error, element) {
+                var parent = element.parent();
+                if (parent.hasClass('range')) {
+                    parent.find(this.errorElement + '.' + this.errorClass).remove().end().append(error);
+                } else {
+                    error.insertAfter(element);
+                }
+            },
+            messages: {
+                'price[to]': {'greater-than-equals-to': '<?= $block->escapeJs(__('Please enter a valid price range.')) ?>'},
+                'price[from]': {'less-than-equals-to': '<?= $block->escapeJs(__('Please enter a valid price range.')) ?>'}
+            }
+        });
+});
+</script>

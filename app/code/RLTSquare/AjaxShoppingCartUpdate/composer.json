@@ -1,0 +1,29 @@
+{
+  "name": "rltsquare/ajax-shopping-cart-update",
+  "description": "AJAX Shopping Cart Update with this extension, you can update quantity seamlessly and see total price adjustments on the shopping cart page without having to click 'update to cart' button."
+,
+  "require": {
+    "php": "~5.5.0|~5.6.0|~7.0.0|~7.1.0|~7.2.0|~7.4.0"
+  },
+  "type":"magento2-module",
+  "version": "1.0.2",
+  "license":[
+    "proprietary"
+  ],
+  "authors":[
+    {
+      "name" : "Ali",
+      "email" : "ali.riaz@rltsquare.com",
+      "homepage" : "https://www.rltsquare.com",
+      "role" : "Developer"
+    }
+  ],
+  "autoload":{
+    "files": [
+      "registration.php"
+    ],
+    "psr-4": {
+      "RLTSquare\\AjaxShoppingCartUpdate\\" : ""
+    }
+  }
+}

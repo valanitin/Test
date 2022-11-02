@@ -1,0 +1,295 @@
+<?php
+/**
+ * Copyright � Magento, Inc. All rights reserved.
+ * See COPYING.txt for license details.
+ */
+
+/** @var \Magento\Store\Block\Switcher $block */
+?>
+<?php $allShipCNT = $block->getAllShippingCountries(); ?>
+<?php if (count($block->getGroups())>1) : ?>
+<div class="cls_shipto_mainwebsite">
+
+<style>
+.current-shippin-country-block{
+    float: left;
+padding: 5px 30px;
+border: 2px solid;
+border-radius: 8px;
+margin: 12px 0px;
+cursor: pointer;
+}
+.butn {
+    float: left;
+    padding: 5px 20px;
+    margin: 0 10px;
+    border: 2px solid;
+    cursor: pointer;
+}
+.modal-popup .modal-inner-wrap {
+    width: 100%;
+    max-width: 500px;
+}
+#shipping-country-popup-modal h4 {
+    text-align: center;
+    color: #8eb1bb;
+}
+#shipping-country-popup-modal h5 {
+    text-align: center;
+    margin-top: 10px;
+}
+#shipping-country-popup-modal p {
+    text-align: center;
+    padding-top: 10px;
+    text-transform: capitalize;
+}
+.modal-popup .modal-footer {
+    display: none;
+}
+.modal-popup .modal-header {
+    display: none;
+}
+.country-button-main {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 25px;
+}
+.country-selection-cancel {
+    width: 100%;
+    max-width: 195px;
+    text-align: center;
+    border-color: #8eb1bb;
+    margin-right: 5px;
+    margin-left: 0;
+}
+.country-selection-ok {
+    width: 100%;
+    max-width: 195px;
+    text-align: center;
+    background-color: #367587;
+    border-color: #367587;
+    color: #fff;
+    margin-right: 0;
+    margin-left: 5px;
+}
+select.mb-ship-country-selector {
+    border: 0;
+    border-bottom: 1px solid;
+    border-color: #8eb1bb;
+    background: none;
+    color: #a5a5a5;
+}
+.select-wrapper {
+    position: relative;
+}
+.select-wrapper:after {
+    content: "";
+    width: 0;
+    height: 0;
+    border-left: 6px solid transparent;
+    border-right: 6px solid transparent;
+    border-top: 7px solid #367587;
+    position: absolute;
+    right: 8px;
+    top: 15px;
+    pointer-events: none;
+}
+.mb-ship-country-selector:focus {
+    outline: none !important;
+    box-shadow: none !important;
+}
+#shipping-country-popup-modal {
+    padding-top: 35px;
+}
+@media only screen and (min-device-width : 320px) and (max-device-width :767px) {
+    .modal-slide, .modal-popup {
+        bottom: auto!important;
+        left: 50%!important;
+        min-width: 100%!important;
+        position: absolute!important;
+        right: auto!important;
+        top: 50%!important;
+        transform: translate(-50%, -50%)!important;
+    }
+    .modal-popup .modal-inner-wrap {
+
+        max-width: 500px;
+        margin: 0 auto !important;
+    }
+}
+</style>
+<?php if($block->getShippingCountryFromCookie()): ?>
+        <div class="current-shippin-country-block"
+                     id="switch-country-click-me">
+                    <strong>
+                       <span><?= $block->escapeHtml(__('Ship TO - ')) ?></span> <span><?= $block->escapeHtml($block->getShippingCountryFromCookie()) ?></span>
+                    </strong>
+                </div>
+        <?php else: ?>
+        <?php foreach ($block->getGroups() as $_group) : ?>
+            <?php if ($_group->getId() == $block->getCurrentGroupId()) : ?>
+                <div class="current-shippin-country-block"
+                     id="switch-country-click-me">
+                    <strong>
+                        <span><?= $block->escapeHtml(__('Ship TO - ')) ?></span><span><?= $block->escapeHtml($_group->getName()) ?></span>
+                    </strong>
+                </div>
+            <?php endif; ?>
+        <?php endforeach; ?>
+        <?php endif; ?>
+
+<div id="shipping-country-popup-modal" style="display:none;">
+<h4>Please Choose Your Shipping Country</h4>
+<h5>Shipping Country</h5>
+<div class="select-wrapper">
+<select class="mb-ship-country-selector">
+            <?php foreach ($block->getGroups() as $_group) : ?>
+                <?php if (isset($allShipCNT[$_group->getId()])) : ?>
+                <?php foreach($allShipCNT[$_group->getId()] as $countryId):
+                
+                $switchingStore = $block->getStoreByShipCountry($countryId);
+                if(!$switchingStore){
+                    $switchingStore = $_group->getDefaultStore();
+                }
+                 ?>
+                    <option value="<?php echo $countryId ?>-ship-cntry-id">
+                        <?= $block->escapeHtml($block->getCountryname($countryId)) ?>
+                    </option>
+                    <?php endforeach; ?>
+                    <?php else: ?>
+                    <option value="<?php echo $_group->getId() ?>-ship-cntry-id">
+                        Group :  <?= $block->escapeHtml($_group->getName()) ?>
+                    </option>
+                <?php endif; ?>
+            <?php endforeach; ?>
+        </select>
+</div>
+
+<p>Prices are all inclusive which mean duty and import fees Payment is in US Dollor</p>
+    <div class="country-button-main">
+    <span class="butn country-selection-cancel">Cancel </span>
+    <span class="butn country-selection-ok">OK</span>
+
+    </div>
+</div>
+
+<script>
+    require(
+        [
+            'jquery',
+            'Magento_Ui/js/modal/modal', 'loader'
+        ],
+        function(
+            $,
+            modal
+        ) {
+            var options = {
+                type: 'popup',
+                responsive: true,
+                innerScroll: true,
+                title: '',
+                buttons: [{
+                    text: $.mage.__('Continue'),
+                    class: '',
+                    click: function () {
+                        this.closeModal();
+                    }
+                }]
+            };
+
+            var popup = modal(options, $('#shipping-country-popup-modal'));
+            $("#switch-country-click-me").on('click',function(){ 
+                $("#shipping-country-popup-modal").modal("openModal");
+                $('html,body').animate({
+                        scrollTop: $(".modal-popup").offset().top - 70},
+                    'slow');
+            });
+            
+            
+            $(".country-selection-ok").on('click',function(){ 
+               var selectedValueofshipcntry = $(".mb-ship-country-selector").val();
+               //alert(selectedValueofshipcntry);
+               $('#shipping-country-popup-modal').trigger('processStart');
+               $("#"+selectedValueofshipcntry).find("a").click();
+            });
+            
+
+            $(".country-selection-cancel").on('click',function(){
+                $("#shipping-country-popup-modal").modal("closeModal");
+            });
+           <?php if($block->isShowPopup()): ?>
+           $("#shipping-country-popup-modal").modal("openModal");
+           <?php endif; ?> 
+
+        }
+    );
+</script>
+
+</div>
+
+
+<!-- Important Donot remove -->
+
+<div style="display: none;" class="switcher store switcher-store" id="switcher-store" style="background: white;padding: 10px 15px;">
+    <strong class="label-switcher-label"><span><?= $block->escapeHtml(__('Select Country - ')) ?></span></strong>
+    <div class="actions dropdown options switcher-options">
+    <?php if($block->getShippingCountryFromCookie()): ?>
+        <div class="action toggle switcher-trigger"
+                     role="button"
+                     tabindex="0"
+                     data-mage-init='{"dropdown":{}}'
+                     data-toggle="dropdown"
+                     data-trigger-keypress-button="true"
+                     id="switcher-store-trigger">
+                    <strong>
+                        <span><?= $block->escapeHtml($block->getShippingCountryFromCookie()) ?></span>
+                    </strong>
+                </div>
+        <?php else: ?>
+        <?php foreach ($block->getGroups() as $_group) : ?>
+            <?php if ($_group->getId() == $block->getCurrentGroupId()) : ?>
+                <div class="action toggle switcher-trigger"
+                     role="button"
+                     tabindex="0"
+                     data-mage-init='{"dropdown":{}}'
+                     data-toggle="dropdown"
+                     data-trigger-keypress-button="true"
+                     id="switcher-store-trigger">
+                    <strong>
+                        <span><?= $block->escapeHtml($_group->getName()) ?></span>
+                    </strong>
+                </div>
+            <?php endif; ?>
+        <?php endforeach; ?>
+        <?php endif; ?>
+        <ul class="dropdown switcher-dropdown" data-target="dropdown">
+            <?php foreach ($block->getGroups() as $_group) : ?>
+                <?php if (isset($allShipCNT[$_group->getId()])) : ?>
+                <?php foreach($allShipCNT[$_group->getId()] as $countryId):
+                
+                $switchingStore = $block->getStoreByShipCountry($countryId);
+                if(!$switchingStore){
+                    $switchingStore = $_group->getDefaultStore();
+                }
+                 ?>
+                    <li id="<?php echo $countryId ?>-ship-cntry-id" class="switcher-option">
+                        <a href="#" data-post='<?= /* @noEscape */ $block->getTargetStorePostData($switchingStore,array("shipping_cnt"=>$countryId)) ?>'>
+                            <?= $block->escapeHtml($block->getCountryname($countryId)) ?>
+                        </a>
+                    </li>
+                    <?php endforeach; ?>
+                    <?php else: ?>
+                    <li id="<?php echo $_group->getId() ?>-ship-cntry-id" class="switcher-option">
+                        <a href="#" data-post='<?= /* @noEscape */ $block->getTargetStorePostData($_group->getDefaultStore()) ?>'>
+                            Group :  <?= $block->escapeHtml($_group->getName()) ?>
+                        </a>
+                    </li>
+                <?php endif; ?>
+            <?php endforeach; ?>
+        </ul>
+    </div>
+</div> 
+
+<?php endif; ?>
+

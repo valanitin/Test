@@ -1,0 +1,27 @@
+<?php
+/**
+ * Plumrocket Inc.
+ *
+ * NOTICE OF LICENSE
+ *
+ * This source file is subject to the End-user License Agreement
+ * that is available through the world-wide-web at this URL:
+ * http://wiki.plumrocket.net/wiki/EULA
+ * If you are unable to obtain it through the world-wide-web, please
+ * send an email to support@plumrocket.com so we can send you a copy immediately.
+ *
+ * @package     Plumrocket_Amp
+ * @copyright   Copyright (c) 2019 Plumrocket Inc. (http://www.plumrocket.com)
+ * @license     http://wiki.plumrocket.net/wiki/EULA  End-user License Agreement
+ */
+?>
+<?php /** @var \Plumrocket\Amp\Block\Widget\Banner $block */ ?>
+<div class="pramp-banner">
+    <?php if ($block->getBannerUrl()) : ?>
+        <a href="<?= $block->getBannerUrl() ?>" <?= ! $block->getUrlBlank() ? 'target="_blank"' : '' ?> title="<?= __('Link for: %1', $block->getImageAlt()) ?>">
+            <?= $block->getImageHtml()?>
+        </a>
+    <?php else : ?>
+        <?= $block->getImageHtml()?>
+    <?php endif; ?>
+</div>

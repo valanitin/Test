@@ -1,0 +1,17 @@
+<?php
+/**
+ * @package     Plumrocket_SocialLoginFree
+ * @copyright   Copyright (c) 2016 Plumrocket Inc. (https://plumrocket.com)
+ * @license     https://plumrocket.com/license   End-user License Agreement
+ */
+
+/** @var \Magento\Framework\View\Element\Template $block */
+?>
+<li class="pslogin-welcome-msg"
+    data-bind="scope: 'pslogin-photo'"
+    data-mage-init='{"Magento_Ui/js/core/app":<?= $block->getJsLayout() ?>}'
+>
+    <!-- ko if: pslogin().photo -->
+    <img data-bind="attr: {'src' : pslogin().photo, 'alt': customer().fullname}" src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP<?= '/' . '/' . '/' ?>yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" alt="<?= $block->escapeHtmlAttr('Avatar') ?>">
+    <!-- /ko -->
+</li>

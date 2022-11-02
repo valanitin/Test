@@ -1,0 +1,28 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Firas
+ *
+ * Do not edit or add to this file if you wish to upgrade to newer versions in the future.
+ * If you wish to customize this module for your needs.
+ * Please contact us https://firas.co.uk/contacts.
+ *
+ * @category   Firas
+ * @package    Firas_AdminActivity
+ * @copyright  Copyright (C) 2018 Kiwi Commerce Ltd (https://firas.co.uk/)
+ * @license    https://firas.co.uk/magento2-extension-license/
+ */
+-->
+<page xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/page_configuration.xsd">
+    <head>
+        <css src="Firas_AdminActivity::css/activity-view.css"/>
+    </head>
+    <body>
+        <referenceContainer name="js">
+            <block class="Firas\AdminActivity\Block\Adminhtml\Selector" template="Firas_AdminActivity::activity/js.phtml" name="activity.view.model.js"/>
+        </referenceContainer>
+        <referenceContainer name="content">
+            <uiComponent name="admin_activity_listing"/>
+        </referenceContainer>
+    </body>
+</page>

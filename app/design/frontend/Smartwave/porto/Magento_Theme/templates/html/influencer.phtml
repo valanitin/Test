@@ -1,0 +1,244 @@
+<?php
+$dynamicHelper = $this->helper('\Dynamic\Customization\Helper\Data');
+$storeManager  = $dynamicHelper->getStoreManager();
+$storeCode = $storeManager->getStore()->getCode();
+if (!empty($_POST)){
+
+  $firstname = $_POST['firstname'];
+  $lastname = $_POST['lastname'];
+    $websitename = '';
+    if (isset($_POST['websitename'])) {
+        $websitename = $_POST['websitename'];
+    }
+  $websiteurl = $_POST['url'];
+  $email = $_POST['email'];
+  $phone = $_POST['contactno'];
+  $city = $_POST['city'];
+  $country = $_POST['country'];
+  $storewebsite = 'www.brands-labels.com';
+  $fbhandle = $_POST['facebookhandle'];
+  $fbfollowers = $_POST['fbfollowers'];
+  $instahandle = $_POST['instagramhandle'];
+  $instafollowers = $_POST['instafollowers'];
+  $twitterhandle = $_POST['twitterhandle'];
+  $twitterfollowers = $_POST['twitterfollowers'];
+  $linkedinhandle = $_POST['linkedinhandle'];
+  $linkedinfollowers = $_POST['linkedfollowers'];
+  $youtubehandle = $_POST['ythandle'];
+  $youtubefollowers = $_POST['ytsubscribers'];
+  $pinteresthandle = $_POST['pihandle'];
+  $pinterestfollowers = $_POST['pifollowers'];
+  $projects = $_POST['projects'];
+  // echo $websitename;
+  // echo $firstname.'=='.$lastname.'=='.$websitename.'='.$websiteurl.'='.$email.'='.$phone.'='.$visitors.'='.$views.'='.$street.'='.$city.'='.$postcode.'='.$country.'='.$storewebsite.'<br/>';
+
+  $url = 'https://erp.theluxuryunlimited.com/api/influencer/add';
+
+  //Initiate cURL.
+  $ch = curl_init($url);
+
+  //The JSON data.
+  $newjsonData = array(
+    "website" => "WWW.SOLOLUXURY.COM",
+    "first_name" => $firstname,
+    "last_name" => $lastname,
+    "phone" => $phone,
+    "emailaddress" => $email,
+    "facebook" => $fbhandle,
+    "facebook_followers" => $fbfollowers,
+    "instagram" => $instahandle,
+    "instagram_followers" => $instafollowers,
+    "twitter" => $twitterhandle,
+    "twitter_followers" => $twitterfollowers,
+    "youtube" => $youtubehandle,
+    "youtube_followers" => $youtubefollowers,
+    "linkedin" => $linkedinhandle,
+    "linkedin_followers" => $linkedinfollowers,
+    "pinterest" => $pinteresthandle,
+    "pinterest_followers" => $pinterestfollowers,
+    "worked_on" => $projects,
+    "website_name" => $websitename,
+    "url" => $websiteurl,
+    "country" => $country,
+    "type" => "influencer",
+    "lang_code" => $storeCode
+  );
+
+  //Encode the array into JSON.
+  $jsonDataEncoded = json_encode($newjsonData);
+
+  //Tell cURL that we want to send a POST request.
+  curl_setopt($ch, CURLOPT_POST, 1);
+
+  //Attach our encoded JSON string to the POST fields.
+  curl_setopt($ch, CURLOPT_POSTFIELDS, $jsonDataEncoded);
+
+  //Set the content type to application/json
+  curl_setopt($ch, CURLOPT_HTTPHEADER, array('Content-Type: application/json'));
+  curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
+  // Return response instead of outputting
+  // curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+
+  //Execute the request
+  try{
+    $result = curl_exec($ch);
+    $result = json_decode($result, true);
+    $status = $result['status'];
+    $message = $result['message'];
+    if($status == 'success'){
+      echo '<div class="message-container"><div class="aff-success">'.$message.' <span id="close-message">X</span></div></div>';
+    }
+    else{
+      echo '<div class="message-container"><div class="aff-failed">'.$message.' <span id="close-message">X</span></div></div>';
+    }
+    $err = curl_error($ch);
+
+    curl_close($ch);
+
+    // $logger->log(Zend\Log\Logger::INFO, $result.date('Y-m-d H:i:s'));
+  }
+  catch(Exception $e){
+    // $logger->log(Zend\Log\Logger::INFO, $e.'=='.date('Y-m-d H:i:s'));
+  }
+
+}
+
+?>
+<div class="returns-container affiliate-container">
+    <div class="returns-left">
+        <div class="returns-content-left">
+            <!-- <div class="contentBlock">
+              <h3>Track your order</h3>
+              <span class="req-fields">* required fields</span>
+              <p style="text-align:center;">Enter your order reference and email address below to see your order details. From there you can check its shipping status, cancel items or make a return.</p>
+            </div> -->
+            <div class="formBlock">
+                <form method="post">
+                    <div class="personal-info mar-bot">
+                        <h4 class="profile"><p><?php echo __('Profile')?></p></h4>
+                        <div class="form-control col-sm-12 col-lg-6">
+                            <!-- <label>First Name:</label> -->
+                            <div class="main">
+                                <select name="name_with_initials" id="name_with_initials" class="name_initial">
+                                    <option selected="selected" value="mr."><?php echo __('Mr.'); ?></option>
+                                    <option value="mrs."><?php echo __('Mrs.'); ?></option>
+                                    <option value="miss."><?php echo __('Miss.'); ?></option>
+                                </select>
+                                <input type="text" class="form-control" name="firstname" placeholder="<?php echo __('First Name')?>" required>
+                            </div>
+                        </div>
+                        <div class="form-control col-sm-12 col-lg-6">
+                            <!-- <label>Last Name:</label> -->
+                            <input type="text" class="form-control" placeholder="<?php echo __('Last Name')?>" name="lastname" required>
+                        </div>
+                        <div class="contact-info mar-bot">
+                            <div class="form-control col-sm-6 col-lg-4">
+                                <!-- <label>Email:</label> -->
+                                <input type="email" class="form-control" name="email" placeholder="<?php echo __('Email')?>" required>
+                            </div>
+                            <div class="form-control col-sm-6 col-lg-4">
+                                <!-- <label>Contact No:</label> -->
+                                <input type="number" class="form-control" name="contactno" placeholder="<?php echo __('Contact No')?>" required>
+                            </div>
+                            <!-- <div class="form-control">
+                <label>Website Name:</label>
+                <input type="text" class="form-control" name="websitename" placeholder="<?php echo __('Website Name')?>" required>
+              </div> -->
+                            <div class="form-control col-sm-6 col-lg-4">
+                                <!-- <label>URL:</label> -->
+                                <input type="url" class="form-control" name="url" placeholder="<?php echo __('Website URL')?>">
+                            </div>
+                            <div class="form-control col-sm-6 col-lg-4">
+                                <!-- <label>City:</label> -->
+                                <input type="text" class="form-control " name="city" placeholder="<?php echo __('City')?>">
+                            </div>
+
+                            <div class="form-control col-sm-6 col-lg-4" >
+                                <!-- <label>Country:</label> -->
+                                <select name="country">
+                                    <option><?php echo __('Select Country')?></option>
+                                    <option><?php echo __('United States')?></option>
+                                    <option><?php echo __('Australia')?></option>
+                                    <option><?php echo __('Canada')?></option>
+                                </select>
+                            </div>
+                            <div class="form-control col-sm-6 col-lg-4">
+                                <!-- <label>Post Code:</label> -->
+                                <input type="text" class="form-control" id="postcode" name="postcode" placeholder="<?php echo __('Post Code')?>" >
+                            </div>
+                        </div>
+                    </div>
+                    <div class="company-info mar-bot">
+                        <h4 class="Social_links"><p><?php echo __('Social links')?></p></h4>
+                        <div class="form-control col-sm-6 col-lg-4">
+                            <!-- <label>Website Name:</label> -->
+                            <input type="text" class="form-control" name="facebookhandle" placeholder="<?php echo __('Facebook')?>">
+                        </div>
+                        <div class="form-control col-sm-6 col-lg-4">
+                            <!-- <label>Website Name:</label> -->
+                            <input type="text" class="form-control" name="instagramhandle" placeholder="<?php echo __('Instagram')?>">
+                        </div>
+                        <div class="form-control col-sm-6 col-lg-4">
+                            <!-- <label>Website Name:</label> -->
+                            <input type="text" class="form-control" name="twitterhandle" placeholder="<?php echo __('Twitter')?>">
+                        </div>
+                        <div class="form-control col-sm-6 col-lg-4">
+                            <!-- <label>Website Name:</label> -->
+                            <input type="text" class="form-control" name="ythandle" placeholder="<?php echo __('Youtube')?>">
+                        </div>
+                        <div class="form-control col-sm-6 col-lg-4">
+                            <!-- <label>Website Name:</label> -->
+                            <input type="text" class="form-control" name="linkedinhandle" placeholder="<?php echo __('LinkedIn')?>">
+                        </div>
+                        <div class="form-control col-sm-6 col-lg-4">
+                            <!-- <label>Website Name:</label> -->
+                            <input type="text" class="form-control" name="pihandle" placeholder="<?php echo __('Pinterest')?>">
+                        </div>
+                    </div>
+                    <div class="Social-info mar-bot">
+                        <h4 class="Followers"><p><?php echo __('Followers')?></p></h4>
+                        <div class="form-control col-sm-6 col-lg-4">
+                            <!-- <label>URL:</label> -->
+                            <input type="text" class="form-control" name="fbfollowers" placeholder="<?php echo __('Facebook')?>">
+                        </div>
+                        <div class="form-control col-sm-6 col-lg-4">
+                            <!-- <label>URL:</label> -->
+                            <input type="text" class="form-control" name="instafollowers" placeholder="<?php echo __('Instagram')?>">
+                        </div>
+                        <div class="form-control col-sm-6 col-lg-4">
+                            <!-- <label>URL:</label> -->
+                            <input type="text" class="form-control" name="twitterfollowers" placeholder="<?php echo __('Twitter')?>">
+                        </div>
+                        <div class="form-control col-sm-6 col-lg-4">
+                            <!-- <label>URL:</label> -->
+                            <input type="text" class="form-control" name="ytsubscribers" placeholder="<?php echo __('Youtube')?>">
+                        </div>
+                        <div class="form-control col-sm-6 col-lg-4">
+                            <!-- <label>URL:</label> -->
+                            <input type="text" class="form-control" name="linkedfollowers" placeholder="<?php echo __('LinkedIn')?>">
+                        </div>
+                        <div class="form-control col-sm-6 col-lg-4">
+                            <!-- <label>URL:</label> -->
+                            <input type="text" class="form-control" name="pifollowers" placeholder="<?php echo __('Pintrest')?>">
+                        </div>
+                    </div>
+                    <div class="project-worked">
+                        <div class="form-control col-lg-12">
+                            <!-- <label>URL:</label> -->
+                            <textarea class="form-control" name="projects" placeholder="<?php echo __('Projects worked on')?>"></textarea>
+                        </div>
+                    </div>
+                    <div>
+                        <input type="hidden" name="hidden">
+                    </div>
+                    <div class="cls_custdiv text-center">
+                        <button type="submit" class="send-request btn btn-primary return-submit"><?php echo __('Let\'s Go')?></button>
+                    </div>
+                </form>
+            </div>
+
+        </div>
+    </div>
+
+</div>
+

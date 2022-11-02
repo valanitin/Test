@@ -1,0 +1,165 @@
+//
+//  Common
+//  ---------------------------------------------
+
+& when (@media-common = true) {
+	.subscription-choice {
+		input[type="checkbox"] {
+			position: absolute;
+			opacity: 0;
+			z-index: -1;
+			&+label {
+				cursor: pointer;
+				&:before {
+					content: '';
+					border: 1px solid #8a3a07;  
+					display: inline-block;
+					width: 24px;
+					height: 24px;
+					margin-right: 0.5em;
+					margin-top: 0.5em;
+					vertical-align: -6px;  
+				}
+  
+			}
+			&:checked {
+				&+label {
+					&:before {
+						background-image: url('/media/wysiwyg/subcheckmark.png');
+						background-repeat: no-repeat;
+						background-position: center;
+						background-size: 12px;
+						border-radius: 0;
+						color: white;
+					}
+				}
+			}
+			&:disabled {
+				&+label {
+					cursor: default;
+					color: #8a3a07;
+					opacity: 0.5;
+				}
+			}
+		}
+		&.field.choice {
+			.label {
+				margin-right: 14px;
+				color: #000;
+			}
+		}
+		
+	}
+	.form-newsletter-manage {
+		background-color: #fbece5!important;
+		text-align: center;
+		
+		.actions-toolbar {
+			text-align:center;
+			.action.save.primary {
+				margin-left: 0;
+				float: none;
+				background: #8a3a07 !important;
+				min-width: 160px;
+				max-width: 160px;
+				border-radius: 20px;
+
+			}
+			.primary {
+				float: none;
+			}
+		}
+		.fieldset {
+			legend.legend {
+				margin-bottom: 30px;
+				span {
+					border-bottom: 1px solid #8a3a07;
+					color: #8a3a07;
+					text-transform: capitalize;
+				}
+			}
+			p.ounass {
+				color: #585858;
+			}
+		}
+	}
+}
+
+
+
+//
+//  Mobile @screen__m
+//  ---------------------------------------------
+
+.media-width(@extremum, @break) when (@extremum = 'max') and (@break = @screen__m) {
+	.account.layout-fullwidth.page-layout-2columns-left {
+		.sidebar-main {
+    
+			order: 0;
+			.block.account-nav {
+				.title.account-nav-title { 
+					strong {
+						color: #8a3a07;
+						font-size: 16px;
+						&:after {
+						
+							content: '\f807';
+							font-family: 'porto-icons';
+
+						}
+					}
+					&.active {
+						strong {
+							&:after {
+								content: '\f808';
+							}
+						}
+					
+					}
+				}
+			}
+			.account-nav-content {
+				display:none;
+				&.active {
+					display: block;
+				}
+			}
+		}
+	}
+
+}
+
+
+
+
+//
+//  Desktop
+//  ---------------------------------------------
+
+.media-width(@extremum, @break) when (@extremum = 'min') and (@break = @screen__m) {
+	.newsletter-manage-index {
+		&.account.layout-fullwidth.page-layout-2columns-left  {
+			.columns {
+				display: flex;
+				align-items: center;
+				.column.main {
+					flex-basis: 75%;
+				}
+				.sidebar-main {
+					flex-basis: 25%;
+				}
+			}
+		}
+	
+	}
+	.account.layout-fullwidth.page-layout-2columns-left {
+		.sidebar-main {
+		
+			.block.account-nav {
+				.title.account-nav-title {
+					display: none;
+				}
+			}
+		}
+	}
+}

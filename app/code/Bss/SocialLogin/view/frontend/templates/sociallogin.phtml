@@ -1,0 +1,149 @@
+<?php
+/**
+ * BSS Commerce Co.
+ *
+ * NOTICE OF LICENSE
+ *
+ * This source file is subject to the EULA
+ * that is bundled with this package in the file LICENSE.txt.
+ * It is also available through the world-wide-web at this URL:
+ * http://bsscommerce.com/Bss-Commerce-License.txt
+ *
+ * @category   BSS
+ * @package    Bss_AjaxSocialLogin
+ * @author     Extension Team
+ * @copyright  Copyright (c) 2017-2018 BSS Commerce Co. ( http://bsscommerce.com )
+ * @license    http://bsscommerce.com/Bss-Commerce-License.txt
+ */
+?>
+<?php
+//  @codingStandardsIgnoreFile
+?>
+<?php
+/**
+ * @var Bss\SocialLogin\Block\SocialLogin
+ */
+?>
+<?php if ($block->isEnabledPopup()) : ?> 
+<div id="fancybox-popup-social-login" style="display: none;">
+    <div id="social-login-popup" class="social-login-popup" >
+        <div class="ajax-loading-sc" style="z-index: 9999;display: none"></div>
+        <br>
+        <div class="tab-social">
+            <ul id="tab-social" class="nav nav-tabs">
+              <li class="login"><a href="#signin" data-toggle="tab">Sign In</a></li>
+              <li class="create"><a href="#signup" data-toggle="tab">Register</a></li>
+            </ul>
+        </div>
+        <div class="popup-mess-social">
+            <div class="mesg-success">
+              <span></span>
+            </div>
+            <div class="mesg-error">
+              <span></span>
+            </div>
+        </div>
+        <?php echo $block->getChildHtml('popup.login') ?>
+        <?php echo $block->getChildHtml('popup.register') ?>
+        <?php echo $block->getChildHtml('popup.forgotpassword') ?>
+    </div>
+    <div style="clear: both"></div>
+</div>
+<?php echo $block->getChildHtml('form_repcapcha') ?>
+<?php endif ?>
+<!-- add button  -->
+<?php if ($block->hasButtons()) : ?>
+<?php if ($block->displayButtonLogin()) : ?>
+<div id="add_button_login_byclass" style="display: none;">
+    <div class="sociallogin-block sociallogin-login">
+        <div class="sociallogin-buttons">
+            <ul class="sociallogin-clearfix">
+            <?php $i = 1 ; foreach ($block->getPreparedButtons() as $button) : ?>
+                <li class="sociallogin-button <?php echo $button['type']; ?>"  <?php if ($i > $block->showLimit()) :
+?>  style="display: none;" <?php
+                                              endif; ?> title="<?php echo __($button['login_text']); ?>">
+                    <a class="sociallogin-button-link sociallogin-button-click" rel="nofollow" href="javascript:void(0);" data-href="<?php echo $button['href']; ?>" data-width="<?php echo $button['popup_width']; ?>" data-height="<?php echo $button['popup_height']; ?>" >
+                        <span class="sociallogin-button-auto">
+                            <span class="sociallogin-button-icon">
+                                <?php echo !empty($button['image'])? '<img class="sociallogin-button-icon-image" src="'.$button['image'].'" />' : ''; ?>
+                            </span>
+                            <?php if ($button['login_text'] != '') : ?>
+                                <span class="sociallogin-button-text"><?php echo __($button['login_text']); ?></span>
+                            <?php endif?>
+                        </span>
+                    </a>
+                </li>
+            <?php ($i > $block->showLimit())? $show_more = true : $show_more = false; ?>
+            <?php $i++;
+            endforeach; ?>
+            </ul>
+
+            <?php if ($show_more) : ?>
+                <div class="sociallogin-showmore"> 
+                    <div class="showmore-button "><?php echo __('Show more'); ?></div>
+                </div>
+            <?php endif; ?>
+        </div>
+
+    </div>
+    <div style="clear: both;"></div>
+</div>
+<?php endif; ?>
+<?php if ($block->displayButtonRegister()) : ?>
+<div id="add_button_register_byclass" style="display: none;">
+    <div class="sociallogin-block sociallogin-login">
+        <div class="sociallogin-buttons">
+            <ul class="sociallogin-clearfix">
+            <?php $i = 1 ; foreach ($block->getPreparedButtons() as $button) : ?>
+                <li class="sociallogin-button <?php echo $button['type']; ?>"  <?php if ($i > $block->showLimit()) :
+?>  style="display: none;" <?php
+                                              endif; ?> title="<?php echo __($button['register_text']); ?>">
+                    <a class="sociallogin-button-link sociallogin-button-click" rel="nofollow" href="javascript:void(0);" data-href="<?php echo $button['href']; ?>" data-width="<?php echo $button['popup_width']; ?>" data-height="<?php echo $button['popup_height']; ?>" >
+                        <span class="sociallogin-button-auto">
+                            <span class="sociallogin-button-icon">
+                                <?php echo !empty($button['image'])? '<img class="sociallogin-button-icon-image" src="'.$button['image'].'" />' : ''; ?>
+                            </span>
+                            <?php if ($button['register_text'] != '') : ?>
+                                <span class="sociallogin-button-text"><?php echo $button['register_text']; ?></span>
+                            <?php endif?>
+                        </span>
+                    </a>
+                </li>
+            <?php ($i > $block->showLimit())? $show_more = true : $show_more = false; ?>
+            <?php $i++;
+            endforeach; ?>
+            </ul>
+
+            <?php if ($show_more) : ?>
+                <div class="sociallogin-showmore"> 
+                    <div class="showmore-button "><?php echo __('Show more'); ?></div>
+                </div>
+            <?php endif; ?>
+        </div>
+
+    </div>
+    <div style="clear: both;"></div>
+</div>
+<?php endif; ?>
+<?php endif; ?>
+<script type="text/x-magento-init">
+    {
+        "*": {
+            "Bss_SocialLogin/js/social-popup": {
+                "isPopup": "<?php echo $block->isEnabledPopup() ?>",
+                "class_login": [<?php echo '"'.implode('","', $block->displayButtonLogin()).'"' ?>],
+                "class_register":[<?php echo '"'.implode('","', $block->displayButtonRegister()).'"' ?>],
+                "formLoginUrl": "<?php echo $block->getLoginUrl() ?>",
+                "forgotFormUrl": "<?php echo $block->getForgotUrl() ?>",
+                "createFormUrl": "<?php echo $block->getCreateUrl() ?>",
+                "recaptchaLogin": "<?php echo $block->recaptchaLogin() ?>",
+                "recaptchaForgot": "<?php echo $block->recaptchaForgot() ?>",
+                "recaptchaCreate": "<?php echo $block->recaptchaCreate()?>",
+                "recaptchaSitekey": "<?php echo $block->getSiteKey()?>",
+                "recaptchaTheme": "<?php echo $block->getTheme()?>",
+                "recaptchaType": "<?php echo $block->getType()?>",
+                "recaptchaSize": "<?php echo $block->getSize()?>"
+            }
+        }
+    }
+</script>

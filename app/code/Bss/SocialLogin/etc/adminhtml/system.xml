@@ -1,0 +1,522 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * BSS Commerce Co.
+ *
+ * NOTICE OF LICENSE
+ *
+ * This source file is subject to the EULA
+ * that is bundled with this package in the file LICENSE.txt.
+ * It is also available through the world-wide-web at this URL:
+ * http://bsscommerce.com/Bss-Commerce-License.txt
+ *
+ * @category   BSS
+ * @package    Bss_AjaxSocialLogin
+ * @author     Extension Team
+ * @copyright  Copyright (c) 2017-2018 BSS Commerce Co. ( http://bsscommerce.com )
+ * @license    http://bsscommerce.com/Bss-Commerce-License.txt
+ */
+-->
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Config:etc/system_file.xsd">
+    <system>
+        <tab id="bss" translate="label" sortOrder="200">
+            <label><![CDATA[BSS COMMERCE ]]></label>
+        </tab>
+        <section id="bss_sociallogin" translate="label" type="text" sortOrder="200" showInDefault="1" showInWebsite="1" showInStore="1">
+            <class>separator-top</class>
+            <label><![CDATA[Ajax Social Login]]></label>
+            <tab>bss</tab>
+            <resource>Bss_SocialLogin::config</resource>
+            <group id="general" translate="label" type="text" sortOrder="10" showInDefault="1" showInWebsite="1" showInStore="1">
+                <label>General</label>
+                <attribute type="expanded">1</attribute>
+                <field id="enable" translate="label comment" type="select" sortOrder="1" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Enable</label>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                    <comment><![CDATA[Version 1.0.6]]></comment>
+                </field>
+                <field id="popup_ajax" translate="label comment" type="select" sortOrder="2" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Use Popup Ajax</label>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                </field>
+                <field id="send_password" translate="label comment" type="select" sortOrder="3" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Send Password</label>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                    <comment></comment>
+                </field>
+                <field id="enable_photo" translate="label comment" type="select" sortOrder="4" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Display Customer Photo</label>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                    <comment>Use customer photo from social network as customer's image in site</comment>
+                </field>
+                <field id="redirect_for_login" translate="label comment" type="select" sortOrder="5" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Redirect after Login</label>
+                    <source_model>Bss\SocialLogin\Model\Config\Source\RedirectUrl</source_model>
+                    <comment>User will be redirected to this page after each successful login</comment>
+                </field>
+                <field id="redirect_for_login_link" translate="label comment" type="text" sortOrder="6" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <comment>Please enter the full URL of the page.</comment>
+                    <depends>
+                        <field id="redirect_for_login">custom</field>
+                    </depends>
+                </field>
+                <field id="redirect_for_register" translate="label comment" type="select" sortOrder="7" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Redirect after Register</label>
+                    <source_model>Bss\SocialLogin\Model\Config\Source\RedirectUrl</source_model>
+                    <comment>User will be redirected to this page after successful registration</comment>
+                </field>
+                <field id="redirect_for_register_link" translate="label comment" type="text" sortOrder="8" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <comment>Please enter the full URL of the page.</comment>
+                    <depends>
+                        <field id="redirect_for_register">custom</field>
+                    </depends>
+                </field>
+            </group>
+            <group id="button_social" translate="label" type="text" sortOrder="20" showInDefault="1" showInWebsite="1" showInStore="1">
+                <label>Social button block</label>
+                <attribute type="expanded">1</attribute>
+                <field id="display_at_popup" translate="label comment" type="select" sortOrder="1" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Display buttons social login on popup</label>
+                    <source_model>Bss\SocialLogin\Model\Config\Source\Display</source_model>
+                </field>
+                <field id="login_byclass" translate="label comment" type="text" sortOrder="2" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Display buttons social login follow class or id</label>
+                    <comment><![CDATA[<p><strong>Example display button on header hompage:</strong> .cms-home .header.content</p>]]>
+                    </comment>
+                </field>
+                <field id="register_byclass" translate="label comment" type="text" sortOrder="3" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Display buttons social register follow class or id</label>
+                    <comment><![CDATA[]]></comment>
+                </field>
+                <field id="show_limit" translate="label comment" type="text" sortOrder="13" showInDefault="4" showInWebsite="1" showInStore="1">
+                    <label>Number of button displayed</label>
+                    <validate>validate-no-empty validate-number</validate>
+                </field>
+                <field id="sortsocial" translate="label comment" type="text" sortOrder="14" showInDefault="5" showInWebsite="1" showInStore="1">
+                    <label>Social Buttons Sorting</label>
+                    <frontend_model>Bss\SocialLogin\Block\Adminhtml\System\Config\Form\Sortsocial</frontend_model>
+                </field>
+                <field id="sort_sociallogin" translate="label comment" type="hidden" sortOrder="6" showInDefault="1" showInWebsite="1" showInStore="1">
+                </field>
+            </group>
+
+            <group id="recaptcha" translate="label" type="text" sortOrder="30" showInDefault="1" showInWebsite="1" showInStore="1">
+                <label>reCaptcha</label>
+                <attribute type="expanded">1</attribute>
+
+                <field id="site_key" translate="label comment" type="text" sortOrder="1" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Site Key</label>
+                    <comment>&lt;a href="https://www.google.com/recaptcha/admin" target="_blank"&gt;Create a site key&lt;/a&gt;</comment>
+                </field>
+                 <field id="secret_key" translate="label comment" type="text" sortOrder="2" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Secret Key</label>
+                    <comment>&lt;a href="https://www.google.com/recaptcha/admin" target="_blank"&gt;Create a site key&lt;/a&gt;</comment>
+                </field>
+                <field id="theme" translate="label comment" type="select" sortOrder="3" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Theme</label>
+                    <source_model>Bss\SocialLogin\Model\Config\Source\Theme</source_model>
+                    <comment>See the Google reCAPTCHA Documentation &lt;a href="https://developers.google.com/recaptcha/docs/display#render_param" target="_blank"&gt;for more&lt;/a&gt;</comment>
+                </field>
+                <field id="type" translate="label comment" type="select" sortOrder="4" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Type</label>
+                    <source_model>Bss\SocialLogin\Model\Config\Source\Type</source_model>
+                   <comment>See the Google reCAPTCHA Documentation &lt;a href="https://developers.google.com/recaptcha/docs/display#render_param" target="_blank"&gt;for more&lt;/a&gt;</comment>
+                </field>
+                <field id="size" translate="label comment" type="select" sortOrder="5" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Size</label>
+                     <source_model>Bss\SocialLogin\Model\Config\Source\Size</source_model>
+                    <comment>See the Google reCAPTCHA Documentation &lt;a href="https://developers.google.com/recaptcha/docs/display#render_param" target="_blank"&gt;for more&lt;/a&gt;</comment>
+                </field>
+                <field id="form_apply" translate="label comment" type="multiselect" sortOrder="6" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Apply on Popup </label>
+                    <source_model>Bss\SocialLogin\Model\Config\Source\Form</source_model>
+                    <can_be_empty>1</can_be_empty>
+                    <comment>Use only with "Popup Ajax"</comment>
+                </field>
+            </group>
+
+            <group id="facebook" translate="label" type="text" sortOrder="40" showInDefault="1" showInWebsite="1" showInStore="1">
+                <label>Facebook</label>
+                <attribute type="expanded">1</attribute>
+                <field id="enable" translate="label comment" type="select" sortOrder="1" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Enable</label>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                    <comment>Create App Id and App Secret, please &lt;a href="http://developers.facebook.com/setup/" target="_blank"&gt;click here&lt;/a&gt;.</comment>
+                </field>
+                <field id="client_id" translate="label comment" type="text" sortOrder="2" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>App ID</label>
+                    <validate>validate-no-empty</validate>
+                    <depends><field id="bss_sociallogin/facebook/enable">1</field></depends>
+                </field>
+                <field id="secret" translate="label comment" type="obscure" sortOrder="3" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>App Secret</label>
+                    <validate>validate-no-empty</validate>
+                    <backend_model>Magento\Config\Model\Config\Backend\Encrypted</backend_model>
+                    <depends><field id="bss_sociallogin/facebook/enable">1</field></depends>
+                </field>
+                 <field id="callbackurl" translate="label comment" type="text" sortOrder="4" showInDefault="1" showInWebsite="1" showInStore="0">
+                    <label>URI redirection valid OAuth </label>
+                    <frontend_model>Bss\SocialLogin\Block\Adminhtml\System\Config\Form\Callbackurl</frontend_model>
+                    <comment>Please use this link for URI redirection valid OAuth field when registering with Facebook API</comment>
+                    <depends><field id="bss_sociallogin/facebook/enable">1</field></depends>
+                </field>
+                <field id="small_icon" translate="label comment" type="image" sortOrder="5" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Small Icon</label>
+                    <backend_model>Magento\Config\Model\Config\Backend\Image</backend_model>
+                    <upload_dir config="system/filesystem/media" scope_info="1">sociallogin</upload_dir>
+                    <base_url type="media" scope_info="1">sociallogin</base_url>
+                    <depends><field id="bss_sociallogin/facebook/enable">1</field></depends>
+                </field>
+                <field id="login_btn_text" translate="label comment" type="text" sortOrder="6" showInDefault="1" showInWebsite="1" showInStore="1" canRestore="1">
+                    <label>Login Button Text</label>
+                    <depends><field id="bss_sociallogin/facebook/enable">1</field></depends>
+                </field>
+                <field id="register_btn_text" translate="label comment" type="text" sortOrder="7" showInDefault="1" showInWebsite="1" showInStore="1" canRestore="1">
+                    <label>Registration Button Text</label>
+                    <depends><field id="bss_sociallogin/facebook/enable">1</field></depends>
+                </field>
+            </group>
+
+            <group id="twitter" translate="label" type="text" sortOrder="50" showInDefault="1" showInWebsite="1" showInStore="1">
+                <label>Twitter</label>
+                <attribute type="expanded">1</attribute>
+
+                <field id="enable" translate="label comment" type="select" sortOrder="1" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Enable</label>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                    <comment>Create API Key and API Secret, please &lt;a href="https://apps.twitter.com/app/new" target="_blank"&gt;click here&lt;/a&gt;.</comment>
+                </field>
+                <field id="client_id" translate="label comment" type="text" sortOrder="2" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Consumer Key (API Key)</label>
+                    <validate>validate-no-empty</validate>
+                    <depends><field id="bss_sociallogin/twitter/enable">1</field></depends>
+                </field>
+                <field id="secret" translate="label comment" type="obscure" sortOrder="3" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Consumer Secret (API Secret)</label>
+                    <backend_model>Magento\Config\Model\Config\Backend\Encrypted</backend_model>
+                    <validate>validate-no-empty</validate>
+                    <depends><field id="bss_sociallogin/twitter/enable">1</field></depends>
+                </field>
+                <field id="callbackurl" translate="label comment" type="text" sortOrder="4" showInDefault="1" showInWebsite="1" showInStore="0">
+                    <label>Callback URL</label>
+                    <frontend_model>Bss\SocialLogin\Block\Adminhtml\System\Config\Form\Callbackurl</frontend_model>
+                    <comment>Please use this link for Callback URL field when registering with Twitter API</comment>
+                    <depends><field id="bss_sociallogin/twitter/enable">1</field></depends>
+                </field>
+                <field id="small_icon" translate="label comment" type="image" sortOrder="5" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Small Icon</label>
+                    <backend_model>Magento\Config\Model\Config\Backend\Image</backend_model>
+                    <upload_dir config="system/filesystem/media" scope_info="1">sociallogin</upload_dir>
+                    <base_url type="media" scope_info="1">sociallogin</base_url>
+                    <depends><field id="bss_sociallogin/twitter/enable">1</field></depends>
+                </field>
+                <field id="login_btn_text" translate="label comment" type="text" sortOrder="7" showInDefault="1" showInWebsite="1" showInStore="1" canRestore="1">
+                    <label>Login Button Text</label>
+                    <depends><field id="bss_sociallogin/twitter/enable">1</field></depends>
+                </field>
+                <field id="register_btn_text" translate="label comment" type="text" sortOrder="8" showInDefault="1" showInWebsite="1" showInStore="1" canRestore="1">
+                    <label>Registration Button Text</label>
+                    <depends><field id="bss_sociallogin/twitter/enable">1</field></depends>
+                </field>
+            </group>
+
+            <group id="googleplus" translate="label" type="text" sortOrder="60" showInDefault="1" showInWebsite="1" showInStore="1">
+                <label>Google</label>
+                <attribute type="expanded">1</attribute>
+
+                <field id="enable" translate="label comment" type="select" sortOrder="1" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Enable</label>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                    <comment>Create Client ID Key and Client Secret, please &lt;a href="https://cloud.google.com/console" target="_blank"&gt;click here&lt;/a&gt;.</comment>
+                </field>
+                <field id="client_id" translate="label comment" type="text" sortOrder="2" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Client ID</label>
+                    <validate>validate-no-empty</validate>
+                    <depends><field id="bss_sociallogin/googleplus/enable">1</field></depends>
+                </field>
+                <field id="secret" translate="label comment" type="obscure" sortOrder="3" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Client Secret</label>
+                    <backend_model>Magento\Config\Model\Config\Backend\Encrypted</backend_model>
+                    <validate>validate-no-empty</validate>
+                    <depends><field id="bss_sociallogin/googleplus/enable">1</field></depends>
+                </field>
+                <field id="callbackurl" translate="label comment" type="text" sortOrder="4" showInDefault="1" showInWebsite="1" showInStore="0">
+                    <label>Authorized redirect URIs </label>
+                    <frontend_model>Bss\SocialLogin\Block\Adminhtml\System\Config\Form\Callbackurl</frontend_model>
+                    <comment>Please use this link for Authorized redirect URIs field when registering with Google API</comment>
+                    <depends><field id="bss_sociallogin/googleplus/enable">1</field></depends>
+                </field>
+                <field id="small_icon" translate="label comment" type="image" sortOrder="5" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Small Icon</label>
+                    <backend_model>Magento\Config\Model\Config\Backend\Image</backend_model>
+                    <upload_dir config="system/filesystem/media" scope_info="1">sociallogin</upload_dir>
+                    <base_url type="media" scope_info="1">sociallogin</base_url>
+                    <depends><field id="bss_sociallogin/googleplus/enable">1</field></depends>
+                </field>
+                <field id="login_btn_text" translate="label comment" type="text" sortOrder="7" showInDefault="1" showInWebsite="1" showInStore="1" canRestore="1">
+                    <label>Login Button Text</label>
+                    <depends><field id="bss_sociallogin/googleplus/enable">1</field></depends>
+                </field>
+                <field id="register_btn_text" translate="label comment" type="text" sortOrder="8" showInDefault="1" showInWebsite="1" showInStore="1" canRestore="1">
+                    <label>Registration Button Text</label>
+                    <depends><field id="bss_sociallogin/googleplus/enable">1</field></depends>
+                </field>
+            </group>
+
+            <group id="linkedin" translate="label" type="text" sortOrder="70" showInDefault="1" showInWebsite="1" showInStore="1">
+                <label>LinkedIn</label>
+                <attribute type="expanded">1</attribute>
+
+                <field id="enable" translate="label comment" type="select" sortOrder="1" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Enable</label>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                    <comment>Create Client ID Key and Client Secret, please &lt;a href="https://www.linkedin.com/secure/developer" target="_blank"&gt;click here&lt;/a&gt;.</comment>
+                </field>
+                <field id="client_id" translate="label comment" type="text" sortOrder="2" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Client ID</label>
+                    <validate>validate-no-empty</validate>
+                    <depends><field id="bss_sociallogin/linkedin/enable">1</field></depends>
+                </field>
+                <field id="secret" translate="label comment" type="obscure" sortOrder="3" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Client Secret</label>
+                    <backend_model>Magento\Config\Model\Config\Backend\Encrypted</backend_model>
+                    <validate>validate-no-empty</validate>
+                    <depends><field id="bss_sociallogin/linkedin/enable">1</field></depends>
+                </field>
+                <field id="callbackurl" translate="label comment" type="text" sortOrder="4" showInDefault="1" showInWebsite="1" showInStore="0">
+                    <label>Redirect URL(s) </label>
+                    <frontend_model>Bss\SocialLogin\Block\Adminhtml\System\Config\Form\Callbackurl</frontend_model>
+                    <comment>Please use this link for Redirect URL(s) field when registering with Linkedin API</comment>
+                    <depends><field id="bss_sociallogin/linkedin/enable">1</field></depends>
+                </field>
+                <field id="small_icon" translate="label comment" type="image" sortOrder="5" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Small Icon</label>
+                    <backend_model>Magento\Config\Model\Config\Backend\Image</backend_model>
+                    <upload_dir config="system/filesystem/media" scope_info="1">sociallogin</upload_dir>
+                    <base_url type="media" scope_info="1">sociallogin</base_url>
+                    <depends><field id="bss_sociallogin/linkedin/enable">1</field></depends>
+                </field>
+                <field id="login_btn_text" translate="label comment" type="text" sortOrder="7" showInDefault="1" showInWebsite="1" showInStore="1" canRestore="1">
+                    <label>Login Button Text</label>
+                    <depends><field id="bss_sociallogin/linkedin/enable">1</field></depends>
+                </field>
+                <field id="register_btn_text" translate="label comment" type="text" sortOrder="8" showInDefault="1" showInWebsite="1" showInStore="1" canRestore="1">
+                    <label>Registration Button Text</label>
+                    <depends><field id="bss_sociallogin/linkedin/enable">1</field></depends>
+                </field>
+            </group>
+            <group id="yahoo" translate="label" type="text" sortOrder="80" showInDefault="1" showInWebsite="1" showInStore="1">
+                <label>Yahoo!</label>
+                <attribute type="expanded">1</attribute>
+
+                <field id="enable" translate="label comment" type="select" sortOrder="1" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Enable</label>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                    <comment>Create Client ID Key and Client Secret, please &lt;a href="https://developer.yahoo.com/apps/create/" target="_blank"&gt;click here&lt;/a&gt;.</comment>
+                </field>
+                <field id="client_id" translate="label comment" type="text" sortOrder="2" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Client ID</label>
+                    <validate>validate-no-empty</validate>
+                    <depends><field id="bss_sociallogin/yahoo/enable">1</field></depends>
+                </field>
+                <field id="secret" translate="label comment" type="obscure" sortOrder="3" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Client Secret</label>
+                    <backend_model>Magento\Config\Model\Config\Backend\Encrypted</backend_model>
+                    <validate>validate-no-empty</validate>
+                    <depends><field id="bss_sociallogin/yahoo/enable">1</field></depends>
+                </field>
+                <field id="callbackurl" translate="label comment" type="text" sortOrder="4" showInDefault="1" showInWebsite="1" showInStore="0">
+                    <label>Callback Domain</label>
+                    <frontend_model>Bss\SocialLogin\Block\Adminhtml\System\Config\Form\Baseurl</frontend_model>
+                    <comment>Please use this link for "Callback Domain" field when registering with Yahoo API</comment>
+                    <depends><field id="bss_sociallogin/yahoo/enable">1</field></depends>
+                </field>
+                <field id="small_icon" translate="label comment" type="image" sortOrder="5" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Small Icon</label>
+                    <backend_model>Magento\Config\Model\Config\Backend\Image</backend_model>
+                    <upload_dir config="system/filesystem/media" scope_info="1">sociallogin</upload_dir>
+                    <base_url type="media" scope_info="1">sociallogin</base_url>
+                    <depends><field id="bss_sociallogin/yahoo/enable">1</field></depends>
+                </field>
+                <field id="login_btn_text" translate="label comment" type="text" sortOrder="7" showInDefault="1" showInWebsite="1" showInStore="1" canRestore="1">
+                    <label>Login Button Text</label>
+                    <depends><field id="bss_sociallogin/yahoo/enable">1</field></depends>
+                </field>
+                <field id="register_btn_text" translate="label comment" type="text" sortOrder="8" showInDefault="1" showInWebsite="1" showInStore="1" canRestore="1">
+                    <label>Registration Button Text</label>
+                    <depends><field id="bss_sociallogin/yahoo/enable">1</field></depends>
+                </field>
+            </group>
+            <group id="live" translate="label" type="text" sortOrder="90" showInDefault="1" showInWebsite="1" showInStore="1">
+                <label>Live / Hotmail / MSN (Microsoft Account)</label>
+               <attribute type="expanded">1</attribute>
+
+                <field id="enable" translate="label comment" type="select" sortOrder="1" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Enable</label>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                    <comment>For configuration instructions, please &lt;a href="https://account.live.com/developers/applications/create" target="_blank"&gt;click here&lt;/a&gt;.</comment>
+                </field>
+                <field id="client_id" translate="label comment" type="text" sortOrder="2" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Application Id</label>
+                    <validate>validate-no-empty</validate>
+                    <depends><field id="bss_sociallogin/live/enable">1</field></depends>
+                </field>
+                <field id="secret" translate="label comment" type="obscure" sortOrder="3" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Application Secrets</label>
+                    <backend_model>Magento\Config\Model\Config\Backend\Encrypted</backend_model>
+                    <validate>validate-no-empty</validate>
+                    <depends><field id="bss_sociallogin/live/enable">1</field></depends>
+                </field>
+                <field id="callbackurl" translate="label comment" type="text" sortOrder="4" showInDefault="1" showInWebsite="1" showInStore="0">
+                    <label>Redirect URL(s) </label>
+                    <frontend_model>Bss\SocialLogin\Block\Adminhtml\System\Config\Form\Callbackurl</frontend_model>
+                    <comment>Please use this link for Redirect URL(s) field when registering with Windows Live API</comment>
+                    <depends><field id="bss_sociallogin/live/enable">1</field></depends>
+                </field>
+                <field id="small_icon" translate="label comment" type="image" sortOrder="5" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Small Icon</label>
+                    <backend_model>Magento\Config\Model\Config\Backend\Image</backend_model>
+                    <upload_dir config="system/filesystem/media" scope_info="1">sociallogin</upload_dir>
+                    <base_url type="media" scope_info="1">sociallogin</base_url>
+                    <depends><field id="bss_sociallogin/live/enable">1</field></depends>
+                </field>
+                <field id="login_btn_text" translate="label comment" type="text" sortOrder="7" showInDefault="1" showInWebsite="1" showInStore="1" canRestore="1">
+                    <label>Login Button Text</label>
+                    <depends><field id="bss_sociallogin/live/enable">1</field></depends>
+                </field>
+                <field id="register_btn_text" translate="label comment" type="text" sortOrder="8" showInDefault="1" showInWebsite="1" showInStore="1" canRestore="1">
+                    <label>Registration Button Text</label>
+                    <depends><field id="bss_sociallogin/live/enable">1</field></depends>
+                </field>
+            </group>
+
+            <group id="instagram" translate="label" type="text" sortOrder="100" showInDefault="1" showInWebsite="1" showInStore="1">
+                <label>Instagram</label>
+               <attribute type="expanded">1</attribute>
+
+                <field id="enable" translate="label comment" type="select" sortOrder="1" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Enable</label>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                    <comment>For configuration instructions, please &lt;a href="https://www.instagram.com/developer/register/" target="_blank"&gt;click here&lt;/a&gt;.</comment>
+                </field>
+                <field id="client_id" translate="label comment" type="text" sortOrder="2" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Application Id</label>
+                    <validate>validate-no-empty</validate>
+                    <depends><field id="bss_sociallogin/instagram/enable">1</field></depends>
+                </field>
+                <field id="secret" translate="label comment" type="obscure" sortOrder="3" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Application Secrets</label>
+                    <backend_model>Magento\Config\Model\Config\Backend\Encrypted</backend_model>
+                    <validate>validate-no-empty</validate>
+                    <depends><field id="bss_sociallogin/instagram/enable">1</field></depends>
+                </field>
+                <field id="callbackurl" translate="label comment" type="text" sortOrder="4" showInDefault="1" showInWebsite="1" showInStore="0">
+                    <label>Redirect URL(s) </label>
+                    <frontend_model>Bss\SocialLogin\Block\Adminhtml\System\Config\Form\Callbackurl</frontend_model>
+                    <comment>Please use this link for Redirect URL(s) field when registering with Instagram API</comment>
+                    <depends><field id="bss_sociallogin/instagram/enable">1</field></depends>
+                </field>
+                <field id="small_icon" translate="label comment" type="image" sortOrder="5" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Small Icon</label>
+                    <backend_model>Magento\Config\Model\Config\Backend\Image</backend_model>
+                    <upload_dir config="system/filesystem/media" scope_info="1">sociallogin</upload_dir>
+                    <base_url type="media" scope_info="1">sociallogin</base_url>
+                    <depends><field id="bss_sociallogin/instagram/enable">1</field></depends>
+                </field>
+                <field id="login_btn_text" translate="label comment" type="text" sortOrder="7" showInDefault="1" showInWebsite="1" showInStore="1" canRestore="1">
+                    <label>Login Button Text</label>
+                    <depends><field id="bss_sociallogin/instagram/enable">1</field></depends>
+                </field>
+                <field id="register_btn_text" translate="label comment" type="text" sortOrder="8" showInDefault="1" showInWebsite="1" showInStore="1" canRestore="1">
+                    <label>Registration Button Text</label>
+                    <depends><field id="bss_sociallogin/instagram/enable">1</field></depends>
+                </field>
+            </group>
+
+            <group id="vkontakte" translate="label" type="text" sortOrder="110" showInDefault="1" showInWebsite="1" showInStore="1">
+                <label>Vkontakte</label>
+                <attribute type="expanded">1</attribute>
+
+                <field id="enable" translate="label comment" type="select" sortOrder="1" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Enable</label>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                    <comment>For configuration instructions, please &lt;a href="http://vk.com/editapp?act=create" target="_blank"&gt;click here&lt;/a&gt;.</comment>
+                </field>
+                <field id="client_id" translate="label comment" type="text" sortOrder="2" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>App ID</label>
+                    <validate>validate-no-empty</validate>
+                    <depends><field id="bss_sociallogin/vkontakte/enable">1</field></depends>
+                </field>
+                <field id="secret" translate="label comment" type="obscure" sortOrder="3" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>App Secret</label>
+                    <validate>validate-no-empty</validate>
+                    <backend_model>Magento\Config\Model\Config\Backend\Encrypted</backend_model>
+                    <depends><field id="bss_sociallogin/vkontakte/enable">1</field></depends>
+                </field>
+                <field id="base_domain" translate="label comment" type="text" sortOrder="4" showInDefault="1" showInWebsite="1" showInStore="0">
+                    <label>Base URL(s) </label>
+                    <frontend_model>Bss\SocialLogin\Block\Adminhtml\System\Config\Form\Baseurl</frontend_model>
+                    <comment>Please use this link for Base domain field when registering with Vkontakte API</comment>
+                    <depends><field id="bss_sociallogin/vkontakte/enable">1</field></depends>
+                </field>
+                <field id="small_icon" translate="label comment" type="image" sortOrder="5" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Small Icon</label>
+                    <backend_model>Magento\Config\Model\Config\Backend\Image</backend_model>
+                    <upload_dir config="system/filesystem/media" scope_info="1">sociallogin</upload_dir>
+                    <base_url type="media" scope_info="1">sociallogin</base_url>
+                    <depends><field id="bss_sociallogin/vkontakte/enable">1</field></depends>
+                </field>
+                <field id="login_btn_text" translate="label comment" type="text" sortOrder="8" showInDefault="1" showInWebsite="1" showInStore="1" canRestore="1">
+                    <label>Login Button Text</label>
+                    <depends><field id="bss_sociallogin/vkontakte/enable">1</field></depends>
+                </field>
+                <field id="register_btn_text" translate="label comment" type="text" sortOrder="9" showInDefault="1" showInWebsite="1" showInStore="1" canRestore="1">
+                    <label>Registration Button Text</label>
+                    <depends><field id="bss_sociallogin/vkontakte/enable">1</field></depends>
+                </field>
+            </group>
+            <group id="pinterest" translate="label" type="text" sortOrder="110" showInDefault="1" showInWebsite="1" showInStore="1">
+                <label>Pinterest</label>
+               <attribute type="expanded">1</attribute>
+
+                <field id="enable" translate="label comment" type="select" sortOrder="1" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Enable</label>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                    <comment>For configuration instructions, please &lt;a href="https://developers.pinterest.com/apps/" target="_blank"&gt;click here&lt;/a&gt;.</comment>
+                </field>
+                <field id="client_id" translate="label comment" type="text" sortOrder="2" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>App ID</label>
+                    <validate>validate-no-empty</validate>
+                    <depends><field id="bss_sociallogin/pinterest/enable">1</field></depends>
+                </field>
+                <field id="secret" translate="label comment" type="obscure" sortOrder="3" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>App Secret</label>
+                    <backend_model>Magento\Config\Model\Config\Backend\Encrypted</backend_model>
+                    <validate>validate-no-empty</validate>
+                    <depends><field id="bss_sociallogin/pinterest/enable">1</field></depends>
+                </field>
+                <field id="callbackurl" translate="label comment" type="text" sortOrder="4" showInDefault="1" showInWebsite="1" showInStore="0">
+                    <label>Redirect URL(s) </label>
+                    <frontend_model>Bss\SocialLogin\Block\Adminhtml\System\Config\Form\Callbackurl</frontend_model>
+                    <comment>Please use this link for Redirect URL(s) field when registering with Instagram API</comment>
+                    <depends><field id="bss_sociallogin/pinterest/enable">1</field></depends>
+                </field>
+                <field id="small_icon" translate="label comment" type="image" sortOrder="5" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Small Icon</label>
+                    <backend_model>Magento\Config\Model\Config\Backend\Image</backend_model>
+                    <upload_dir config="system/filesystem/media" scope_info="1">sociallogin</upload_dir>
+                    <base_url type="media" scope_info="1">sociallogin</base_url>
+                    <depends><field id="bss_sociallogin/pinterest/enable">1</field></depends>
+                </field>
+                <field id="login_btn_text" translate="label comment" type="text" sortOrder="7" showInDefault="1" showInWebsite="1" showInStore="1" canRestore="1">
+                    <label>Login Button Text</label>
+                    <depends><field id="bss_sociallogin/pinterest/enable">1</field></depends>
+                </field>
+                <field id="register_btn_text" translate="label comment" type="text" sortOrder="8" showInDefault="1" showInWebsite="1" showInStore="1" canRestore="1">
+                    <label>Registration Button Text</label>
+                    <depends><field id="bss_sociallogin/pinterest/enable">1</field></depends>
+                </field>
+            </group>
+        </section>
+    </system>
+</config>

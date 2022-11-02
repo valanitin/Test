@@ -1,0 +1,18 @@
+<?xml version="1.0"?>
+
+<page xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/page_configuration.xsd">
+    <body>
+        <referenceBlock name="product.info.addtocart">
+            <block class="Magento\Catalog\Block\Product\View"
+                   name="product.buynow"
+                   template="Sololuxary_BuyNow::buynow-view.phtml"
+                   before="-" ifconfig="buynow/general/enable_view"/>
+        </referenceBlock>
+        <referenceBlock name="product.info.addtocart.additional">
+            <block class="Magento\Catalog\Block\Product\View"
+                   name="product.buynow.config"
+                   template="Sololuxary_BuyNow::buynow-view.phtml"
+                   before="-" ifconfig="buynow/general/enable_view"/>
+        </referenceBlock>
+    </body>
+</page>

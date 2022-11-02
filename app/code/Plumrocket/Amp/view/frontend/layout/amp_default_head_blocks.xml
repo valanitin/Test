@@ -1,0 +1,103 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Plumrocket Inc.
+ *
+ * NOTICE OF LICENSE
+ *
+ * This source file is subject to the End-user License Agreement
+ * that is available through the world-wide-web at this URL:
+ * http://wiki.plumrocket.net/wiki/EULA
+ * If you are unable to obtain it through the world-wide-web, please
+ * send an email to support@plumrocket.com so we can send you a copy immediately.
+ *
+ * @package     Plumrocket_Amp
+ * @copyright   Copyright (c) 2018 Plumrocket Inc. (http://www.plumrocket.com)
+ * @license     http://wiki.plumrocket.net/wiki/EULA  End-user License Agreement
+ */
+-->
+<page xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/page_configuration.xsd">
+    <head>
+        <remove src="mage/calendar.css"/>
+        <remove src="requirejs/require.js"/>
+        <meta name="viewport" content="width=device-width, minimum-scale=1, initial-scale=1, maximum-scale=5"/>
+        <meta name="amp-google-client-id-api" content="googleanalytics"/>
+        <attribute name="prefix" value="" />
+    </head>
+    <body>
+        <referenceBlock name="require.js" remove="true"/>
+        <block class="Magento\Framework\View\Element\Template" name="head.additional" as="head.additional" template="Magento_Theme::html/container.phtml">
+            <block class="Magento\Framework\View\Element\Template" name="ampcss" as="ampcss" template="Plumrocket_Amp::head/css.phtml">
+                <block class="Plumrocket\Amp\Block\Page\Head\Style" name="ampcss.style" as="ampcss.style" template="Plumrocket_Amp::head/css/style.phtml" before="-"/>
+                <block class="Plumrocket\Amp\Block\Page\Head\Style" name="ampcss.font-awesome" template="Plumrocket_Amp::head/css/font-awesome.phtml" after="ampcss.style"/>
+                <block class="Plumrocket\Amp\Block\Page\Head\Style" name="ampcss.custom" as="ampcss.custom" template="Plumrocket_Amp::head/css/custom.phtml" after="ampcss.style"/>
+            </block>
+            <block class="Plumrocket\Amp\Block\Page\Head\Js" name="ampjs" as="ampjs">
+                <action method="addJs">
+                    <argument name="src" xsi:type="string">https://cdn.ampproject.org/v0/amp-bind-0.1.js</argument>
+                    <argument name="type" xsi:type="string">amp-bind</argument>
+                </action>
+                <action method="addJs">
+                    <argument name="src" xsi:type="string">https://cdn.ampproject.org/v0/amp-form-0.1.js</argument>
+                    <argument name="type" xsi:type="string">amp-form</argument>
+                </action>
+                <action method="addJs">
+                    <argument name="src" xsi:type="string">https://cdn.ampproject.org/v0/amp-mustache-0.2.js</argument>
+                    <argument name="type" xsi:type="string">amp-mustache</argument>
+                    <argument name="element" xsi:type="string">template</argument>
+                </action>
+                <action method="addJs">
+                    <argument name="src" xsi:type="string">https://cdn.ampproject.org/v0/amp-analytics-0.1.js</argument>
+                    <argument name="type" xsi:type="string">amp-analytics</argument>
+                </action>
+                <action method="addJs">
+                    <argument name="src" xsi:type="string">https://cdn.ampproject.org/v0/amp-carousel-0.1.js</argument>
+                    <argument name="type" xsi:type="string">amp-carousel</argument>
+                </action>
+                <action method="addJs">
+                    <argument name="src" xsi:type="string">https://cdn.ampproject.org/v0/amp-youtube-0.1.js</argument>
+                    <argument name="type" xsi:type="string">amp-youtube</argument>
+                </action>
+                <action method="addJs">
+                    <argument name="src" xsi:type="string">https://cdn.ampproject.org/v0/amp-vimeo-0.1.js</argument>
+                    <argument name="type" xsi:type="string">amp-vimeo</argument>
+                </action>
+                <action method="addJs">
+                    <argument name="src" xsi:type="string">https://cdn.ampproject.org/v0/amp-video-0.1.js</argument>
+                    <argument name="type" xsi:type="string">amp-video</argument>
+                </action>
+                <action method="addJs">
+                    <argument name="src" xsi:type="string">https://cdn.ampproject.org/v0/amp-list-0.1.js</argument>
+                    <argument name="type" xsi:type="string">amp-list</argument>
+                </action>
+                <action method="addJs">
+                    <argument name="src" xsi:type="string">https://cdn.ampproject.org/v0/amp-mustache-0.2.js</argument>
+                    <argument name="type" xsi:type="string">amp-mustache</argument>
+                    <argument name="element" xsi:type="string">template</argument>
+                </action>
+                <action method="addJs">
+                    <argument name="src" xsi:type="string">https://cdn.ampproject.org/v0/amp-user-notification-0.1.js</argument>
+                    <argument name="type" xsi:type="string">amp-user-notification</argument>
+                </action>
+                <action method="addJs">
+                    <argument name="src" xsi:type="string">https://cdn.ampproject.org/v0/amp-animation-0.1.js</argument>
+                    <argument name="type" xsi:type="string">amp-animation</argument>
+                </action>
+                <action method="addJs">
+                    <argument name="src" xsi:type="string">https://cdn.ampproject.org/v0/amp-accordion-0.1.js</argument>
+                    <argument name="type" xsi:type="string">amp-accordion</argument>
+                </action>
+                <action method="addJs">
+                    <argument name="src" xsi:type="string">https://cdn.ampproject.org/v0/amp-iframe-0.1.js</argument>
+                    <argument name="type" xsi:type="string">amp-iframe</argument>
+                </action>
+                <action method="addJs">
+                    <argument name="src" xsi:type="string">https://cdn.ampproject.org/v0/amp-vimeo-0.1.js</argument>
+                    <argument name="type" xsi:type="string">amp-vimeo</argument>
+                </action>
+            </block>
+        </block>
+        <!-- Compatibility with MagicToolbox_MagicZoomPlus Extension -->
+        <referenceContainer name="head.additional.magictoolbox" remove="true"/>
+    </body>
+</page>

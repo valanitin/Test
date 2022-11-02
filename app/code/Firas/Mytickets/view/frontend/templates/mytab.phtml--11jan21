@@ -1,0 +1,135 @@
+<?php
+$objectManager = \Magento\Framework\App\ObjectManager::getInstance();
+$customerSession = $objectManager->create('Magento\Customer\Model\Session');
+$ticketList = '';
+if ($customerSession->isLoggedIn()) {
+    $customerSession->getCustomerId();  // get Customer Id
+    $customerSession->getCustomerGroupId();
+    $customerSession->getCustomer();
+    $customerSession->getCustomerData();
+    $customerName = $customerSession->getCustomer()->getName();  // get  Full Name
+    $customerEmail = $customerSession->getCustomer()->getEmail(); // get Email
+    $website = 'www.brands-labels.com';
+
+    $url = 'https://erp.amourint.com/api/ticket/send';
+
+    //Initiate cURL.
+    $ch = curl_init($url);
+
+    //The JSON data.
+    $newjsonData = array(
+      // 'website' => $website,
+      // 'email' => $customerEmail
+      'website' => 'www.abc.com',
+      'email' => 'test@gmail.com'
+    );
+
+    //Encode the array into JSON.
+    $jsonDataEncoded = json_encode($newjsonData);
+
+    //Tell cURL that we want to send a POST request.
+    curl_setopt($ch, CURLOPT_POST, 1);
+    curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
+    //Attach our encoded JSON string to the POST fields.
+    curl_setopt($ch, CURLOPT_POSTFIELDS, $jsonDataEncoded);
+
+    //Set the content type to application/json
+    curl_setopt($ch, CURLOPT_HTTPHEADER, array('Content-Type: application/json'));
+
+    // Return response instead of outputting
+    // curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+
+    //Execute the request
+
+      $content = trim(curl_exec($ch));
+      curl_close($ch);
+      $data = json_decode($content, true);
+      $apiStatus = $data['status'];
+      $apiTickets = $data['tickets'];
+      $apiTicketsData = $apiTickets['data'];
+
+      foreach($apiTicketsData as $ticket){
+          $ticketId = $ticket['ticket_id'];
+          $ticketName = $ticket['subject'];
+          $ticketCreate = $ticket['created_at'];
+          $ticketUpdated = $ticket['updated_at'];
+          $ticketMessage = $ticket['message'];
+          $ticketStatus = $ticket['status'];
+          // echo '<pre>';
+          // print_r($ticket);
+          $ticketList .= '<ul>
+            <li>'.$ticketId.'</li>
+            <li>'.$ticketName.'</li>
+            <li>'.$ticketCreate.'</li>
+            <li>'.$ticketUpdated.'</li>
+            <li>'.$ticketMessage.'</li>
+            <li>'.$ticketStatus.'</li>
+          </ul>';
+      }
+}
+?>
+<div class="mytickets-container">
+  <div class="row">
+    <div class="col-md-12">
+      <h2><?php echo __('My Tickets') ?></h2>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-md-12">
+      <ul class="titles">
+        <li>ID</li>
+        <li>Name</li>
+        <li>Created</li>
+        <li>Last Updated</li>
+        <li>Message</li>
+        <li>Current Status</li>
+      </ul>
+      <div class="ticket-content">
+        <?php echo $ticketList; ?>
+      </div>
+    </div>
+  </div>
+</div>
+<style>
+  ul.titles{
+    width: 100%;
+    float: left;
+    margin: 10px auto 0px;
+    background: #000080;
+    padding: 10px 15px;
+    color: #fff;
+  }
+  ul.titles li, .ticket-content li{
+    float: left;
+    width: 20%;
+    margin: 0;
+  }
+  .ticket-content{
+    float: left;
+    width: 100%;
+    border: 1px solid #000080;
+    padding: 0px 10px 0px;
+  }
+  .ticket-content li{
+    margin-bottom: 0;
+  }
+  .ticket-content ul{
+    margin-bottom: 0;
+    border-bottom: 1px solid #000080;
+    float: left;
+    width: 100%;
+    padding: 15px 0px;
+  }
+  .ticket-content ul:last-child{
+    border: 0;
+  }
+  .mytickets-container li{
+    list-style: none;
+  }
+  .mytickets-container ul li:first-child{
+    width: 5%;
+  }
+  .mytickets-container ul li:last-child{
+    width: 10%;
+  }
+</style>

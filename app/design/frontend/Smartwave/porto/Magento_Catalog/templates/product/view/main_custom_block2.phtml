@@ -1,0 +1,93 @@
+
+<?php
+    $product_view = $this->getConfig('porto_settings/product');
+    $block = $this->getLayout()->createBlock('Magento\Cms\Block\Block');
+    if($block) {
+        $block->setBlockId($product_view['main_custom_block2']);
+    }
+    if($block && isset($product_view['main_custom_block2']) && $product_view['main_custom_block2'] !=''){
+        echo '<div class="custom-block">'.$block->toHtml().'</div>';
+    }
+?>
+<?php
+    $dynamicHelper = $this->helper('\Dynamic\Customization\Helper\Data');
+    $product = $dynamicHelper->getRegistry()->registry('current_product');//get current product
+    $prodDescription = $product->getDescription();
+    $compositionLabel = $product->getResource()->getAttribute('composition')->getStoreLabel();
+    $compositionValue = $product->getResource()->getAttribute('composition')->getFrontend()->getValue($product);
+    //$materialLabel = $product->getResource()->getAttribute('material')->getStoreLabel();
+    //$materialValue = $product->getResource()->getAttribute('material')->getFrontend()->getValue($product);
+    // $sizeLabel = $product->getResource()->getAttribute('dimensions')->getStoreLabel();
+    // $sizeValue = $product->getResource()->getAttribute('size_chart')->getFrontend()->getValue($product);
+    $sizeLabel = $product->getResource()->getAttribute('size_chart_url')->getStoreLabel();
+    $sizeValue = $product->getResource()->getAttribute('size_chart_url')->getFrontend()->getValue($product);
+    $colorLabel = $product->getResource()->getAttribute('color_v2')->getStoreLabel();
+    $colorValue = $product->getResource()->getAttribute('color_v2')->getFrontend()->getValue($product);
+	$BrandLabel = $product->getResource()->getAttribute('brands')->getStoreLabel();
+	$BrandValue = $product->getResource()->getAttribute('brands')->getFrontend()->getValue($product);
+
+?>
+
+<div class="details-accordion">
+		<div class="accordion-title"><span class="arrow-down"><?php echo __('Description') ?> <em><i class="fas fa-chevron-down"></i></em></span></div>
+		<div class="content prod-description">
+      <?php echo $prodDescription; ?>
+    </div>
+		<div class="accordion-title head-back"><span class="arrow-up"><?php echo __('Details') ?> <em><i class="fas fa-chevron-down"></i></em></span></div>
+		<div class="content">
+      <div class="custom-prod-attributes-block">
+        <?php if(!empty($sizeValue)){ ?>
+        <div class="custom-prod-attributes">
+          <div class="label"><div id="openSizeModal" class="cust-chart-one-line"><?php echo __('View the size chart') ?></div></div>
+        </div>
+        <!-- The Modal -->
+
+        <?php } ?>
+        <?php if(!empty($compositionValue)){ ?>
+        <div class="custom-prod-attributes">
+          <div class="label"><?php echo __($compositionLabel).":" ?></div>
+          <div class="label-txt">
+            <?php 
+              $compositionValue = strtolower($compositionValue);
+              $compositionValue = ucwords($compositionValue);
+              echo $compositionValue 
+            ?>
+            
+          </div>
+        </div>
+        <?php } ?>
+        <?php if(!empty($materialValue)){ ?>
+        <div class="custom-prod-attributes">
+          <div class="label"><?php echo __($materialLabel).':' ?></div>
+          <div class="label-txt"><?php echo $materialValue ?></div>
+        </div>
+        <?php } ?>	
+        <?php if(!empty($colorValue)){ ?>
+        <div class="custom-prod-attributes">
+          <div class="label"><?php echo __($colorLabel).':' ?></div>
+          <div class="label-txt"><?php echo $colorValue ?></div>
+        </div>
+        <?php } ?>
+		 <?php if(!empty($BrandValue)){ ?>
+        <div class="custom-prod-attributes">
+          <div class="label"><?php echo __($BrandLabel).':' ?></div>
+          <div class="label-txt"><?php echo $BrandValue ?></div>
+        </div>
+        <?php } ?>
+      </div>
+    </div>
+	</div>
+
+
+<div id="sizeModal" class="size-modal">
+  <div class="size-modal-content">
+    <div class="size-container">
+      <span id="close-size-modal">&times;</span>
+      <?php if(!empty($sizeValue)): ?>
+        <img src="<?php echo $sizeValue ?>"/>
+      <?php endif; ?>
+    </div>
+  </div>
+</div>
+
+</div> <!-- end of div with class firstCustomDiv-->

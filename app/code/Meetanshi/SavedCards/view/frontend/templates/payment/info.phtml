@@ -1,0 +1,29 @@
+<?php
+$title = $block->escapeHtml($block->getMethod()->getTitle());
+?>
+<dl class="payment-method">
+    <dt class="title"><?= /* @noEscape */ $title ?></dt>
+    <?php if ($block->getInfo()->getAdditionalInformation()):
+        $dynamicHelper = $this->helper('\Dynamic\Customization\Helper\Data');
+        $dynamicHelper->getLogger()->debug(print_r(['Label' => $block->getInfo()->getAdditionalInformation()], true));
+        ?>
+        <dd class="content">
+            <table class="data table">
+                <caption class="table-caption"><?= /* @noEscape */ $title ?></caption>
+                <?php foreach ($block->getInfo()->getAdditionalInformation() as $label => $value):
+                    ?>
+                    <?php if ($label != 'cc_cvv' && $label != 'card_number' && $label != 'card_expiry_date') : ?>
+                        <tr>
+                            <th scope="row"><?php echo $block->getLabel($label) ?></th>
+                            <td>
+                                <?= /* @noEscape */ nl2br($block->escapeHtml(implode("\n", $block->getValueAsArray($value, true)))) ?>
+                            </td>
+                        </tr>
+                    <?php endif; ?>
+                <?php endforeach; ?>
+            </table>
+        </dd>
+    <?php endif;?>
+</dl>
+<?= $block->getChildHtml() ?>
+

@@ -1,0 +1,8 @@
+<?xml version="1.0"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Backend:etc/menu.xsd">
+	<menu>
+	  <add id="Ethnic_Customfooter::ethnic" title="Crud" translate="title" module="Ethnic_Customfooter" sortOrder="90" dependsOnModule="Ethnic_Customfooter" resource="Ethnic_Customfooter::ethnic"/>
+	  <add id="Ethnic_Customfooter::news" title="News" translate="title" module="Ethnic_Customfooter" parent="Ethnic_Customfooter::ethnic" sortOrder="50" dependsOnModule="Ethnic_Customfooter" resource="Ethnic_Customfooter::news"/>
+	  <add id="Ethnic_Customfooter::news_allnews" title="Customfooter" translate="title" module="Ethnic_Customfooter" parent="Ethnic_Customfooter::news" sortOrder="10" dependsOnModule="Ethnic_Customfooter" action="news/allnews" resource="Ethnic_Customfooter::news_allnews"/>
+	</menu>
+</config>

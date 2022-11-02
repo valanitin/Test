@@ -1,0 +1,22 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * @author Amasty Team
+ * @copyright Copyright (c) 2020 Amasty (https://www.amasty.com)
+ * @package Amasty_Sorting
+ */
+-->
+<!--
+/**
+ * Copyright © 2016 Magento. All rights reserved.
+ * See COPYING.txt for license details.
+ */
+-->
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:Event/etc/events.xsd">
+    <event name="catalog_controller_product_view">
+        <observer name="most_viewed_index_invalidate" instance="Amasty\Sorting\Observer\ViewedIndexInvalidator" />
+    </event>
+    <event name="wishlist_add_product">
+        <observer name="wished_index_invalidate" instance="Amasty\Sorting\Observer\WishedIndexInvalidator" />
+    </event>
+</config>

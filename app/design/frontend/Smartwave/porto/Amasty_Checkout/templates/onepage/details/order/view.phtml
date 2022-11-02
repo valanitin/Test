@@ -1,0 +1,67 @@
+<?php
+/**
+ * @author Amasty Team
+ * @copyright Copyright (c) 2021 Amasty (https://www.amasty.com)
+ * @package Amasty_Checkout
+ */
+?>
+<?php
+
+// @codingStandardsIgnoreFile
+
+?>
+<?php /** @var  $block \Magento\Sales\Block\Order\View*/?>
+<?php $baseUrl = $block->getBaseUrl(); ?>
+<div class="order-details-items ordered">
+    <?php $_order = $block->getOrder() ?>
+
+    <div class="order-title">
+        <strong><?= $block->escapeHtml(__('Items Ordered')) ?></strong>
+        <?php if ($_order->getTracksCollection()->count()) : ?>
+            <?= $block->getChildHtml('tracking-info-link') ?>
+        <?php endif; ?>
+    </div>
+
+    <?= $block->getChildHtml('order_items') ?>
+    <div class="order-track">
+      <div class="col-md-6"><?php /*<a href="<?php echo $baseUrl.'sales/order/view/order_id/'.$_order->getId() ?>"><?php echo __('Track Order') ?></a>*/ ?></div>
+      <div class="col-md-6 text-right">
+        <p><span><?php echo __('Order Date: ') ?></span> <?= $block->escapeHtml(
+            $block->formatDate(
+                $block->getOrder()->getCreatedAt(),
+                \IntlDateFormatter::LONG
+            )
+        ) ?></p>
+        <?php
+        $dynamicHelper = $this->helper('\Dynamic\Customization\Helper\Data');
+		$scopeConfig = $dynamicHelper->getScopeConfig();
+		$active =  $scopeConfig->getValue("productdeliverydate/delivery_date/active", \Magento\Store\Model\ScopeInterface::SCOPE_STORE);
+		$deliverymaxday =  $scopeConfig->getValue("productdeliverydate/delivery_date/deliverymaxday", \Magento\Store\Model\ScopeInterface::SCOPE_STORE);
+		$deliveryminday =  $scopeConfig->getValue("productdeliverydate/delivery_date/deliveryminday", \Magento\Store\Model\ScopeInterface::SCOPE_STORE);
+		$objDate = $dynamicHelper->getDate();
+		if($active){ 
+		$date = $objDate->date('Y-m-d');
+		$minday = $objDate->date('M j', strtotime($date." +".$deliveryminday." days"));
+		$maxday = $objDate->date('M j', strtotime($date." +".$deliverymaxday." days"));
+		?>
+		
+			<p><span><?php echo __('Expected Shipment Date: ') ?></span><?php echo $minday." - ".$maxday; ?></p>
+		<?php 
+		}
+		 ?>
+      </div>
+    </div>
+    <?php if ($this->helper('Magento\GiftMessage\Helper\Message')->isMessagesAllowed('order', $_order) && $_order->getGiftMessageId()): ?>
+    <div class="block block-order-details-gift-message">
+        <div class="block-title"><strong><?= $block->escapeHtml(__('Gift Message for This Order')) ?></strong></div>
+        <?php $_giftMessage = $this->helper('Magento\GiftMessage\Helper\Message')->getGiftMessageForEntity($_order); ?>
+        <div class="block-content">
+            <dl class="item-options">
+                <dt class="item-sender"><strong class="label"><?= $block->escapeHtml(__('From')) ?></strong><?= $block->escapeHtml($_giftMessage->getSender()) ?></dt>
+                <dt class="item-recipient"><strong class="label"><?= $block->escapeHtml(__('To')) ?></strong><?= $block->escapeHtml($_giftMessage->getRecipient()) ?></dt>
+                <dd class="item-message"><?= $block->escapeHtml($this->helper('Magento\GiftMessage\Helper\Message')->getEscapedGiftMessage($_order)) ?></dd>
+            </dl>
+        </div>
+    </div>
+    <?php endif; ?>
+</div>

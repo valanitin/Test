@@ -1,0 +1,8 @@
+<?xml version="1.0"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Cron:etc/crontab.xsd">
+    <group id="default">
+        <job instance="Local\ProductOutofstock\Cron\ProductQty" method="execute" name="outofstock_product">
+            <config_path>outofstockproduct/general/cron_time</config_path>
+        </job>
+    </group>
+</config>

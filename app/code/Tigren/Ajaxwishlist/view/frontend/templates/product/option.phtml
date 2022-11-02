@@ -1,0 +1,26 @@
+<?php
+/**
+ * @author    Tigren Solutions <info@tigren.com>
+ * @copyright Copyright (c) 2022 Tigren Solutions <https://www.tigren.com>. All rights reserved.
+ * @license   Open Software License ("OSL") v. 3.0
+ */
+
+?>
+<div class="swatch-opt">
+    <?php if (!empty($block->getColorLabel()) && $block->getColorLabel() !== 'undefined') {
+        ?>
+        <span class="swatch-attribute color">
+        <span>Color: </span>
+        <strong><?= $block->getColorLabel() ?></strong>
+    </span>&nbsp;&nbsp;
+        <?php
+    } ?>
+    <?php if (!empty($block->getSizeLabel()) && $block->getSizeLabel() !== 'undefined') {
+        ?>
+        <span class="swatch-attribute size">
+        <span>Size: </span>
+        <strong><?= $block->getSizeLabel() ?></strong>
+    </span>
+        <?php
+    } ?>
+</div>

@@ -1,0 +1,53 @@
+<?php
+/**
+ * Plumrocket Inc.
+ *
+ * NOTICE OF LICENSE
+ *
+ * This source file is subject to the End-user License Agreement
+ * that is available through the world-wide-web at this URL:
+ * http://wiki.plumrocket.net/wiki/EULA
+ * If you are unable to obtain it through the world-wide-web, please
+ * send an email to support@plumrocket.com so we can send you a copy immediately.
+ *
+ * @package     Plumrocket_Amp
+ * @copyright   Copyright (c) 2019 Plumrocket Inc. (http://www.plumrocket.com)
+ * @license     http://wiki.plumrocket.net/wiki/EULA  End-user License Agreement
+ */
+?>
+<?php
+/** @var Plumrocket\Amp\Block\Page\Html\Header\Menu\Right $block */
+
+/** @var \Plumrocket\Amp\Helper\Data $helperAmp */
+$helperAmp = $this->helper(\Plumrocket\Amp\Helper\Data::class);
+/** @var \Magento\Checkout\Helper\Cart $helperCart */
+$helperCart = $this->helper(\Magento\Checkout\Helper\Cart::class);
+
+// Magento FPC will cache cart count
+// If add attribute "cacheable", all page be uncacheable
+$cartSummaryQty = null;
+$searchMode = ! $helperAmp->isEnabledHeaderSearch() ? 'icon' : 'form';
+$searchMode = $helperAmp->isSearchEnabled()
+    ? $searchMode
+    : false;
+?>
+<div class="right-top-btn">
+    <?php if ($searchMode === 'icon') : ?>
+        <a href="<?= $block->escapeUrl($this->getUrl('pramp/search/index', ['amp' => 1])) ?>"
+           class="icon search-icon"
+           title="<?= $block->escapeHtmlAttr(__('Search')) ?>"
+        ></a>
+    <?php endif; ?>
+    <?php echo $block->getChildHtml('amp-authorization-link-login') ?>
+    <a href="<?= $block->escapeUrl($helperCart->getCartUrl()) ?>"
+       class="icon cart"
+       title="<?= $block->escapeHtmlAttr(__('Cart')) ?>"
+    >
+        <?php if ($cartSummaryQty) : ?>
+            <span id="cart-summary-qty" class="count"><?php echo $cartSummaryQty ?></span>
+        <?php endif; ?>
+    </a>
+</div>
+<?php if ($searchMode === 'form') : ?>
+    <?php echo $block->getChildHtml('amp_catalogsearch_form') ?>
+<?php endif; ?>

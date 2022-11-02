@@ -1,0 +1,16 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * @author Raju Sadadiya
+ * @package Dynamic_Customization
+ */ 
+-->
+<page xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" layout="2columns-left" xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/page_configuration.xsd">
+    <body>
+        <referenceBlock name="product.info.recommendation-recent">
+            <arguments>
+                <argument name="view_model" xsi:type="object">Dynamic\Customization\ViewModel\Recommendation</argument>
+            </arguments>
+        </referenceBlock>
+    </body>
+</page>

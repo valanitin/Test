@@ -1,0 +1,7 @@
+<?xml version="1.0"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="../../../../../lib/internal/Magento/Framework/ObjectManager/etc/config.xsd">
+    <preference for="Dynamic\Orderreturn\Api\OrderreturnManagementInterface" type="Dynamic\Orderreturn\Model\OrderreturnManagement"/>
+    <preference for="Dynamic\Orderreturn\Api\GetReturnStatus" type="Dynamic\Orderreturn\Model\GetReturnStatusModel" />
+    <preference for="Dynamic\Orderreturn\Api\UpdatereturnManagementInterface" type="Dynamic\Orderreturn\Model\UpdatereturnManagement"/>
+    <preference for="Dynamic\Orderreturn\Api\OrderreturnlistManagementInterface" type="Dynamic\Orderreturn\Model\OrderreturnlistManagement"/>
+</config>

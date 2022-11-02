@@ -1,0 +1,11 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * @author      LuxuryUnlimited
+ * @copyright   Copyright © 2022. All rights reserved.
+ */
+-->
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:ObjectManager/etc/config.xsd">
+    <preference for="MageWorx\SearchSuiteAutocomplete\Controller\Ajax\Index" 
+        type="LuxuryUnlimited\CmsSearch\Controller\Ajax\Index" />
+</config>

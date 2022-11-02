@@ -1,0 +1,79 @@
+<?php /** * Copyright © Magento, Inc. All rights reserved. * See COPYING.txt for license details. */ ?> <div data-bind="scope: 'messages'">
+<?php 
+$successMessageflag = $this->helper('Dynamic\Customization\Helper\Data')->getConfig('messagevalidationsection/messagevalidation/success');
+$errorMessageflag = $this->helper('Dynamic\Customization\Helper\Data')->getConfig('messagevalidationsection/messagevalidation/error');
+?>
+<?php if($successMessageflag == '0' && $errorMessageflag == '1') { ?>
+<!-- ko if: cookieMessages && cookieMessages.length > 0 --><div role="alert" data-bind="foreach: { data: cookieMessages, as: 'message' },afterRender: hideMessage(0,1)" class="messages">
+
+<div data-bind="attr: { class: 'message-' + message.type + ' ' + message.type + ' message', 'data-ui-id': 'message-' + message.type }">
+
+<div data-bind="html: message.text">
+
+</div></div></div><!-- /ko --><!-- ko if: messages().messages && messages().messages.length > 0 -->
+
+<div role="alert" data-bind="foreach: { data: messages().messages, as: 'message' },afterRender: hideMessage(0,1)" class="messages" >
+
+<div data-bind="attr: { class: 'message-' + message.type + ' ' + message.type + ' message', 'data-ui-id': 'message-' + message.type }"><div data-bind="html: message.text"></div></div></div><!-- /ko --></div>
+<?php }else if($successMessageflag == '0' && $errorMessageflag == '0') { ?>
+<!-- ko if: cookieMessages && cookieMessages.length > 0 --><div role="alert" data-bind="foreach: { data: cookieMessages, as: 'message' },afterRender: hideMessage(0,0)" class="messages">
+
+<div data-bind="attr: { class: 'message-' + message.type + ' ' + message.type + ' message', 'data-ui-id': 'message-' + message.type }">
+
+<div data-bind="html: message.text">
+
+</div></div></div><!-- /ko --><!-- ko if: messages().messages && messages().messages.length > 0 -->
+
+<div role="alert" data-bind="foreach: { data: messages().messages, as: 'message' },afterRender: hideMessage(0,0)" class="messages" >
+
+<div data-bind="attr: { class: 'message-' + message.type + ' ' + message.type + ' message', 'data-ui-id': 'message-' + message.type }"><div data-bind="html: message.text"></div></div></div><!-- /ko --></div>
+
+<?php }else if($successMessageflag == '1' && $errorMessageflag == '0') { ?>
+
+<!-- ko if: cookieMessages && cookieMessages.length > 0 --><div role="alert" data-bind="foreach: { data: cookieMessages, as: 'message' },afterRender: hideMessage(1,0)" class="messages">
+
+<div data-bind="attr: { class: 'message-' + message.type + ' ' + message.type + ' message', 'data-ui-id': 'message-' + message.type }">
+
+<div data-bind="html: message.text">
+
+</div></div></div><!-- /ko --><!-- ko if: messages().messages && messages().messages.length > 0 -->
+
+<div role="alert" data-bind="foreach: { data: messages().messages, as: 'message' },afterRender: hideMessage(1,0)" class="messages" >
+
+<div data-bind="attr: { class: 'message-' + message.type + ' ' + message.type + ' message', 'data-ui-id': 'message-' + message.type }"><div data-bind="html: message.text"></div></div></div><!-- /ko --></div>
+
+<?php }else{ ?>
+
+<!-- ko if: cookieMessages && cookieMessages.length > 0 --><div role="alert" data-bind="foreach: { data: cookieMessages, as: 'message' },afterRender: hideMessage(1,1)" class="messages">
+
+<div data-bind="attr: { class: 'message-' + message.type + ' ' + message.type + ' message', 'data-ui-id': 'message-' + message.type }">
+
+<div data-bind="html: message.text">
+
+</div></div></div><!-- /ko --><!-- ko if: messages().messages && messages().messages.length > 0 -->
+
+<div role="alert" data-bind="foreach: { data: messages().messages, as: 'message' },afterRender: hideMessage(1,1)" class="messages" >
+
+<div data-bind="attr: { class: 'message-' + message.type + ' ' + message.type + ' message', 'data-ui-id': 'message-' + message.type }"><div data-bind="html: message.text"></div></div></div><!-- /ko --></div>
+<?php } ?>
+<script type="text/x-magento-init">
+    {
+        "*": {
+            "Magento_Ui/js/core/app": {
+                "components": {
+                        "messages": {
+                            "component": "Magento_Theme/js/view/messages"                        }
+                    }
+                }
+            }
+    }</script>
+    
+<?php 
+
+if($successMessageflag ==1) {?>
+<style type="text/css">
+.content-ajaxcart  .message{
+    display: none !important;
+}
+</style> 
+<?php } ?>

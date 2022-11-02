@@ -1,0 +1,63 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Plumrocket Inc.
+ *
+ * NOTICE OF LICENSE
+ *
+ * This source file is subject to the End-user License Agreement
+ * that is available through the world-wide-web at this URL:
+ * http://wiki.plumrocket.net/wiki/EULA
+ * If you are unable to obtain it through the world-wide-web, please
+ * send an email to support@plumrocket.com so we can send you a copy immediately.
+ *
+ * @package     Plumrocket_Amp
+ * @copyright   Copyright (c) 2017 Plumrocket Inc. (http://www.plumrocket.com)
+ * @license     http://wiki.plumrocket.net/wiki/EULA  End-user License Agreement
+ */
+-->
+<page layout="pramp" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/page_configuration.xsd">
+    <body>
+        <referenceContainer name="amp.after.body.start">
+            <referenceBlock name="amp_facebook_pixel">
+                <block class="Plumrocket\Amp\Block\Page\Facebook\Pixel" name="amp_facebookpixel_category_triggers" template="Plumrocket_Amp::pixel/facebook/category/triggers.phtml" />
+            </referenceBlock>
+        </referenceContainer>
+        <referenceBlock name="head.additional">
+            <referenceBlock name="ampcss">
+                <block class="Plumrocket\Amp\Block\Page\Head\Style" name="ampcss.category" as="ampcss.category" template="Plumrocket_Amp::head/css/category.phtml"/>
+                <block class="Plumrocket\Amp\Block\Page\Head\Style" name="ampcss.category.custom" as="ampcss.category.custom" template="Plumrocket_Amp::head/css/custom/category.phtml"/>
+            </referenceBlock>
+            <block class="Plumrocket\Amp\Block\Page\Head\Og\Category" name="amp.ogtags" as="amp.ogtags" template="Plumrocket_Amp::head/ogtags.phtml"/>
+            <block class="Plumrocket\Amp\Block\Page\Head\Ldjson\Category" name="amp.ldjson" as="amp.ldjson" template="Plumrocket_Amp::head/ldjson.phtml"/>
+        </referenceBlock>
+        <referenceContainer name="amp.main.content">
+            <referenceContainer name="amp.columns.top">
+                <container name="amp.category.view.container" htmlTag="div" htmlClass="amp-category-view" after="-">
+                    <block class="Plumrocket\Amp\Block\Catalog\Category\Image" name="amp.category.image" template="Plumrocket_Amp::catalog/category/image.phtml">
+                        <arguments>
+                            <argument name="width" xsi:type="number">500</argument>
+                        </arguments>
+                    </block>
+                    <block class="Magento\Catalog\Block\Category\View" name="amp.category.description" template="Plumrocket_Amp::catalog/category/description.phtml"/>
+                    <block class="Plumrocket\Amp\Block\Catalog\View" name="amp.category.cms" template="Plumrocket_Amp::catalog/category/cms.phtml"/>
+                </container>
+            </referenceContainer>
+        </referenceContainer>
+        <referenceContainer name="amp.content">
+            <block class="Plumrocket\Amp\Block\Catalog\View" name="amp.category.products" template="Plumrocket_Amp::catalog/category/products.phtml">
+                <block class="Magento\Catalog\Block\Product\ListProduct" name="amp.category.products.list" as="amp_product_list" template="Plumrocket_Amp::catalog/product/list.phtml">
+                    <block class="Magento\Catalog\Block\Product\ProductList\Toolbar" name="amp_product_list_toolbar" template="Plumrocket_Amp::catalog/product/list/toolbar.phtml">
+                        <block class="Magento\Theme\Block\Html\Pager" name="product_list_toolbar_pager" template="Plumrocket_Amp::html/pager.phtml"/>
+                    </block>
+                    <action method="setToolbarBlockName">
+                        <argument name="name" xsi:type="string">amp_product_list_toolbar</argument>
+                    </action>
+                    <action method="setListOrders"/>
+                    <action method="setListModes"/>
+                    <action method="setListCollection"/>
+                </block>
+            </block>
+        </referenceContainer>
+    </body>
+</page>

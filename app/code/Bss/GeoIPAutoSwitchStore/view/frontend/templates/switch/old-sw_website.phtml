@@ -1,0 +1,69 @@
+<?php 
+/**
+ * BSS Commerce Co.
+ *
+ * NOTICE OF LICENSE
+ *
+ * This source file is subject to the EULA
+ * that is bundled with this package in the file LICENSE.txt.
+ * It is also available through the world-wide-web at this URL:
+ * http://bsscommerce.com/Bss-Commerce-License.txt
+ *
+ * @category   BSS
+ * @package    Bss_GeoIPAutoSwitchStore
+ * @author     Extension Team
+ * @copyright  Copyright (c) 2016-2017 BSS Commerce Co. ( http://bsscommerce.com )
+ * @license    http://bsscommerce.com/Bss-Commerce-License.txt
+ */
+ 
+// @codingStandardsIgnoreFile
+
+/** @var \Bss\GeoIPAutoSwitchStore\Block\Switcher $block */
+?>
+<?php
+$storeManager = $block->getStoreManager();
+$websites = $storeManager->getWebsites();
+$websiteId = $storeManager->getWebsite()->getId();
+$dataHelper = $block->getDataHelper();
+$isSwitchStore = $dataHelper->isSwitchWebsite();
+?>
+<?php if (count($websites) > 1 && $isSwitchStore): ?>
+<div class="switcher website switcher-website" id="switcher-website">
+	<strong class="label switcher-label"><span><?= /* @noEscape */ __('Select Website') ?></span></strong>
+
+	<div class="actions dropdown options switcher-options">
+	    <?php foreach ($websites as $website): ?>
+	    <?php if ($websiteId == $website->getId()): ?>
+	    <div class="action toggle switcher-trigger"
+	         role="button"
+	         tabindex="0"
+	         data-mage-init='{"dropdown":{}}'
+	         data-toggle="dropdown"
+	         data-trigger-keypress-button="true"
+	         id="switcher-website-trigger">
+	        <img class="bss-flag" src="<?= $block->escapeUrl($block->getViewFileUrl('Bss_GeoIPAutoSwitchStore::images/flags/flag_' .$website->getDefaultStore()->getCode() . '.png')) ?>" alt="">
+	        <strong>
+	            <span><?= /* @noEscape */ $block->escapeHtml($website->getName()) ?></span>
+	        </strong>
+	    </div>
+	<?php endif; ?>
+	<?php endforeach; ?>
+		<ul class="dropdown switcher-dropdown" data-target="dropdown">
+		    <?php foreach ($websites as $website): ?>
+		    <?php if (!($websiteId == $website->getId())): ?>
+		    	<?php if ($website->getDefaultStore() && $website->getDefaultStore()->getIsActive()): ?>
+		        <li class="switcher-option">
+		            <a href='<?= strtok($website->getDefaultStore()->getCurrentUrl(), '?') ?>'>
+		            	<img class="bss-flag" src="<?= $block->escapeUrl($block->getViewFileUrl('Bss_GeoIPAutoSwitchStore::images/flags/flag_' .$website->getDefaultStore()->getCode() . '.png')) ?>" alt="">
+		            	<span>
+		                	<?= /* @noEscape */ $block->escapeHtml($website->getName()) ?>
+		                </span>
+		            </a>
+		        </li>
+		        <?php endif; ?>
+		    <?php endif; ?>
+		    <?php endforeach; ?>
+		</ul>
+	</div>
+</div>
+<?php endif; ?>

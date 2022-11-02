@@ -1,0 +1,18 @@
+<?php
+/**
+ * @Author      Firas Developers
+ * @package     Firas_GiftCard
+ * @copyright   Copyright (c) 2019 MAGETOP (https://www.firas.com)
+ * @terms       https://www.firas.com/terms
+ * @license     https://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
+ **/
+namespace Firas\GiftCard\Model\Product\Type;
+
+class GiftCard extends \Magento\Catalog\Model\Product\Type\Virtual
+{
+    const TYPE_ID = "giftcard";
+    public function deleteTypeSpecificData(\Magento\Catalog\Model\Product $product)
+    {
+        
+    }
+}

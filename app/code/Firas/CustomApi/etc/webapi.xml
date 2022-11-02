@@ -1,0 +1,32 @@
+<?xml version="1.0"?>
+<routes
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="../../../../../app/code/Magento/Webapi/etc/webapi.xsd">
+	<route method="POST" url="/V1/shippingcost/add/">
+		<service class="Firas\CustomApi\Api\CustomInterface" method="getPost"/>
+		<resources>
+			<resource ref="anonymous"/>
+		</resources>
+	</route>
+
+	<route method="POST" url="/V1/shippingcost/update/">
+		<service class="Firas\CustomApi\Api\CustomInterface" method="updatePost"/>
+		<resources>
+			<resource ref="anonymous"/>
+		</resources>
+	</route>
+
+	<route method="POST" url="/V1/shippingcost/delete/">
+		<service class="Firas\CustomApi\Api\CustomInterface" method="deletePost"/>
+		<resources>
+			<resource ref="anonymous"/>
+		</resources>
+	</route>
+
+	<route method="POST" url="/V1/cronbystatus/:cronstatus/createdat/:createdat">
+		<service class="Firas\CustomApi\Api\CustomInterface" method="getCronList"/>
+		<resources>
+			<resource ref="anonymous"/>
+		</resources>
+	</route>
+
+</routes>

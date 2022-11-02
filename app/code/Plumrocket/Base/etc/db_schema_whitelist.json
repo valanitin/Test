@@ -1,0 +1,13 @@
+{
+    "plumbase_product": {
+        "column": {
+            "id": true,
+            "signature": true,
+            "status": true,
+            "date": true
+        },
+        "constraint": {
+            "PRIMARY": true
+        }
+    }
+}

@@ -1,0 +1,95 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Plumrocket Inc.
+ *
+ * NOTICE OF LICENSE
+ *
+ * This source file is subject to the End-user License Agreement
+ * that is available through the world-wide-web at this URL:
+ * http://wiki.plumrocket.net/wiki/EULA
+ * If you are unable to obtain it through the world-wide-web, please
+ * send an email to support@plumrocket.com so we can send you a copy immediately.
+ *
+ * @package     Plumrocket_Amp
+ * @copyright   Copyright (c) 2016 Plumrocket Inc. (http://www.plumrocket.com)
+ * @license     http://wiki.plumrocket.net/wiki/EULA  End-user License Agreement
+ */
+-->
+<page layout="empty" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/page_configuration.xsd">
+    <head>
+        <meta name="robots" content="NOINDEX,NOFOLLOW"/>
+        <css src="Plumrocket_Amp::css/amp.css"/>
+        <css src="Plumrocket_Amp::css/amp-custom.css"/>
+    </head>
+    <body>
+        <referenceContainer name="copyright" remove="true"/>
+        <referenceContainer name="authentication-popup" remove="true"/>
+        <referenceContainer name="page.main.title" remove="true"/>
+        <referenceBlock     name="product.info.review" remove="true"/>
+        <referenceContainer name="product.info.stock.sku" remove="true"/>
+        <referenceContainer name="product.info.social" remove="true"/>
+        <referenceContainer name="product.info.media" remove="true"/>
+        <referenceBlock     name="product.info.overview" remove="true"/>
+        <referenceBlock     name="product.info.details" remove="true"/>
+        <referenceBlock     name="product.info.tabs" remove="true"/>
+        <referenceContainer name="absolute_footer" remove="true"/>
+        <referenceContainer name="content.aside" remove="true"/>
+        <referenceBlock name="product_viewed_counter" remove="true" />
+        <!-- Send form to Plumrocket_Amp Cart Add Controller -->
+        <referenceBlock name="product.info">
+            <arguments>
+                <argument name="submit_route_data" xsi:type="array">
+                    <item name="route" xsi:type="string">pramp/cart/add</item>
+                </argument>
+            </arguments>
+        </referenceBlock>
+
+        <referenceContainer name="content">
+            <block class="Magento\Framework\View\Element\Template" name="amp-product-view-options" template="Plumrocket_Amp::catalog/product/view/only-options.phtml">
+                <action ifconfig="checkout/cart/redirect_to_cart" method="setShouldRedirectToCart">
+                    <argument name="shouldRedirectToCart" xsi:type="boolean">true</argument>
+                </action>
+            </block>
+        </referenceContainer>
+
+        <referenceBlock name="hellobrave_cookiecompliance" remove="true"/>
+        <referenceBlock name="cookie_notices" remove="true"/>
+        <referenceBlock name="pr_cookie_notice" remove="true"/>
+        <referenceBlock name="one_tap" remove="true"/>
+        <referenceBlock name="global_notices" remove="true"/>
+        <referenceBlock name="prhead" remove="true"/>
+        <referenceBlock name="prdemo" remove="true"/>
+
+        <referenceBlock name="google_analytics" remove="true"/>
+        <referenceBlock name="googleoptimizer.experiment.script" remove="true"/>
+
+        <!-- Additional for theme Smartwave Porto -->
+        <referenceBlock name="porto_header" remove="true"/>
+        <referenceBlock name="porto_custom_notice" remove="true"/>
+        <referenceBlock name="catalog.product.related" remove="true"/>
+        <referenceBlock name="prev_next_products" remove="true"/>
+        <!-- End Smartwave Porto -->
+
+        <!-- Infortis: Base, Ultimo -->
+        <referenceBlock name="base-header-container"    remove="true"/>
+        <referenceBlock name="base-footer-container"    remove="true"/>
+        <referenceBlock name="product.info.upsell"      remove="true"/>
+        <referenceBlock name="catalog.product.related"  remove="true"/>
+        <referenceBlock name="product.info.description" remove="true"/>
+        <!-- End Infortis -->
+
+        <!-- Alothemes -->
+        <referenceBlock name="alothemes_header" remove="true" />
+        <referenceContainer name="page.top" remove="true" />
+        <referenceContainer name="div.sidebar.main" remove="true" />
+        <referenceContainer name="div.sidebar.additional" remove="true" />
+        <referenceContainer name="slide.showcase" remove="true" />
+        <referenceContainer name="alo.collection" remove="true" />
+        <referenceContainer name="alo.sectionsbottom" remove="true" />
+        <referenceContainer name="sections.page.bottom" remove="true" />
+        <referenceContainer name="footer-container" remove="true" />
+        <!-- End Alothemes -->
+
+    </body>
+</page>

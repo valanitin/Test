@@ -1,0 +1,75 @@
+<?php
+/**
+ * Plumrocket Inc.
+ *
+ * NOTICE OF LICENSE
+ *
+ * This source file is subject to the End-user License Agreement
+ * that is available through the world-wide-web at this URL:
+ * http://wiki.plumrocket.net/wiki/EULA
+ * If you are unable to obtain it through the world-wide-web, please
+ * send an email to support@plumrocket.com so we can send you a copy immediately.
+ *
+ * @package     Plumrocket_Amp
+ * @copyright   Copyright (c) 2017 Plumrocket Inc. (http://www.plumrocket.com)
+ * @license     http://wiki.plumrocket.net/wiki/EULA  End-user License Agreement
+ */
+?>
+<?php
+use Plumrocket\Amp\Block\Catalog\Product\AddTo;
+
+/** @var $block AddTo */
+/** @var \Plumrocket\Amp\ViewModel\Form\Product\MessageState $viewModel */
+$viewModel = $block->getData('viewModel');
+$productId = $block->getProduct()->getId();
+?>
+<div class="priority-user-buttons">
+    <?php if ($block->isWishListAllowed()) : ?>
+        <?php
+        /** @var \Plumrocket\Amp\Block\Page\Form\Product\AddTo\Message $wishlistMessageBlock */
+        $wishlistMessageBlock = $block->getChildBlock(AddTo::WISHLIST_MESSAGE_BLOCK_NAME);
+        $wishlistClassJs = $viewModel->getClassJs($wishlistMessageBlock->getProductIdStatePath(), $productId);
+        $wishlistEnableClassJs = $viewModel->getEnableJs($wishlistMessageBlock->getProductIdStatePath(), $productId);
+        ?>
+    <form
+      action-xhr="<?= $block->getWishListUrl() ?>"
+      method="POST"
+      id="amp-add-to-wishlist"
+      target="_top"
+      on="<?= $block->getWishlistFormMessageEvents() ?>"
+    >
+        <input type="hidden" name="product" value="<?= $productId; ?>" />
+
+        <button on="tap:AMP.setState(<?= $wishlistEnableClassJs ?>),amp-add-to-wishlist.submit"
+                class="icon wish-list text-btn"
+                [class]="(<?= $wishlistClassJs ?>) ? 'icon wish-list text-btn loading' : 'icon wish-list text-btn'"
+                ><?= $block->escapeHtml(__('Add to Wish List'))?></button>
+
+        <?= $wishlistMessageBlock->toHtml(); ?>
+    </form>
+    <?php endif; ?>
+    <?php if ($block->isCompareAllowed()) : ?>
+        <?php
+        /** @var \Plumrocket\Amp\Block\Page\Form\Product\AddTo\Message $compareMessageBlock */
+        $compareMessageBlock = $block->getChildBlock(AddTo::COMPARE_MESSAGE_BLOCK_NAME);
+        $compareClassJs = $viewModel->getClassJs($compareMessageBlock->getProductIdStatePath(), $productId);
+        $compareEnableClassJs = $viewModel->getEnableJs($compareMessageBlock->getProductIdStatePath(), $productId);
+        ?>
+    <form
+      action-xhr="<?= $block->getCompareUrl() ?>"
+      method="POST"
+      id="amp-add-to-compare"
+      target="_top"
+      on="<?= $block->getCompareFormMessageEvents() ?>"
+    >
+        <input type="hidden" name="product" value="<?= $productId; ?>" />
+
+        <button on="tap:AMP.setState(<?= $compareEnableClassJs ?>),amp-add-to-compare.submit"
+                class="icon add-to-compare text-btn"
+                [class]="(<?= $compareClassJs ?>) ? 'icon add-to-compare text-btn loading' : 'icon add-to-compare text-btn'"
+               ><?= $block->escapeHtml(__('Add to Compare')) ?></button>
+
+        <?= $compareMessageBlock->toHtml(); ?>
+    </form>
+    <?php endif; ?>
+</div>

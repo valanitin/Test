@@ -1,0 +1,45 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * @author      LuxuryUnlimited
+ * @copyright   Copyright © 2022. All rights reserved.
+ */
+ -->
+ <config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Config:etc/system_file.xsd">
+    <system>
+    <tab id="Luxury_Unlimited" sortOrder="100"> 
+        <label>Luxury Unlimited</label> 
+    </tab>
+    <section id="luxuryunlimited_subscribers" translate="label" type="text" sortOrder="10" showInDefault="1"
+                 showInWebsite="1" showInStore="0">
+            <label>Newsletter Subscribers</label>
+            <tab>Luxury_Unlimited</tab>
+            <resource>LuxuryUnlimited_NewsLetterSubscription::config</resource>
+            <group id="api_config" translate="label" type="text" sortOrder="5" showInDefault="1" showInWebsite="1">
+                <label>Newsletter Subscribers Configuration</label>
+                <attribute type="expanded">1</attribute>
+                <field id="enabled" translate="label" type="select" sortOrder="0" showInDefault="1" showInWebsite="1" showInStore="0">
+		            <label>Enable</label>
+                    <comment><![CDATA[Enable/Disable Module]]></comment>
+			        <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+		        </field>
+                <field id="api_url" translate="label comment" type="text" sortOrder="1" showInDefault="1"
+                       showInWebsite="1" showInStore="0">
+                    <label>ERP API URL</label>
+                    <comment><![CDATA[ERP API URL]]></comment>
+                    <depends>
+                        <field id="enabled">1</field>
+                    </depends>
+                </field>
+                <field id="schedule" translate="label" type="text" sortOrder="3" showInDefault="1" showInWebsite="1"
+                        showInStore="0">
+                    <label>Cron expression</label>
+                    <comment><![CDATA[By default, cron job which will be running every 5 mins]]></comment>
+                    <depends>
+                        <field id="enabled">1</field>
+                    </depends>
+                </field>
+            </group>
+        </section>
+    </system>
+</config>

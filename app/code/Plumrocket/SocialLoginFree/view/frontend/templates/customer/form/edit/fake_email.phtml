@@ -1,0 +1,45 @@
+<?php
+/**
+ * @package     Plumrocket_SocialLoginFree
+ * @copyright   Copyright (c) 2018 Plumrocket Inc. (https://plumrocket.com)
+ * @license     https://plumrocket.com/license   End-user License Agreement
+ */
+?>
+
+<?php
+/** @var \Plumrocket\SocialLoginFree\Helper\Data $helper */
+$helper = $this->helper(\Plumrocket\SocialLoginFree\Helper\Data::class);
+if($helper->isFakeMail()) : ?>
+	<div data-mage-init='{"pslogin":{},"loader":{}}' style="display: none;"></div>
+	<script type="text/javascript">
+	//<![CDATA[
+		require([
+		    'jquery',
+			'domReady!'
+		], function($) {
+		    'use strict';
+
+			var errorTemplate = '<div'
+				+ ' class="mage-error pslogin-fake-email"'
+				+ ' id="email-error"'
+				+ ' for="email"'
+				+ ' generated="true"'
+				+ '>'
+				+ '<?= $block->escapeHtml(__('Please enter valid email address.')) ?>'
+				+ '</div>';
+
+			$("#email").removeClass("valid").addClass("mage-error").after(errorTemplate);
+
+			var reset = true;
+			$("#email").on('click focus', function() {
+				if(reset) {
+					$(this).removeClass("mage-error").addClass("valid").val('');
+					$('#email-error.pslogin-fake-email').remove();
+				}
+
+				reset = false;
+			});
+		});
+	//]]>
+	</script>
+<?php endif; ?>

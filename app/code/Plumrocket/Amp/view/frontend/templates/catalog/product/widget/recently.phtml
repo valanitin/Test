@@ -1,0 +1,54 @@
+<?php
+/**
+ * Plumrocket Inc.
+ * NOTICE OF LICENSE
+ * This source file is subject to the End-user License Agreement
+ * that is available through the world-wide-web at this URL:
+ * http://wiki.plumrocket.net/wiki/EULA
+ * If you are unable to obtain it through the world-wide-web, please
+ * send an email to support@plumrocket.com so we can send you a copy immediately.
+ *
+ * @package     Plumrocket Amp v2.x.x
+ * @copyright   Copyright (c) 2018 Plumrocket Inc. (http://www.plumrocket.com)
+ * @license     http://wiki.plumrocket.net/wiki/EULA  End-user License Agreement
+ */
+
+// @codingStandardsIgnoreFile
+
+/** @var \Plumrocket\Amp\Block\Catalog\Product\Widget\RecentlyViewed $block */
+?>
+<?php if ($block->canShow()) : ?>
+    <h3 class="mtop"><?php echo $block->getTitle(); ?></h3>
+    <amp-list width="auto"
+              class="rec-view prw-noslide"
+              height="100"
+              layout="fixed-height"
+              credentials="include"
+              max-items="<?php echo $block->getMaxItems(); ?>"
+              src="<?php echo $block->getSrcUrl(); ?>">
+        <div fallback><?= __('You do not have "Recently Viewed Products"&lrm;') ?></div>
+        <template type="amp-mustache">
+            <div class="prw-item">
+                <div class="prw-hld">
+                    <a class="prw-img" href="{{productUrl}}" title="{{productName}}">
+                        <amp-img class="photo image"
+                                 layout="responsive"
+                                 src="{{imageUrl}}"
+                                 width="{{imageWidth}}"
+                                 height="{{imageHeight}}"
+                                 alt="{{imageLabel}}">
+                        </amp-img>
+                    </a>
+                    <a class="item-detail" href="{{productUrl}}" title="{{productName}}">
+                        <span class="prw-name">{{productName}}</span>
+                        <span class="prw-price">{{productPrice}}</span>
+                    </a>
+                </div>
+            </div>
+        </template>
+        <div overflow
+             class="prw-list-overflow">
+            <?= __('See more') ?>
+        </div>
+    </amp-list>
+<?php endif; ?>

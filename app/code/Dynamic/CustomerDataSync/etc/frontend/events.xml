@@ -1,0 +1,9 @@
+<?xml version="1.0"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:Event/etc/events.xsd">
+    <event name="customer_address_save_after">
+        <observer name="dynamic_address_data_edit" instance="Dynamic\CustomerDataSync\Observer\AddressObserver" />
+    </event>
+    <event name="customer_account_edited">
+        <observer name="dynamic_account_data_edit" instance="Dynamic\CustomerDataSync\Observer\EditCustomerObserver"/>
+    </event>
+</config>

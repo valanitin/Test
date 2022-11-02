@@ -1,0 +1,56 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * @Author      Firas Developers
+ * @package     Firas_GiftCard
+ * @copyright   Copyright (c) 2019 MAGETOP (https://www.firas.com)
+ * @terms       https://www.firas.com/terms
+ * @license     https://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
+ **/
+-->
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Config:etc/system_file.xsd">
+	<system>
+		<tab id="firas" translate="label" sortOrder="1">
+            <label>Firas.com</label>
+        </tab>
+		<section id="giftcard" translate="label" type="text" sortOrder="300" showInDefault="1" showInWebsite="1" showInStore="1">
+			<label>Gift Card Setting</label>
+			<!-- Assign section to tab -->
+			<tab>firas</tab>
+			<resource>Firas_GiftCard::config</resource>
+            <group id="info" translate="label" type="text" sortOrder="1" showInDefault="1" showInWebsite="1" showInStore="1">
+                <frontend_model>Firas\GiftCard\Block\System\Config\Form\Field\Info</frontend_model>
+            </group>
+			<group id="email" translate="label" type="text" sortOrder="50" showInDefault="1" showInWebsite="1" showInStore="1">
+				<label>Gift Card Email Setting</label>
+				<!--<label>GiftCard Transactional Emails</label>-->
+				<field id="gift_notification_mail" translate="label comment" type="select" sortOrder="2" showInDefault="1" showInWebsite="1" showInStore="1">
+					<label>Gift Notification Template</label>
+					<source_model>Magento\Config\Model\Config\Source\Email\Template</source_model>
+					<!-- This model return all transactional email template list of magento -->
+				</field>
+			</group>
+			<group id="adminEmail" translate="label" type="text" sortOrder="50" showInDefault="1" showInWebsite="1" showInStore="1">
+				<label>Gift Card Left Amount Email Setting</label>
+				<field id="gift_admin_mail_name" translate="label comment" type="text" sortOrder="2" showInDefault="1" showInWebsite="1" showInStore="1">
+					<label>Name of Admin in Mail</label>
+				</field>
+				<field id="gift_admin_mail_email" translate="label comment" type="text" sortOrder="2" showInDefault="1" showInWebsite="1" showInStore="1">
+					<label>Admin Email</label>
+				</field>
+				<field id="admin_amt_notification_mail" translate="label comment" type="select" sortOrder="2" showInDefault="1" showInWebsite="1" showInStore="1">
+					<label>Admin Left Amount Notification Template</label>
+					<source_model>Magento\Config\Model\Config\Source\Email\Template</source_model>
+					<!-- This model return all transactional email template list of magento -->
+				</field>
+			</group>
+			<group id="activeDuration" translate="label" type="text" sortOrder="50" showInDefault="1" showInWebsite="1" showInStore="1">
+				<label>Gift Card Active Duration</label>
+				<field id="gift_admin_active_days" translate="label comment" type="text" sortOrder="2" showInDefault="1" showInWebsite="1" showInStore="1">
+					<label>No. of days</label>
+					<validate> required-entry validate-greater-than-zero integer</validate>
+				</field>
+			</group>
+		</section>
+	</system>
+</config>
